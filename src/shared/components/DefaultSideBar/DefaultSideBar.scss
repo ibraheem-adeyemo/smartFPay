@@ -1,0 +1,36 @@
+@import "../../scss/colours.scss";
+
+.Sidebar-wrapper {
+    height: 100vh;
+    display: block;
+    position: fixed;
+    padding: 40px 0;
+    background: #392A2A;
+
+    .nav {
+        display: block;
+    }
+
+    .nav > li { 
+      padding: 20px 40px 20px 5px;
+      border-bottom: 1px solid #FFFDFD;
+    }
+
+  .nav > li > a {
+    color: $white;
+    cursor: pointer;
+    font-size: 15px;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $white;
+      background: transparent;
+    }
+  }
+
+  .nav > li > a > .icon {
+    margin: 0 1rem;
+    float: left;
+  }
+}
