@@ -4,7 +4,7 @@ import {NavLink} from 'react-router-dom';
 
 const DefaultSideBar = () => {
     return (
-        <div className="Sidebar-wrapper">
+        <div className="sidebar-sticky">
             <ul className="list list-unstyled nav">
                 <li>
                     <NavLink to="/" activeClassName="active">
@@ -28,7 +28,7 @@ const DefaultSideBar = () => {
                 </li>
                 <li>
                     <NavLink to="/" activeClassName="active">
-                    <i className="fa fa-cog fa-lg icon" aria-hidden="true"></i>Setting
+                    <i className="fa fa-cog fa-lg icon" aria-hidden="true"></i>Settings
                     </NavLink>
                 </li>
             </ul>

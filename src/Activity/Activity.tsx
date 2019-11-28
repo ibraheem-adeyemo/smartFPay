@@ -1,18 +1,24 @@
 import React from 'react';
 import DefaultSidebar from '../shared/components/DefaultSideBar/DefaultSideBar';
-// import './Dashboard.css';
-// import LimitCard from '../components/LimitCard/LimitCard';
+import './Activity.css';
+import Navbar from '../shared/components/Navbar/Navbar';
 
 const Activity = () => {
     return (
-        <div className="row dashboard-wrapper">
-            <div className="col-sm-3 col-md-2">
-                <DefaultSidebar />
+        <>
+            <Navbar />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-2 d-none d-md-block bg-light sidebar">
+                        <DefaultSidebar />
+                    </div>
+                    <div className="col-md-9 ml-sm-auto col-lg-10 px-4 activity">
+                        <div>Activity</div>
+                    </div>
+                </div>
             </div>
-            <div className="col-sm-9 col-md-10">
-                <div>Activity</div>
-            </div>
-        </div>
+        </>
+        
     )
 }
 

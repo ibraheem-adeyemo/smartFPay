@@ -1,24 +1,23 @@
-.dashboard-wrapper {
-    background: #FFFBFB;
+.dashboard {
+    padding-top: 48px;
 
-    .dashboard {
-        .top-nav {
-            height: 40px;
-            padding: 5px;
-            background: #EDE7E7;
-            margin-top: 40px;
-            font-weight: 500;
-        }
+    .top-nav {
+        height: 40px;
+        padding: 5px;
+        background: #EDE7E7;
+        margin-top: 40px;
+        font-weight: 500;
+    }
 
-        .cards {
-            width: 100%;
-            display: block;
-            list-style: none;
-            padding-left: 0;
+    .cards {
+        width: 100%;
+        display: block;
+        list-style: none;
+        padding-left: 0;
+        margin-top: 1rem;
 
-            li {
-            display: inline-block;
-            }
+        li {
+        display: inline-block;
         }
     }
 }

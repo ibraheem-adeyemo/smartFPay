@@ -19,7 +19,7 @@ let toggleSubMenu = (event: React.FormEvent<any>) => {
 
 const DashboardSideBar = () => {
     return (
-        <div className="Sidebar-wrapper">
+        <div className="sidebar-sticky">
             <ul className="list list-unstyled nav">
                 <li>
                     <NavLink to="/" activeClassName="active">

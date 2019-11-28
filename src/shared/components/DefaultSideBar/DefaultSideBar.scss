@@ -1,10 +1,11 @@
 @import "../../scss/colours.scss";
 
-.Sidebar-wrapper {
-    height: 100vh;
-    display: block;
-    position: fixed;
-    padding: 40px 0;
+.sidebar-sticky {
+    margin-top: 48px;
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
     background: #392A2A;
 
     .nav {
@@ -12,14 +13,14 @@
     }
 
     .nav > li { 
-      padding: 20px 40px 20px 5px;
+      padding: 20px 10px 20px 0px;
       border-bottom: 1px solid #FFFDFD;
     }
 
   .nav > li > a {
     color: $white;
     cursor: pointer;
-    font-size: 15px;
+    font-size: 0.875rem;
     text-decoration: none;
 
     &:hover,
@@ -30,7 +31,7 @@
   }
 
   .nav > li > a > .icon {
-    margin: 0 1rem;
+    margin: 0.4rem 0.5rem;
     float: left;
   }
 }

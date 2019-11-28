@@ -7,7 +7,7 @@ import Activity from "./Activity/Activity";
 class App extends React.Component<any> {
   public render() {
       return (
-          <div className="App-routes container-fluid">
+          <div className="App-routes">
               <Switch>
                   <Route path="/dashboard" component={Dashboard}/>
                   <Route path="/activity" component={Activity} />
