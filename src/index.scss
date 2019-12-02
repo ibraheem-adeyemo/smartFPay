@@ -18,3 +18,15 @@ code {
 a{
   text-decoration: none;
 }
+
+// buttons 
+.btn-primary {
+  background-color: $primary;
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:active {
+  background-color: $secondary;
+  border: none;
+}

@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
+import {ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import {IRole} from '../../shared/models/role';
 import './RolesList.css';
 
 
 const RolesList = () => {
-const [toggle, setToggle] = useState(false); 
+const [open, setToggle] = useState(false); 
 const [role, setRole] = useState('');
 
 // const onChange = (e) => {
@@ -13,16 +13,17 @@ const [role, setRole] = useState('');
 // }
 
     return (
-        <Dropdown color="primary" isOpen={toggle} toggle={() => setToggle(!toggle)}>
-            <DropdownToggle caret>
-                Asssign Role
-                </DropdownToggle>
-            <DropdownMenu>
-                <DropdownItem value="hhhhhh" onClick={(e) => alert(e.currentTarget.value)}>System Admin</DropdownItem>
-                <DropdownItem>Admin</DropdownItem>
-                <DropdownItem>Administrator</DropdownItem>
+        <ButtonDropdown isOpen={open} toggle={() => setToggle(!open)}>
+            <DropdownToggle caret color="primary">
+                Assign Roles
+            </DropdownToggle>
+            <DropdownMenu>                                                                                        
+                <DropdownItem  value="user" onClick={(e) => alert(e.currentTarget.value)}>User</DropdownItem>
+                <DropdownItem  value="admin">Admin</DropdownItem>
+                <DropdownItem  value="">System Admin</DropdownItem>
+                <DropdownItem  value="user">Administrator</DropdownItem>
             </DropdownMenu>
-        </Dropdown>
+        </ButtonDropdown>
     )
 }
 
