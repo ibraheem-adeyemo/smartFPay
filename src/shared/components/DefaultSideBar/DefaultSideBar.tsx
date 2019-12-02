@@ -6,6 +6,9 @@ const DefaultSideBar = () => {
     return (
         <div className="sidebar-sticky">
             <ul className="list list-unstyled nav">
+                <li className="first-child">
+                        &nbsp;
+                </li>
                 <li>
                     <NavLink to="/" activeClassName="active">
                     <i className="fa fa-navicon fa-lg icon" aria-hidden="true"></i>Activity

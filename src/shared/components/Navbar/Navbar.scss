@@ -1,6 +1,35 @@
+@import "../../scss/colours.scss";
+
 .navbar {
     height: 48px; 
-    .navbar-brand {
-        max-width: 15%;
+    background-color: $white;
+    position: absolute;
+    text-transform: uppercase;
+    box-shadow: 0 1px 6px 0 $dark-gray;
+    .navbar-brand,
+    .navbar-brand:hover,
+    .navbar-brand:visited {
+        color: $medium-orange;
+        font-size: 1rem;
+    }
+
+    .navbar-nav {
+        display:block;
+        margin-right: 10%;
+        .nav-item {
+            display: inline-block;
+            margin: 0 0.5rem;
+            .fa-user-o {
+                padding: 0.5rem;
+                color: $medium-orange;
+                border-radius: 50%;
+                background: $medium-gray;
+            }
+            .fa-angle-down {
+                padding: 0.5rem;
+                font-size: 1.5rem;
+                color: #c8c5c5;
+            }
+        }
     }
 }

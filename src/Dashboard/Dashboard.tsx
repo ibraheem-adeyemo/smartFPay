@@ -7,13 +7,13 @@ import Navbar from '../shared/components/Navbar/Navbar';
 const Dashboard = () => {
     return (
         <Fragment>
-            <Navbar />
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-2 d-none d-md-block bg-light sidebar">
                         <DashboardSidebar />
                     </div>
                     <div className="col-md-9 ml-sm-auto col-lg-10 px-4 dashboard">
+                        <Navbar />
                         <div className="top-nav">Dahsboard</div>
                         <ul className="cards">
                             <li>

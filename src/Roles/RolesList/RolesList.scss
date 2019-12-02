@@ -1,0 +1,7 @@
+@import '../../shared/scss/colours.scss';
+
+.dropdown-toggle,
+.dropdown-toggle:hover,
+.dropdown-toggle:active{
+    background-color: $primary;
+}

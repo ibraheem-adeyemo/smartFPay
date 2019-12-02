@@ -1,0 +1,13 @@
+@import '../../scss/colours.scss';
+
+.btn-create,
+.btn-create:hover,
+.btn-create:active {
+    margin-bottom: 1rem;
+    float: right;
+    background-color: $primary;
+}
+
+.btn-primary {
+    background-color: $primary;
+}

@@ -1,21 +1,25 @@
 @import "../../scss/colours.scss";
 
+.sidebar{
+  padding: 0;
+}
+
 .sidebar-sticky {
-    margin-top: 48px;
-    position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    background: #392A2A;
+  position: relative;
+  height: 100vh;
+  background: $dark-sidebar;
 
-    .nav {
-        display: block;
+  .nav {
+    display: block;
+    .first-child{
+      padding: 12px;
     }
+  }
 
-    .nav > li { 
-      padding: 20px 10px 20px 0px;
-      border-bottom: 1px solid #FFFDFD;
-    }
+  .nav > li { 
+    padding: 20px;
+    border-bottom: 1px solid #FFFDFD;
+  }
 
   .nav > li > a {
     color: $white;
@@ -31,7 +35,7 @@
   }
 
   .nav > li > a > .icon {
-    margin: 0.4rem 0.5rem;
+    margin: 0.2rem 0.5rem;
     float: left;
   }
 }

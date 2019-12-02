@@ -1,0 +1,8 @@
+@import '../../shared/scss/colours.scss';
+
+.action-group {
+    display: flex;
+    .btn-secondary {
+        margin-left: 0.5rem;
+    }
+}

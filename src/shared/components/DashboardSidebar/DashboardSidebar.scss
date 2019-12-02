@@ -1,19 +1,23 @@
 @import "../../scss/colours.scss";
 
+.sidebar{
+  padding: 0;
+}
+
 .sidebar-sticky {
-    margin-top: 48px;
     position: relative;
-    top: 0;
-    height: calc(100vh - 48px);
-    padding-top: .5rem;
-    background: #24020E;
+    height: 100vh;
+    background: $dark-sidebar;
 
     .nav {
-        display: block;
+      display: block;
+      .first-child{
+        padding: 12px;
+      }
     }
 
     .nav > li { 
-      padding: 20px 10px 20px 0px;
+      padding: 20px;
       border-bottom: 1px solid #FFFDFD;
     }
 
@@ -25,7 +29,7 @@
 
     &:hover,
     &:focus {
-      color: white;
+      color: $white;
       background: transparent;
     }
   }
