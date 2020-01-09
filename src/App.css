@@ -1,10 +1,11 @@
 .App {
   height: 100%;
   min-height: 50%; }
-  .App > div {
-    height: 100%; }
 
-.App-routes {
+.App > div {
+  height: 100%; }
+
+.app-routes {
   height: 100%; }
 
 .container-fluid {
