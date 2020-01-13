@@ -3,14 +3,13 @@ let environment = 'dev';
 const generateEnvVariables = () => {
     if (environment === 'dev'){
         return {
-            host="http://payment-control-middleware.k13.isw.la/"
+            host:"https://payment-control-middleware.k13.isw.la:443"
         }
     } else {
         return {
-            host="http://payment-control-middleware.k13.isw.la/"
+            host:"https://payment-control-middleware.k13.isw.la:443"
         }
     }
 }
 
 export default  generateEnvVariables;
-

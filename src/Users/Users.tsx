@@ -12,7 +12,7 @@ interface IUsersProps {
 }
 
 const Users = () => {
-    const users = [{name: 'Folamoluwa', authorities: ['SYS_ADMIN']}, {name: 'Anu', authorities: ['SYS_ADMIN']}, {name: 'Folarin', authorities: ['SYS_ADMIN']}];
+    const users = [{name: 'Folamoluwa', authorities: ['SYS_ADMIN'], email: 'molu@gmail.com'}, {name: 'Anu', authorities: ['SYS_ADMIN'],  email: 'anu@gmail.com'}, {name: 'Folarin', authorities: ['SYS_ADMIN'], email: 'fola@gmail.com'}];
     const roles= [{name:'SYS_ADMIN'}, {name:'ADMIN'}, {name:'SOME_ROLE'}, {name:'ANOTHER_ROLE'}];
     const [showCreateModal, setShowCreateModal] = useState(false);
     const showCreate = () => {

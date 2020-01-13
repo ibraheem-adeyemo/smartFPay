@@ -1,8 +1,8 @@
-import env from '../../../env.js'
+import env from '../../env.js'
 
 
 export const host = env().host;
 
 //----AUTH MANAGEMENT URLS---//
 
-export const postLogIn = credentials  + '/oauth/token';
+export const postLogIn = host + '/oauth/token';

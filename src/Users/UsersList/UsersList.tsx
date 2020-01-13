@@ -1,5 +1,5 @@
 import React from 'react';
-import {IAdminUser, IUser} from '../../shared/models/user';
+import {IAdminUser} from '../../shared/models/user';
 import ActionButtons from '../ActionButtons/ActionButtons';
 
 const showRow = (user: IAdminUser) => {
@@ -7,14 +7,14 @@ const showRow = (user: IAdminUser) => {
 }
 
 const UsersList = (props: IAdminUser) => {
-    const {id, name, authorities} = props;
+    const {name, authorities, email} = props;
     const roleName: any = authorities ? authorities[0] : '-';
 
     return (
-        <tr onClick={()=>showRow({name, authorities})}>
+        <tr onClick={()=>showRow({name, authorities, email})}>
             <td className="ellipsis">{name}</td>
             <td className="ellipsis">{roleName}</td>
-            <td><ActionButtons /></td>
+            <td><ActionButtons name={name}/></td>
         </tr>
     )
 }

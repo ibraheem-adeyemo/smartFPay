@@ -6,7 +6,7 @@ const CustomToast = (props: any) => {
     const toggleToast = () => setTimeout(()=>setToast(!toast), props.timeOut);
 
     return (
-        <div style={{top: 0, left: 0}}>
+        <div style={{position: 'absolute', top: 0}}>
             <Toast isOpen={toast}>
                 <ToastHeader toggle={toggleToast}>Error</ToastHeader>
                 <ToastBody>

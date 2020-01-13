@@ -1,5 +1,4 @@
 import axios from 'axios';
-import env from '../../../env.js';
 import base64 from "base-64";
 
 // const CancelToken = axios.CancelToken;
@@ -16,13 +15,13 @@ const baseApiCall = async attrs => {
         'Content-Type': 'application/json'
     };
 
-    const username = store.getState().login.username;
-    const password = store.getState().login.password;
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
 
-    console.log(username)
+    console.log(email)
     console.log(password)
     
-    headers['Authorization'] = `Basic ${base64.encode(username + ":" + password)}`;
+    headers['Authorization'] = `Basic ${base64.encode(email + ":" + password)}`;
 
     const axiosInstance = axios.create({
         headers,
@@ -52,9 +51,7 @@ const apiRequest = async (url, httpMethod, body = {}, additionalParams = {}) => 
         apiCall(url, httpMethod, body, additionalParams)
             .then(response => {
                 if (response.data.status === 401) {
-                    store.dispatch({type: USER_LOGOUT})
-                    AsyncStorage.removeItem('access_token');
-                    NavigationService.navigate('Login');
+                    logout();
                     return
                 }
                 if (response.status < 400) {
