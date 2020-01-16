@@ -21,7 +21,7 @@ const baseApiCall = async attrs => {
     console.log(email)
     console.log(password)
     
-    headers['Authorization'] = `Basic ${base64.encode(email + ":" + password)}`;
+    headers['Authorization'] = `Basic ${base64.encode('admin@gmail.com' + ":" + 'Password12')}`;
 
     const axiosInstance = axios.create({
         headers,

@@ -38,8 +38,8 @@ class App extends React.Component<any> {
       return (
           <div className="app-routes">
               <Switch>
-                  {/* <AuthenticatedRoute path="/dashboard" component={Dashboard}/> */}
-                  <Route path="/dashboard" component={Dashboard} />
+                  <AuthenticatedRoute path="/dashboard" component={Dashboard}/>
+                  {/* <Route path="/dashboard" component={Dashboard} /> */}
                   <Route path="/activity" component={Activity} />
                   <MainLayout path="/users" component={Users}  users={users} roles={roles}/>
                   <Route path="/login" component={Login} />

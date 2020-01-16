@@ -1,13 +1,10 @@
 FROM node:10 as build-deps
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-COPY package.json /usr/src/app/package.json
+WORKDIR /usr/src/a
+COPY package.json /usr/src/app
+
+RUN npm --proxy http://172.25.30.117:6060 install
 
 COPY . /usr/src/app
-
-RUN export http_proxy=http://172.25.30.117:6060/
-RUN export https_proxy=http://172.25.30.117:6060/
 
 RUN npm run build
 
