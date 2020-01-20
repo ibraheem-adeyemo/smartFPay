@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {Button} from 'reactstrap';
 import {IAdminUser} from '../shared/models/user';
 import UsersList from './UsersList/UsersList';
 import AddUser from './AddUser/AddUser';
@@ -12,13 +11,8 @@ interface IUsersProps {
 }
 
 const Users = () => {
-    const users = [{name: 'Folamoluwa', authorities: ['SYS_ADMIN'], email: 'molu@gmail.com'}, {name: 'Anu', authorities: ['SYS_ADMIN'],  email: 'anu@gmail.com'}, {name: 'Folarin', authorities: ['SYS_ADMIN'], email: 'fola@gmail.com'}];
-    const roles= [{name:'SYS_ADMIN'}, {name:'ADMIN'}, {name:'SOME_ROLE'}, {name:'ANOTHER_ROLE'}];
+    const users = [{name: 'Folamoluwa', authorities: ['SYS_ADMIN'], email: 'molu@gmail.com'}, {name: 'Anu', authorities: ['SYS_ADMIN'],  email: 'anu@gmail.com'}, {name: 'Folarin', authorities: ['SYS_ADMIN'], email: 'fola@gmail.com'}]
     const [showCreateModal, setShowCreateModal] = useState(false);
-    const showCreate = () => {
-        console.log(showCreateModal);
-        setShowCreateModal(!showCreateModal);
-    };
 
     let usersList;
 

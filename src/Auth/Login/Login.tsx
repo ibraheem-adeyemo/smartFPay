@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import base64 from 'base-64';
-import {axiosInstance} from '../../lib/api/axiosClient';
-import {postLogIn} from '../../lib/api/url';
+// import base64 from 'base-64';
+// import {axiosInstance} from '../../lib/api/axiosClient';
+// import {postLogIn} from '../../lib/api/url';
 import {Redirect} from 'react-router';
 import logo from '../../assets/logo.png';
 
@@ -15,7 +15,6 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [toastType, setToastType] = useState('');
     const [visible, setVisible] = useState(true);
     const [emailExists, setEmailExists] = useState(localStorage.getItem('email') as any);
 
@@ -34,8 +33,6 @@ const Login = () => {
         setVisible(true);
         setTimeout(()=>onDismiss(), 5000);
     }
-
-    const toggleToast = () => setShowToast(!showToast);
 
     const validate = async (e: any) => {
         e.preventDefault();
@@ -72,6 +69,7 @@ const Login = () => {
         //     if(res.status === 200) {
         //         localStorage.setItem('email', email);
         //         localStorage.setItem('password', password);
+        //          setSuccessMessage(res.message);
         //     }   else {
         //         setError(res.message);
         //     }
@@ -104,7 +102,7 @@ const Login = () => {
         {!emailExists && <div className='login-screen'>
                 <div className="login-card">
                     <div className="logo">
-                        <img src={logo} />
+                        <img src={logo} alt="Company Logo"/>
                     </div>
                     
                     <Form className="login-form" onSubmit={validate}>

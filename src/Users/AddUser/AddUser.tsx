@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Alert, Modal, ModalBody, ModalHeader, ModalFooter, Button, Form, FormGroup, Label, Input,CustomInput} from 'reactstrap';
+import {Alert, Modal, ModalBody, ModalHeader, ModalFooter, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import './AddUser.css';
 import {postAdminUser, getRoles} from '../../lib/api/url';
 import { apiRequest } from "../../lib/api/api";
@@ -25,7 +25,7 @@ const AddUser = () => {
     useEffect(() => {
         onGetRoles();
         // console.log('Add usets')
-      }, []);
+      });
 
     useEffect(() => {
         setRoles(Roles);
@@ -75,7 +75,6 @@ const AddUser = () => {
 
     const onGetRoles = () => {
         apiRequest(getRoles, 'get', {
-
         }).then(res => {
             console.log(res);
             mapArray([...res]);

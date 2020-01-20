@@ -37,20 +37,6 @@ const Dashboard = () => {
                                     limitDuration="Last 24hrs"
                                 />
                             </li> 
-                            <li>
-                                <LimitCard 
-                                    limitTitle="Transaction Limit"
-                                    limit="6565"
-                                    limitDuration="Last 24hrs"
-                                />
-                            </li> 
-                            <li>
-                                <LimitCard 
-                                    limitTitle="Transaction Limit"
-                                    limit="6565"
-                                    limitDuration="Last 24hrs"
-                                />
-                            </li> 
                         </ul>  
                     </div>
                 </div>

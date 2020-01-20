@@ -7,11 +7,8 @@ import './UserList.css';
 
 const UsersList = (props: IAdminUser) => {
     const {name, authorities, email} = props;
-    const [user, setUser] = useState({name, authorities, email});
     const [assignedAuthorities, setAssignedAuthorities] = useState(authorities);
-    const [unassgnedAuthorities, setUnassgnedAuthorities] = useState([] as any);
     const [modal, setModal] = useState(false);
-    const [checkedItems, setCheckedItems] = useState(new Map());
     const [Roles, setRoles] = useState([] as any);
     const [assigning, setAssigning] = useState(false);
     const [unassigning, setUnassigning] = useState(false);
