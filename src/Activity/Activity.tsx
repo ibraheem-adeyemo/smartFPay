@@ -1,14 +1,9 @@
 import React from 'react';
 import DefaultSidebar from '../shared/components/DefaultSideBar/DefaultSideBar';
-import RolesList from '../Roles/RolesList/RolesList';
-import Users from '../Users/Users';
 import './Activity.css';
 import Navbar from '../shared/components/Navbar/Navbar';
-import DashboardSideBar from '../shared/components/DashboardSidebar/DashboardSidebar';
 
 const Activity = () => {
-    const users = [{name: 'Folamoluwa', authorities: ['SYS_ADMIN']}, {name: 'Folamoluwa', authorities: ['SYS_ADMIN']}, {name: 'Folamoluwa', authorities: ['SYS_ADMIN']}];
-    const roles= [{name:'SYS_ADMIN'}, {name:'ADMIN'}, {name:'SOME_ROLE'}, {name:'ANOTHER_ROLE'}];
     return (
         <>
             <div className="container-fluid">

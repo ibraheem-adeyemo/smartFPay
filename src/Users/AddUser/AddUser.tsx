@@ -21,10 +21,16 @@ const AddUser = () => {
     const [error, setError] = useState('');
     const [visible, setVisible] = useState(false);
     const [successMessage, setSuccessMessage] = useState('');
+
     useEffect(() => {
         onGetRoles();
         // console.log('Add usets')
       }, []);
+
+    useEffect(() => {
+        setRoles(Roles);
+        console.log(Roles)
+    }, [Roles]);
 
     const someroles = [{label: 'Role 1', value: 'ROLE_1', name:'role_1'},{label: 'Role 2', value: 'ROLE_2', name:'role_2'},{label: 'Role 3', value: 'ROLE_3', name:'role_3'},{label: 'Role 4', value: 'ROLE_4', name:'role_4'},{label: 'Role 5', value: 'ROLE_5', name:'role_5'},{label: 'Role 6', value: 'ROLE_6', name:'role_6'}]
     
@@ -76,11 +82,11 @@ const AddUser = () => {
             setSuccessMessage('Roles fetched Successfully!');
             toggleAlert();
         }) .catch((error:any) => {
-            console.log(error.response.statusText);
+            console.log(error);
             if(error.response) {
                 setError(`Error ${error.response.status}: ${error.response.message}`);
             }
-            setError(`Error ${error.response.status}: ${error.response.statusText}`);
+            setError(`Roles could not be fetched. Try again later`);
             toggleAlert();
             // if(error.reponse) {
             //     return (
@@ -135,13 +141,14 @@ const AddUser = () => {
         console.log(roles)
       }
     
-     const  handleCheckChieldElement = (e: any) => {
-        Roles.forEach((role: any) => {
-           if (role.value === e.target.value)
-              role.isChecked =  e.target.checked
-        })
-        setRoles(Roles);
-      }
+    const  handleCheckFieldElement = (e: any) => {
+    Roles.forEach((role: any) => {
+        if (role.value === e.target.value)
+            role.isChecked =  e.target.checked
+    })
+    console.log(Roles)
+    setRoles(Roles);
+    }
     
     return (
         <>
@@ -188,11 +195,11 @@ const AddUser = () => {
                                 ))}
                             </div> */}
                         {Roles.length > 0 && <div>
-                        <input type="checkbox" onClick={handleAllChecked}  value="checkedall" /> Authorities
+                        <input type="checkbox" onChange={handleAllChecked}  value="checkedall" /> Authorities
                             <ul>
                             {
                             Roles.map((role: any, index: number) => {
-                                return (<Checkbox key={index} handleCheckChieldElement={handleCheckChieldElement}  {...role} />)
+                                return (<Checkbox key={index} handleCheckFieldElement={handleCheckFieldElement}  {...role} />)
                             })
                             }
                             </ul>

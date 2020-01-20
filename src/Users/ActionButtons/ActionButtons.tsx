@@ -5,10 +5,10 @@ import './ActionButtons.css';
 import {apiRequest} from '../../lib/api/api';
 
 interface IProps {
-    name: string;
+    
   }
 
-const ActionButtons = ({name}: IProps) => {
+const ActionButtons = (props: any) => {
     // const onhandleUnassign = () => {
     //     const {userData} = this.props;
     //     Keyboard.dismiss();
@@ -73,9 +73,9 @@ const ActionButtons = ({name}: IProps) => {
     // };
     return (
         <div className='action-group'>
-            <RolesList label={'Assign Roles'} color='primary'/>
-            <RolesList label={'Unassign Roles'} color='secondary'/>
-    <Button>{name}</Button>
+            {/* <RolesList label={'Assign Roles'} color='primary'/>
+            <RolesList label={'Unassign Roles'} color='secondary'/> */}
+            <Button color="secondary" onClick={props.handleEdit}>Edit</Button>{' '}
         </div>
     )
 }

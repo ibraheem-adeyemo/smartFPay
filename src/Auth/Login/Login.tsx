@@ -5,7 +5,7 @@ import {postLogIn} from '../../lib/api/url';
 import {Redirect} from 'react-router';
 import logo from '../../assets/logo.png';
 
-import {FormGroup, Toast, ToastBody, ToastHeader, Label, Form, Input, Card, CardBody, Button, Alert} from 'reactstrap';
+import {FormGroup, Label, Form, Input, Button, Alert} from 'reactstrap';
 import './Login.css';
 
 const Login = () => {

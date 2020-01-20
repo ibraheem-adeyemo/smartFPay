@@ -8,3 +8,5 @@ export const host = env().host;
 export const postLogIn = host + '/oauth/token';
 export const postAdminUser = host + '/api/v1/admin/users';
 export const getRoles = host + '/api/v1/admin/users/roles';
+export const changePassword = host + '/api/v1/admin/users/change-password';
+export const setPassword = host + '/api/v1/admin/users/set-password';

@@ -21,7 +21,7 @@ const baseApiCall = async attrs => {
     console.log(email)
     console.log(password)
     
-    headers['Authorization'] = `Basic ${base64.encode('admin@gmail.com' + ":" + 'Password12')}`;
+    headers['Authorization'] = `Basic ${base64.encode(email + ":" + password)}`;
 
     const axiosInstance = axios.create({
         headers,
@@ -75,10 +75,10 @@ const apiRequest = async (url, httpMethod, body = {}, additionalParams = {}) => 
                 if (err.message) {
                     // store.dispatch(showToast(err.message, 'error'))
                 }
-                console.log(err.response)
+                console.log(err)
                 if (err.response) {
                     if (err.response.status === 401) {
-                        // logout
+                        logout();
                         console.log("A message from api.js: It should logout at this point.");
                     }
                     reject(err);
