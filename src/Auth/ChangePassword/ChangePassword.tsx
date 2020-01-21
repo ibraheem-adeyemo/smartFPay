@@ -1,15 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import base64 from 'base-64';
 import { apiRequest } from "../../lib/api/api";
 import {changePassword} from '../../lib/api/url';
 import {Redirect} from 'react-router';
-// import logo from '../../assets/logo.png';
-
+import logo from '../../assets/logo.png';
 import {FormGroup, Label, Form, Input, Button, Alert} from 'reactstrap';
 import './ChangePassword.css';
 
 const ChangePassword = () => {
-    const [showToast, setShowToast] = useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -40,8 +37,6 @@ const ChangePassword = () => {
         setVisible(true);
         setTimeout(()=>onDismiss(), 5000);
     }
-
-    const toggleToast = () => setShowToast(!showToast);
 
     const validate = async (e: any) => {
         e.preventDefault();
@@ -100,9 +95,9 @@ const ChangePassword = () => {
             </Alert>}
         {emailExists && <div className='login-screen'>
                 <div className="login-card">
-                    {/* <div className="logo">
+                    <div className="logo">
                         <img src={logo} />
-                    </div> */}
+                    </div>
                     
                     <Form className="login-form" onSubmit={validate}>
                         <FormGroup>
