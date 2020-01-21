@@ -25,11 +25,46 @@
                 border-radius: 50%;
                 background: $medium-gray;
             }
-            .fa-angle-down {
+            .fa-angle-down, .fa-angle-up {
                 padding: 0.5rem;
                 font-size: 1.5rem;
                 color: #c8c5c5;
+                cursor: pointer;
             }
+        }
+    }
+}
+
+.drop-down {
+    background-color: #fff;
+    position: absolute;
+    right: 100px;
+    top: 42px;
+    border-radius: 5px;
+    z-index: 9999;
+    font-size: 13px;
+
+    ul {
+        padding: 0;
+        li {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            a {
+                padding-right: 1rem;
+                padding-left: 1rem;
+                padding-top: 0.2rem;
+                padding-bottom: 0.2rem;
+                color: #000;
+            }
+            a:hover{
+                text-decoration: none;
+                background-color: #EDE7E7;
+            }
+        }
+        .header {
+            padding-right: 1rem;
+            padding-left: 1rem;
+            border-bottom: 0.7px solid #c8c5c5;
         }
     }
 }

@@ -27,10 +27,10 @@ const AddUser = () => {
         // console.log('Add usets')
       });
 
-    useEffect(() => {
-        setRoles(Roles);
-        console.log(Roles)
-    }, [Roles]);
+    // useEffect(() => {
+    //     setRoles(Roles);
+    //     console.log(Roles)
+    // }, [Roles]);
 
     const someroles = [{label: 'Role 1', value: 'ROLE_1', name:'role_1'},{label: 'Role 2', value: 'ROLE_2', name:'role_2'},{label: 'Role 3', value: 'ROLE_3', name:'role_3'},{label: 'Role 4', value: 'ROLE_4', name:'role_4'},{label: 'Role 5', value: 'ROLE_5', name:'role_5'},{label: 'Role 6', value: 'ROLE_6', name:'role_6'}]
     

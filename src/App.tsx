@@ -3,6 +3,7 @@ import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
 import './App.css';
 import Dashboard from './Dashboard/Dashboard';
 import Activity from "./Activity/Activity";
+import ChangePassword from '../src/Auth/ChangePassword/ChangePassword';
 import Users from './Users/Users';
 import Login from '../src/Auth/Login/Login';
 import {MainLayout} from './shared/layouts/MainLayout/MainLayout';
@@ -39,6 +40,7 @@ class App extends React.Component<any> {
           <div className="app-routes">
               <Switch>
                   <AuthenticatedRoute path="/dashboard" component={Dashboard}/>
+                  <Route path="/change-password" component={ChangePassword}/>
                   {/* <Route path="/dashboard" component={Dashboard} /> */}
                   <Route path="/activity" component={Activity} />
                   <MainLayout path="/users" component={Users}  users={users} roles={roles}/>

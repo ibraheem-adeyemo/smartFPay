@@ -6,9 +6,9 @@ import {Redirect} from 'react-router';
 // import logo from '../../assets/logo.png';
 
 import {FormGroup, Label, Form, Input, Button, Alert} from 'reactstrap';
-import './Login.css';
+import './ChangePassword.css';
 
-const Login = () => {
+const ChangePassword = () => {
     const [showToast, setShowToast] = useState(false);
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +16,6 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [toastType, setToastType] = useState('');
     const [visible, setVisible] = useState(true);
     const [emailExists, setEmailExists] = useState(localStorage.getItem('email') as any);
 
@@ -46,8 +45,12 @@ const Login = () => {
 
     const validate = async (e: any) => {
         e.preventDefault();
-        if(oldPassword === "" || password === "") {
+        if(oldPassword === "" || password === "" || confirmPassword === "") {
             setError('Kindly Enter the required details');
+            toggleAlert();
+        }
+        else if(password !== confirmPassword) {
+            setError('Kindly Confirm your new password');
             toggleAlert();
         }
         else{
@@ -58,16 +61,15 @@ const Login = () => {
     const handleChangePassword = () => {
         alert(`${oldPassword}${password}`)
         setLoading(true);
-            apiRequest(changePassword, 'post', {
+            apiRequest(changePassword, 'put', {
                 oldPassword: oldPassword,
                 password: password,
                 confirmPassword: confirmPassword,
                 redirectUrl: 'http://localhost:9090/'
             }).then(res => {
-                clearForm();
                 console.log(res)
                 setLoading(false);
-                setSuccessMessage('Admin User Created Successfully!');
+                setSuccessMessage('Password Changed Successfully');
                 // toggle();
             })
                 .catch((error:any) => {
@@ -85,7 +87,6 @@ const Login = () => {
                         // )
                     //}
                     // toggle();
-                    clearForm();
                 });
     };
 
@@ -97,7 +98,7 @@ const Login = () => {
             {successMessage &&<Alert color="success" isOpen={visible} toggle={onDismiss} fade={false}>
                 {successMessage}
             </Alert>}
-        {!emailExists && <div className='login-screen'>
+        {emailExists && <div className='login-screen'>
                 <div className="login-card">
                     {/* <div className="logo">
                         <img src={logo} />
@@ -107,37 +108,37 @@ const Login = () => {
                         <FormGroup>
                             <Label for="oldPassword">Old Password</Label>
                             <Input
-                            type="text"
+                            type="password"
                             name="oldPassword"
                             placeholder="Old Password"
-                            onChange={e => setOldPassword(e.target.value)}
+                            onChange={e => setOldPassword(e.target.value.trim())}
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="password">Password</Label>
+                            <Label for="password">New Password</Label>
                             <Input
                             type="password"
                             name="password"
-                            placeholder="Password"
-                            onChange={e => setPassword(e.target.value)}
+                            placeholder="New Password"
+                            onChange={e => setPassword(e.target.value.trim())}
                             />
                         </FormGroup>   
                         <FormGroup>
                             <Label for="confirmPassword">Confirm Password</Label>
                             <Input
-                            type="text"
+                            type="password"
                             name="confirmPassword"
                             placeholder="Confirm Password"
-                            onChange={e => setConfirmPassword(e.target.value)}
+                            onChange={e => setConfirmPassword(e.target.value.trim())}
                             />
                         </FormGroup>
         <Button color="primary" className="login-btn">{loading && <i className="fa fa-spinner fa-spin"></i>}Change Password</Button>
                     </Form>
                 </div>
         </div>}
-        {emailExists && <Redirect to={"/dashboard"} push={true}/>}
+        {!emailExists && <Redirect to={"/login"} push={true}/>}
         </>
     )
 };
 
-export default Login;
+export default ChangePassword;

@@ -47,6 +47,7 @@ const apiCall = async (url, httpMethod, body, additionalParams) => {
 };
 
 const apiRequest = async (url, httpMethod, body = {}, additionalParams = {}) => {
+    console.log(`method ${httpMethod}`)
     return new Promise(function (resolve, reject) {
         apiCall(url, httpMethod, body, additionalParams)
             .then(response => {
