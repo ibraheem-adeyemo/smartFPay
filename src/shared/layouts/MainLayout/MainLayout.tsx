@@ -1,12 +1,12 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import DashboardSideBar from '../../components/DashboardSidebar/DashboardSidebar';
 import Navbar from '../../components/Navbar/Navbar';
-import './MainLayout.css'
+import './MainLayout.css';
 
 // @ts-ignore
 export const MainLayout = ({component: Component, ...rest}) => (
-    <Route {...rest} render={props => (
+    <Route {...rest} render={props => localStorage.getItem("email") ? (
         <>
             <div className="container-fluid">
                 <div className="row">
@@ -19,6 +19,12 @@ export const MainLayout = ({component: Component, ...rest}) => (
                     </div>
                 </div>
             </div>
-        </>
-    )}/>
+        </>): (
+          <Redirect
+            to={{
+              pathname: "/login"
+            }}
+          />
+        )
+    }/>
 )

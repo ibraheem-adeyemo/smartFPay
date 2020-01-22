@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Route, Switch, withRouter, Redirect} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import './App.css';
 import Dashboard from './Dashboard/Dashboard';
 import Activity from "./Activity/Activity";
@@ -8,29 +8,8 @@ import SetPassword from '../src/Auth/SetPassword/SetPassword';
 import Users from './Users/Users';
 import Login from '../src/Auth/Login/Login';
 import {MainLayout} from './shared/layouts/MainLayout/MainLayout';
+import AuthenticatedRoute from './shared/components/AuthenticatedRoute/AuthenticatedRoute';
 
-
-interface IProps {
-  exact?: boolean;
-  path: string;
-  component: React.ComponentType<any>;
-}
-
-const AuthenticatedRoute = ({component: Component, ...rest}: IProps)=> (
-  <Route
-     render={rest => 
-      localStorage.getItem("email") ? (
-        <Component {...rest} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login"
-          }}
-        />
-      )
-    }
-  />
-);
 
 class App extends React.Component<any> {
   public render() {
@@ -43,7 +22,6 @@ class App extends React.Component<any> {
                   <AuthenticatedRoute path="/dashboard" component={Dashboard}/>
                   <AuthenticatedRoute path="/change-password" component={ChangePassword}/>
                   <Route path="/set-password" component={SetPassword}/>
-                  {/* <Route path="/dashboard" component={Dashboard} /> */}
                   <AuthenticatedRoute path="/activity" component={Activity} />
                   <MainLayout path="/users" component={Users}  users={users} roles={roles}/>
                   <Route path="/login" component={Login} />
