@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {Alert, Modal, ModalBody, ModalHeader, ModalFooter, Button, Form, FormGroup, Label, Input} from 'reactstrap';
 import './AddUser.css';
 import {postAdminUser, getRoles} from '../../lib/api/url';
@@ -12,9 +12,8 @@ interface IFormModal {
 
 const AddUser = () => {
     const [modal, setModal] = useState(false);
-    const [checkedItems, setCheckedItems] = useState(new Map());
     const [Roles, setRoles] = useState([] as any);
-    const [autorities, setAuthorities] = useState([] as any);
+    const [authorities, setAuthorities] = useState([] as any);
     const [userName, setUsername] = useState('');
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState('');
@@ -25,25 +24,23 @@ const AddUser = () => {
     useEffect(() => {
         onGetRoles();
         // console.log('Add usets')
-      });
-
-    // useEffect(() => {
-    //     setRoles(Roles);
-    //     console.log(Roles)
-    // }, [Roles]);
+    }, []);
+    
+    useEffect(()=> {
+        setAuthorities(Roles.filter((role: any) => (role.isChecked)).map((role: any)=>role.name));
+    }, [Roles]);
 
     const someroles = [{label: 'Role 1', value: 'ROLE_1', name:'role_1'},{label: 'Role 2', value: 'ROLE_2', name:'role_2'},{label: 'Role 3', value: 'ROLE_3', name:'role_3'},{label: 'Role 4', value: 'ROLE_4', name:'role_4'},{label: 'Role 5', value: 'ROLE_5', name:'role_5'},{label: 'Role 6', value: 'ROLE_6', name:'role_6'}]
     
-    // setRoles(someroles);
     const toggle = () => setModal(!modal);
 
     const mapArray = (arr: string[]) => {
-        let mappedArray = [] as any;
-        arr.map(element => {
-            mappedArray.push({name: element, value: element, isChecked: false});
-        });
-        console.log(mappedArray);
-        setRoles(mappedArray);
+        setRoles(arr.map(role => {
+            return {
+                name: role,
+                value: role,
+                isChecked: false
+            }}));
     }
 
     const onDismiss = () => {
@@ -70,7 +67,7 @@ const AddUser = () => {
     const clearForm = () => {
         setEmail('');
         setUsername('');
-        setCheckedItems(new Map());
+        setAuthorities([]);
     }
 
     const onGetRoles = () => {
@@ -104,15 +101,20 @@ const AddUser = () => {
         setLoading(true);
             apiRequest(postAdminUser, 'post', {
                 name: userName,
-                authorities: checkedItems,
+                authorities,
                 email,
                 redirectUrl: 'http://localhost:9090/'
             }).then(res => {
                 clearForm();
-                console.log(res)
+                if(res.responseMessage.toLowerCase() === "successful") {
+                    console.log(res.responseMessage);
+                    setSuccessMessage('Admin User Created Successfully!');
+                }
+                if(res.status === 200) {
+                    console.log(res)
+                }
                 setLoading(false);
-                setSuccessMessage('Admin User Created Successfully!');
-                toggle();
+                toggleAlert();
             })
                 .catch((error:any) => {
                     setLoading(false);
@@ -133,27 +135,35 @@ const AddUser = () => {
                 });
     };
 
+    const allIsChecked = useMemo(() => Roles.every((role: any) => role.isChecked === true), [Roles])
+
     const handleAllChecked = (e:any) => {
-        let roles = Roles;
-        roles.forEach((role:any) => role.isChecked = e.target.checked) 
-        setRoles(roles);
-        console.log(roles)
+        setAuthorities(Roles.filter((role: any) => (role.isChecked)));
+        // Check if every role is checked
+        // If so, set them to true. Otherwise, set them to false
+        setRoles(Roles.map((role: any) => ({...role, isChecked: !allIsChecked})));
       }
     
-    const  handleCheckFieldElement = (e: any) => {
-    Roles.forEach((role: any) => {
-        if (role.value === e.target.value)
-            role.isChecked =  e.target.checked
-    })
-    console.log(Roles)
-    setRoles(Roles);
+    const  handleCheckFieldElement = (e: any, role: any, roleIndex: number) => {
+        let value = e.target.value;
+        let isChecked = e.target.checked;
+        // Check if target checked state is different from its respective checked state in Roles state e.g. if it's already true, no need to setRole
+        if(e.target.isChecked !== role.isChecked){
+            //Get roles that aren't the same as the one that we're trying to set
+            setRoles(
+                [...Roles.slice(0, roleIndex),
+                    {...role,
+                        value,
+                        isChecked
+                    },
+                    ...Roles.slice(roleIndex + 1)
+                ]);
+            setAuthorities(Roles.map((role: any)=>role.name));
+        }
     }
     
     return (
         <>
-        {error && <Alert color="danger" isOpen={visible} toggle={onDismiss} fade={false}>
-                {error}
-            </Alert>}
             {successMessage &&<Alert color="success" isOpen={visible} toggle={onDismiss} fade={false}>
                 {successMessage}
             </Alert>}
@@ -161,6 +171,9 @@ const AddUser = () => {
             <Modal isOpen={modal} modalTransition={{ timeout: 200 }} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Add User</ModalHeader>
                 <ModalBody>
+        {error && <Alert color="danger" isOpen={visible} toggle={onDismiss} fade={false}>
+                {error}
+            </Alert>}
                     <Form onSubmit={validate}>
                         <FormGroup>
                             <Label for="userName">Username</Label>
@@ -194,16 +207,18 @@ const AddUser = () => {
                                 ))}
                             </div> */}
                         {Roles.length > 0 && <div>
-                        <input type="checkbox" onChange={handleAllChecked}  value="checkedall" /> Authorities
+                        <input type="checkbox" onChange={handleAllChecked} checked={allIsChecked} /> Authorities
                             <ul>
                             {
                             Roles.map((role: any, index: number) => {
-                                return (<Checkbox key={index} handleCheckFieldElement={handleCheckFieldElement}  {...role} />)
+                                return (<Checkbox key={index} handleCheckFieldElement={(e: any) => handleCheckFieldElement(e, role, index)} isChecked={role.isChecked}  {...role} />)
                             })
                             }
                             </ul>
-
+                        {allIsChecked && <div>You are assigning all authorities to this user</div>}
                         </div>}
+                        <Input type="checkbox" />{' '}
+          Check me out
                         {/* </FormGroup> */}
                     </Form>
                 </ModalBody>
