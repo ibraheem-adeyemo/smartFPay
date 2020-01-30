@@ -142,7 +142,7 @@ const AddUser = () => {
         // Check if every role is checked
         // If so, set them to true. Otherwise, set them to false
         setRoles(Roles.map((role: any) => ({...role, isChecked: !allIsChecked})));
-      }
+    }
     
     const  handleCheckFieldElement = (e: any, role: any, roleIndex: number) => {
         let value = e.target.value;
@@ -217,8 +217,6 @@ const AddUser = () => {
                             </ul>
                         {allIsChecked && <div>You are assigning all authorities to this user</div>}
                         </div>}
-                        <Input type="checkbox" />{' '}
-          Check me out
                         {/* </FormGroup> */}
                     </Form>
                 </ModalBody>

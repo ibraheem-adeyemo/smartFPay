@@ -11,7 +11,7 @@ interface IUsersProps {
 }
 
 const Users = () => {
-    const users = [{name: 'Folamoluwa', authorities: ['SYS_ADMIN'], email: 'molu@gmail.com'}, {name: 'Anu', authorities: ['SYS_ADMIN'],  email: 'anu@gmail.com'}, {name: 'Folarin', authorities: ['SYS_ADMIN'], email: 'fola@gmail.com'}]
+    const users = [{name: 'Folamoluwa', authorities: ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN_USER'], email: 'molu@gmail.com'}, {name: 'Anu', authorities: ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN_USER'],  email: 'anu@gmail.com'}, {name: 'Folarin', authorities: ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN_USER'], email: 'fola@gmail.com'}]
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     let usersList;

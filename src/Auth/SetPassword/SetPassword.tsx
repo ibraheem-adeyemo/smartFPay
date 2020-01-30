@@ -6,7 +6,7 @@ import logo from '../../assets/logo.png';
 import {FormGroup, Label, Form, Input, Button, Alert} from 'reactstrap';
 // import './SetPassword.css';
 
-const SetPassword = () => {
+const SetPassword = (props: any) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -14,6 +14,7 @@ const SetPassword = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [visible, setVisible] = useState(true);
     const [emailExists, setEmailExists] = useState(localStorage.getItem('email') as any);
+    const { token } = props.match.params;
 
     const onDismiss = () => {
         setVisible(false);
@@ -23,6 +24,7 @@ const SetPassword = () => {
     const clearForm = () => {
         setPassword('');
         setConfirmPassword('');
+        setError('');
     }
 
     useEffect(()=>{
@@ -56,10 +58,13 @@ const SetPassword = () => {
             apiRequest(putSetPassword, 'put', {
                 password: password,
                 confirmPassword: confirmPassword,
-                redirectUrl: 'http://localhost:9090/'
+                token
             }).then(res => {
                 console.log(res)
                 setLoading(false);
+                window.localStorage.setItem('email', '');
+                window.localStorage.setItem('password', '');
+                // window.location.href = window.location.origin + '/login';
                 setSuccessMessage('Password Changed Successfully');
                 // toggle();
             })

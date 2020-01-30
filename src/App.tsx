@@ -7,6 +7,7 @@ import ChangePassword from '../src/Auth/ChangePassword/ChangePassword';
 import SetPassword from '../src/Auth/SetPassword/SetPassword';
 import Users from './Users/Users';
 import Login from '../src/Auth/Login/Login';
+import Cards from '../src/Cards/Cards';
 import {MainLayout} from './shared/layouts/MainLayout/MainLayout';
 import AuthenticatedRoute from './shared/components/AuthenticatedRoute/AuthenticatedRoute';
 
@@ -21,10 +22,13 @@ class App extends React.Component<any> {
               <Switch>
                   <AuthenticatedRoute path="/dashboard" component={Dashboard}/>
                   <AuthenticatedRoute path="/change-password" component={ChangePassword}/>
-                  <Route path="/set-password" component={SetPassword}/>
+                  <AuthenticatedRoute path="/set-password/:token" component={SetPassword}/>
                   <AuthenticatedRoute path="/activity" component={Activity} />
                   <MainLayout path="/users" component={Users}  users={users} roles={roles}/>
-                  <Route path="/login" component={Login} />
+                  <MainLayout path="/cards" component={Cards} />
+                  <Route path="/login">
+                    <Login />
+                  </Route>
                   <Route>
                     <Login />
                   </Route>

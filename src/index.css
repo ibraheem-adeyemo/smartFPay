@@ -12,10 +12,13 @@ a {
   text-decoration: none; }
 
 .btn-primary {
-  background-color: #50B8F9; }
+  background-color: #50B8F9;
+  text-transform: uppercase;
+  border: none; }
 
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:active {
   background-color: #C4C4C4;
-  border: none; }
+  border: none;
+  text-transform: uppercase; }

@@ -17,6 +17,7 @@ const AuthenticatedRoute = ({component: Component, ...rest}: IProps)=> (
             to={{
               pathname: "/login"
             }}
+            push={true}
           />
         )
       }
