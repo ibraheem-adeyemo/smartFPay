@@ -2,7 +2,7 @@ import React from 'react';
 import {Button} from 'reactstrap';
 import './CardDetails.css';
 
-const CardDetails = () => {
+const CardDetails = (props: any) => {
     return (
         <div className="card-details">
             <div className="header">
@@ -36,7 +36,7 @@ const CardDetails = () => {
             </div>
             <div className="action-buttons">
                 <Button color="primary" className="assign-btn"><i className="fa fa-spinner fa-spin"></i>Freeze Card</Button> {' '}
-                <Button color="primary" className="assign-btn"><i className="fa fa-spinner fa-spin"></i>Set limit</Button> {' '}
+                <Button onClick={props.setLimit} color="primary" className="assign-btn"><i className="fa fa-spinner fa-spin"></i>Set limit</Button> {' '}
                 <Button color="primary" className="assign-btn"><i className="fa fa-spinner fa-spin"></i>Pin &amp; Security</Button> {' '}
                 <Button color="primary" className="assign-btn"><i className="fa fa-spinner fa-spin"></i>Customize Channels</Button> {' '}
             </div>

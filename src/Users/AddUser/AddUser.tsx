@@ -97,7 +97,6 @@ const AddUser = () => {
     }
 
     const handleAddUser = () => {
-        alert(`${email}${userName}`)
         setLoading(true);
             apiRequest(postAdminUser, 'post', {
                 name: userName,

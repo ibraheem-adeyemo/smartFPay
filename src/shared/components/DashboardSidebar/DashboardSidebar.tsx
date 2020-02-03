@@ -84,7 +84,7 @@ const DashboardSideBar = () => {
                 <li onClick={toggleLimitManagement}>
                     <a>Limit Management <span className="icon"><i className={showLimitManagementChildren?"fa fa-caret-down":"fa fa-caret-up"} aria-hidden="true"></i></span></a>
                     {showLimitManagementChildren && <ul className="sub-nav list-unstyled">
-                        <li><NavLink to="/" activeClassName="active">Sublink</NavLink></li>
+                        <li><NavLink to="/cards" activeClassName="active">Cards</NavLink></li>
                         <li><NavLink to="/">SubLink</NavLink></li>
                         <li><NavLink to="/" activeClassName="active">Sublink </NavLink></li>
                     </ul>}
