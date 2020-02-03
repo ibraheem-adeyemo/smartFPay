@@ -1,5 +1,5 @@
 FROM node:10 as build-deps
-WORKDIR /usr/src
+WORKDIR /usr/src/app
 COPY package.json /usr/src/app
 
 RUN npm --proxy http://172.25.30.117:6060 install
