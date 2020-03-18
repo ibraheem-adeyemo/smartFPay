@@ -3,16 +3,43 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-scripts": "3.4.0"
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "mdi-react": "^7.0.0",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
+    "rc-notification": "^3.3.1",
+    "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.1",
+    "react-avatar": "^3.6.0",
+    "react-confirm-alert": "^2.4.1",
+    "react-data-grid": "^6.1.0",
+    "react-datepicker": "^2.8.0",
+    "react-dom": "^16.8.6",
+    "react-dual-listbox": "^2.0.0",
+    "react-helmet": "^5.2.1",
+    "react-icons": "^3.7.0",
+    "react-redux": "^7.0.3",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1",
+    "react-select": "^3.0.4",
+    "react-smooth-scrollbar": "^8.0.6",
+    "reactstrap": "^8.0.0",
+    "redux": "^4.0.1",
+    "redux-form": "^8.2.3",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^5.10.0",
+    "redux-thunk": "^2.3.0",
+    "smooth-scrollbar": "^8.4.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "cross-env REACT_APP_STAGE=dev react-scripts start",
+    "build": "cross-env REACT_APP_STAGE=dev react-scripts build",
+    "start:prod": "cross-env REACT_APP_STAGE=prod react-scripts start",
+    "build:prod": "cross-env REACT_APP_STAGE=prod react-scripts build",
+    "start:paytok": "cross-env REACT_APP_STAGE=paytok react-scripts start",
+    "build:paytok": "cross-env REACT_APP_STAGE=paytok react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -30,5 +57,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1"
   }
 }

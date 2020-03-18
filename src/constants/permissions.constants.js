@@ -1,0 +1,40 @@
+export const permissionsConstants = {
+
+  CREATE_USER: "ROLE_CREATE_USER",
+  ENABLE_USER: "ROLE_ENABLE_USER",
+  VIEW_USERS: "ROLE_VIEW_USERS",
+  VIEW_USER: "ROLE_VIEW_USER",
+  UPDATE_USER: "ROLE_UPDATE_USER",
+  DISABLE_USER: "ROLE_DISABLE_USER",
+
+  CHANGE_USER_ROLE: "ROLE_CHANGE_USER_ROLE",
+  DELETE_USER_ROLE: "ROLE_DELETE_USER_ROLE",
+  DISABLE_USER_ROLE: "ROLE_DISABLE_USER_ROLE",
+  ASSIGN_USER_ROLE: "ROLE_ASSIGN_USER_ROLE",
+  VIEW_DOMAINS_ROLE : "ROLE_VIEW_DOMAINS",
+
+  CREATE_LIMIT: "ROLE_CREATE_LIMIT",
+  VIEW_LIMIT_REQUEST: "ROLE_VIEW_LIMIT_REQUEST",
+
+  VIEW_ADMIN:"ROLE_VIEW_ADMIN",
+
+
+  VIEW_CUSTOMER_CARDS: "ROLE_VIEW_CUSTOMER_CARDS",
+  VIEW_CUSTOMER: "ROLE_VIEW_CUSTOMER",
+
+  VIEW_CARD_DETAILS: "ROLE_VIEW_CARD_DETAILS",
+  VIEW_CARDS: "ROLE_VIEW_CARDS",
+
+  BLOCK_CARD: "ROLE_BLOCK_CARD",
+  UNBLOCK_CARD: "ROLE_UNBLOCK_CARD"
+};
+
+export const createPermissions = () => {
+  const permissions = [];
+  for (var permission in permissionsConstants) {
+    permissions.push(permissionsConstants[permission]);
+  }
+  return permissions;
+};
+
+export const permissions = createPermissions();
