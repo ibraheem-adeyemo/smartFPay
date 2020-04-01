@@ -9,21 +9,21 @@ import {
   ButtonToolbar,
   Spinner
 } from "reactstrap";
-import { Field, reduxForm, clearFields } from "redux-form";
+import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
 import validate from "./validate";
-import AccessControl from "../../../../shared/components/AccessControl";
-import DomainDropDown from "../../../Domains/DomainDropDown";
+// import AccessControl from "../../../../shared/components/AccessControl";
+// import DomainDropDown from "../../../Domains/DomainDropDown";
 import RolesSelect from "../../../Roles/RolesSelect";
 import {
   resetRoles,
   /* addRolesToStore,
   removeRolesFromStore, */
-  getRoles
+  // getRoles
 } from "../../../Roles/actions/roles.actions";
 import { resetPostUser } from "../../actions/user.actions";
 
@@ -65,15 +65,15 @@ const UserForm = memo(props => {
     };
   }, [dispatch]);
 
-  const getRolesFromDomain = selectedDomain => {
-    dispatch(clearFields("user_form", true, true, "roles"));
+  // const getRolesFromDomain = selectedDomain => {
+  //   dispatch(clearFields("user_form", true, true, "roles"));
 
-    if (selectedDomain) {
-      dispatch(getRoles(selectedDomain.code));
-    } else {
-      dispatch(resetRoles());
-    }
-  };
+  //   if (selectedDomain) {
+  //     dispatch(getRoles());
+  //   } else {
+  //     dispatch(resetRoles());
+  //   }
+  // };
   return (
     <Col md={12} lg={12}>
       <Card>
@@ -192,22 +192,6 @@ const UserForm = memo(props => {
                   </Row>
                   {!userId && (
                     <Row>
-                      <AccessControl
-                        allowedPermissions={[
-                          permissionsConstants.VIEW_DOMAINS_ROLE
-                        ]}
-                        renderNoAccess={() => null}
-                      >
-                        <Col lg="4">
-                          <DomainDropDown
-                            required
-                            id="domain"
-                            onChange={getRolesFromDomain}
-                            label="Add user to domain"
-                          />
-                        </Col>
-                      </AccessControl>
-
                       <Col lg="4">
                         <RolesSelect
                           required

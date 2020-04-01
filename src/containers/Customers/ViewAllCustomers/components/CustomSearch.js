@@ -21,7 +21,7 @@ const CustomSearch = props => {
               <Field
                 name="searchWord"
                 component="input"
-                placeholder="Search by keyword"
+                placeholder="Search by account number or account name"
               />
               <button type="submit" className={`form__form-group-button`}>
                 <MdSearch />

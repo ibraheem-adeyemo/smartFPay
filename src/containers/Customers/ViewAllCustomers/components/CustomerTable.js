@@ -67,16 +67,16 @@ const CustomersTable = memo(
       }, */
       {
         accessor: "emailAddress",
-        name: "Email Address",
+        name: "Account Number",
         sortable: true,
         sortKey: "emailAddress"
       },
-      {
-        accessor: "issuerName",
-        name: "Issuer",
-        sortable: true,
-        sortKey: "issuerName"
-      },
+      // {
+      //   accessor: "issuerName",
+      //   name: "Issuer",
+      //   sortable: true,
+      //   sortKey: "issuerName"
+      // },
       {
         accessor: "mobileNr",
         name: "Mobile Number",
