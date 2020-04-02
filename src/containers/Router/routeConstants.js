@@ -13,6 +13,8 @@ import CardsRecordsList from "../CardRecords/ViewAllCardRecords";
 import { permissionsConstants } from "../../constants/permissions.constants";
 import ViewCustomer from "../Customers/ViewCustomer";
 
+import AuditTrail from '../AuditTrail/AuditTrail';
+
 const {
   CREATE_LIMIT,
   VIEW_LIMIT_REQUEST,
@@ -23,6 +25,7 @@ const {
   CHANGE_USER_ROLE,
   VIEW_CUSTOMER,
   VIEW_CUSTOMER_CARDS,
+  VIEW_AUDIT_TRAIL
 } = permissionsConstants;
 
 export const LimitRequestRoutes = {
@@ -146,6 +149,25 @@ export const CustomerRoutes = {
     }
   ]
 };
+
+export const AuditTrailRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "audittrail",
+      title: "Audit Trail",
+      exact: false,
+      icon: null,
+      name: "AuditTrail",
+      path: "/audit",
+      menu: true,
+      pageComponent: AuditTrail,
+      enabled: true,
+      permissions: [VIEW_AUDIT_TRAIL]
+    },
+  ]
+}
 
 export const UserRoutes = {
   enabled: true,

@@ -6,7 +6,8 @@ import MainWrapper from "../App/MainWrapper";
 import {
   UserRoutes,
   LimitRequestRoutes,
-  CustomerRoutes
+  CustomerRoutes,
+  AuditTrailRoutes
 } from "./routeConstants";
 import Dashboard from "../Dashboard";
 import PermissionedRoute from "./PermissionedRoute";
@@ -50,8 +51,8 @@ const Limits = () => (
 
 const Reports = () => (
   <Switch>
-    {LimitRequestRoutes.enabled &&
-      LimitRequestRoutes.routes.map(route =>
+    {AuditTrailRoutes.enabled &&
+      AuditTrailRoutes.routes.map(route =>
         route.enabled ? (
           <PermissionedRoute
             key={route.key}
@@ -99,6 +100,7 @@ const Router = ({ hasError }) => (
             <Route path="/customers" component={Customers} />
             <Route path="/limits" component={Limits} />
             <Route path="/report" component={Reports} />
+            <Route path="/audit" component={Reports} />
             {/* <PermissionedRoute
               path="/admin-management"
               allowedPermissions={[permissionsConstants.VIEW_CARD_STATEMENT]}
