@@ -13,7 +13,7 @@ import CardsRecordsList from "../CardRecords/ViewAllCardRecords";
 import { permissionsConstants } from "../../constants/permissions.constants";
 import ViewCustomer from "../Customers/ViewCustomer";
 
-import AuditTrail from '../AuditTrail/AuditTrail';
+import AuditTrail from '../AuditTrail/AuditList/index';
 
 const {
   CREATE_LIMIT,

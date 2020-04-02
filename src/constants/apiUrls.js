@@ -72,5 +72,9 @@ export const API_URLS = {
     PIN_REISSUE: `${apiBaseUrl}/card/pins/reset`,
     BLOCK_CARD: `${apiBaseUrl}/card-record/cards/block`,
     UNBLOCK_CARD: `${apiBaseUrl}/card-record/cards/unblock`
+  },
+  AUDIT: {
+    GET_AUDIT_REPORTS: `${apiBaseUrl}/reports`,
+    GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
   }
 };
