@@ -21,11 +21,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# User-specific stuff
-
-src/**/*.css
-build/**/*
-coverage/**/*
-
-!src/vendor/scss/**/*.css
