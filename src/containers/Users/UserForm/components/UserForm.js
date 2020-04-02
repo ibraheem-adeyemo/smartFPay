@@ -69,7 +69,7 @@ const UserForm = memo(props => {
   //   dispatch(clearFields("user_form", true, true, "roles"));
 
   //   if (selectedDomain) {
-  //     dispatch(getRoles());
+  //     dispatch(getRoles(selectedDomain.code));
   //   } else {
   //     dispatch(resetRoles());
   //   }

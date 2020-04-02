@@ -1,0 +1,10 @@
+{
+    "name": "Payment Control Portlet",
+    "indexPath": "/payment-control-portlet/index.html",
+    "appId": "payment-control-portlet",
+    "spa": true,
+    "layout": {
+        "showHeader": true
+    },
+    "thumbnail": "http://mufasa.interswitchng.com/logo.png"
+  }
