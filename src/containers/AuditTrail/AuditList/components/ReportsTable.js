@@ -14,7 +14,7 @@ import { permissionsConstants } from "../../../../constants/permissions.constant
 import { getFormValues } from "redux-form";
 
 const {
-  VIEW_REPORTS
+  VIEW_ADMIN
 } = permissionsConstants;
 
 const ReportsTable = memo(props => {
@@ -81,7 +81,7 @@ const ReportsTable = memo(props => {
       btnText: "View",
       btnClass: "success",
       btnIcon: MdInsertDriveFile,
-      permissions: [VIEW_REPORTS]
+      permissions: [VIEW_ADMIN]
     },
   ];
 

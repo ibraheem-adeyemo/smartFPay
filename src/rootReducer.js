@@ -14,6 +14,14 @@ import {
 } from "./containers/Users/reducers";
 
 import {
+  viewcontrol,
+  postcontrol,
+  getcontrols,
+  toggleaccount,
+  togglecard
+} from "./containers/Limits/reducers"
+
+import {
   getAllCardRequests,
   getCardRequest,
   getCardStatus,
@@ -22,7 +30,7 @@ import {
 
 import { domains } from "./containers/Domains/reducers";
 import { permissions, currentUser } from "./containers/CurrentUser/reducers";
-import { roles } from "./containers/Roles/reducers";
+import { roles, postrole } from "./containers/Roles/reducers";
 
 import { cardProgramCount } from "./containers/Dashboard/reducers";
 
@@ -46,7 +54,15 @@ export default combineReducers({
   currentUser,
   getuserrole,
   editRole,
+
+  viewcontrol,
+  getcontrols,
+  toggleaccount,
+  togglecard,
+  postcontrol,
+
   roles,
+  postrole,
 
   getAllCardRequests,
   getCardRequest,

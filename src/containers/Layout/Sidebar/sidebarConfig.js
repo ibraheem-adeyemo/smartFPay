@@ -55,13 +55,13 @@ export const menuConfig = {
         {
           title: "Roles Management",
           key: "roles-management",
-          path: "/roles-management",
+          path: "/roles",
           permissions: [VIEW_ADMIN]
         },
         {
           title: "Audit Trail",
           key: "audit-trail",
-          path: "/audit",
+          path: "/view-report",
           permissions: [VIEW_ADMIN]
         }
       ]

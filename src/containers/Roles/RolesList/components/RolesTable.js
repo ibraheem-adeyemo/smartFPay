@@ -1,143 +1,106 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
 import React, { memo, useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar } from "reactstrap";
-import PropTypes from "prop-types";
+import { Card, CardBody, Col, ButtonToolbar, Spinner } from "reactstrap";
+
 import { Link } from "react-router-dom";
-import { MdSearch, MdModeEdit, MdPageview, MdLock } from "react-icons/md";
-import DataPaginationTable from "../../../../shared/components/table/DataPaginationTable";
-import Pagination from "../../../../shared/components/pagination/Pagination";
+import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
+import DataTable from "../../../../shared/components/DataTable";
+import { withRouter } from "react-router-dom";
+import CustomSearch from "./CustomSearch";
+import { connect } from "react-redux";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import AccessControl from "../../../../shared/components/AccessControl";
+import { permissionsConstants } from "../../../../constants/permissions.constants";
+import { accessControlFn } from "../../../../utils/accessControl";
+import { getFormValues } from "redux-form";
 
-const StatusFormatter = ({ value }) =>
-  value === "Enabled" ? (
-    <span className="badge badge-success">Enabled</span>
-  ) : (
-    <span className="badge badge-disabled">Disabled</span>
-  );
+const {
+  VIEW_ADMIN
+} = permissionsConstants;
 
-StatusFormatter.propTypes = {
-  value: PropTypes.string.isRequired
-};
+const RolesTable = memo(props => {
+  const {
+    dataState,
+    fetchData,
+    dispatch,
+    permissions,
+    allRoles
+  } = props;
 
-const DataTable = memo(props => {
-  const heads = [
+  const [searchKey, setSearchKey] = useState("");
+  const count = dataState && dataState.response ? dataState.response.count : 0;
+
+  const columns = [
     {
-      key: "id",
-      name: "#",
-      width: 80
-    },
-    {
-      key: "role",
-      name: "Role Name",
-      sortable: true
-    },
-    {
-      key: "domain",
-      name: "Domain",
-      sortable: false
-    },
-    {
-      key: "status",
-      name: "Status",
+      accessor: "id",
+      name: "",
       sortable: true,
-      formatter: StatusFormatter
+      sortKey: "id"
+    },
+    {
+      accessor: "name",
+      name: "Name",
+      filterable: true,
+      sortable: true,
+      sortKey: "name"
+    },
+    {
+      accessor: "description",
+      name: "Description",
+      sortKey: "description"
     }
   ];
 
-  const selectRow = row => {
-    console.log(row);
+  const handleAction = (row, action) => {
+    if (action.name === "view_roles") {
+      props.history.push(`${props.location.pathname}/view/${row.username}`);
+    } else if (action.name === "edit_users") {
+      props.history.push(`${props.location.pathname}/edit/${row.username}`);
+    } else if (action.name === "manageRoles") {
+      props.history.push(`${props.location.pathname}/roles/${row.username}`);
+    }
+  };
+
+  const sortFn = (pageNum, pageSize, column) => {
+    let sortOrder = "ASC";
+    if (!allRoles.loading) {
+      if (allRoles.request && allRoles.request.sortOrder) {
+        sortOrder = allRoles.request.sortOrder === "ASC" ? "DESC" : "ASC";
+      }
+      fetchData({
+        ...allRoles.request,
+        pageNum,
+        pageSize,
+        sortKey: column.sortKey,
+        sortOrder
+      });
+    }
   };
 
   const actions = [
     {
-      name: "view",
+      name: "view_roles",
       btnText: "View",
-      btnAction: selectRow,
+      btnAction: handleAction,
       btnClass: "success",
-      btnIcon: MdPageview
+      btnIcon: MdInsertDriveFile,
+      permissions: [VIEW_ADMIN]
     },
-    {
-      name: "edit",
-      btnText: "Edit",
-      btnAction: selectRow,
-      btnClass: "default",
-      btnIcon: MdModeEdit
-    },
-    {
-      name: "permissions",
-      btnText: "Manage Permissions",
-      btnAction: selectRow,
-      btnClass: "info",
-      btnIcon: MdLock
-    }
   ];
 
-  const initialPageNumber = 1;
-  const initialRowsCount = 10;
+  const handleSubmit = values => {
+    setSearchKey(values.searchWord);
+    fetchData({
+      ...allRoles.request,
+      pageNum: 1,
+      searchWord: values.searchWord || ""
+    });
+  };
 
-  const minRows = 20;
-  const maxRows = 41;
-  const rowsCount = Math.random() * (maxRows - minRows);
-
-  const originalRows = createRows(rowsCount + minRows);
-  const currentPageRows = filterRows(
-    originalRows,
-    initialPageNumber,
-    initialRowsCount
-  );
-
-  const [rows] = useState(originalRows);
-  const [rowsToShow, setRowsToShow] = useState(currentPageRows);
-  const [pageOfItems, setPageOfItems] = useState(initialPageNumber);
-  const [itemsToShow] = useState(initialRowsCount);
-
-  function onChangePage(pageOfItems) {
-    if (pageOfItems) {
-      const rowsToShow = filterRows(rows, pageOfItems, itemsToShow);
-      setRowsToShow(rowsToShow);
-      setPageOfItems(pageOfItems);
-    }
-  }
-
-  function createRows(numberOfRows) {
-    const rows = [];
-    for (let i = 1; i < numberOfRows + 1; i += 1) {
-      rows.push({
-        id: i,
-        role: ["SUPER_ADMIN", "BANK_ADMIN  ", "BANK_USER"][Math.floor(Math.random() * 3)],
-        status: ["Enabled", "Disabled"][Math.floor(Math.random() * 2)],
-        domain: ["Interswitch, Ecobank", "Guaranty Trust Bank", "Polaris Bank"][
-          Math.floor(Math.random() * 3)
-        ]
-      });
-    }
-    return rows;
-  }
-
-  function filterRows(originalRows, pageNumber, rowsOnPage) {
-    const rowsFrom = rowsOnPage * (pageNumber - 1);
-    const rowsTo = rowsFrom + rowsOnPage;
-    return originalRows.slice(rowsFrom, rowsTo);
-  }
-
-  function handleGridSort(sortColumn, sortDirection) {
-    const comparer = (a, b) => {
-      if (sortDirection === "ASC") {
-        return a[sortColumn] > b[sortColumn] ? 1 : -1;
-      }
-      if (sortDirection === "DESC") {
-        return a[sortColumn] < b[sortColumn] ? 1 : -1;
-      }
-    };
-
-    const sortRows = originalRows.slice(0);
-    const rows =
-      sortDirection === "NONE"
-        ? originalRows.slice(0, 10)
-        : sortRows.sort(comparer).slice(0, 10);
-
-    const rowsToShow = filterRows(rows, pageOfItems, itemsToShow);
-    setRowsToShow(rowsToShow);
-  }
+  const loadData = (pageNum, pageSize) => {
+    fetchData({ ...allRoles.request, pageNum, pageSize, searchWord: searchKey });
+  };
 
   return (
     <Col md={12} lg={12}>
@@ -145,41 +108,54 @@ const DataTable = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">Roles</h5>
-            <ButtonToolbar className="products-list__btn-toolbar-top">
-              <form className="form">
-                <div className="form__form-group products-list__search">
-                  <input placeholder="Search..." name="search" />
-                  <MdSearch />
-                </div>
-              </form>
-              <Link
-                className="btn btn-primary products-list__btn-add"
-                to="/roles/add"
-              >
-                Add new role
-              </Link>
-            </ButtonToolbar>
+            <AccessControl
+              allowedPermissions={[VIEW_ADMIN]}
+              renderNoAccess={() => null}
+            >
+              <ButtonToolbar className="products-list__btn-toolbar-top">
+                <Link
+                  className="btn btn-primary products-list__btn-add"
+                  to="/roles/add"
+                  id="link-create-role"
+                >
+                  Add new role
+                </Link>
+              </ButtonToolbar>
+            </AccessControl>
           </div>
-          <p>
-            Show
-            <select className="select-options">
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-            </select>
-            entries
-          </p>
-          <DataPaginationTable
-            onGridSort={handleGridSort}
+          <DataTable
+            columns={columns}
+            loading={dataState && dataState.loading}
+            data={
+              dataState && dataState.response ? dataState.response.content : []
+            }
+            count={count}
+            countName="Roles"
+            defaultPageSize={10}
+            defaultPageNumber={1}
+            loadData={loadData}
+            error={dataState && dataState.error}
+            bordered={true}
+            striped={true}
+            hover={true}
+            permissions={permissions}
             actions={actions}
-            heads={heads}
-            rows={rowsToShow}
-          />
-          <Pagination
-            itemsCount={rows.length}
-            itemsToShow={itemsToShow}
-            pageOfItems={pageOfItems}
-            onChangePage={onChangePage}
+            responsive
+            customSearch={
+              <CustomSearch
+                pageNumer={1}
+                initialValues={{
+                  pageNumber: 1,
+                  pageSize: 10,
+                  searchKey: ""
+                }}
+                pageSize={10}
+                onSubmit={handleSubmit}
+              />
+            }
+            sortFn={sortFn}
+            searchKey={searchKey}
+            serverside
           />
         </CardBody>
       </Card>
@@ -187,4 +163,8 @@ const DataTable = memo(props => {
   );
 });
 
-export default DataTable;
+export default connect(state => ({
+  searchValues: getFormValues("custom_search")(state),
+  permissions: state.permissions && state.permissions.response,
+  allRoles: state.roles
+}))(withRouter(RolesTable));

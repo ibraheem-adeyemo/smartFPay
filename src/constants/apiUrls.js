@@ -20,6 +20,17 @@ export const API_URLS = {
     GET_CURRENT_USER: `/${apiVersion}/user`,
     GET_PERMISSION: `/${apiVersion}/user/permissions`
   },
+  LIMITS: {
+    GET_CONTROLS: `${apiBaseUrl}/controls`,
+    GET_CONTROL: `${apiBaseUrl}/control`,
+    POST_CONTROL: `${apiBaseUrl}/controls`,
+
+    ENABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/enable`,
+    DISABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/disable`,
+
+    ENABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/enable`,
+    DISABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/disable`,
+  },
   ISSUERS: {
     DOMAIN_MAPPINGS_URI: `${apiBaseUrl}/issuer`,
     GET_ALL_MAPPINGS: `${apiBaseUrl}/issuer/all`,
@@ -76,5 +87,9 @@ export const API_URLS = {
   AUDIT: {
     GET_AUDIT_REPORTS: `${apiBaseUrl}/reports`,
     GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
+  },
+  ROLES: {
+    GET_ALL_ROLES: `${apiBaseUrl}/roles`,
+    CREATE_ROLE: `${apiBaseUrl}/roles`
   }
 };

@@ -13,7 +13,9 @@ import CardsRecordsList from "../CardRecords/ViewAllCardRecords";
 import { permissionsConstants } from "../../constants/permissions.constants";
 import ViewCustomer from "../Customers/ViewCustomer";
 
-import AuditTrail from '../AuditTrail/AuditList/index';
+import AuditTrail from "../AuditTrail/AuditList/index";
+import Roles from "../Roles/RolesList/index";
+import RoleForm from "../Roles/RolesForm";
 
 const {
   CREATE_LIMIT,
@@ -25,7 +27,7 @@ const {
   CHANGE_USER_ROLE,
   VIEW_CUSTOMER,
   VIEW_CUSTOMER_CARDS,
-  VIEW_AUDIT_TRAIL
+  VIEW_ADMIN
 } = permissionsConstants;
 
 export const LimitRequestRoutes = {
@@ -160,14 +162,46 @@ export const AuditTrailRoutes = {
       exact: false,
       icon: null,
       name: "AuditTrail",
-      path: "/audit",
+      path: "/view-report",
       menu: true,
       pageComponent: AuditTrail,
       enabled: true,
-      permissions: [VIEW_AUDIT_TRAIL]
+      permissions: [VIEW_ADMIN]
     },
   ]
 }
+
+export const RolesRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "roles",
+      title: "Roles",
+      exact: false,
+      icon: null,
+      name: "roles",
+      path: "/roles",
+      menu: true,
+      pageComponent: Roles,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      key: "addRole",
+      title: "Add Role",
+      exact: false,
+      icon: null,
+      name: "Add Roles",
+      path: "/roles/add",
+      menu: false,
+      pageComponent: RoleForm,
+      enabled: true,
+      permissions: [CREATE_USER]
+    },
+  ]
+}
+
 
 export const UserRoutes = {
   enabled: true,

@@ -7,16 +7,36 @@ import {
   UserRoutes,
   LimitRequestRoutes,
   CustomerRoutes,
-  AuditTrailRoutes
+  AuditTrailRoutes,
+  RolesRoutes
 } from "./routeConstants";
 import Dashboard from "../Dashboard";
 import PermissionedRoute from "./PermissionedRoute";
 import LogIn from "../Account/LogIn";
+import RoleForm from "../Roles/RolesForm";
 
 const Users = () => (
   <Switch>
     {UserRoutes.enabled &&
       UserRoutes.routes.map(route =>
+        route.enabled ? (
+          <PermissionedRoute
+            key={route.key}
+            exact={route.exact}
+            path={route.path}
+            allowedPermissions={route.permissions}
+            name={route.name}
+            component={route.pageComponent}
+          />
+        ) : null
+      )}
+  </Switch>
+);
+
+const Roles = () => (
+  <Switch>
+    {RolesRoutes.enabled &&
+      RolesRoutes.routes.map(route =>
         route.enabled ? (
           <PermissionedRoute
             key={route.key}
@@ -100,7 +120,9 @@ const Router = ({ hasError }) => (
             <Route path="/customers" component={Customers} />
             <Route path="/limits" component={Limits} />
             <Route path="/report" component={Reports} />
-            <Route path="/audit" component={Reports} />
+            <Route path="/view-report" component={Reports} />
+            <Route path="/roles" component={Roles} />
+            <Route path="/roles-form" component={RoleForm} />
             {/* <PermissionedRoute
               path="/admin-management"
               allowedPermissions={[permissionsConstants.VIEW_CARD_STATEMENT]}

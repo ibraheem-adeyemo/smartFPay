@@ -27,33 +27,33 @@ export const roles = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case rolesConstants[`UPDATE_${namespace}_SUCCESS`]:
-      return {
-        ...state,
-        loading: false,
-        success: true,
-        response: state.response
-          ? {
-              ...state.response,
-              data: [...state.response.data, ...action.response.data]
-            }
-          : action.response,
-        error: null
-      };
-    case rolesConstants[`REMOVE_${namespace}_SUCCESS`]:
-      return {
-        ...state,
-        loading: false,
-        success: true,
-        response: {
-          ...state.response,
-          data: appUtils.intersect(state.response.data, action.response.data, [
-            elem => elem.id,
-            elem => elem.id
-          ], true)
-        },
-        error: null
-      };
+    // case rolesConstants[`UPDATE_${namespace}_SUCCESS`]:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     success: true,
+    //     response: state.response
+    //       ? {
+    //           ...state.response,
+    //           data: [...state.response.data, ...action.response.data]
+    //         }
+    //       : action.response,
+    //     error: null
+    //   };
+    // case rolesConstants[`REMOVE_${namespace}_SUCCESS`]:
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     success: true,
+    //     response: {
+    //       ...state.response,
+    //       data: appUtils.intersect(state.response.data, action.response.data, [
+    //         elem => elem.id,
+    //         elem => elem.id
+    //       ], true)
+    //     },
+    //     error: null
+    //   };
     case rolesConstants[`GET_${namespace}_FAILURE`]:
       return {
         ...state,
