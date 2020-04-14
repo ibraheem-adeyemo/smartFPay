@@ -18,10 +18,10 @@ const validate = values => {
 
     if (!values.frequency) {
         errors.frequency = "Frequency field shouldn’t be empty";
-    } else if (values && values.frequency && values.frequency < 3) {
-        errors.frequency = "Enter a frequecy that is greater than 3";
-    } else if (values.frequency && !/^[0-9 ]+$/g.test(values.frequency)) {
-        errors.frequency = "Only numbers allowed";
+    } else if (values && values.frequency && !(values.frequency.toLowerCase() === "daily" || values.frequency.toLowerCase() === "weekly" || values.frequency.toLowerCase() === "monthly")) {
+        errors.frequency = "Frequency can either be daily, weekly or monthly.";
+    } else if (values.frequency && !/^[A-za-z ]+$/g.test(values.frequency)) {
+        errors.frequency = "Only alphabets allowed";
     }
     
     return errors;

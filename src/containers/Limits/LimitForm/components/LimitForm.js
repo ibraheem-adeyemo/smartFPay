@@ -124,7 +124,7 @@ const LimitForm = memo(props => {
                             id="frequency"
                             name="frequency"
                             component={renderField}
-                            type="number"
+                            type="text"
                             placeholder="frequency"
                           />
                         </div>
