@@ -196,7 +196,7 @@ export const RolesRoutes = {
     {
       key: "roles",
       title: "Roles",
-      exact: false,
+      exact: true,
       icon: null,
       name: "roles",
       path: "/roles",
@@ -208,14 +208,14 @@ export const RolesRoutes = {
     {
       key: "addRole",
       title: "Add Role",
-      exact: false,
+      exact: true,
       icon: null,
       name: "Add Roles",
       path: "/roles/add",
       menu: false,
       pageComponent: RoleForm,
       enabled: true,
-      permissions: [CREATE_USER]
+      permissions: [VIEW_ADMIN]
     },
   ]
 }

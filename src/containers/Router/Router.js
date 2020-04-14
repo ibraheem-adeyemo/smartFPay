@@ -123,7 +123,7 @@ const Router = ({ hasError }) => (
             <Route path="/report" component={Reports} />
             <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
-            <Route path="/roles-form" component={LimitForm} />
+            <Route path="/roles-form" component={RoleForm} />
             {/* <PermissionedRoute
               path="/admin-management"
               allowedPermissions={[permissionsConstants.VIEW_CARD_STATEMENT]}
