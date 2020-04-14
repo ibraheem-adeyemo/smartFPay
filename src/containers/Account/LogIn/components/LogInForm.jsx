@@ -26,6 +26,7 @@ class LogInForm extends PureComponent {
               name="name"
               type="text"
               placeholder="Name"
+              style={{border: "1px solid"}}
             />
           </div>
         </div>
@@ -35,11 +36,13 @@ class LogInForm extends PureComponent {
               name="password"
               type={showPassword ? 'text' : 'password'}
               placeholder="Password"
+              style={{border: "1px solid", borderRightStyle: "hidden"}}
             />
             <button
               className={`form__form-group-button${showPassword ? ' active' : ''}`}
               onClick={e => this.showPassword(e)}
               type="button"
+              style={{height: "auto"}}
             ><EyeIcon />
             </button>
           </div>
