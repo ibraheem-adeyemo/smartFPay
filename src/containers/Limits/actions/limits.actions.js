@@ -24,6 +24,16 @@ export const getAllControls = requestParams => {
         );
       }
     };
+
+    function request(request) {
+        return { type: controlConstants[`GET_${nameSpace}_REQUEST`], request };
+      }
+      function success(response) {
+        return { type: controlConstants[`GET_${nameSpace}_SUCCESS`], response };
+      }
+      function failure(error) {
+        return { type: controlConstants[`GET_${nameSpace}_FAILURE`], error };
+      }
 }
 
 export const getControl = id => {
@@ -43,6 +53,16 @@ export const getControl = id => {
         );
       }
     };
+
+    function request(request) {
+        return { type: controlConstants[`VIEW_${nameSpace}_REQUEST`], request };
+      }
+      function success(response) {
+        return { type: controlConstants[`VIEW_${nameSpace}_SUCCESS`], response };
+      }
+      function failure(error) {
+        return { type: controlConstants[`VIEW_${nameSpace}_FAILURE`], error };
+      }
 }
 
 export const toggleCardControl = (cardId, active, postAction, pageState) => {
@@ -72,6 +92,16 @@ export const toggleCardControl = (cardId, active, postAction, pageState) => {
         );
       }
     };
+
+    function request(request) {
+        return { type: controlConstants[`TOGGLE_CARD_CONTROL_${nameSpace}_REQUEST`], request };
+      }
+      function success(response) {
+        return { type: controlConstants[`TOGGLE_CRAD_CONTROL_${nameSpace}_SUCCESS`], response };
+      }
+      function failure(error) {
+        return { type: controlConstants[`TOGGLE_CARD_CONTROL_${nameSpace}_FAILURE`], error };
+      }
 };
 
 export const toggleAccountControl = (accountNumber, active, postAction, pageState) => {
@@ -101,10 +131,20 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
         );
       }
     };
+
+    function request(request) {
+        return { type: controlConstants[`TOGGLE_ACCOUNT_CONTROL_${nameSpace}_REQUEST`], request };
+      }
+      function success(response) {
+        return { type: controlConstants[`TOGGLE_ACCOUNT_CONTROL_${nameSpace}_SUCCESS`], response };
+      }
+      function failure(error) {
+        return { type: controlConstants[`TOGGLE_ACCOUNT_CONTROL_${nameSpace}_FAILURE`], error };
+      }
 };
 
-export const postControl = (values, currentControl, id, controlToEdit) => {
-    const requestBody = createRequestBody(values, currentControl, id, controlToEdit);
+export const postControl = (values, id, controlToEdit) => {
+    const requestBody = createRequestBody(values, id, controlToEdit);
   
     return async (dispatch, getState) => {
       const state = getState();
@@ -123,7 +163,7 @@ export const postControl = (values, currentControl, id, controlToEdit) => {
         dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
         dispatch(resetPost());
         if (id) {
-          dispatch(getLimit(id));
+          dispatch(getControl(id));
         } else {
           dispatch(resetView());
         }

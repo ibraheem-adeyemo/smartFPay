@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 import CustomSearch from "./CustomSearch";
 import { toggleAccountControl, toggleCardControl } from "../../actions/limits.actions";
 import { connect } from "react-redux";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
@@ -80,7 +80,7 @@ const LimitsTable = memo(props => {
       name: "Limit ID",
       filterable: true,
       sortable: true,
-      sortKey: "limitId"
+      sortKey: "controlId"
     },
     {
       accessor: "duration",
@@ -121,7 +121,7 @@ const LimitsTable = memo(props => {
             accessControlFn(
               permissions,
               [ENABLE_ACCOUNT_CONTROL, DISABLE_ACCOUNT_CONTROL, ENABLE_CARD_CONTROL, DISABLE_CARD_CONTROL],
-              row.cardId ? toggleCardControl : toggleAccountControl,
+              row.cardId ? toggleCardFn : toggleAccountFn,
               row
             )
           }
@@ -194,7 +194,7 @@ const LimitsTable = memo(props => {
   };
 
   const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allUsers.request, pageNum, pageSize, searchWord: searchKey });
+    fetchData({ ...allControls.request, pageNum, pageSize, searchWord: searchKey });
   };
 
   return (
@@ -210,7 +210,7 @@ const LimitsTable = memo(props => {
               <ButtonToolbar className="products-list__btn-toolbar-top">
                 <Link
                   className="btn btn-primary products-list__btn-add"
-                  to="/controls/add"
+                  to="/limit-requests/add"
                   id="link-create-control"
                 >
                   Add new control

@@ -14,6 +14,7 @@ import Dashboard from "../Dashboard";
 import PermissionedRoute from "./PermissionedRoute";
 import LogIn from "../Account/LogIn";
 import RoleForm from "../Roles/RolesForm";
+import LimitForm from "../Limits/LimitForm";
 
 const Users = () => (
   <Switch>
@@ -118,11 +119,11 @@ const Router = ({ hasError }) => (
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/users" component={Users} />
             <Route path="/customers" component={Customers} />
-            <Route path="/limits" component={Limits} />
+            <Route path="/limit-requests" component={Limits} />
             <Route path="/report" component={Reports} />
             <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
-            <Route path="/roles-form" component={RoleForm} />
+            <Route path="/roles-form" component={LimitForm} />
             {/* <PermissionedRoute
               path="/admin-management"
               allowedPermissions={[permissionsConstants.VIEW_CARD_STATEMENT]}

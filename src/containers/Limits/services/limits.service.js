@@ -1,7 +1,7 @@
 import { apiCall } from "../../../utils/api.utils";
 import { API_URLS } from "../../../constants/apiUrls";
 
-export const userService = {
+export const limitService = {
   getAllControls,
   postControl,
   toggleAccountLimit,
