@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Container, Row } from "reactstrap";
 import RolesTable from "./components/RolesTable";
 import PageHeader from "../../../shared/components/PageHeader";
-const RolesList = () => (
-  <Container>
-    <PageHeader header="Manage Roles" subheader="Create and Modify Roles information" />
-    <Row>
-      <RolesTable />
-    </Row>
-  </Container>
-);
+import { getRoles } from "../actions/roles.actions";
 
-export default RolesList;
+const RolesList = ({ dispatch, allRoles }) => {
+  const loadRoles = requestParams => {
+    dispatch(getRoles(requestParams));
+  };
+
+  useEffect(() => {
+    dispatch(getRoles({ pageNum: 1, pageSize: 10 }));
+  }, [dispatch]);
+
+  return (
+    <Container>
+      <PageHeader
+        header="Manage Roles"
+        subheader="View and Create Roles"
+      />
+      <Row>
+        <RolesTable dataState={allRoles} fetchData={loadRoles} />
+      </Row>
+    </Container>
+  );
+};
+
+export default connect(state => ({
+  allRoles: state.roles
+}))(RolesList);

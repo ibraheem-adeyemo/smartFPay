@@ -9,7 +9,7 @@ import { permissionsConstants } from "../../../constants/permissions.constants";
 
 const {
   VIEW_USERS,
-  VIEW_LIMIT_REQUEST,
+  VIEW_CONTROLS,
   VIEW_ADMIN,
   VIEW_CUSTOMER,
 } = permissionsConstants;
@@ -36,7 +36,7 @@ export const menuConfig = {
       key: "limit-requests",
       icon: MdCreditCard,
       path: "/limit-requests",
-      permissions: [VIEW_LIMIT_REQUEST]
+      permissions: [VIEW_CONTROLS]
     },
     {
       title: "Customer Information",
@@ -55,13 +55,13 @@ export const menuConfig = {
         {
           title: "Roles Management",
           key: "roles-management",
-          path: "/roles-management",
+          path: "/roles",
           permissions: [VIEW_ADMIN]
         },
         {
           title: "Audit Trail",
           key: "audit-trail",
-          path: "/audit",
+          path: "/view-report",
           permissions: [VIEW_ADMIN]
         }
       ]

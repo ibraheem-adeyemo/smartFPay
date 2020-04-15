@@ -13,11 +13,19 @@ import CardsRecordsList from "../CardRecords/ViewAllCardRecords";
 import { permissionsConstants } from "../../constants/permissions.constants";
 import ViewCustomer from "../Customers/ViewCustomer";
 
-import AuditTrail from '../AuditTrail/AuditTrail';
+import AuditTrail from "../AuditTrail/AuditList/index";
+import Roles from "../Roles/RolesList/index";
+import RoleForm from "../Roles/RolesForm";
+
+import LimitsList from "../Limits/LimitsList";
+import LimitForm from "../Limits/LimitForm";
+import ViewLimit from "../Limits/LimitView";
 
 const {
-  CREATE_LIMIT,
-  VIEW_LIMIT_REQUEST,
+  CREATE_CONTROL,
+  VIEW_CONTROLS,
+  UPDATE_CONTROLS,
+  VIEW_CONTROL,
   VIEW_USERS,
   VIEW_USER,
   CREATE_USER,
@@ -25,7 +33,7 @@ const {
   CHANGE_USER_ROLE,
   VIEW_CUSTOMER,
   VIEW_CUSTOMER_CARDS,
-  VIEW_AUDIT_TRAIL
+  VIEW_ADMIN
 } = permissionsConstants;
 
 export const LimitRequestRoutes = {
@@ -40,9 +48,9 @@ export const LimitRequestRoutes = {
       name: "LimitRequests",
       path: "/limit-requests",
       menu: true,
-      pageComponent: CardRequestsList,
+      pageComponent: LimitsList,
       enabled: true,
-      permissions: [VIEW_LIMIT_REQUEST]
+      permissions: [VIEW_CONTROLS]
     },
     {
       key: "limitRequestCustomers",
@@ -57,16 +65,28 @@ export const LimitRequestRoutes = {
       permissions: [VIEW_CUSTOMER]
     },
     {
-      key: "createLimit",
-      title: "Create Limit",
+      key: "addLimit",
+      title: "Add Limit",
       exact: false,
       icon: null,
-      name: "CreateLimit",
-      path: "/Limit-requests/create",
-      menu: true,
+      name: "Add Limit",
+      path: "/limit-requests/add",
+      menu: false,
+      pageComponent: LimitForm,
+      enabled: true,
+      permissions: [CREATE_CONTROL]
+    },
+    {
+      key: "editLimit",
+      title: "Edit Limit",
+      exact: false,
+      icon: null,
+      name: "Edit Limits",
+      path: "/limit-requests/edit/:id",
+      menu: false,
       pageComponent: CardRequestsForm,
       enabled: true,
-      permissions: [CREATE_LIMIT]
+      permissions: [UPDATE_CONTROLS]
     },
     {
       key: "viewCardRequest",
@@ -78,7 +98,7 @@ export const LimitRequestRoutes = {
       menu: true,
       pageComponent: ViewCardRequest,
       enabled: true,
-      permissions: [VIEW_LIMIT_REQUEST]
+      permissions: [VIEW_CONTROL]
     },
     {
       key: "viewRequestDetails",
@@ -90,7 +110,7 @@ export const LimitRequestRoutes = {
       menu: true,
       pageComponent: ViewCardRequest,
       enabled: true,
-      permissions: [VIEW_LIMIT_REQUEST]
+      permissions: [VIEW_CONTROLS]
     }
   ]
 };
@@ -160,14 +180,46 @@ export const AuditTrailRoutes = {
       exact: false,
       icon: null,
       name: "AuditTrail",
-      path: "/audit",
+      path: "/view-report",
       menu: true,
       pageComponent: AuditTrail,
       enabled: true,
-      permissions: [VIEW_AUDIT_TRAIL]
+      permissions: [VIEW_ADMIN]
     },
   ]
 }
+
+export const RolesRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "roles",
+      title: "Roles",
+      exact: true,
+      icon: null,
+      name: "roles",
+      path: "/roles",
+      menu: true,
+      pageComponent: Roles,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      key: "addRole",
+      title: "Add Role",
+      exact: true,
+      icon: null,
+      name: "Add Roles",
+      path: "/roles/add",
+      menu: false,
+      pageComponent: RoleForm,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+  ]
+}
+
 
 export const UserRoutes = {
   enabled: true,

@@ -10,22 +10,19 @@ import CustomSearch from "./CustomSearch";
 import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
-import { accessControlFn } from "../../../../utils/accessControl";
 import { getFormValues } from "redux-form";
 
 const {
   VIEW_ADMIN
 } = permissionsConstants;
 
-const RolesTable = memo(props => {
+const ReportsTable = memo(props => {
   const {
     dataState,
     fetchData,
-    dispatch,
     permissions,
-    allRoles
+    allReports
   } = props;
 
   const [searchKey, setSearchKey] = useState("");
@@ -33,43 +30,43 @@ const RolesTable = memo(props => {
 
   const columns = [
     {
-      accessor: "id",
-      name: "",
-      sortable: true,
-      sortKey: "id"
-    },
-    {
-      accessor: "name",
-      name: "Name",
+      accessor: "User",
+      name: "User Name",
       filterable: true,
       sortable: true,
-      sortKey: "name"
+      sortKey: "userName"
     },
     {
-      accessor: "description",
-      name: "Description",
-      sortKey: "description"
-    }
+      accessor: "email",
+      name: "Email",
+      filterable: true,
+      sortable: true,
+      sortKey: "email"
+    },
+    {
+        accessor: "Description",
+        name: "Description",
+        filterable: true,
+        sortable: true,
+        sortKey: "description"
+    },
+    {
+        accessor: "Action",
+        name: "Action",
+        filterable: true,
+        sortable: true,
+        sortKey: "action"
+    },
   ];
-
-  const handleAction = (row, action) => {
-    if (action.name === "view_roles") {
-      props.history.push(`${props.location.pathname}/view/${row.username}`);
-    } else if (action.name === "edit_users") {
-      props.history.push(`${props.location.pathname}/edit/${row.username}`);
-    } else if (action.name === "manageRoles") {
-      props.history.push(`${props.location.pathname}/roles/${row.username}`);
-    }
-  };
 
   const sortFn = (pageNum, pageSize, column) => {
     let sortOrder = "ASC";
-    if (!allRoles.loading) {
-      if (allRoles.request && allRoles.request.sortOrder) {
-        sortOrder = allRoles.request.sortOrder === "ASC" ? "DESC" : "ASC";
+    if (!allReports.loading) {
+      if (allReports.request && allReports.request.sortOrder) {
+        sortOrder = allReports.request.sortOrder === "ASC" ? "DESC" : "ASC";
       }
       fetchData({
-        ...allRoles.request,
+        ...allReports.request,
         pageNum,
         pageSize,
         sortKey: column.sortKey,
@@ -80,9 +77,8 @@ const RolesTable = memo(props => {
 
   const actions = [
     {
-      name: "view_roles",
+      name: "view_reports",
       btnText: "View",
-      btnAction: handleAction,
       btnClass: "success",
       btnIcon: MdInsertDriveFile,
       permissions: [VIEW_ADMIN]
@@ -92,14 +88,14 @@ const RolesTable = memo(props => {
   const handleSubmit = values => {
     setSearchKey(values.searchWord);
     fetchData({
-      ...allRoles.request,
+      ...allReports.request,
       pageNum: 1,
       searchWord: values.searchWord || ""
     });
   };
 
   const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allRoles.request, pageNum, pageSize, searchWord: searchKey });
+    fetchData({ ...allReports.request, pageNum, pageSize, searchWord: searchKey });
   };
 
   return (
@@ -107,21 +103,7 @@ const RolesTable = memo(props => {
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Roles</h5>
-            <AccessControl
-              allowedPermissions={[VIEW_ADMIN]}
-              renderNoAccess={() => null}
-            >
-              <ButtonToolbar className="products-list__btn-toolbar-top">
-                <Link
-                  className="btn btn-primary products-list__btn-add"
-                  to="/roles/add"
-                  id="link-create-role"
-                >
-                  Add new role
-                </Link>
-              </ButtonToolbar>
-            </AccessControl>
+            <h5 className="bold-text">Reports</h5>
           </div>
           <DataTable
             columns={columns}
@@ -130,7 +112,7 @@ const RolesTable = memo(props => {
               dataState && dataState.response ? dataState.response.content : []
             }
             count={count}
-            countName="Roles"
+            countName="Users"
             defaultPageSize={10}
             defaultPageNumber={1}
             loadData={loadData}
@@ -166,5 +148,5 @@ const RolesTable = memo(props => {
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
   permissions: state.permissions && state.permissions.response,
-  allRoles: state.roles
-}))(withRouter(RolesTable));
+  allReports: state.getauditreports
+}))(withRouter(ReportsTable));
