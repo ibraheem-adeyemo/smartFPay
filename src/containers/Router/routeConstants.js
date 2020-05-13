@@ -24,7 +24,7 @@ import ViewLimit from "../Limits/LimitView";
 const {
   CREATE_CONTROL,
   VIEW_CONTROLS,
-  UPDATE_CONTROLS,
+  UPDATE_CONTROL,
   VIEW_CONTROL,
   VIEW_USERS,
   VIEW_USER,
@@ -84,9 +84,9 @@ export const LimitRequestRoutes = {
       name: "Edit Limits",
       path: "/limit-requests/edit/:id",
       menu: false,
-      pageComponent: CardRequestsForm,
+      pageComponent: LimitForm,
       enabled: true,
-      permissions: [UPDATE_CONTROLS]
+      permissions: [UPDATE_CONTROL]
     },
     {
       key: "viewCardRequest",

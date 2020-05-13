@@ -36,6 +36,9 @@ const LimitForm = ({ dispatch, control, match }) => {
     dispatch(
       postControl(values, match.params.id, control.response)
     );
+    // console.log('values', values);
+    // console.log('match', match);
+    // console.log('control', control);
   };
 
   useEffect(() => {

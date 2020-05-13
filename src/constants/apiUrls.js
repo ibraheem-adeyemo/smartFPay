@@ -21,9 +21,9 @@ export const API_URLS = {
     GET_PERMISSION: `/${apiVersion}/user/permissions`
   },
   LIMITS: {
-    GET_CONTROLS: `${apiBaseUrl}/controls`,
+    GET_CONTROLS: `${apiBaseUrl}/limit`,
     GET_CONTROL: `${apiBaseUrl}/control`,
-    POST_CONTROL: `${apiBaseUrl}/controls`,
+    POST_CONTROL: `${apiBaseUrl}/api/limit/account`,
 
     ENABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/enable`,
     DISABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/disable`,

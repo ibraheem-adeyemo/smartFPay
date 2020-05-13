@@ -145,7 +145,7 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
 
 export const postControl = (values, id, controlToEdit) => {
     const requestBody = createRequestBody(values, id, controlToEdit);
-  
+    console.log(requestBody);
     return async (dispatch, getState) => {
       const state = getState();
       dispatch(request(requestBody));

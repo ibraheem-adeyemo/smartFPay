@@ -19,7 +19,7 @@ import { getFormValues } from "redux-form";
 const {
   CREATE_CONTROL,
   VIEW_CONTROL,
-  UPDATE_CONTROLS,
+  UPDATE_CONTROL,
   ENABLE_ACCOUNT_CONTROL,
   ENABLE_CARD_CONTROL,
   DISABLE_ACCOUNT_CONTROL,
@@ -180,7 +180,7 @@ const LimitsTable = memo(props => {
       btnAction: handleAction,
       btnClass: "default",
       btnIcon: MdModeEdit,
-      permissions: [UPDATE_CONTROLS]
+      permissions: [UPDATE_CONTROL]
     }
   ];
 
@@ -196,6 +196,14 @@ const LimitsTable = memo(props => {
   const loadData = (pageNum, pageSize) => {
     fetchData({ ...allControls.request, pageNum, pageSize, searchWord: searchKey });
   };
+
+  const limitControls = [{
+    id: 1,
+    duration: 100,
+    frequency: "DAILY",
+    amount: 5000,
+    active: true
+  }];
 
   return (
     <Col md={12} lg={12}>
@@ -221,9 +229,10 @@ const LimitsTable = memo(props => {
           <DataTable
             columns={columns}
             loading={dataState && dataState.loading}
-            data={
-              dataState && dataState.response ? dataState.response.content : []
-            }
+            // data={
+            //   dataState && dataState.response ? dataState.response.content : []
+            // }
+            data={limitControls}
             count={count}
             countName="Controls"
             defaultPageSize={10}
