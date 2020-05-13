@@ -13,7 +13,7 @@ const LogIn = () => (
           </h3>
           <h4 className="account__subhead subhead">Management dashboard</h4>
         </div>
-        <LogInForm onSubmit />
+        <LogInForm />
       </div>
     </div>
   </div>

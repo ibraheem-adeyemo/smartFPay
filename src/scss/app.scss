@@ -19,7 +19,7 @@
 @import './component/sidebar';
 @import './component/topbar';
 @import './component/load';
-@import './component/form';
+
 @import './component/modal';                 
 @import './component/panel';
 @import './component/table';
@@ -33,6 +33,7 @@
 @import './component/select-options';
 @import './component/toggle-btn';  
 @import './component/wizard'; 
+@import './component/form';
 
 //pages...
 @import 'containers/account';
