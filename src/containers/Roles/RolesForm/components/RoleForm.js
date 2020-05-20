@@ -52,13 +52,26 @@ const RoleForm = memo(props => {
             <Row>
               <Col lg="4">
                 <div className="form__form-group">
-                  <span className="form__form-group-label">Role name</span>
+                  <span className="form__form-group-label required">Role name</span>
                   <div className="form__form-group-field">
                     <Field
                       name="role_name"
                       component="input"
                       type="text"
                       placeholder="Role name"
+                    />
+                  </div>
+                </div>
+              </Col>
+              <Col lg="4">
+                <div className="form__form-group">
+                  <span className="form__form-group-label">Description</span>
+                  <div className="form__form-group-field">
+                    <Field
+                      name="description"
+                      component="input"
+                      type="text"
+                      placeholder="Role description"
                     />
                   </div>
                 </div>
