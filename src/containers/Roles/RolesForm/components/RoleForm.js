@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
 import { resetPostRole } from "../../actions/roles.actions";
 import validate from "./validate";
+import PermissionsSelect from '../../PermissionsSelect';
 
 const RoleForm = memo(props => {
   const {
@@ -78,6 +79,15 @@ const RoleForm = memo(props => {
               </Col>
             </Row>
 
+            <Row>
+              <Col lg="4">
+                <PermissionsSelect
+                  required
+                  id="permission-select"
+                  label="Assign permissions to role"
+                />
+              </Col>
+            </Row>
             <ButtonToolbar className="form__button-toolbar">
               <Button type="button" onClick={reset}
                       disabled={pristine || submitting}>
