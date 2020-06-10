@@ -18,6 +18,7 @@ import { renderField } from "../../../../utils/renderfield";
 import validate from "./validate";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostLimitControl } from "../../actions/limits.actions";
+import renderToggleButtonField from "../../../../shared/components/form/ToggleButton";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 
 const LimitForm = memo(props => {
@@ -30,6 +31,7 @@ const LimitForm = memo(props => {
     submitting,
     controlId,
     control,
+    interbankTransaction,
     postcontrol,
     startDate,
     endDate
@@ -190,6 +192,18 @@ const LimitForm = memo(props => {
                             placeholder="End Date"
                             timeInputLabel="End Time"
                           />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label required">Interbank Transaction</span>
+                        <div className="form__form-group-field">
+                        <Field
+                          id="interbankTransaction"
+                          name="interbankTransaction"
+                          component={renderToggleButtonField}
+                        />
                         </div>
                       </div>
                     </Col>

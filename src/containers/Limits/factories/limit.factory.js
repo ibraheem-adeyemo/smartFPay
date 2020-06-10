@@ -1,7 +1,7 @@
 export const createRequestBody = (values, id, controlToEdit) => {  
   const requestObject = {
     accountNumber: "1234567890",
-    interbankTransaction: false,
+    interbankTransaction: values.interbankTransaction,
     coreBankingId: "0001020303030",
     // active: true,
     // admin: true,
