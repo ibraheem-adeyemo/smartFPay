@@ -19,10 +19,13 @@ import RoleForm from "../Roles/RolesForm";
 
 import LimitsList from "../Limits/LimitsList";
 import LimitForm from "../Limits/LimitForm";
+import CardLimitForm from "../Limits/CardLimitForm";
 import ViewLimit from "../Limits/LimitView";
 
 const {
   CREATE_CONTROL,
+  CREATE_CARD_CONTROL,
+  UPDATE_CARD_CONTROL,
   VIEW_CONTROLS,
   UPDATE_CONTROL,
   VIEW_CONTROL,
@@ -77,6 +80,18 @@ export const LimitRequestRoutes = {
       permissions: [CREATE_CONTROL]
     },
     {
+      key: "addCardLimit",
+      title: "Add Card Limit",
+      exact: false,
+      icon: null,
+      name: "Add Card Limit",
+      path: "/card-limit-requests/add",
+      menu: false,
+      pageComponent: CardLimitForm,
+      enabled: true,
+      permissions: [CREATE_CARD_CONTROL]
+    },
+    {
       key: "editLimit",
       title: "Edit Limit",
       exact: false,
@@ -87,6 +102,18 @@ export const LimitRequestRoutes = {
       pageComponent: LimitForm,
       enabled: true,
       permissions: [UPDATE_CONTROL]
+    },
+    {
+      key: "editCardLimit",
+      title: "Edit Card Limit",
+      exact: false,
+      icon: null,
+      name: "Edit Card Limits",
+      path: "/card-limit-requests/edit/:id",
+      menu: false,
+      pageComponent: CardLimitForm,
+      enabled: true,
+      permissions: [UPDATE_CARD_CONTROL]
     },
     {
       key: "viewCardRequest",

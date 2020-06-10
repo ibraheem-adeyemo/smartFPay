@@ -85,6 +85,8 @@ const permissionsArray = [
   {authority: "ROLE_VIEW_CONTROLS"},
   {authority: "ROLE_VIEW_CONTROL"},
   {authority: "ROLE_CREATE_CONTROL"},
+  {authority: "ROLE_CREATE_CARD_CONTROL"},
+  {authority: "ROLE_UPDATE_CARD_CONTROL"},
   {authority: "ROLE_UPDATE_CONTROL"},
   {authority: "ROLE_ENABLE_ACCOUNT_CONTROL"},
   {authority: "ROLE_ENABLE_CARD_CONTROL"},

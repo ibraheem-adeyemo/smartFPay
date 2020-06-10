@@ -3,6 +3,9 @@ import { appConfig } from "../config/config";
 
 const { apiBaseUrl, apiVersion } = appConfig;
 export const API_URLS = {
+  AUTH: {
+    LOGIN: `${apiBaseUrl}/auth/admin`
+  },
   USERS: {
     GET_USERS: `${apiBaseUrl}/users/admin`,
     GET_USER: `${apiBaseUrl}/users/`,
@@ -24,6 +27,7 @@ export const API_URLS = {
     GET_CONTROLS: `${apiBaseUrl}/limit`,
     GET_CONTROL: `${apiBaseUrl}/control`,
     POST_CONTROL: `${apiBaseUrl}/api/limit/account`,
+    POST_CARD_CONTROL: `${apiBaseUrl}/api/limit/card`,
 
     ENABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/enable`,
     DISABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/disable`,

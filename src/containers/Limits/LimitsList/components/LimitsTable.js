@@ -18,6 +18,8 @@ import { getFormValues } from "redux-form";
 
 const {
   CREATE_CONTROL,
+  CREATE_CARD_CONTROL,
+  UPDATE_CARD_CONTROL,
   VIEW_CONTROL,
   UPDATE_CONTROL,
   ENABLE_ACCOUNT_CONTROL,
@@ -222,6 +224,20 @@ const LimitsTable = memo(props => {
                   id="link-create-control"
                 >
                   Add new control
+                </Link>
+              </ButtonToolbar>
+            </AccessControl> 
+            <AccessControl
+              allowedPermissions={[CREATE_CARD_CONTROL]}
+              renderNoAccess={() => null}
+            >
+              <ButtonToolbar className="products-list__btn-toolbar-top">
+                <Link
+                  className="btn btn-primary products-list__btn-add"
+                  to="/card-limit-requests/add"
+                  id="link-create-control"
+                >
+                  Add new card control
                 </Link>
               </ButtonToolbar>
             </AccessControl>

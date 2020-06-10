@@ -4,6 +4,8 @@ import { combineReducers } from "redux";
 import { sidebarReducer, themeReducer } from "./containers/Layout/reducers";
 import { alert as notificationReducer } from "./containers/Notifications/reducers/alert.reducer";
 
+import {postlogin} from "./containers/Account/reducers";
+
 import {
   viewuser,
   postuser,
@@ -16,6 +18,7 @@ import {
 import {
   viewcontrol,
   postcontrol,
+  postcardcontrol,
   getcontrols,
   toggleaccount,
   togglecard
@@ -45,6 +48,8 @@ export default combineReducers({
   sidebar: sidebarReducer,
   notification: notificationReducer,
 
+  postlogin,
+
   viewuser,
   getusers,
   postuser,
@@ -60,6 +65,7 @@ export default combineReducers({
   toggleaccount,
   togglecard,
   postcontrol,
+  postcardcontrol,
 
   roles,
   postrole,

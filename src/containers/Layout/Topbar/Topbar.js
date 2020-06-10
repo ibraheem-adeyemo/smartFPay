@@ -19,7 +19,6 @@ const Topbar = memo(props => {
           <Link className="topbar__logo" to="/dashboard" />
         </div>
         <div className="topbar__right">
-          <TopbarNotification />
           <TopbarProfile />
         </div>
       </div>

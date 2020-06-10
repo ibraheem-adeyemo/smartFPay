@@ -3,7 +3,8 @@ import { show as showAlert } from "../../Notifications/actions/alert.actions";
 import { message } from "../../../constants/app.constants";
 import { controlConstants, nameSpace } from "../constants/limit.constants";
 import {
-  createRequestBody
+  createRequestBody,
+  createCardRequestBody
 } from "../factories/limit.factory.js";
 import { reset } from "redux-form";
 
@@ -196,10 +197,63 @@ export const postControl = (values, id, controlToEdit) => {
     }
 };
 
-export const resetPostLimitControl = () => {
+export const postCardControl = (values, id, controlToEdit) => {
+  const requestBody = createCardRequestBody(values, id, controlToEdit);
+  console.log(requestBody);
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch(request(requestBody));
+    try {
+      const response = await limitService.postCardControl(requestBody, id);
+      dispatch(success(response));
+      dispatch(reset("card_control_form"));
+      dispatch(
+        showAlert(
+          "success",
+          id ? "Control edited successfully" : "New card control added successfully",
+          response && response.responseMessage
+        )
+      );
+      dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+      dispatch(resetPost());
+      if (id) {
+        dispatch(getControl(id));
+      } else {
+        dispatch(resetView());
+      }
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          requestBody.id ? "Failed to edit card control" : "Failed to add card control",
+          error ? error.message : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request() {
+    return { type: controlConstants[`POST_${nameSpace}_REQUEST`] };
+  }
+  function success(response) {
+    return { type: controlConstants[`POST_${nameSpace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: controlConstants[`POST_${nameSpace}_FAILURE`], error };
+  }
+  function resetPost() {
     return { type: controlConstants[`POST_${nameSpace}_RESET`] };
-  };
-  
-  export const resetViewLimitControl = () => {
+  }
+  function resetView() {
     return { type: controlConstants[`VIEW_${nameSpace}_RESET`] };
-  };
+  }
+};
+
+export const resetPostLimitControl = () => {
+  return { type: controlConstants[`POST_${nameSpace}_RESET`] };
+};
+
+export const resetViewLimitControl = () => {
+  return { type: controlConstants[`VIEW_${nameSpace}_RESET`] };
+};

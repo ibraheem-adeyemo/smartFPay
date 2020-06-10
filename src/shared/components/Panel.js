@@ -63,15 +63,15 @@ const AlertComponent = memo(props => {
               ""
             )}
             <div className="panel__btns">
-              <button className="panel__btn" type="button" onClick={onCollapse}>
+              {/* <button className="panel__btn" type="button" onClick={onCollapse}>
                 <MdRemove />
-              </button>
+              </button> */}
               <button className="panel__btn" type="button" onClick={onRefresh}>
                 <MdRefresh />
               </button>
-              <button className="panel__btn" type="button" onClick={onDismiss}>
+              {/* <button className="panel__btn" type="button" onClick={onDismiss}>
                 <MdClose />
-              </button>
+              </button> */}
             </div>
             <div className="panel__title">
               <h5 className="bold-text">
