@@ -5,10 +5,14 @@ import {store} from '../../../store';
 export const customersService = {
   getCustomers,
   getCustomerById,
-  getCustomerByIdGet
+  getCustomerByIdGet,
+  postCustomer,
 };
 
-
+function postCustomer(request) {
+  // const method = id ? "PUT" : "POST";
+  return apiCall("POST", API_URLS.CUSTOMERS.POST_CUSTOMER, null, request);
+}
 
 function getCustomers(params, batchId) {
   const domain = store.getState().currentUser.response.domainCode

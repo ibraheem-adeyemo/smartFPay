@@ -8,7 +8,7 @@ const initialState = {
   error: null
 };
 
-export const createCard = (state = initialState, action) => {
+export const createCustomer = (state = initialState, action) => {
   switch (action.type) {
     case customerConstants[`POST_${nameSpace}_REQUEST`]:
       return {

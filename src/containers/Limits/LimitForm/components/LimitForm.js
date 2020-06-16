@@ -112,7 +112,7 @@ const LimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Amount
+                          Transaction Limit Amount
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -128,7 +128,7 @@ const LimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Frequency
+                          Frequency Limit Reset
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -146,7 +146,7 @@ const LimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Duration
+                          Transaction Limit Count
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -154,7 +154,7 @@ const LimitForm = memo(props => {
                             name="duration"
                             component={renderField}
                             type="number"
-                            placeholder="duration"
+                            placeholder="Limit Count"
                           />
                         </div>
                       </div>

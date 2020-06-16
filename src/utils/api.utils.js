@@ -66,7 +66,7 @@ export const apiCall = async (
 ) => {
   let headers = {
     "Content-type": "application/json",
-    "Authorization": `Bearer ${window.localStorage.getItem('token')}`,
+    "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
     ...customHeaders
   };
 

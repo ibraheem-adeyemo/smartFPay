@@ -5,14 +5,14 @@ import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { resetPost } from "../../actions/cardrequests.actions";
-import CustomerInformation from "./CardSteps/CustomerInformation";
-import CardConfiguration from "./CardSteps/CardConfiguration";
-import Review from "./CardSteps/Review";
+import { resetPost } from "../../actions/customers.actions";
+import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
+// import CardConfiguration from "./CardSteps/CardConfiguration";
+// import Review from "./CardSteps/Review";
 import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
 import FormError from "../../../../shared/components/FormError";
 
-const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
+const CustomerCreateForm = memo(({ dispatch, onSubmit, createCustomer }) => {
   const [page, setPage] = useState(1);
 
   const nextPage = () => {
@@ -36,12 +36,12 @@ const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              <Link to="/card-requests" id="link-all-cardrequests">
-                <MdArrowBack size={20} /> Back to card requests
+              <Link to="/customers" id="link-all-cardrequests">
+                <MdArrowBack size={20} /> Back to Customers
               </Link>
             </h5>
           </div>
-          <FormError formState={createCard} />
+          <FormError formState={createCustomer} />
           <div className="wizard">
             <div className="wizard__steps">
               <div
@@ -49,42 +49,40 @@ const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
                   page === 1 ? " wizard__step--active" : ""
                 }`}
               >
-                <p>Customer Information</p>
+                <p>Customer Account Form</p>
               </div>
               <div
                 className={`wizard__step${
                   page === 2 ? " wizard__step--active" : ""
                 }`}
               >
-                <p>Card Configuration</p>
+                <p>Customer Details</p>
               </div>
               <div
                 className={`wizard__step${
                   page === 3 ? " wizard__step--active" : ""
                 }`}
               >
-                <p>Review</p>
+                <p>Limit Control</p>
               </div>
             </div>
             <div className="wizard__form-wrapper">
               {page === 1 && (
-                <CustomerInformation
-                  initialValues={{
-                    cardRequestType: CARD_REQUEST_TYPE.find(
-                      type => type.value === "single"
-                    )
-                  }}
+                <CustomerAccountInformation
                   onSubmit={nextPage}
                 />
               )}
               {page === 2 && (
-                <CardConfiguration
+                <CustomerAccountInformation
                   previousPage={previousPage}
                   onSubmit={nextPage}
                 />
               )}
               {page === 3 && (
-                <Review previousPage={previousPage} onSubmit={onSubmit} />
+                <CustomerAccountInformation
+                previousPage={previousPage}
+                onSubmit={onSubmit}
+              />
               )}
             </div>
           </div>
@@ -94,10 +92,10 @@ const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
   );
 });
 
-CardCreateForm.propTypes = {
+CustomerCreateForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
 export default connect(state => ({
-  createCard: state.createCard
-}))(CardCreateForm);
+  createCustomer: state.createCustomer
+}))(CustomerCreateForm);

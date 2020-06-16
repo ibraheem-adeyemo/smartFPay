@@ -1,8 +1,8 @@
 export const createRequestBody = (values, id, controlToEdit) => {  
   const requestObject = {
-    accountNumber: "1234567890",
+    accountNumber: "0564692611",
     interbankTransaction: values.interbankTransaction,
-    coreBankingId: "0001020303030",
+    coreBankingId: "0909090901",
     // active: true,
     // admin: true,
     transactionLimitCount: parseInt(values.duration),
@@ -30,12 +30,14 @@ export const createRequestBody = (values, id, controlToEdit) => {
 };
 
 export const createCardRequestBody = (values, id, controlToEdit) => {  
+  console.log(values);
   const requestObject = {
-    accountNumber: "1234567890",
-    interbankTransaction: false,
-    coreBankingId: "0001020303030",
-    enabledChannedls: [],
-    enabledCountryCodes: [],
+    tokenizedPan: "68e656b251e89e8358bdf8483ab0d67c6640f3e7a1a9f0e75898d41ff662f077",
+    accountNumber: "0564692611",
+    cardStatus: "BLOCKED",
+    coreBankingId: "0909090901",
+    enabledChannels: values.channels.map(channel => channel.value),
+    enabledCountryCodes: [values.enabledCountries.alpha3Code],
     // active: true,
     // admin: true,
     transactionLimitCount: parseInt(values.duration),

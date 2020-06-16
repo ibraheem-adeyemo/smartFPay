@@ -1,26 +1,26 @@
 import React from "react";
 import { Container, Row } from "reactstrap";
 import { connect } from "react-redux";
-import { createCardRequests } from "../actions/cardrequests.actions";
-import CardCreateForm from "./components/Form";
+import { postCustomer } from "../actions/customers.actions";
+import CustomerCreateForm from "./components/Form";
 import PageHeader from "../../../shared/components/PageHeader";
 import { withRouter } from "react-router-dom";
 
 
-const CardRequestForm = props => {
+const CustomerForm = props => {
   const { dispatch, history } = props;
-  const createCard = values => {
-    dispatch(createCardRequests(values, history));
+  const createCustomer = values => {
+    dispatch(postCustomer(values, history));
   };
 
   return (
     <Container>
       <PageHeader
-        header="Create Card"
-        subheader="Create bulk and single card requests"
+        header="Create Customer"
+        subheader=""
       />
       <Row>
-        <CardCreateForm onSubmit={createCard} />
+        <CustomerCreateForm onSubmit={createCustomer} />
       </Row>
     </Container>
   );
@@ -28,4 +28,4 @@ const CardRequestForm = props => {
 
 export default connect(state => ({
   currentUser: state.currentUser
-}))(withRouter(CardRequestForm));
+}))(withRouter(CustomerForm));

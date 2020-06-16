@@ -227,7 +227,7 @@ const LimitsTable = memo(props => {
                 </Link>
               </ButtonToolbar>
             </AccessControl> 
-            <AccessControl
+            {/* <AccessControl
               allowedPermissions={[CREATE_CARD_CONTROL]}
               renderNoAccess={() => null}
             >
@@ -240,7 +240,7 @@ const LimitsTable = memo(props => {
                   Add new card control
                 </Link>
               </ButtonToolbar>
-            </AccessControl>
+            </AccessControl> */}
           </div>
           <DataTable
             columns={columns}

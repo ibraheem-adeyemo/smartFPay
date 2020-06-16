@@ -144,7 +144,7 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
       }
 };
 
-export const postControl = (values, id, controlToEdit) => {
+export const postControl = (values, id, controlToEdit, history) => {
     const requestBody = createRequestBody(values, id, controlToEdit);
     console.log(requestBody);
     return async (dispatch, getState) => {
@@ -161,12 +161,13 @@ export const postControl = (values, id, controlToEdit) => {
             response && response.responseMessage
           )
         );
-        dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+        // dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
         dispatch(resetPost());
         if (id) {
           dispatch(getControl(id));
         } else {
           dispatch(resetView());
+          history.push("/limit-requests");
         }
       } catch (error) {
         dispatch(failure(error));
@@ -197,7 +198,7 @@ export const postControl = (values, id, controlToEdit) => {
     }
 };
 
-export const postCardControl = (values, id, controlToEdit) => {
+export const postCardControl = (values, id, controlToEdit, history) => {
   const requestBody = createCardRequestBody(values, id, controlToEdit);
   console.log(requestBody);
   return async (dispatch, getState) => {
@@ -220,6 +221,7 @@ export const postCardControl = (values, id, controlToEdit) => {
         dispatch(getControl(id));
       } else {
         dispatch(resetView());
+        history.push("/limit-requests");
       }
     } catch (error) {
       dispatch(failure(error));

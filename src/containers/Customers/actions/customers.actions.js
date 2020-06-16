@@ -5,6 +5,10 @@ import {
   customerConstants,
   nameSpace
 } from "../constants/customers.constants";
+import {
+  createRequestBody,
+} from "../factories/customers.factory";
+import { reset } from "redux-form";
 
 export const getCustomers = (requestParams, batchId) => {
   return async dispatch => {
@@ -100,4 +104,68 @@ export const getCustomerGet = id => {
   function failure(error) {
     return { type: customerConstants[`VIEW_${nameSpace}_FAILURE`], error };
   }
+};
+
+export const postCustomer = (values, history) => {
+  const requestBody = createRequestBody(values);
+    console.log(requestBody);
+    return async (dispatch, getState) => {
+      const state = getState();
+      dispatch(request(requestBody));
+      try {
+        const response = await customersService.postCustomer(requestBody);
+        dispatch(success(response));
+        dispatch(reset("customer_form"));
+        dispatch(
+          showAlert(
+            "success",
+            "New customer added successfully",
+            response && response.responseMessage
+          )
+        );
+        dispatch(getCustomers({ pageNum: 1, pageSize: 10 }));
+        dispatch(resetPost());
+        dispatch(resetView());
+        history.push("/customers");
+        // if (id) {
+        //   dispatch(getControl(id));
+        // } else {
+        //   dispatch(resetView());
+        //   history.push("/customers");
+        // }
+      } catch (error) {
+        dispatch(failure(error));
+        dispatch(
+          showAlert(
+            "danger",
+            requestBody.id ? "Failed to edit customer" : "Failed to add customer",
+            error ? error.message : message.GENERIC_ERROR
+          )
+        );
+      }
+    };
+  
+    function request() {
+      return { type: customerConstants[`POST_${nameSpace}_REQUEST`] };
+    }
+    function success(response) {
+      return { type: customerConstants[`POST_${nameSpace}_SUCCESS`], response };
+    }
+    function failure(error) {
+      return { type: customerConstants[`POST_${nameSpace}_FAILURE`], error };
+    }
+    function resetPost() {
+      return { type: customerConstants[`POST_${nameSpace}_RESET`] };
+    }
+    function resetView() {
+      return { type: customerConstants[`VIEW_${nameSpace}_RESET`] };
+    }
+}
+
+export const resetPost = () => {
+  return { type: customerConstants[`POST_${nameSpace}_RESET`] };
+};
+
+export const resetView = () => {
+  return { type: customerConstants[`VIEW_${nameSpace}_RESET`] };
 };

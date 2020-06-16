@@ -8,6 +8,7 @@ import ViewCardRequest from "../CardRequests/ViewCardRequest";
 
 import BatchCustomersList from "../Customers/ViewBatchCustomers";
 import CustomersList from "../Customers/ViewAllCustomers";
+import CustomerForm from "../Customers/CustomerForm";
 import CardsRecordsList from "../CardRecords/ViewAllCardRecords";
 
 import { permissionsConstants } from "../../constants/permissions.constants";
@@ -24,6 +25,7 @@ import ViewLimit from "../Limits/LimitView";
 
 const {
   CREATE_CONTROL,
+  CREATE_CUSTOMER,
   CREATE_CARD_CONTROL,
   UPDATE_CARD_CONTROL,
   VIEW_CONTROLS,
@@ -75,7 +77,7 @@ export const LimitRequestRoutes = {
       name: "Add Limit",
       path: "/limit-requests/add",
       menu: false,
-      pageComponent: LimitForm,
+      pageComponent: CardLimitForm,
       enabled: true,
       permissions: [CREATE_CONTROL]
     },
@@ -140,7 +142,7 @@ export const LimitRequestRoutes = {
       permissions: [VIEW_CONTROLS]
     }
   ]
-};
+}; 
 
 export const CustomerRoutes = {
   enabled: true,
@@ -157,6 +159,18 @@ export const CustomerRoutes = {
       pageComponent: CustomersList,
       enabled: true,
       permissions: [VIEW_CUSTOMER]
+    },
+    {
+      key: "addCustomer",
+      title: "Add Customer",
+      exact: false,
+      icon: null,
+      name: "Add Customer",
+      path: "/customers/add",
+      menu: false,
+      pageComponent: CustomerForm,
+      enabled: true,
+      permissions: [CREATE_CUSTOMER]
     },
     {
       key: "customercards",

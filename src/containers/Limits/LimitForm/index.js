@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import {  Container, Row } from "reactstrap";
+import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
 import { postControl, getControl, resetViewLimitControl } from "../actions/limits.actions";
 import HorizontalForm from "./components/LimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 
-const LimitForm = ({ dispatch, control, match }) => {
+const LimitForm = ({ dispatch, control, match, history }) => {
 
   const createFormData = control => {
     let controlData;
@@ -34,7 +35,7 @@ const LimitForm = ({ dispatch, control, match }) => {
 
   const addControl = values => {
     dispatch(
-      postControl(values, match.params.id, control.response)
+      postControl(values, match.params.id, control.response, history)
     );
     // console.log('values', values);
     // console.log('match', match);
@@ -71,4 +72,4 @@ const LimitForm = ({ dispatch, control, match }) => {
 
 export default connect(state => ({
   control: state.viewcontrol
-}))(LimitForm);
+}))(withRouter(LimitForm));

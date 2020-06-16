@@ -26,14 +26,17 @@ export const API_URLS = {
   LIMITS: {
     GET_CONTROLS: `${apiBaseUrl}/limit`,
     GET_CONTROL: `${apiBaseUrl}/control`,
-    POST_CONTROL: `${apiBaseUrl}/api/limit/account`,
-    POST_CARD_CONTROL: `${apiBaseUrl}/api/limit/card`,
+    POST_CONTROL: `${apiBaseUrl}/limit/account`,
+    POST_CARD_CONTROL: `${apiBaseUrl}/limit/card`,
 
     ENABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/enable`,
     DISABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/disable`,
 
     ENABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/enable`,
     DISABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/disable`,
+  },
+  CUSTOMERS: {
+    POST_CUSTOMER: `${apiBaseUrl}/customers/create`,
   },
   ISSUERS: {
     DOMAIN_MAPPINGS_URI: `${apiBaseUrl}/issuer`,

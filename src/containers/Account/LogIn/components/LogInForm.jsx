@@ -44,14 +44,18 @@ class LogInForm extends Component {
   }
 
   postLogin = async (params, history) => {
+    console.log(params)
     fetch(API_URLS.AUTH.LOGIN, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(params),
     })
     .then(response => response.json())
     .then(data => {
       if(data.token){
-        window.localStorage.setItem('token', data.token)
+        window.localStorage.setItem('pc-token', data.token)
         history.push('/dashboard')
       } 
       console.log('Success:', data);
@@ -83,7 +87,7 @@ class LogInForm extends Component {
     } else {
       this.setState({errorMessage : "Enter your email address and password"})
     }
-    this.setState({invalid: !(this.state.email && this.state.password.length > 5)})
+    this.setState({invalid: !(this.state.email && this.state.password)})
   }
 
   render() {

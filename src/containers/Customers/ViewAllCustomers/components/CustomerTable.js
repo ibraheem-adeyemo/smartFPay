@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
 import React, { memo, useState } from "react";
-import { Card, CardBody, Col } from "reactstrap";
+import { Card, CardBody, Col, ButtonToolbar } from "reactstrap";
 import {
   MdInsertDriveFile,
   /* MdModeEdit, */
@@ -11,11 +11,16 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import CustomSearch from "./CustomSearch";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
+import { accessControlFn } from "../../../../utils/accessControl";
 import ModalComponent from "../../../../shared/components/Modal";
 import ViewCustomer from "../../ViewCustomer";
 import Avatar from "react-avatar";
+
+const {
+  CREATE_CUSTOMER
+} = permissionsConstants;
 
 const CustomersTable = memo(
   ({ dataState, fetchData, permissions, history, location, batchId }) => {
@@ -184,6 +189,20 @@ const CustomersTable = memo(
                   </span>
                 ) : null}
               </h5>
+              <AccessControl
+              allowedPermissions={[CREATE_CUSTOMER]}
+              renderNoAccess={() => null}
+            >
+              <ButtonToolbar className="products-list__btn-toolbar-top">
+                <Link
+                  className="btn btn-primary products-list__btn-add"
+                  to="/customers/add"
+                  id="link-create-customer"
+                >
+                  Add new customer
+                </Link>
+              </ButtonToolbar>
+            </AccessControl> 
             </div>
             <DataTable
               columns={columns}

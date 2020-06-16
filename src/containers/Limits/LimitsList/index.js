@@ -18,7 +18,7 @@ const LimitsList = ({ dispatch, allControls }) => {
     <Container>
       <PageHeader
         header="Manage Controls"
-        subheader="View, Create and Modify Limit Controls"
+        subheader="Manage Limit Controls"
       />
       <Row>
         <LimitsTable dataState={allControls} fetchData={loadControls} />

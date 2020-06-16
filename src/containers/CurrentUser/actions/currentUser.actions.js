@@ -95,6 +95,7 @@ const permissionsArray = [
 
   {authority: "ROLE_VIEW_CUSTOMER_CARDS"},
   {authority: "ROLE_VIEW_CUSTOMER"},
+  {authority: "ROLE_CREATE_CUSTOMER"},
 
   {authority: "ROLE_VIEW_CARD_DETAILS"},
   {authority: "ROLE_VIEW_CARDS"},

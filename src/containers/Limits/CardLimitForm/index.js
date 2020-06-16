@@ -5,7 +5,7 @@ import { postCardControl, getControl, resetViewLimitControl } from "../actions/l
 import HorizontalForm from "./components/CardLimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 
-const CardLimitForm = ({ dispatch, control, match }) => {
+const CardLimitForm = ({ dispatch, control, match, history }) => {
 
   const createFormData = control => {
     let controlData;
@@ -34,7 +34,7 @@ const CardLimitForm = ({ dispatch, control, match }) => {
 
   const addCardControl = values => {
     dispatch(
-      postCardControl(values, match.params.id, control.response)
+      postCardControl(values, match.params.id, control.response, history)
     );
     // console.log('values', values);
     // console.log('match', match);

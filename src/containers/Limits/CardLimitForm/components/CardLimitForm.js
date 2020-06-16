@@ -117,7 +117,7 @@ const CardLimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Amount
+                          Transaction Limit Amount
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -133,7 +133,7 @@ const CardLimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Frequency
+                          Frequency Limit Reset
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -151,7 +151,7 @@ const CardLimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Duration
+                          Transaction Limit Count
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -159,7 +159,7 @@ const CardLimitForm = memo(props => {
                             name="duration"
                             component={renderField}
                             type="number"
-                            placeholder="duration"
+                            placeholder="Limit Count"
                           />
                         </div>
                       </div>
@@ -205,11 +205,12 @@ const CardLimitForm = memo(props => {
                             <span className="form__form-group-label required">Enabled Countries</span>
                             <div className="form__form-group-field">
                             <Field
-                                id="addressCountry"
-                                name="addressCountry"
+                                id="enabledCountries"
+                                name="enabledCountries"
+                                placeholder="Kindly pick contries to activate limit in"
                                 component={renderSelectField}
                                 options={COUNTRIES}
-                                valueKey="alpha3Code"
+                                valueKey="alpha3Ccode"
                                 labelKey="name"
                             />
                             </div>

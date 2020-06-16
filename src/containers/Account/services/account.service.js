@@ -9,7 +9,7 @@ const postLogin = async (params, history) => {
   .then(response => response.json())
   .then(data => {
     if(data.token){
-      window.localStorage.setItem('token', data.token)
+      window.localStorage.setItem('pc-token', data.token)
       history.push('/dashboard')
     } 
     console.log('Success:', data);
