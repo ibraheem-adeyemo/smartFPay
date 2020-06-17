@@ -33,6 +33,7 @@ const CardLimitForm = ({ dispatch, control, match, history }) => {
   }
 
   const addCardControl = values => {
+    console.log('values', values)
     dispatch(
       postCardControl(values, match.params.id, control.response, history)
     );

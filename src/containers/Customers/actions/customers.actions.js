@@ -39,10 +39,10 @@ export const getCustomers = (requestParams, batchId) => {
   }
 };
 
-export const getCustomer = encryptedId => {
+export const getCustomer = accountNumber => {
   return async dispatch => {
     const requestBody = {
-      encryptedCustomerId: encryptedId
+      accountNumber
     }
     dispatch(request(requestBody));
     try {
@@ -74,23 +74,40 @@ export const getCustomer = encryptedId => {
   }
 };
 
-export const getCustomerGet = id => {
+export const getCustomerDetails = (accountNumber, callBack) => {
+  console.log('accountNumber', accountNumber)
   return async dispatch => {
-    dispatch(request(id));
+    dispatch(request(accountNumber));
     try {
-      const response = await customersService.getCustomerByIdGet(id);
-      response && dispatch(success(response));
+      const response = await customersService.getCustomerByAccountNumber(accountNumber);
+      // response && dispatch(success(response));
+      console.log(response);
+      dispatch(success(response));
+      dispatch(reset("customer_form"));
+      dispatch(
+        showAlert(
+          "success",
+          "Customer fetched successfully",
+          response?.responseMessage
+        )
+      );
+      dispatch(resetPost());
+      callBack();
     } catch (error) {
       dispatch(failure(error));
       dispatch(
         showAlert(
           "danger",
-          "Failed to get card request",
-          error ? error.message : message.GENERIC_ERROR
+          "Failed to get customer details",
+          error ? error.responseMessage : message.GENERIC_ERROR
         )
       );
     }
   };
+
+  function resetPost() {
+    return { type: customerConstants[`POST_${nameSpace}_RESET`] };
+  }
 
   function request(request) {
     return { type: customerConstants[`VIEW_${nameSpace}_REQUEST`], request };
@@ -126,7 +143,7 @@ export const postCustomer = (values, history) => {
         dispatch(getCustomers({ pageNum: 1, pageSize: 10 }));
         dispatch(resetPost());
         dispatch(resetView());
-        history.push("/customers");
+        // history.push("/customers");
         // if (id) {
         //   dispatch(getControl(id));
         // } else {
@@ -169,3 +186,7 @@ export const resetPost = () => {
 export const resetView = () => {
   return { type: customerConstants[`VIEW_${nameSpace}_RESET`] };
 };
+
+export const getCustomerGet = () => {
+
+}

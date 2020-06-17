@@ -4,8 +4,7 @@ import {store} from '../../../store';
 
 export const customersService = {
   getCustomers,
-  getCustomerById,
-  getCustomerByIdGet,
+  getCustomerByAccountNumber,
   postCustomer,
 };
 
@@ -32,21 +31,21 @@ function getCustomers(params, batchId) {
   );
 }
 
-function getCustomerById(requestBody) {
-  const domain = store.getState().currentUser.response.domainCode
-  let url = API_URLS.CARD_MANAGEMENT.GET_DOMAIN_CUSTOMER;
-  if(domain === "ISW") {
-    url = API_URLS.CARD_MANAGEMENT.GET_DOMAIN_CUSTOMER_ADMIN
-  }
-  return apiCall("POST", url, null, requestBody);
-}
+// function getCustomerByAccountNumber(requestBody) {
+//   const domain = store.getState().currentUser.response.domainCode
+//   let url = API_URLS.CARD_MANAGEMENT.GET_DOMAIN_CUSTOMER;
+//   if(domain === "ISW") {
+//     url = API_URLS.CARD_MANAGEMENT.GET_DOMAIN_CUSTOMER_ADMIN
+//   }
+//   return apiCall("POST", url, null, requestBody);
+// }
 
-function getCustomerByIdGet(id) {
+function getCustomerByAccountNumber(accountNumber) {
   const domain = store.getState().currentUser.response.domainCode
-  let url = API_URLS.CARD_MANAGEMENT.GET_BATCH_CUSTOMER;
-  if(domain === "ISW") {
-    url = API_URLS.CARD_MANAGEMENT.GET_ADMIN_BATCH_CUSTOMER
-  }
-  return apiCall("GET", `${url}/${id}`);
+  let url = API_URLS.CUSTOMERS.GET_CUTOMER_BY_ACCOUNT;
+  // if(domain === "ISW") {
+  //   url = API_URLS.CARD_MANAGEMENT.GET_ADMIN_BATCH_CUSTOMER
+  // }
+  return apiCall("GET", `${url}/${accountNumber}`);
 }
 
