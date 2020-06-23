@@ -6,7 +6,7 @@ import { postControl, getControl, resetViewLimitControl } from "../actions/limit
 import HorizontalForm from "./components/LimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 
-const LimitForm = ({ dispatch, control, match, history }) => {
+const LimitForm = ({ dispatch, control, match, history, customer }) => {
 
   const createFormData = control => {
     let controlData;
@@ -34,8 +34,14 @@ const LimitForm = ({ dispatch, control, match, history }) => {
   }
 
   const addControl = values => {
+    let requestBody= {
+      coreBankingId: customer?.response?.coreBankingId,
+      accountNumber: customer?.request,
+      ...values
+    }
+    
     dispatch(
-      postControl(values, match.params.id, control.response, history)
+      postControl(requestBody, match.params.id, control.response, history)
     );
     // console.log('values', values);
     // console.log('match', match);
@@ -71,5 +77,6 @@ const LimitForm = ({ dispatch, control, match, history }) => {
 };
 
 export default connect(state => ({
-  control: state.viewcontrol
+  control: state.viewcontrol,
+  customer: state.getCustomer
 }))(withRouter(LimitForm));

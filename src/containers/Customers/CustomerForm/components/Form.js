@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { getCustomerDetails,resetPost, postCustomer } from "../../actions/customers.actions";
 import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
 import CustomerDetails from '../CustomerSteps/CustomerDetails';
+import CustomerView from '../CustomerSteps/CustomerView';
 // import CardConfiguration from "./CardSteps/CardConfiguration";
 // import Review from "./CardSteps/Review";
 import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
@@ -25,10 +26,10 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
     let requestBody = {
       accountNumber: customer.request,
       name: customer.response.accountName,
-      coreBankingId: customer.response.accountName || '0909090901'
+      coreBankingId: customer.response.coreBankingId || '0909090901'
     }
-    console.log(requestBody);
-    dispatch(postCustomer(requestBody));
+    dispatch(postCustomer(requestBody, nextPage));
+    // nextPage();
   }
 
   const getCustomer = (accountNumber) => {
@@ -88,6 +89,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
               {page === 1 && (
                 <CustomerAccountInformation
                   onSubmit={getCustomer}
+                  customer={customer}
                 />
               )}
               {page === 2 && (
@@ -95,11 +97,14 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
                 account={account}
                   previousPage={previousPage}
                   customer={customer}
+                  handleNextPage={nextPage}
+                  previous={previousPage}
                   onSubmit={() => createCustomer(customer)}
                 />
               )}
               {page === 3 && (
-                <CustomerAccountInformation
+                <CustomerView
+                customer={customer}
                 previousPage={previousPage}
                 onSubmit={onSubmit}
               />

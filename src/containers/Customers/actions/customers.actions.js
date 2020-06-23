@@ -123,7 +123,7 @@ export const getCustomerDetails = (accountNumber, callBack) => {
   }
 };
 
-export const postCustomer = (values, history) => {
+export const postCustomer = (values, callBack) => {
   const requestBody = createRequestBody(values);
     console.log(requestBody);
     return async (dispatch, getState) => {
@@ -131,6 +131,7 @@ export const postCustomer = (values, history) => {
       dispatch(request(requestBody));
       try {
         const response = await customersService.postCustomer(requestBody);
+        console.log(response)
         dispatch(success(response));
         dispatch(reset("customer_form"));
         dispatch(
@@ -143,7 +144,7 @@ export const postCustomer = (values, history) => {
         dispatch(getCustomers({ pageNum: 1, pageSize: 10 }));
         dispatch(resetPost());
         dispatch(resetView());
-        // history.push("/customers");
+        callBack();
         // if (id) {
         //   dispatch(getControl(id));
         // } else {
@@ -151,7 +152,10 @@ export const postCustomer = (values, history) => {
         //   history.push("/customers");
         // }
       } catch (error) {
+        console.log(error)
         dispatch(failure(error));
+        dispatch(resetView());
+        callBack();
         dispatch(
           showAlert(
             "danger",

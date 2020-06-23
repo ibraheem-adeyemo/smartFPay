@@ -77,7 +77,7 @@ export const LimitRequestRoutes = {
       name: "Add Limit",
       path: "/limit-requests/add",
       menu: false,
-      pageComponent: CardLimitForm,
+      pageComponent: LimitForm,
       enabled: true,
       permissions: [CREATE_CONTROL]
     },

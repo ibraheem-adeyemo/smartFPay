@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 import { renderField } from "../../../../utils/renderfield";
 import { Field, reduxForm, formValueSelector } from "redux-form";
 
-const CustomerAccountInformation = ({createCustomer, submitting, onSubmit,invalid}) => {
+const CustomerAccountInformation = ({customer, submitting, onSubmit,invalid}) => {
     const [accountNumber, setAccountNumber] = useState('');
     const handleChange = (e) => {
       setAccountNumber(e.currentTarget.value);
@@ -30,12 +30,12 @@ const CustomerAccountInformation = ({createCustomer, submitting, onSubmit,invali
         <CardBody>
                 <form className="form" onSubmit={handleGetCustomer}>
                   {
-                  createCustomer?.error?.errors?.length ? (
+                  customer?.error?.errors?.length ? (
                     <UncontrolledAlert color="danger">
                       <h5 className="font-weight-bold">
                         Please check the following fields for errors
                       </h5>
-                      {createCustomer.error.errors.map(err => (
+                      {customer.error.errors.map(err => (
                         <p>
                           <strong>{err.fieldName}:</strong> {err.message}
                         </p>
@@ -70,7 +70,7 @@ const CustomerAccountInformation = ({createCustomer, submitting, onSubmit,invali
                       type="submit"
                       disabled={submitting || invalid}
                     >
-                      {createCustomer?.loading ? (
+                      {customer?.loading ? (
                         <span>
                           <Spinner size="sm" color="default" />{" "}
                         </span>

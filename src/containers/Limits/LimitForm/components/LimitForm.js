@@ -67,8 +67,8 @@ const LimitForm = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              <Link to="/limit-requests" id="link-all-limits">
-                <MdArrowBack size={20} /> Back to limits
+              <Link to="/customers" id="link-all-limits">
+                <MdArrowBack size={20} /> Back to Customers
               </Link>
             </h5>
           </div>
@@ -170,7 +170,7 @@ const LimitForm = memo(props => {
                             name="startDate"
                             dateFormat="dd/MM/yyyy h:mm aa"
                             minDate={new Date()}
-                            showTimeInput={true}
+                            // showTimeInput={true}
                             component={renderDatePickerField}
                             placeholder="Start Date"
                             timeInputLabel="Start Time"
@@ -187,7 +187,7 @@ const LimitForm = memo(props => {
                             name="endDate"
                             dateFormat="dd/MM/yyyy h:mm aa"
                             minDate={new Date()}
-                            showTimeInput={true}
+                            // showTimeInput={true}
                             component={renderDatePickerField}
                             placeholder="End Date"
                             timeInputLabel="End Time"

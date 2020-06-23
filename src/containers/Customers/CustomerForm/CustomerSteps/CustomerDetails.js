@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   Card,
   CardBody,
@@ -12,13 +12,24 @@ import {
 import validate from "./validate";
 import { connect } from "react-redux";
 import { renderField } from "../../../../utils/renderfield";
+import { MdArrowBack } from "react-icons/md";
 import { Field, reduxForm, formValueSelector } from "redux-form";
+import {customersService} from "../../services/customers.service";
 
-const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid}) => {
+const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid, handleNextPage, previous}) => {
+  const {getCustomers} = customersService;
     const [accountNumber, setAccountNumber] = useState('');
+    const [customerExists, setCustomerExists] = useState(false);
     const handleChange = (e) => {
       setAccountNumber(e.currentTarget.value);
     }
+
+    useEffect(() => {
+      getCustomers({pageSize:10, pageNumber:1 ,accountNumber: customer?.request}).then(res => {
+        console.log(res);
+        setCustomerExists(res?.count > 0)
+      });
+    }, []);
 
     const handleCreateCustomer = (e) => {
       e.preventDefault();
@@ -28,7 +39,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
         <Col md={12} lg={12}>
       <Card>
         <CardBody>
-                <form className="form" onSubmit={handleCreateCustomer}>
+                <form className="form">
                   <Row>
                   <Col lg ="4">
                   <div className="form__form-group">
@@ -41,7 +52,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='account'
                             disabled={true}
                             type='text'
-                            value={customer.request || ''}
+                            value={customer?.request || ''}
                             />
                         </div>
                         </div>
@@ -58,7 +69,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='name'
                             disabled={true}
                             type='text'
-                            value={customer.response.accountName || ''}
+                            value={customer?.response?.accountName || ''}
                             />
                         </div>
                         </div>
@@ -75,7 +86,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='cbi'
                             disabled={true}
                             type='text'
-                            value={customer.response.coreBankingid || "0909090901"}
+                            value={customer?.response?.coreBankingid || "0909090901"}
                             />
                         </div>
                         </div>
@@ -84,11 +95,41 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                   </Row>
 
                   <ButtonToolbar className="form__button-toolbar">
+                  <Button
+                      color="secondary"
+                      id="submit-btn"
+                      type="submit"
+                      disabled={submitting || invalid}
+                      onClick={previous}
+                    >
+                      <MdArrowBack size={20} />
+                      {createCustomer?.loading ? (
+                        <span>
+                          <Spinner size="sm" color="default" />{" "}
+                        </span>
+                      ) : null}
+                      Customer Account Form
+                    </Button>
+                  {customerExists?<Button
+                      color="primary"
+                      id="submit-btn"
+                      type="submit"
+                      disabled={submitting || invalid}
+                      onClick={handleNextPage}
+                    >
+                      {createCustomer?.loading ? (
+                        <span>
+                          <Spinner size="sm" color="default" />{" "}
+                        </span>
+                      ) : null}
+                      Manage Controls
+                    </Button>:
                     <Button
                       color="primary"
                       id="submit-btn"
                       type="submit"
                       disabled={submitting || invalid}
+                      onClick={handleCreateCustomer}
                     >
                       {createCustomer?.loading ? (
                         <span>
@@ -96,7 +137,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                         </span>
                       ) : null}
                       Create Customer
-                    </Button>
+                    </Button>}
                   </ButtonToolbar>
                 </form>
         </CardBody>
