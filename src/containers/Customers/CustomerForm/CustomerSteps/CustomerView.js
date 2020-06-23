@@ -1,13 +1,14 @@
 import React from "react";
-import { Col, Card, CardBody, Spinner, Button, Row } from "reactstrap";
+import { Col, Card, CardBody, Spinner, Button, ButtonToolbar, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import Cards from 'react-credit-cards';
+import chip from '../../../../assets/chip.png';
 
 const CustomerView = props => {
-  const { customer, controlId, fetchData } = props;
+  const { customer, controlId, fetchData, submitting, previous, startFlow } = props;
   console.log(customer);
 //   const foundControl =
 //     control.response &&
@@ -19,9 +20,45 @@ const CustomerView = props => {
 //       ? control.response.data[0]
 //       : {};
 
-const carDetails = (card) => {
+const CardDetails = (card) => (
+  <>
+              <Row>
+                
+                <Col sm="6">
+                <Card>
+    <CardBody style={styles.card}>
+      <img src={chip} style={styles.chip}/>
+      <div style={styles.maskedPan}>4324 **** **** 0909</div>
+      <div style={styles.validity}><span>Valid Thru</span><span style={styles.expiryDate}>12/13</span></div>
+      <div style={styles.cardName}>CALEB Ogundiya</div>
+    </CardBody>
+  </Card>
+                </Col>
+                <Col sm="6">
+                
+                  <AccessControl
+                allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
+                renderNoAccess={() => null}
+              >
+                    <Link
+                  className="btn btn-primary project-summary__btn"
+                  to="/limit-requests/add"
+                  id="link-create-control"
+                >
+                  Create Control
+                </Link>
+              </AccessControl>
+                </Col>
+              </Row>
+              
+              <hr />
   
-}
+  </>
+);
+
+let arr = [1,2,43,4,5];
+
+const cards = arr.map((card, index) => <CardDetails />)
 
   return (
     <Col>
@@ -29,7 +66,7 @@ const carDetails = (card) => {
         <CardBody>
         <div className="project-summary">
         <div className="card__title">
-            <h4 className="bold-text">Account Details</h4>
+            <h4 style={{color: '#000'}} className="bold-text">Account Details</h4>
             </div>
         <AccessControl
                 allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
@@ -62,76 +99,11 @@ const carDetails = (card) => {
               {/* <h5 className="font-weight-bold">Customer Information</h5> */}
               <div>
               <div className="card__title">
-            <h3 className="bold-text">Card Details</h3>
+            <h4 style={{color: '#000'}}className="bold-text">Card Details</h4>
             </div>
             <div>
-              <Cards
-                name="John Smith"
-                number="5555 4444 3333 1111"
-                expiry="10/20"
-                cvc="737"
-                issuer='visa'
-              />
-
-              {/* <Card
-                name="John Smith"
-                number="4111 1111 1111 1111"
-                expiry="10/20"
-                cvc="737"
-              />
-
-              <Card
-                name="John Smith"
-                number="3700 0000 0000 002"
-                expiry="10/20"
-                cvc="737"
-              />
-
-              <Card
-                name="John Smith"
-                number="3600 666633 3344"
-                expiry="10/20"
-                cvc="737"
-              />
-              <Card
-                name="John Smith"
-                number="6011 6011 6011 6611"
-                expiry="10/20"
-                cvc="737"
-              />
-
-              <Card
-                name="John Smith"
-                number="5066 9911 1111 1118"
-                expiry="10/20"
-                cvc="737"
-              />
-
-              <Card
-                name="John Smith"
-                number="6250 9460 0000 0016"
-                expiry="10/20"
-                cvc="737"
-              />
-
-              <Card
-                name="John Smith"
-                number="6062 8288 8866 6688"
-                expiry="10/20"
-                cvc="737"
-              />
-
-              <Card
-                name="John Smith"
-                number="**** **** **** 7048"
-                expiry="10/20"
-                cvc="737"
-                preview={true}
-                issuer="visa"
-              /> */}
-            </div>
               <Row>
-                <Col sm="6">
+              <Col sm="6">
                   <dl className="row" style={{fontSize: '18px'}}>
                   <dt className="col-sm-8">Currency Code</dt>
                   <dd className="col-sm-4">
@@ -139,29 +111,71 @@ const carDetails = (card) => {
                   </dd>
                   </dl>
                 </Col>
-                <Col sm="6">
-                
-                  <AccessControl
-                allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
-                renderNoAccess={() => null}
-              >
-                    <Link
-                  className="btn btn-primary project-summary__btn"
-                  to="/limit-requests/add"
-                  id="link-create-control"
-                >
-                  Create Control
-                </Link>
-              </AccessControl>
-                </Col>
               </Row>
-              <hr className="my-3" />
+              <hr />
+              {cards}
+            </div>
               </div>
         </div>
         </CardBody>
       </Card>
+        <ButtonToolbar className="form__button-toolbar">
+                  <Button
+                      color="secondary"
+                      id="submit-btn"
+                      type="submit"
+                      onClick={previous}
+                    >
+                      <MdArrowBack size={20} />
+                      {customer?.loading ? (
+                        <span>
+                          <Spinner size="sm" color="default" />{" "}
+                        </span>
+                      ) : null}
+                      Customer Details
+                    </Button>
+                    <Button
+                      color="primary"
+                      id="submit-btn"
+                      type="submit"
+                      onClick={startFlow}
+                    >
+                      Finish
+                    </Button>
+                  </ButtonToolbar>
     </Col>
   );
+};
+
+const styles = {
+  card: {
+    backgroundColor: 'red',
+    width: '20rem',
+    borderRadius: '10px'
+  },
+  cardName: {
+    textTransform: 'uppercase',
+    fontWeight: '700'
+  },
+  maskedPan: {
+    wordSpacing: '0.75rem',
+    fontSize: '1rem',
+    letterSpacing: '0.25rem'
+  },
+  chip: {
+    width: '2rem',
+    height: '2rem',
+    marginBottom: '0.5rem'
+  },
+  validity: {
+    textTransform: 'uppercase',
+    fontSize: '0.7rem',
+    padding:'0.75rem 0',
+  },
+  expiryDate: {
+    fontSize: '0.9rem',
+    marginLeft: '1rem',
+  }
 };
 
 export default CustomerView;

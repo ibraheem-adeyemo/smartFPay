@@ -23,23 +23,27 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
   };
 
   const createCustomer = (customer) => {
-    let requestBody = {
-      accountNumber: customer.request,
-      name: customer.response.accountName,
-      coreBankingId: customer.response.coreBankingId || '0909090901'
-    }
-    dispatch(postCustomer(requestBody, nextPage));
-    // nextPage();
+    // let requestBody = {
+    //   accountNumber: customer.request,
+    //   name: customer.response.accountName,
+    //   coreBankingId: customer.response.coreBankingId || '0909090901'
+    // }
+    // dispatch(postCustomer(requestBody, nextPage));
+    nextPage();
   }
 
   const getCustomer = (accountNumber) => {
-    dispatch(getCustomerDetails(accountNumber, nextPage));
-    setAccount(accountNumber);
-    // nextPage();
+    // dispatch(getCustomerDetails(accountNumber, nextPage));
+    // setAccount(accountNumber);
+    nextPage();
   }
 
   const previousPage = () => {
     setPage(prev => prev - 1);
+  };
+
+  const startFlow = () => {
+    setPage(1);
   };
 
   useEffect(() => {
@@ -105,7 +109,8 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
               {page === 3 && (
                 <CustomerView
                 customer={customer}
-                previousPage={previousPage}
+                previous={previousPage}
+                startFlow={startFlow}
                 onSubmit={onSubmit}
               />
               )}
