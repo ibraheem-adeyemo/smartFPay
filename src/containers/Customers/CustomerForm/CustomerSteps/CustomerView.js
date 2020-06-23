@@ -10,6 +10,7 @@ import chip from '../../../../assets/chip.png';
 const CustomerView = props => {
   const { customer, controlId, fetchData, submitting, previous, startFlow } = props;
   console.log(customer);
+  const {request, response} = customer;
 //   const foundControl =
 //     control.response &&
 //     control.response.data &&
@@ -20,7 +21,7 @@ const CustomerView = props => {
 //       ? control.response.data[0]
 //       : {};
 
-const CardDetails = (card) => (
+const CardDetails = ({card}) => (
   <>
               <Row>
                 
@@ -28,9 +29,9 @@ const CardDetails = (card) => (
                 <Card>
     <CardBody style={styles.card}>
       <img src={chip} style={styles.chip}/>
-      <div style={styles.maskedPan}>4324 **** **** 0909</div>
-      <div style={styles.validity}><span>Valid Thru</span><span style={styles.expiryDate}>12/13</span></div>
-      <div style={styles.cardName}>CALEB Ogundiya</div>
+      <div style={styles.maskedPan}>{`${card.pan.substring(0,4)} ${card.pan.substring(4,8)} ${card.pan.substring(8,12)} ${card.pan.substring(12)}`}</div>
+<div style={styles.validity}><span>Valid Thru</span><span style={styles.expiryDate}>{card.expiry}</span></div>
+      <div style={styles.cardName}>{response?.accountName}</div>
     </CardBody>
   </Card>
                 </Col>
@@ -58,7 +59,7 @@ const CardDetails = (card) => (
 
 let arr = [1,2,43,4,5];
 
-const cards = arr.map((card, index) => <CardDetails />)
+const cards = response?.cards?.map((card, index) => <CardDetails key ={index} card={card}/>)
 
   return (
     <Col>
@@ -160,7 +161,7 @@ const styles = {
   maskedPan: {
     wordSpacing: '0.75rem',
     fontSize: '1rem',
-    letterSpacing: '0.25rem'
+    letterSpacing: '0.24rem'
   },
   chip: {
     width: '2rem',
