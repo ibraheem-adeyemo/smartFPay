@@ -5,7 +5,7 @@ import { postCardControl, getControl, resetViewLimitControl } from "../actions/l
 import HorizontalForm from "./components/CardLimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 
-const CardLimitForm = ({ dispatch, control, match, history }) => {
+const CardLimitForm = ({ dispatch, control, match, history, location }) => {
 
   const createFormData = control => {
     let controlData;
@@ -64,6 +64,7 @@ const CardLimitForm = ({ dispatch, control, match, history }) => {
           initialValues={createFormData(control)}
           fetchData={fetchControl}
           onSubmit={addCardControl}
+          location={location}
         />
       </Row>
     </Container>

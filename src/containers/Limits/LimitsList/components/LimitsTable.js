@@ -234,7 +234,7 @@ const LimitsTable = memo(props => {
               <ButtonToolbar className="products-list__btn-toolbar-top">
                 <Link
                   className="btn btn-primary products-list__btn-add"
-                  to="/card-limit-requests/add"
+                  to="/limit-requests/card/add"
                   id="link-create-control"
                 >
                   Add new card control

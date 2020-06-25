@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getCustomerDetails,resetPost, postCustomer } from "../../actions/customers.actions";
+import {getControl} from '../../../Limits/actions/limits.actions';
 import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
 import CustomerDetails from '../CustomerSteps/CustomerDetails';
 import CustomerView from '../CustomerSteps/CustomerView';
@@ -13,8 +14,9 @@ import CustomerView from '../CustomerSteps/CustomerView';
 // import Review from "./CardSteps/Review";
 import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
 import FormError from "../../../../shared/components/FormError";
+import { getAllControls } from "../../../Limits/actions/limits.actions";
 
-const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
+const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, controls, control }) => {
   const [page, setPage] = useState(1);
   const [account, setAccount] = useState(null);
 
@@ -36,6 +38,16 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
     // dispatch(getCustomerDetails(accountNumber, nextPage));
     // setAccount(accountNumber);
     nextPage();
+  }
+
+  const getLimitByToken = (token) => {
+    // dispatch(getControl(token));
+  }
+
+  const fetchControls = (accountNumber) => {
+    dispatch(getAllControls({accountNumber, pageSize:10, pageNumber: 1}));
+    // setAccount(accountNumber);
+    // nextPage();
   }
 
   const previousPage = () => {
@@ -111,7 +123,10 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer }) => {
                 customer={customer}
                 previous={previousPage}
                 startFlow={startFlow}
-                onSubmit={onSubmit}
+                fetchControls={fetchControls}
+                controls={controls}
+                getControl={getLimitByToken}
+                control={control}
               />
               )}
             </div>
@@ -128,5 +143,7 @@ CustomerCreateForm.propTypes = {
 
 export default connect(state => ({
   createCustomer: state.createCustomer,
-  customer: state.getCustomer
+  customer: state.getCustomer,
+  controls: state.getcontrols,
+  control: state.viewcontrol
 }))(CustomerCreateForm);

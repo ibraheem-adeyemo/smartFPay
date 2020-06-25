@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Card, CardBody, Spinner, Button, ButtonToolbar, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
@@ -8,8 +8,24 @@ import Cards from 'react-credit-cards';
 import chip from '../../../../assets/chip.png';
 
 const CustomerView = props => {
-  const { customer, controlId, fetchData, submitting, previous, startFlow } = props;
+  const { controls, fetchControls, submitting, previous, startFlow, getControl } = props;
+  let customer = {
+    request: '45678900000',
+    response: {
+      "accountName": "Ade Usman",
+      "currencyCode": "556",
+      "cards": [
+          {
+              "pan": "539941*******5846",
+              "tokenizedPan": "2adbasdlkda1398138nadshasjda21",
+              "expiry": "09/22"
+          }
+      ]
+  }
+  
+  }
   console.log(customer);
+  const {count, data} = controls.response;
   const {request, response} = customer;
 //   const foundControl =
 //     control.response &&
@@ -21,34 +37,51 @@ const CustomerView = props => {
 //       ? control.response.data[0]
 //       : {};
 
+useEffect(() => {
+  fetchControls();
+}, []);
+
 const CardDetails = ({card}) => (
   <>
               <Row>
-                
                 <Col sm="6">
                 <Card>
-    <CardBody style={styles.card}>
-      <img src={chip} style={styles.chip}/>
-      <div style={styles.maskedPan}>{`${card.pan.substring(0,4)} ${card.pan.substring(4,8)} ${card.pan.substring(8,12)} ${card.pan.substring(12)}`}</div>
-<div style={styles.validity}><span>Valid Thru</span><span style={styles.expiryDate}>{card.expiry}</span></div>
-      <div style={styles.cardName}>{response?.accountName}</div>
-    </CardBody>
-  </Card>
+                  <CardBody style={styles.card}>
+                    <img src={chip} style={styles.chip}/>
+                    <div style={styles.maskedPan}>{`${card.pan.substring(0,4)} ${card.pan.substring(4,8)} ${card.pan.substring(8,12)} ${card.pan.substring(12)}`}</div>
+              <div style={styles.validity}><span>Valid Thru</span><span style={styles.expiryDate}>{card.expiry}</span></div>
+                    <div style={styles.cardName}>{response?.accountName}</div>
+                  </CardBody>
+                </Card>
                 </Col>
                 <Col sm="6">
                 
-                  <AccessControl
+                  {false ? <AccessControl
                 allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
                 renderNoAccess={() => null}
               >
                     <Link
                   className="btn btn-primary project-summary__btn"
-                  to="/limit-requests/add"
-                  id="link-create-control"
+                  to={{
+                    pathname: "/limit-requests/card/edit/2",
+                    state: { fromCustomerView: true }
+                  }}
+                  id="link-edit-card-control"
                 >
-                  Create Control
+                  Manage Card Control
                 </Link>
-              </AccessControl>
+              </AccessControl>:<AccessControl
+                allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
+                renderNoAccess={() => null}
+              >
+                    <Link
+                  className="btn btn-primary project-summary__btn"
+                  to="/limit-requests/card/add"
+                  id="link-create-card-control"
+                >
+                  Create Card Control
+                </Link>
+              </AccessControl>}
                 </Col>
               </Row>
               
@@ -57,7 +90,12 @@ const CardDetails = ({card}) => (
   </>
 );
 
-let arr = [1,2,43,4,5];
+const cardControls = data?.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
+
+const accountControls = data?.filter(control => control.limitType === 'ACCOUNT');
+
+// console.log(count, data);
+console.log(cardControls, accountControls);
 
 const cards = response?.cards?.map((card, index) => <CardDetails key ={index} card={card}/>)
 
@@ -69,7 +107,22 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
         <div className="card__title">
             <h4 style={{color: '#000'}} className="bold-text">Account Details</h4>
             </div>
-        <AccessControl
+        {accountControls.length > 0 ? 
+              <AccessControl
+                allowedPermissions={[permissionsConstants.UPDATE_CONTROL]}
+                renderNoAccess={() => null}
+              >
+                    <Link
+                  id="link-create-control"
+                  className="btn btn-primary project-summary__btn"
+                  to={{
+                    pathname: "/limit-requests/edit/2",
+                    state: { fromCustomerView: true }
+                  }}
+                >
+                  Manage Account Control
+                </Link>
+              </AccessControl>:<AccessControl
                 allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
                 renderNoAccess={() => null}
               >
@@ -80,7 +133,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                 >
                   Create Account Control
                 </Link>
-              </AccessControl>
+              </AccessControl>}
         <dl className="row" style={{fontSize: '18px'}}>
                 <dt className="col-sm-4">Customer Account Number</dt>
                 <dd className="col-sm-8">

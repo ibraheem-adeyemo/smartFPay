@@ -25,7 +25,7 @@ export const API_URLS = {
   },
   LIMITS: {
     GET_CONTROLS: `${apiBaseUrl}/limit`,
-    GET_CONTROL: `${apiBaseUrl}/control`,
+    GET_CONTROL: `${apiBaseUrl}/limit`,
     POST_CONTROL: `${apiBaseUrl}/limit/account`,
     POST_CARD_CONTROL: `${apiBaseUrl}/limit/card`,
 

@@ -30,8 +30,8 @@ function postCardControl(request, id) {
   return apiCall(method, API_URLS.LIMITS.POST_CARD_CONTROL, null, request);
 }
 
-function getControl(id) {
-  return apiCall("GET", `${API_URLS.LIMITS.GET_CONTROLS}${id}`);
+function getControl(token) {
+  return apiCall("GET", `${API_URLS.LIMITS.GET_CONTROL}/${token}`);
 }
 
 function toggleAccountLimit(accountNumber, active) {

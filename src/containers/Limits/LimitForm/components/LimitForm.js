@@ -34,7 +34,8 @@ const LimitForm = memo(props => {
     interbankTransaction,
     postcontrol,
     startDate,
-    endDate
+    endDate,
+    location
   } = props;
 
   const FREQUENCY_OPTIONS = [
@@ -67,9 +68,11 @@ const LimitForm = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              <Link to="/customers" id="link-all-limits">
+              {location?.state?.fromCustomerView ? <Link to="/customers/add" id="link-create-customer">
                 <MdArrowBack size={20} /> Back to Customers
-              </Link>
+              </Link>:<Link to="/limit-requests" id="link-all-limits">
+                <MdArrowBack size={20} /> Back to Limits
+              </Link>}
             </h5>
           </div>
           {controlId && control && control.loading ? (

@@ -6,7 +6,7 @@ import { postControl, getControl, resetViewLimitControl } from "../actions/limit
 import HorizontalForm from "./components/LimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 
-const LimitForm = ({ dispatch, control, match, history, customer }) => {
+const LimitForm = ({ dispatch, control, match, history, customer, location }) => {
 
   const createFormData = control => {
     let controlData;
@@ -49,6 +49,7 @@ const LimitForm = ({ dispatch, control, match, history, customer }) => {
   };
 
   useEffect(() => {
+    console.log(location.state)
     if (match.params.id) {
       dispatch(getControl(match.params.id));
     }
@@ -70,6 +71,7 @@ const LimitForm = ({ dispatch, control, match, history, customer }) => {
           initialValues={createFormData(control)}
           fetchData={fetchControl}
           onSubmit={addControl}
+          location={location}
         />
       </Row>
     </Container>

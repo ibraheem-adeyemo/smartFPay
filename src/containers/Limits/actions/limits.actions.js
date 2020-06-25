@@ -8,11 +8,12 @@ import {
 } from "../factories/limit.factory.js";
 import { reset } from "redux-form";
 
-export const getAllControls = requestParams => {
+export const getAllControls = (requestParams) => {
     return async dispatch => {
       dispatch(request(requestParams));
       try {
         const response = await limitService.getAllControls(requestParams);
+        console.log(response)
         response && dispatch(success(response));
       } catch (error) {
         dispatch(failure(error));
@@ -37,11 +38,11 @@ export const getAllControls = requestParams => {
       }
 }
 
-export const getControl = id => {
+export const getControl = token => {
     return async dispatch => {
-      dispatch(request(id));
+      dispatch(request(token));
       try {
-        const response = await limitService.getControl(id);
+        const response = await limitService.getControl(token);
         response && dispatch(success(response));
       } catch (error) {
         dispatch(failure(error));
