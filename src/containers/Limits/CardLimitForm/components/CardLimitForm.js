@@ -73,7 +73,10 @@ const CardLimitForm = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              {location?.state?.fromCustomerView ?<Link to="/customers/add"
+              {location?.state?.fromCustomerView ?<Link to={{
+                pathname: "/customers/add",
+                state: { cardLimit: {} }
+              }}
                   id="link-create-customer">
                 <MdArrowBack size={20} /> Back to customers
               </Link>:

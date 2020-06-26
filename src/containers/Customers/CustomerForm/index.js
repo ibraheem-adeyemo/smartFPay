@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 
 
 const CustomerForm = props => {
-  const { dispatch, history } = props;
+  const { dispatch, history, location } = props;
   const createCustomer = values => {
     dispatch(postCustomer(values, history));
   };
@@ -20,7 +20,7 @@ const CustomerForm = props => {
         subheader=""
       />
       <Row>
-        <CustomerCreateForm onSubmit={createCustomer} />
+        <CustomerCreateForm onSubmit={createCustomer} location={location} />
       </Row>
     </Container>
   );

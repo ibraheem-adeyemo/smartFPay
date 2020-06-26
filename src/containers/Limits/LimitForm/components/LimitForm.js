@@ -35,7 +35,8 @@ const LimitForm = memo(props => {
     postcontrol,
     startDate,
     endDate,
-    location
+    location,
+    accountLimit
   } = props;
 
   const FREQUENCY_OPTIONS = [
@@ -51,6 +52,8 @@ const LimitForm = memo(props => {
     control.response.data.length &&
     !control.loading;
 
+  const {request, response} = accountLimit
+
   const resetForm = () => {
     reset();
   };
@@ -62,15 +65,23 @@ const LimitForm = memo(props => {
     };
   }, [dispatch]);
 
+  console.log(location.state)
+
   return (
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              {location?.state?.fromCustomerView ? <Link to="/customers/add" id="link-create-customer">
+              {location?.state?.fromCustomerView ? <Link
+              to={{
+                pathname: "/customers/add",
+                state: { limit: {accountLimit} }
+              }}
+              id="link-create-customer">
                 <MdArrowBack size={20} /> Back to Customers
-              </Link>:<Link to="/limit-requests" id="link-all-limits">
+              </Link>
+              :<Link to="/limit-requests" id="link-all-limits">
                 <MdArrowBack size={20} /> Back to Limits
               </Link>}
             </h5>
@@ -261,6 +272,7 @@ export default reduxForm({
   //   postcontrol: state.postcontrol,
   // }))(LimitForm)
   connect(state => ({
+    accountLimit:state.postcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,
     amount: state.postcontrol.amount,

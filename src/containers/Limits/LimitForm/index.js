@@ -49,7 +49,6 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
   };
 
   useEffect(() => {
-    console.log(location.state)
     if (match.params.id) {
       dispatch(getControl(match.params.id));
     }

@@ -5,7 +5,7 @@ import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getCustomerDetails,resetPost, postCustomer } from "../../actions/customers.actions";
+import { getCustomerDetails,resetPost, postCustomer, getCustomers } from "../../actions/customers.actions";
 import {getControl} from '../../../Limits/actions/limits.actions';
 import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
 import CustomerDetails from '../CustomerSteps/CustomerDetails';
@@ -16,7 +16,7 @@ import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
 import FormError from "../../../../shared/components/FormError";
 import { getAllControls } from "../../../Limits/actions/limits.actions";
 
-const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, controls, control }) => {
+const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, customers, controls, control, location }) => {
   const [page, setPage] = useState(1);
   const [account, setAccount] = useState(null);
 
@@ -25,19 +25,20 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, contro
   };
 
   const createCustomer = (customer) => {
-    // let requestBody = {
-    //   accountNumber: customer.request,
-    //   name: customer.response.accountName,
-    //   coreBankingId: customer.response.coreBankingId || '0909090901'
-    // }
-    // dispatch(postCustomer(requestBody, nextPage));
-    nextPage();
+    let requestBody = {
+      accountNumber: customer.request,
+      name: customer.response.accountName,
+      coreBankingId: customer.response.coreBankingId || '0909090901'
+    }
+    dispatch(postCustomer(requestBody, nextPage));
+    // nextPage();
   }
 
   const getCustomer = (accountNumber) => {
-    // dispatch(getCustomerDetails(accountNumber, nextPage));
-    // setAccount(accountNumber);
-    nextPage();
+    dispatch(getCustomers({accountNumber, pageNumber:1, pageSize: 10}))
+    dispatch(getCustomerDetails(accountNumber, nextPage));
+    setAccount(accountNumber);
+    // nextPage();
   }
 
   const getLimitByToken = (token) => {
@@ -45,7 +46,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, contro
   }
 
   const fetchControls = (accountNumber) => {
-    dispatch(getAllControls({accountNumber, pageSize:10, pageNumber: 1}));
+    dispatch(getAllControls({accountNumber, pageSize:1000, pageNumber: 1}));
     // setAccount(accountNumber);
     // nextPage();
   }
@@ -59,11 +60,14 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, contro
   };
 
   useEffect(() => {
+    if(location.state){setPage(3)}
     dispatch(resetPost());
     return () => {
       dispatch(resetPost());
     };
   }, [dispatch]);
+
+  console.log(location);
 
   return (
     <Col md={12} lg={12}>
@@ -112,7 +116,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, contro
                 <CustomerDetails
                 account={account}
                   previousPage={previousPage}
-                  customer={customer}
+                  customer={customers}
                   handleNextPage={nextPage}
                   previous={previousPage}
                   onSubmit={() => createCustomer(customer)}
@@ -127,6 +131,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, contro
                 controls={controls}
                 getControl={getLimitByToken}
                 control={control}
+                location={location}
               />
               )}
             </div>
@@ -144,6 +149,7 @@ CustomerCreateForm.propTypes = {
 export default connect(state => ({
   createCustomer: state.createCustomer,
   customer: state.getCustomer,
+  customers: state.getCustomers,
   controls: state.getcontrols,
   control: state.viewcontrol
 }))(CustomerCreateForm);

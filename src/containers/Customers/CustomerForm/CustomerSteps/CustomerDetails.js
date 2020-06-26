@@ -19,17 +19,14 @@ import {customersService} from "../../services/customers.service";
 const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid, handleNextPage, previous}) => {
   const {getCustomers} = customersService;
     const [accountNumber, setAccountNumber] = useState('');
-    const [customerExists, setCustomerExists] = useState(false);
-    const handleChange = (e) => {
-      setAccountNumber(e.currentTarget.value);
-    }
+    const {response} = customer;
 
-    useEffect(() => {
-      getCustomers({pageSize:10, pageNumber:1 ,accountNumber: customer?.request}).then(res => {
-        console.log(res);
-        setCustomerExists(res?.count > 0)
-      });
-    }, []);
+    // useEffect(() => {
+    //   getCustomers({pageSize:10, pageNumber:1 ,accountNumber: customer?.request}).then(res => {
+    //     console.log(res);
+    //     setCustomerExists(res?.count > 0)
+    //   });
+    // }, []);
 
     const handleCreateCustomer = (e) => {
       e.preventDefault();
@@ -52,7 +49,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='account'
                             disabled={true}
                             type='text'
-                            value={customer?.request || ''}
+                            value={response.data[0].accountNumber || ''}
                             />
                         </div>
                         </div>
@@ -69,7 +66,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='name'
                             disabled={true}
                             type='text'
-                            value={customer?.response?.accountName || ''}
+                            value={response.data[0].name || ''}
                             />
                         </div>
                         </div>
@@ -86,7 +83,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='cbi'
                             disabled={true}
                             type='text'
-                            value={customer?.response?.coreBankingid || "0909090901"}
+                            value={response.data[0].coreBankingId || ""}
                             />
                         </div>
                         </div>
@@ -110,7 +107,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                       ) : null}
                       Customer Account Form
                     </Button>
-                  {customerExists?<Button
+                  {response.count > 0?<Button
                       color="primary"
                       id="submit-btn"
                       type="submit"

@@ -8,23 +8,24 @@ import Cards from 'react-credit-cards';
 import chip from '../../../../assets/chip.png';
 
 const CustomerView = props => {
-  const { controls, fetchControls, submitting, previous, startFlow, getControl } = props;
-  let customer = {
-    request: '45678900000',
-    response: {
-      "accountName": "Ade Usman",
-      "currencyCode": "556",
-      "cards": [
-          {
-              "pan": "539941*******5846",
-              "tokenizedPan": "2adbasdlkda1398138nadshasjda21",
-              "expiry": "09/22"
-          }
-      ]
-  }
+  const { controls, fetchControls, submitting, previous, startFlow, getControl, customer, location } = props;
+  let cardControls = [], accountControls = [];
+  const accountLimit = location?.state?.limit?.accountLimit;
+  // let customer = {
+  //   request: '45678900000',
+  //   response: {
+  //     "accountName": "Ade Usman",
+  //     "currencyCode": "556",
+  //     "cards": [
+  //         {
+  //             "pan": "539941*******5846",
+  //             "tokenizedPan": "2adbasdlkda1398138nadshasjda21",
+  //             "expiry": "09/22"
+  //         }
+  //     ]
+  // }
   
-  }
-  console.log(customer);
+  // }
   const {count, data} = controls.response;
   const {request, response} = customer;
 //   const foundControl =
@@ -38,7 +39,7 @@ const CustomerView = props => {
 //       : {};
 
 useEffect(() => {
-  fetchControls();
+  fetchControls(customer?.request);
 }, []);
 
 const CardDetails = ({card}) => (
@@ -76,7 +77,10 @@ const CardDetails = ({card}) => (
               >
                     <Link
                   className="btn btn-primary project-summary__btn"
-                  to="/limit-requests/card/add"
+                  to={{
+                    pathname: "/limit-requests/card/add",
+                    state: { fromCustomerView: true }
+                  }}
                   id="link-create-card-control"
                 >
                   Create Card Control
@@ -90,11 +94,13 @@ const CardDetails = ({card}) => (
   </>
 );
 
-const cardControls = data?.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
+cardControls = data?.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
 
-const accountControls = data?.filter(control => control.limitType === 'ACCOUNT');
+accountControls = data?.filter(control => control.limitType === 'ACCOUNT');
 
 // console.log(count, data);
+// console.log(customer)
+console.log(location?.state?.limit?.accountLimit?.success)
 console.log(cardControls, accountControls);
 
 const cards = response?.cards?.map((card, index) => <CardDetails key ={index} card={card}/>)
@@ -107,7 +113,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
         <div className="card__title">
             <h4 style={{color: '#000'}} className="bold-text">Account Details</h4>
             </div>
-        {accountControls.length > 0 ? 
+        {accountControls.length > 0 || accountLimit?.success ? 
               <AccessControl
                 allowedPermissions={[permissionsConstants.UPDATE_CONTROL]}
                 renderNoAccess={() => null}
@@ -116,7 +122,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                   id="link-create-control"
                   className="btn btn-primary project-summary__btn"
                   to={{
-                    pathname: "/limit-requests/edit/2",
+                    pathname: `/limit-requests/edit`,
                     state: { fromCustomerView: true }
                   }}
                 >
@@ -128,7 +134,10 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
               >
                     <Link
                   className="btn btn-primary project-summary__btn"
-                  to="/limit-requests/add"
+                  to={{
+                    pathname: "/limit-requests/add",
+                    state: { fromCustomerView: true }
+                  }}
                   id="link-create-control"
                 >
                   Create Account Control
@@ -137,17 +146,21 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
         <dl className="row" style={{fontSize: '18px'}}>
                 <dt className="col-sm-4">Customer Account Number</dt>
                 <dd className="col-sm-8">
-                  <p>{customer?.request || '756'}</p>
+                  <p>{request || ''}</p>
                 </dd>
 
                 <dt className="col-sm-4">Customer Account Name</dt>
                 <dd className="col-sm-8">
-                  <p>{customer?.response?.accountName || '8765'}</p>
+                  <p>{response?.accountName || ''}</p>
                 </dd>
 
                 <dt className="col-sm-4">Core Banking Id</dt>
                 <dd className="col-sm-8">
-                  <p>{customer?.response?.corebankingId || '0909090901'}</p>
+                  <p>{response?.coreBankingId || ''}</p>
+                </dd>
+                <dt className="col-sm-4">Currency Code</dt>
+                <dd className="col-sm-8">
+                  <p>{response?.currencyCode || '556'}</p>
                 </dd>
               </dl>
               {/* <h5 className="font-weight-bold">Customer Information</h5> */}
@@ -156,17 +169,6 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
             <h4 style={{color: '#000'}}className="bold-text">Card Details</h4>
             </div>
             <div>
-              <Row>
-              <Col sm="6">
-                  <dl className="row" style={{fontSize: '18px'}}>
-                  <dt className="col-sm-8">Currency Code</dt>
-                  <dd className="col-sm-4">
-                    <p>{customer?.response?.currencyCode || '556'}</p>
-                  </dd>
-                  </dl>
-                </Col>
-              </Row>
-              <hr />
               {cards}
             </div>
               </div>

@@ -10,11 +10,11 @@ import {
 } from "../factories/customers.factory";
 import { reset } from "redux-form";
 
-export const getCustomers = (requestParams, batchId) => {
+export const getCustomers = (requestParams) => {
   return async dispatch => {
-    dispatch(request({...requestParams, batchId}));
+    dispatch(request({...requestParams}));
     try {
-      const response = await customersService.getCustomers(requestParams, batchId);
+      const response = await customersService.getCustomers(requestParams);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
