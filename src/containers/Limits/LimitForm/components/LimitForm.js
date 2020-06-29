@@ -36,14 +36,9 @@ const LimitForm = memo(props => {
     startDate,
     endDate,
     location,
-    accountLimit
+    accountLimit,
+    FREQUENCY_OPTIONS
   } = props;
-
-  const FREQUENCY_OPTIONS = [
-    {label: "DAILY", value: "DAILY"},
-    {label: "WEEKLY", value: "WEEKLY"},
-    {label: "MONTHLY", value: "MONTHLY"}
-  ];
 
   const foundControl =
     control &&
@@ -65,7 +60,7 @@ const LimitForm = memo(props => {
     };
   }, [dispatch]);
 
-  console.log(location.state)
+  console.log(accountLimit)
 
   return (
     <Col md={12} lg={12}>
@@ -76,7 +71,9 @@ const LimitForm = memo(props => {
               {location?.state?.fromCustomerView ? <Link
               to={{
                 pathname: "/customers/add",
-                state: { limit: {accountLimit} }
+                state: { 
+                  limit: control.success?control:accountLimit
+                }
               }}
               id="link-create-customer">
                 <MdArrowBack size={20} /> Back to Customers
@@ -182,9 +179,10 @@ const LimitForm = memo(props => {
                           <Field
                             id="startDate"
                             name="startDate"
-                            dateFormat="dd/MM/yyyy h:mm aa"
+                            dateFormat="dd-MM-yyyy h:mm aa"
                             minDate={new Date()}
-                            // showTimeInput={true}
+                            timeFormat="HH:mm"
+                            showTimeInput={true}
                             component={renderDatePickerField}
                             placeholder="Start Date"
                             timeInputLabel="Start Time"
@@ -199,9 +197,10 @@ const LimitForm = memo(props => {
                           <Field
                             id="endDate"
                             name="endDate"
-                            dateFormat="dd/MM/yyyy h:mm aa"
+                            dateFormat="dd-MM-yyyy h:mm aa"
                             minDate={new Date()}
-                            // showTimeInput={true}
+                            timeFormat="HH:mm"
+                            showTimeInput={true}
                             component={renderDatePickerField}
                             placeholder="End Date"
                             timeInputLabel="End Time"
@@ -211,12 +210,13 @@ const LimitForm = memo(props => {
                     </Col>
                     <Col lg="4">
                       <div className="form__form-group">
-                        <span className="form__form-group-label required">Interbank Transaction</span>
+                        <span className="form__form-group-label">Interbank Transaction</span>
                         <div className="form__form-group-field">
                         <Field
                           id="interbankTransaction"
                           name="interbankTransaction"
                           component={renderToggleButtonField}
+                          defaultChecked={control?.response?.interbankTransaction || false}
                         />
                         </div>
                       </div>
@@ -272,7 +272,7 @@ export default reduxForm({
   //   postcontrol: state.postcontrol,
   // }))(LimitForm)
   connect(state => ({
-    accountLimit:state.postcontrol,
+    accountLimit:state.viewcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,
     amount: state.postcontrol.amount,

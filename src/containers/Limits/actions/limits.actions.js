@@ -145,7 +145,7 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
       }
 };
 
-export const postControl = (values, id, controlToEdit, history) => {
+export const postControl = (values, id, controlToEdit, history, location) => {
     const requestBody = createRequestBody(values, id, controlToEdit);
     console.log(requestBody);
     return async (dispatch, getState) => {
@@ -154,7 +154,9 @@ export const postControl = (values, id, controlToEdit, history) => {
       try {
         const response = await limitService.postControl(requestBody, id);
         dispatch(success(response));
-        dispatch(reset("control_form"));
+        if(!location?.state?.fromCustomerView){
+          dispatch(reset("control_form"));
+        }
         dispatch(
           showAlert(
             "success",

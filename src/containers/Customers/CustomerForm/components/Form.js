@@ -19,6 +19,8 @@ import { getAllControls } from "../../../Limits/actions/limits.actions";
 const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, customers, controls, control, location }) => {
   const [page, setPage] = useState(1);
   const [account, setAccount] = useState(null);
+  let cardControls = [], accountControls = [];
+  const {count, data} = controls.response;
 
   const nextPage = () => {
     setPage(prev => prev + 1);
@@ -36,6 +38,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
 
   const getCustomer = (accountNumber) => {
     dispatch(getCustomers({accountNumber, pageNumber:1, pageSize: 10}))
+    dispatch(getAllControls({accountNumber,pageNumber:1, pageSize: 1000}))
     dispatch(getCustomerDetails(accountNumber, nextPage));
     setAccount(accountNumber);
     // nextPage();
@@ -45,11 +48,15 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
     // dispatch(getControl(token));
   }
 
-  const fetchControls = (accountNumber) => {
-    dispatch(getAllControls({accountNumber, pageSize:1000, pageNumber: 1}));
+  // const fetchControls = (accountNumber) => {
+  //   dispatch(getAllControls({accountNumber, pageSize:1000, pageNumber: 1}));
     // setAccount(accountNumber);
     // nextPage();
-  }
+  // }
+  console.log(count, data)
+  accountControls = data?.filter(control => control.limitType === 'ACCOUNT');
+  cardControls = data?.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
+  console.log(accountControls, cardControls)
 
   const previousPage = () => {
     setPage(prev => prev - 1);
@@ -59,15 +66,17 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
     setPage(1);
   };
 
+
   useEffect(() => {
-    if(location.state){setPage(3)}
+  if(location.state){setPage(3)}
     dispatch(resetPost());
     return () => {
       dispatch(resetPost());
     };
   }, [dispatch]);
 
-  console.log(location);
+  console.log(accountControls);
+  console.log(location)
 
   return (
     <Col md={12} lg={12}>
@@ -124,14 +133,14 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
               )}
               {page === 3 && (
                 <CustomerView
-                customer={customer}
-                previous={previousPage}
-                startFlow={startFlow}
-                fetchControls={fetchControls}
-                controls={controls}
-                getControl={getLimitByToken}
-                control={control}
-                location={location}
+                  customer={customer}
+                  previous={previousPage}
+                  startFlow={startFlow}
+                  accountControls={accountControls}
+                  cardControls={cardControls}
+                  getControl={getLimitByToken}
+                  control={control}
+                  location={location}
               />
               )}
             </div>

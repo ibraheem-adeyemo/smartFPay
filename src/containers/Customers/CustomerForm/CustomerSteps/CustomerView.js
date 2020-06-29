@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Card, CardBody, Spinner, Button, ButtonToolbar, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
@@ -8,9 +8,16 @@ import Cards from 'react-credit-cards';
 import chip from '../../../../assets/chip.png';
 
 const CustomerView = props => {
-  const { controls, fetchControls, submitting, previous, startFlow, getControl, customer, location } = props;
-  let cardControls = [], accountControls = [];
-  const accountLimit = location?.state?.limit?.accountLimit;
+  const { submitting, previous, startFlow, getControl, customer, location, accountControls, cardControls } = props;
+  const updatedLimit = location?.state?.limit;
+  const [limit, setLimit] = useState(location?.state?.limit.success?updatedLimit : null);
+  const [accountLimit, setAccountLimit] = useState(location?.state?.limit.success?updatedLimit.response:accountControls[0]);
+  // if(location?.state?.limit.success)
+  //   setAccountLimit(location?.state?.limit?.accountLimit)
+  // else
+    // setAccountLimit(accountControls)
+  // const accountLimit = location?.state?.limit?.accountLimit || accountControls;
+  // const accountLimit = accountControls;
   // let customer = {
   //   request: '45678900000',
   //   response: {
@@ -26,7 +33,6 @@ const CustomerView = props => {
   // }
   
   // }
-  const {count, data} = controls.response;
   const {request, response} = customer;
 //   const foundControl =
 //     control.response &&
@@ -37,10 +43,13 @@ const CustomerView = props => {
 //     control.response && control.response.data && control.response.data.length
 //       ? control.response.data[0]
 //       : {};
-
 useEffect(() => {
-  fetchControls(customer?.request);
-}, []);
+  if(updatedLimit?.success) {
+    setLimit(updatedLimit.response)
+  }
+  console.log(updatedLimit)
+  console.log(limit)
+}, [accountLimit]);
 
 const CardDetails = ({card}) => (
   <>
@@ -65,7 +74,9 @@ const CardDetails = ({card}) => (
                   className="btn btn-primary project-summary__btn"
                   to={{
                     pathname: "/limit-requests/card/edit/2",
-                    state: { fromCustomerView: true }
+                    state: { 
+                      fromCustomerView: true 
+                    }
                   }}
                   id="link-edit-card-control"
                 >
@@ -94,14 +105,11 @@ const CardDetails = ({card}) => (
   </>
 );
 
-cardControls = data?.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
-
-accountControls = data?.filter(control => control.limitType === 'ACCOUNT');
-
 // console.log(count, data);
 // console.log(customer)
-console.log(location?.state?.limit?.accountLimit?.success)
-console.log(cardControls, accountControls);
+// console.log(location?.state?.limit?.accountLimit?.success)
+// console.log(cardControls, accountControls);
+console.log(accountLimit, accountControls)
 
 const cards = response?.cards?.map((card, index) => <CardDetails key ={index} card={card}/>)
 
@@ -123,7 +131,10 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                   className="btn btn-primary project-summary__btn"
                   to={{
                     pathname: `/limit-requests/edit`,
-                    state: { fromCustomerView: true }
+                    state: { 
+                      fromCustomerView: true,
+                      accountLimit:accountLimit
+                    }
                   }}
                 >
                   Manage Account Control
