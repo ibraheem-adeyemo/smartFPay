@@ -99,7 +99,7 @@ export const LimitRequestRoutes = {
       exact: false,
       icon: null,
       name: "Edit Limits",
-      path: "/limit-requests/edit",
+      path: "/limit-requests/edit/:id",
       menu: false,
       pageComponent: LimitForm,
       enabled: true,

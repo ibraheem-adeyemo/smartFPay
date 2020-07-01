@@ -6,7 +6,6 @@ import CustomerCreateForm from "./components/Form";
 import PageHeader from "../../../shared/components/PageHeader";
 import { withRouter } from "react-router-dom";
 
-
 const CustomerForm = props => {
   const { dispatch, history, location } = props;
   const createCustomer = values => {

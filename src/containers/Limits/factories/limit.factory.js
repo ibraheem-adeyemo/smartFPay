@@ -22,6 +22,7 @@ export const createRequestBody = (values, id, controlToEdit) => {
       ).slice(-2)}-${values.endDate.getFullYear()} ${("0" + values.startDate.getHours()).slice(-2)}:${("0" + values.startDate.getMinutes()).slice(-2)}:${("0" + values.startDate.getSeconds()).slice(-2)}`
     : ""
   };
+  console.log(values)
 
   if (id && controlToEdit && controlToEdit.data && controlToEdit.data.length) {
     requestObject.id = controlToEdit.data[0].id;

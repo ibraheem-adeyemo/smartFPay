@@ -19,7 +19,6 @@ import validate from "./validate";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostLimitControl } from "../../actions/limits.actions";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
-import { COUNTRIES } from "../../../../constants/countries";
 
 const CardLimitForm = memo(props => {
   const {
@@ -34,20 +33,12 @@ const CardLimitForm = memo(props => {
     postcardcontrol,
     startDate,
     endDate,
-    location
+    cardLimit,
+    location,
+    FREQUENCY_OPTIONS,
+    CHANNELS_OPTIONS,
+    COUNTRIES
   } = props;
-
-  const FREQUENCY_OPTIONS = [
-    {label: "DAILY", value: "DAILY"},
-    {label: "WEEKLY", value: "WEEKLY"},
-    {label: "MONTHLY", value: "MONTHLY"}
-  ];
-
-  const CHANNELS_OPTIONS = [
-    {label: "WEB", value: "WEB"},
-    {label: "POS", value: "POS"},
-    {label: "ATM", value: "ATM"}
-  ]
 
   const foundControl =
     control &&
@@ -67,6 +58,8 @@ const CardLimitForm = memo(props => {
     };
   }, [dispatch]);
 
+  console.log(cardLimit)
+
   return (
     <Col md={12} lg={12}>
       <Card>
@@ -75,7 +68,8 @@ const CardLimitForm = memo(props => {
             <h5 className="bold-text">
               {location?.state?.fromCustomerView ?<Link to={{
                 pathname: "/customers/add",
-                state: { cardLimit: {} }
+                state: { 
+                  cardLimit: (control.success && control.response.limitType!=='ACCOUNT')?control:cardLimit }
               }}
                   id="link-create-customer">
                 <MdArrowBack size={20} /> Back to customers
@@ -217,8 +211,9 @@ const CardLimitForm = memo(props => {
                                 name="enabledCountries"
                                 placeholder="Kindly pick contries to activate limit in"
                                 component={renderSelectField}
+                                isMulti={true}
                                 options={COUNTRIES}
-                                valueKey="alpha3Ccode"
+                                valueKey="alpha3Code"
                                 labelKey="name"
                             />
                             </div>
@@ -296,6 +291,7 @@ export default reduxForm({
   //   postcontrol: state.postcontrol,
   // }))(LimitForm)
   connect(state => ({
+    cardLimit: state.viewcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,
     amount: state.postcontrol.amount,

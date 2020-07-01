@@ -1,12 +1,12 @@
 import React, { memo, useEffect, useState } from "react";
-import { Card, CardBody, Col } from "reactstrap";
+import { Card, CardBody, Col, UncontrolledAlert } from "reactstrap";
 import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
 import { getCustomerDetails,resetPost, postCustomer, getCustomers } from "../../actions/customers.actions";
 import {getControl} from '../../../Limits/actions/limits.actions';
+import { show as showAlert } from "../../../Notifications/actions/alert.actions";
 import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
 import CustomerDetails from '../CustomerSteps/CustomerDetails';
 import CustomerView from '../CustomerSteps/CustomerView';
@@ -20,7 +20,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
   const [page, setPage] = useState(1);
   const [account, setAccount] = useState(null);
   let cardControls = [], accountControls = [];
-  const {count, data} = controls.response;
+  let accountNumber = '';
 
   const nextPage = () => {
     setPage(prev => prev + 1);
@@ -37,10 +37,11 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
   }
 
   const getCustomer = (accountNumber) => {
+    setAccount(accountNumber);
     dispatch(getCustomers({accountNumber, pageNumber:1, pageSize: 10}))
     dispatch(getAllControls({accountNumber,pageNumber:1, pageSize: 1000}))
     dispatch(getCustomerDetails(accountNumber, nextPage));
-    setAccount(accountNumber);
+    // setAccount(accountNumber);
     // nextPage();
   }
 
@@ -48,15 +49,13 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
     // dispatch(getControl(token));
   }
 
-  // const fetchControls = (accountNumber) => {
-  //   dispatch(getAllControls({accountNumber, pageSize:1000, pageNumber: 1}));
-    // setAccount(accountNumber);
-    // nextPage();
-  // }
-  console.log(count, data)
-  accountControls = data?.filter(control => control.limitType === 'ACCOUNT');
-  cardControls = data?.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
-  console.log(accountControls, cardControls)
+  const fetchControls = (accountNumber) => {
+    
+    setAccount(accountNumber);
+    nextPage();
+  }
+
+  // console.log(count, data)
 
   const previousPage = () => {
     setPage(prev => prev - 1);
@@ -69,10 +68,11 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
 
   useEffect(() => {
   if(location.state){setPage(3)}
-    dispatch(resetPost());
-    return () => {
-      dispatch(resetPost());
-    };
+    // dispatch(resetPost());
+    // return () => {
+    //   dispatch(resetPost());
+    // };
+    console.log(accountControls, cardControls)
   }, [dispatch]);
 
   console.log(accountControls);
@@ -136,11 +136,12 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
                   customer={customer}
                   previous={previousPage}
                   startFlow={startFlow}
-                  accountControls={accountControls}
-                  cardControls={cardControls}
                   getControl={getLimitByToken}
+                  accountNumber={accountNumber}
                   control={control}
+                  controls={controls}
                   location={location}
+                  dispatch={dispatch}
               />
               )}
             </div>
@@ -156,7 +157,7 @@ CustomerCreateForm.propTypes = {
 };
 
 export default connect(state => ({
-  createCustomer: state.createCustomer,
+  createCustomer: state.createCustomercreateCustomer,
   customer: state.getCustomer,
   customers: state.getCustomers,
   controls: state.getcontrols,

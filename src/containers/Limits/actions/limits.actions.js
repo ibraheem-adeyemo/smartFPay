@@ -201,7 +201,7 @@ export const postControl = (values, id, controlToEdit, history, location) => {
     }
 };
 
-export const postCardControl = (values, id, controlToEdit, history) => {
+export const postCardControl = (values, id, controlToEdit, history, location) => {
   const requestBody = createCardRequestBody(values, id, controlToEdit);
   console.log(requestBody);
   return async (dispatch, getState) => {
@@ -210,7 +210,9 @@ export const postCardControl = (values, id, controlToEdit, history) => {
     try {
       const response = await limitService.postCardControl(requestBody, id);
       dispatch(success(response));
-      dispatch(reset("card_control_form"));
+      if(!location?.state?.fromCustomerView){
+        dispatch(reset("card_control_form"));
+      }
       dispatch(
         showAlert(
           "success",
@@ -218,7 +220,7 @@ export const postCardControl = (values, id, controlToEdit, history) => {
           response && response.responseMessage
         )
       );
-      dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+      // dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
       dispatch(resetPost());
       if (id) {
         dispatch(getControl(id));

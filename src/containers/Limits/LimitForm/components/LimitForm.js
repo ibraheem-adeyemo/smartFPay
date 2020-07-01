@@ -41,10 +41,7 @@ const LimitForm = memo(props => {
   } = props;
 
   const foundControl =
-    control &&
-    control.response &&
-    control.response.data &&
-    control.response.data.length &&
+    control?.response &&
     !control.loading;
 
   const {request, response} = accountLimit
@@ -83,7 +80,7 @@ const LimitForm = memo(props => {
               </Link>}
             </h5>
           </div>
-          {controlId && control && control.loading ? (
+          {controlId && control?.loading ? (
             <div className="text-center">
               <Spinner
                 color="success"
@@ -179,7 +176,7 @@ const LimitForm = memo(props => {
                           <Field
                             id="startDate"
                             name="startDate"
-                            dateFormat="dd-MM-yyyy h:mm aa"
+                            dateFormat="dd-MM-yyyy h:mm:ss"
                             minDate={new Date()}
                             timeFormat="HH:mm"
                             showTimeInput={true}
@@ -268,11 +265,9 @@ export default reduxForm({
   validate,
   enableReinitialize: true
 })(
-  // connect(state => ({
-  //   postcontrol: state.postcontrol,
-  // }))(LimitForm)
   connect(state => ({
     accountLimit:state.viewcontrol,
+    postcontrol: state.postcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,
     amount: state.postcontrol.amount,
