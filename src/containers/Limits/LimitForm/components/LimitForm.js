@@ -20,6 +20,7 @@ import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostLimitControl } from "../../actions/limits.actions";
 import renderToggleButtonField from "../../../../shared/components/form/ToggleButton";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
+import {FREQUENCY_OPTIONS} from '../../../../constants/app.constants';
 
 const LimitForm = memo(props => {
   const {
@@ -36,8 +37,7 @@ const LimitForm = memo(props => {
     startDate,
     endDate,
     location,
-    accountLimit,
-    FREQUENCY_OPTIONS
+    accountLimit
   } = props;
 
   const foundControl =

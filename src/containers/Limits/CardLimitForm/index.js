@@ -5,20 +5,9 @@ import { postCardControl, getControl, resetViewLimitControl } from "../actions/l
 import HorizontalForm from "./components/CardLimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 import { COUNTRIES } from "../../../constants/countries";
+import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';
 
 const CardLimitForm = ({ dispatch, control, match, customer, history, location }) => {
-
-  const FREQUENCY_OPTIONS = [
-    {label: "DAILY", value: "DAILY"},
-    {label: "WEEKLY", value: "WEEKLY"},
-    {label: "MONTHLY", value: "MONTHLY"}
-  ];
-
-  const CHANNELS_OPTIONS = [
-    {label: "WEB", value: "WEB"},
-    {label: "POS", value: "POS"},
-    {label: "ATM", value: "ATM"}
-  ]
 
   const createFormData = control => {
     let controlData;
@@ -81,7 +70,7 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   return (
     <Container>
       <PageHeader
-        header={`${location?.state?.cardLimit ? "Edit" : "Add"} Card Limit`}
+        header={`${match.params.id ? "Edit" : "Add"} Card Limit`}
         subheader="Create new card limit"
       />
       <Row>
@@ -94,7 +83,6 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
           location={location}
           COUNTRIES={COUNTRIES}
           FREQUENCY_OPTIONS={FREQUENCY_OPTIONS}
-          CHANNELS_OPTIONS={CHANNELS_OPTIONS}
         />
       </Row>
     </Container>

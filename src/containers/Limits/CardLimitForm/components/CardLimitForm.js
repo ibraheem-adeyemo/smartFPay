@@ -19,6 +19,7 @@ import validate from "./validate";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostLimitControl } from "../../actions/limits.actions";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
+import {FREQUENCY_OPTIONS, CHANNELS_OPTIONS} from '../../../../constants/app.constants';
 
 const CardLimitForm = memo(props => {
   const {
@@ -35,8 +36,6 @@ const CardLimitForm = memo(props => {
     endDate,
     cardLimit,
     location,
-    FREQUENCY_OPTIONS,
-    CHANNELS_OPTIONS,
     COUNTRIES
   } = props;
 
@@ -292,6 +291,7 @@ export default reduxForm({
   // }))(LimitForm)
   connect(state => ({
     cardLimit: state.viewcontrol,
+    postcardcontrol: state.postcardcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,
     amount: state.postcontrol.amount,

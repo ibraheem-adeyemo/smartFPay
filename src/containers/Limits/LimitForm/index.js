@@ -5,15 +5,9 @@ import { connect } from "react-redux";
 import { postControl, getControl, resetViewLimitControl } from "../actions/limits.actions";
 import HorizontalForm from "./components/LimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
-import moment from 'moment';
+import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';
 
 const LimitForm = ({ dispatch, control, match, history, customer, location }) => {
-
-  const FREQUENCY_OPTIONS = [
-    {label: "DAILY", value: "DAILY"},
-    {label: "WEEKLY", value: "WEEKLY"},
-    {label: "MONTHLY", value: "MONTHLY"}
-  ];
 
   const formatDate = (dateString) => {
     let dateCharacters = dateString.split('');
