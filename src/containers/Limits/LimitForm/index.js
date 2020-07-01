@@ -39,8 +39,6 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
         startDate: new Date(formatDate(controlObj.limitStartDate)),
         endDate: new Date(formatDate(controlObj.limitEndDate))
       };
-      // console.log('Control Data', controlData)
-      // console.log('startDate', controlObj.createdDate)
     }
 
     return controlData;
@@ -61,9 +59,6 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
     dispatch(
       postControl(requestBody, controlToken, control.response, history, location)
     );
-    // console.log('values', values);
-    // console.log('match', match);
-    // console.log('control', control);
   };
 
   useEffect(() => {

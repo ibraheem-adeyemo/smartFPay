@@ -9,15 +9,23 @@ import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';
 
 const CardLimitForm = ({ dispatch, control, match, customer, history, location }) => {
 
+  const formatDate = (dateString) => {
+    let dateCharacters = dateString.split('');
+      let temp = dateCharacters[0];
+      dateCharacters[0] = dateCharacters[3];
+      dateCharacters[3] = temp;
+      temp = dateCharacters[1];
+      dateCharacters[1] = dateCharacters[4];
+      dateCharacters[4] = temp;
+
+      return dateCharacters.join('');
+  }
+
   const createFormData = control => {
     let controlData;
     const hasControl =
-    (match.params.id &&
-      control &&
-      control.response &&
-      control.response.data &&
-      control.response.data.length) || location.state?.accountLimit;
-    const controlObj = hasControl ? (control.response?.data?.[0]||location.state?.accountLimit) : null;
+    (match.params.id && control?.response);
+    const controlObj = hasControl ? (control.response) : null;
     if (controlObj) {
       console.log('controlObj', controlObj);
       controlData = {
@@ -27,9 +35,8 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
           frequency => frequency.label === controlObj.frequencyLimitReset
         ),
         amount: controlObj.transactionLimitAmount,
-        interbankTransaction: controlObj.interbankTransaction,
-        // startDate: controlObj.createdDate,
-        // endDate: controlObj.limitEndDate?.substring(0, 10)
+        startDate: new Date(formatDate(controlObj.limitStartDate)),
+        endDate: new Date(formatDate(controlObj.limitEndDate))
       };
       console.log('Control Data', controlData)
     }
@@ -42,9 +49,13 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   }
 
   const addCardControl = values => {
+    const card = location.state?.cardDetails.card;
     let requestBody= {
       coreBankingId: customer?.response?.coreBankingId,
       accountNumber: customer?.request,
+      tokenizedPan: card.tokenizedPan,
+      cardExpiryNumber: card.cardExpiryNumber,
+      cardMaskedPan: card.cardMaskedPan,
       ...values
     }
 
@@ -52,9 +63,6 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
     dispatch(
       postCardControl(requestBody, controlToken, control.response, history, location)
     );
-    // console.log('values', values);
-    // console.log('match', match);
-    // console.log('control', control);
   };
 
   useEffect(() => {

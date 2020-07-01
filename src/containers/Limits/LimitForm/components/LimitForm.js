@@ -37,14 +37,11 @@ const LimitForm = memo(props => {
     startDate,
     endDate,
     location,
-    accountLimit
   } = props;
 
   const foundControl =
     control?.response &&
     !control.loading;
-
-  const {request, response} = accountLimit
 
   const resetForm = () => {
     reset();
@@ -57,8 +54,6 @@ const LimitForm = memo(props => {
     };
   }, [dispatch]);
 
-  console.log(accountLimit)
-
   return (
     <Col md={12} lg={12}>
       <Card>
@@ -69,7 +64,7 @@ const LimitForm = memo(props => {
               to={{
                 pathname: "/customers/add",
                 state: { 
-                  limit: control.success?control:accountLimit
+                  
                 }
               }}
               id="link-create-customer">
@@ -266,7 +261,6 @@ export default reduxForm({
   enableReinitialize: true
 })(
   connect(state => ({
-    accountLimit:state.viewcontrol,
     postcontrol: state.postcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,

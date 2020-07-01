@@ -57,8 +57,8 @@ const CustomerView = props => {
 //   console.log(updatedLimit)
 //   console.log(limit)
 // }, [controls]);
-    accountControls = controls?.response?.data.filter(control => control.limitType === 'ACCOUNT');
-    cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
+accountControls = controls?.response?.data.filter(control => control.limitType === 'ACCOUNT');
+cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
 
 // console.log(cardLimit, updatedCardLimit)
 
@@ -77,7 +77,9 @@ const CardDetails = ({card}) => (
                 </Col>
                 <Col sm="6">
                 
-                  {cardControls.length > 0?<AccessControl
+                  {cardControls.find(
+          control => control.pan === card.pan
+        )?<AccessControl
                 allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
                 renderNoAccess={() => null}
               >
@@ -86,7 +88,8 @@ const CardDetails = ({card}) => (
                   to={{
                     pathname: `/limit-requests/card/edit/${card.token}`,
                     state: { 
-                      fromCustomerView: true 
+                      fromCustomerView: true,
+                      cardDetails: card
                     }
                   }}
                   id="link-edit-card-control"
@@ -103,7 +106,7 @@ const CardDetails = ({card}) => (
                     pathname: "/limit-requests/card/add",
                     state: { 
                       fromCustomerView: true,
-                      cardLimit:{} 
+                      cardDetails: card
                     }
                   }}
                   id="link-create-card-control"

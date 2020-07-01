@@ -40,10 +40,7 @@ const CardLimitForm = memo(props => {
   } = props;
 
   const foundControl =
-    control &&
-    control.response &&
-    control.response.data &&
-    control.response.data.length &&
+    control?.response &&
     !control.loading;
 
   const resetForm = () => {
@@ -279,18 +276,14 @@ CardLimitForm.propTypes = {
   reset: PropTypes.func.isRequired
 };
 
-const selector = formValueSelector("control_form");
+const selector = formValueSelector("card_control_form");
 
 export default reduxForm({
-  form: "control_form",
+  form: "card_control_form",
   validate,
   enableReinitialize: true
 })(
-  // connect(state => ({
-  //   postcontrol: state.postcontrol,
-  // }))(LimitForm)
   connect(state => ({
-    cardLimit: state.viewcontrol,
     postcardcontrol: state.postcardcontrol,
     duration: state.postcontrol.duration,
     frequency: state.postcontrol.frequency,

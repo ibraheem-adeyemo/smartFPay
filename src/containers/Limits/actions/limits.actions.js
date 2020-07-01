@@ -147,7 +147,7 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
 
 export const postControl = (values, id, controlToEdit, history, location) => {
     const requestBody = createRequestBody(values, id, controlToEdit);
-    console.log(requestBody);
+    const accountNumber = values.accountNumber;
     return async (dispatch, getState) => {
       const state = getState();
       dispatch(request(requestBody));
@@ -164,7 +164,9 @@ export const postControl = (values, id, controlToEdit, history, location) => {
             response && response.responseMessage
           )
         );
-        // dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+        if(location?.state?.fromCustomerView){
+        dispatch(getAllControls({ pageNumber: 1, pageSize: 1000, accountNumber }));
+        }
         dispatch(resetPost());
         if (id) {
           dispatch(getControl(id));
@@ -202,6 +204,7 @@ export const postControl = (values, id, controlToEdit, history, location) => {
 };
 
 export const postCardControl = (values, id, controlToEdit, history, location) => {
+  const accountNumber = values.accountNumber;
   const requestBody = createCardRequestBody(values, id, controlToEdit);
   console.log(requestBody);
   return async (dispatch, getState) => {
@@ -220,7 +223,9 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
           response && response.responseMessage
         )
       );
-      // dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+      if(location?.state?.fromCustomerView){
+        dispatch(getAllControls({ pageNumber: 1, pageSize: 1000, accountNumber }));
+        }
       dispatch(resetPost());
       if (id) {
         dispatch(getControl(id));
