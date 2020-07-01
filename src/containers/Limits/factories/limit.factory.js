@@ -34,10 +34,10 @@ export const createRequestBody = (values, id, controlToEdit) => {
 export const createCardRequestBody = (values, id, controlToEdit) => {  
   console.log(values);
   const requestObject = {
-    tokenizedPan: "68e656b251e89e8358bdf8483ab0d67c6640f3e7a1a9f0e75898d41ff662f077",
+    tokenizedPan: values.tokenizedPan,
     token: id,
     accountNumber: values.accountNumber,
-    cardStatus: values.cardStatus,
+    cardStatus: values.cardStatus.value,
     coreBankingId: values.coreBankingId,
     enabledChannels: values.channels.map(channel => channel.value),
     enabledCountryCodes: values.enabledCountries.map(enabledCountry => enabledCountry.alpha3Code),

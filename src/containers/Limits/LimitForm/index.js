@@ -55,11 +55,12 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
       ...values
     }
 
-    let controlToken = control?.response?.token||location.state?.accountLimit.token
+    let controlToken = match.params.id;
     dispatch(
       postControl(requestBody, controlToken, control.response, history, location)
     );
   };
+  
 
   useEffect(() => {
     if (match.params.id) {

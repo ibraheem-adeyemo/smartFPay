@@ -20,6 +20,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
   const {getCustomers} = customersService;
     const [accountNumber, setAccountNumber] = useState('');
     const {response} = customer;
+    let data = response?.data?.[0];
 
     // useEffect(() => {
     //   getCustomers({pageSize:10, pageNumber:1 ,accountNumber: customer?.request}).then(res => {
@@ -49,7 +50,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='account'
                             disabled={true}
                             type='text'
-                            value={response.data[0].accountNumber || ''}
+                            value={data?.accountNumber || ''}
                             />
                         </div>
                         </div>
@@ -66,7 +67,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='name'
                             disabled={true}
                             type='text'
-                            value={response.data[0].name || ''}
+                            value={data?.name || ''}
                             />
                         </div>
                         </div>
@@ -83,7 +84,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='cbi'
                             disabled={true}
                             type='text'
-                            value={response.data[0].coreBankingId || ""}
+                            value={data?.coreBankingId || ""}
                             />
                         </div>
                         </div>

@@ -64,8 +64,7 @@ const CardLimitForm = memo(props => {
             <h5 className="bold-text">
               {location?.state?.fromCustomerView ?<Link to={{
                 pathname: "/customers/add",
-                state: { 
-                  cardLimit: (control.success && control.response.limitType!=='ACCOUNT')?control:cardLimit }
+                state: {}
               }}
                   id="link-create-customer">
                 <MdArrowBack size={20} /> Back to customers
@@ -248,7 +247,6 @@ const CardLimitForm = memo(props => {
                             placeholder="Kindly pick a card status"
                             component={renderSelectField}
                             options={CARD_STATUS_OPTIONS}
-                            defaultValue={CARD_STATUS_OPTIONS[0]}
                             valueKey="value"
                             labelKey="label"
                           />

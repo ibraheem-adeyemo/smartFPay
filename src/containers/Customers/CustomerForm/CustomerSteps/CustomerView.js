@@ -78,7 +78,7 @@ const CardDetails = ({card}) => (
                 <Col sm="6">
                 
                   {cardControls.find(
-          control => control.pan === card.pan
+          control => control.token === card.tokenizedPan
         )?<AccessControl
                 allowedPermissions={[permissionsConstants.CREATE_CONTROL]}
                 renderNoAccess={() => null}
@@ -89,7 +89,8 @@ const CardDetails = ({card}) => (
                     pathname: `/limit-requests/card/edit/${card.token}`,
                     state: { 
                       fromCustomerView: true,
-                      cardDetails: card
+                      cardDetails: card,
+                      cardToken: card.token
                     }
                   }}
                   id="link-edit-card-control"

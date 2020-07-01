@@ -37,7 +37,7 @@ export const CHANNELS_OPTIONS = [
 ];
 
 export const CARD_STATUS_OPTIONS = [
-  {label: "SUBSCRIBED", value: "SUBSCRIBED"},
+  {label: "ACTIVE", value: "ACTIVE"},
   {label: "BLOCKED", value: "BLOCKED"}
 ];
 

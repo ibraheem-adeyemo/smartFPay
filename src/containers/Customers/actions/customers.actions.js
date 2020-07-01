@@ -22,7 +22,7 @@ export const getCustomers = (requestParams) => {
         showAlert(
           "danger",
           "Failed to get customers",
-          error ? error.message : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }
@@ -54,7 +54,7 @@ export const getCustomer = accountNumber => {
         showAlert(
           "danger",
           "Failed to get card request",
-          error ? error.message : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }
@@ -81,7 +81,7 @@ export const getCustomerDetails = (accountNumber, callBack) => {
     try {
       const response = await customersService.getCustomerByAccountNumber(accountNumber);
       // response && dispatch(success(response));
-      console.log(response);
+      console.log('RESPONSE',response);
       dispatch(success(response));
       dispatch(reset("customer_form"));
       dispatch(
@@ -94,12 +94,13 @@ export const getCustomerDetails = (accountNumber, callBack) => {
       dispatch(resetPost());
       callBack();
     } catch (error) {
+      console.log('erroe',error)
       dispatch(failure(error));
       dispatch(
         showAlert(
           "danger",
           "Failed to get customer details",
-          error ? error.responseMessage : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }
@@ -160,7 +161,7 @@ export const postCustomer = (values, callBack) => {
           showAlert(
             "danger",
             requestBody.id ? "Failed to edit customer" : "Failed to add customer",
-            error ? error.message : message.GENERIC_ERROR
+            error ? error : message.GENERIC_ERROR
           )
         );
       }

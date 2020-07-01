@@ -154,9 +154,9 @@ export const postControl = (values, id, controlToEdit, history, location) => {
       try {
         const response = await limitService.postControl(requestBody, id);
         dispatch(success(response));
-        if(!location?.state?.fromCustomerView){
-          dispatch(reset("control_form"));
-        }
+        // if(!location?.state?.fromCustomerView){
+        dispatch(reset("control_form"));
+        // }
         dispatch(
           showAlert(
             "success",
@@ -170,6 +170,14 @@ export const postControl = (values, id, controlToEdit, history, location) => {
         dispatch(resetPost());
         if (id) {
           dispatch(getControl(id));
+          if(location?.state?.fromCustomerView){
+            history.push({
+              pathname: "/customers/add",
+              state: {}
+            });
+          } else {
+            history.push("/limit-requests");
+          }
         } else {
           dispatch(resetView());
           history.push("/limit-requests");
@@ -229,6 +237,14 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
       dispatch(resetPost());
       if (id) {
         dispatch(getControl(id));
+        if(location?.state?.fromCustomerView){
+          history.push({
+            pathname: "/customers/add",
+            state: {}
+          });
+        } else {
+          history.push("/limit-requests");
+        }
       } else {
         dispatch(resetView());
         history.push("/limit-requests");

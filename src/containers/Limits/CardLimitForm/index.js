@@ -49,7 +49,7 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   }
 
   const addCardControl = values => {
-    const card = location.state?.cardDetails.card;
+    const card = location.state?.cardDetails;
     let requestBody= {
       coreBankingId: customer?.response?.coreBankingId,
       accountNumber: customer?.request,
@@ -59,7 +59,8 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
       ...values
     }
 
-    let controlToken = control?.response?.token||location.state?.accountLimit.token
+    // let controlToken = control?.response?.token||
+    let controlToken = match.params.id;
     dispatch(
       postCardControl(requestBody, controlToken, control.response, history, location)
     );
