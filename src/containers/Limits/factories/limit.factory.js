@@ -35,15 +35,18 @@ export const createCardRequestBody = (values, id, controlToEdit) => {
   console.log(values);
   const requestObject = {
     tokenizedPan: "68e656b251e89e8358bdf8483ab0d67c6640f3e7a1a9f0e75898d41ff662f077",
-    accountNumber: "0564692611",
-    cardStatus: "BLOCKED",
-    coreBankingId: "0909090901",
+    token: id,
+    accountNumber: values.accountNumber,
+    cardStatus: values.cardStatus,
+    coreBankingId: values.coreBankingId,
     enabledChannels: values.channels.map(channel => channel.value),
-    enabledCountryCodes: [values.enabledCountries.alpha3Code],
+    enabledCountryCodes: values.enabledCountries.map(enabledCountry => enabledCountry.alpha3Code),
     // active: true,
     // admin: true,
     transactionLimitCount: parseInt(values.duration),
     frequencyLimitReset: values.frequency.value,
+    cardExpiryNumber: values.cardExpiryNumber,
+    cardMaskedPan: values.cardMaskedPan,
     transactionLimitAmount: parseInt(values.amount),
     limitStartDate: values.startDate
     ? `${("0" + values.startDate.getDate()).slice(-2)}-${(

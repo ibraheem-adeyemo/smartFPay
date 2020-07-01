@@ -19,7 +19,7 @@ import validate from "./validate";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostLimitControl } from "../../actions/limits.actions";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
-import {FREQUENCY_OPTIONS, CHANNELS_OPTIONS} from '../../../../constants/app.constants';
+import {FREQUENCY_OPTIONS, CHANNELS_OPTIONS, CARD_STATUS_OPTIONS} from '../../../../constants/app.constants';
 
 const CardLimitForm = memo(props => {
   const {
@@ -54,7 +54,7 @@ const CardLimitForm = memo(props => {
     };
   }, [dispatch]);
 
-  console.log(cardLimit)
+  console.log(location)
 
   return (
     <Col md={12} lg={12}>
@@ -236,6 +236,25 @@ const CardLimitForm = memo(props => {
                             </div>
                         </div>
                         </Col>
+                        <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label required">
+                          Card Status
+                        </span>
+                        <div className="form__form-group-field">
+                          <Field
+                            id="cardStatus"
+                            name="cardStatus"
+                            placeholder="Kindly pick a card status"
+                            component={renderSelectField}
+                            options={CARD_STATUS_OPTIONS}
+                            defaultValue={CARD_STATUS_OPTIONS[0]}
+                            valueKey="value"
+                            labelKey="label"
+                          />
+                        </div>
+                      </div>
+                    </Col>
                   </Row>
 
                   <ButtonToolbar className="form__button-toolbar">

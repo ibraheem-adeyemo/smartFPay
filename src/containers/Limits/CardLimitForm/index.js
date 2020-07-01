@@ -54,8 +54,8 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
       coreBankingId: customer?.response?.coreBankingId,
       accountNumber: customer?.request,
       tokenizedPan: card.tokenizedPan,
-      cardExpiryNumber: card.cardExpiryNumber,
-      cardMaskedPan: card.cardMaskedPan,
+      cardExpiryNumber: card.expiry,
+      cardMaskedPan: card.pan,
       ...values
     }
 

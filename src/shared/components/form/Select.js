@@ -47,7 +47,8 @@ class SelectField extends PureComponent {
       id,
       options,
       labelKey,
-      valueKey
+      valueKey,
+      defaultValue
     } = this.props;
 
     return (
@@ -62,6 +63,7 @@ class SelectField extends PureComponent {
         options={options}
         clearable={false}
         className="react-select"
+        defaultValue={defaultValue}
         placeholder={placeholder}
         isMulti={isMulti}
         classNamePrefix="react-select"
@@ -81,7 +83,8 @@ const renderSelectField = props => {
     valueKey,
     labelKey,
     customChange,
-    isMulti
+    isMulti,
+    defaultValue
   } = props;
   return (
     <div className="form__form-group-input-wrap form__form-group-input-wrap--error-above">
@@ -95,6 +98,7 @@ const renderSelectField = props => {
         labelKey={labelKey}
         customChange={customChange}
         isMulti={isMulti}
+        defaultValue={defaultValue}
       />
       {meta.touched && meta.error && (
         <span className="form__form-group-error">{meta.error}</span>

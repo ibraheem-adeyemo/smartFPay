@@ -36,6 +36,11 @@ export const CHANNELS_OPTIONS = [
   {label: "ATM", value: "ATM"}
 ];
 
+export const CARD_STATUS_OPTIONS = [
+  {label: "SUBSCRIBED", value: "SUBSCRIBED"},
+  {label: "BLOCKED", value: "BLOCKED"}
+];
+
 export const BATCH_UPLOAD_TEMPLATE = `${appConfig.mufasaTemplateUrl}/batch_card_issuance.xlsx`;
 
 export const CARD_REQUEST_TYPE = [
