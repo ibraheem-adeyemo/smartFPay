@@ -5,7 +5,7 @@ import { postCardControl, getControl, resetViewLimitControl } from "../actions/l
 import HorizontalForm from "./components/CardLimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 import { COUNTRIES } from "../../../constants/countries";
-import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';
+import {FREQUENCY_OPTIONS, CARD_STATUS_OPTIONS} from '../../../constants/app.constants';
 
 const CardLimitForm = ({ dispatch, control, match, customer, history, location }) => {
 
@@ -26,6 +26,14 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
     const hasControl =
     (match.params.id && control?.response);
     const controlObj = hasControl ? (control.response) : null;
+    let channels=[], countries=[], countryCount = 0, channelsCount = 0;
+    for(var country of controlObj.enabledCountries.split(',')) {
+       countries[countryCount++] = {name: country,alpha3Code: country};
+    }
+    for(var channel of controlObj.enabledChannels.split(',')) {
+      channels[channelsCount++] = {label: channel,value: channel};
+    }
+    console.log('channels', channels)
     if (controlObj) {
       console.log('controlObj', controlObj);
       controlData = {
@@ -36,7 +44,12 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
         ),
         amount: controlObj.transactionLimitAmount,
         startDate: new Date(formatDate(controlObj.limitStartDate)),
-        endDate: new Date(formatDate(controlObj.limitEndDate))
+        endDate: new Date(formatDate(controlObj.limitEndDate)),
+        cardStatus: CARD_STATUS_OPTIONS.find(
+          status => status.label === controlObj.cardStatus
+        ),
+        channels: channels,
+        enabledCountries: countries
       };
       console.log('Control Data', controlData)
     }

@@ -160,7 +160,7 @@ export const postControl = (values, id, controlToEdit, history, location) => {
         dispatch(
           showAlert(
             "success",
-            id ? "Control edited successfully" : "New control added successfully",
+            id ? "Control updated successfully" : "New control added successfully",
             response && response.responseMessage
           )
         );
@@ -176,7 +176,15 @@ export const postControl = (values, id, controlToEdit, history, location) => {
               state: {}
             });
           } else {
-            history.push("/limit-requests");
+            if(location?.state?.fromCustomerView){
+              history.push({
+                pathname: "/customers/add",
+                state: {}
+              }); 
+            }else{
+                history.push("/limit-requests");
+              }
+            
           }
         } else {
           dispatch(resetView());
@@ -227,7 +235,7 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
       dispatch(
         showAlert(
           "success",
-          id ? "Control edited successfully" : "New card control added successfully",
+          id ? "Control updated successfully" : "New card control added successfully",
           response && response.responseMessage
         )
       );
@@ -243,7 +251,14 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
             state: {}
           });
         } else {
-          history.push("/limit-requests");
+          if(location?.state?.fromCustomerView){
+            history.push({
+              pathname: "/customers/add",
+              state: {}
+            }); 
+          }else{
+              history.push("/limit-requests");
+            }
         }
       } else {
         dispatch(resetView());

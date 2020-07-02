@@ -156,7 +156,7 @@ export const postUser = (values, currentUser, id, userToEdit) => {
       dispatch(
         showAlert(
           "success",
-          id ? "User edited successfully" : "New user added successfully",
+          id ? "User updated successfully" : "New user added successfully",
           response && response.responseMessage
         )
       );
@@ -207,7 +207,7 @@ export const changeUserRole = (values, id, userToEdit) => {
       dispatch(
         showAlert(
           "success",
-          "User role edited successfully",
+          "User role updated successfully",
           response && response.description
         )
       );

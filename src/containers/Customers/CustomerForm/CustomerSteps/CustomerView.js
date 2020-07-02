@@ -58,7 +58,7 @@ const CustomerView = props => {
 //   console.log(limit)
 // }, [controls]);
 accountControls = controls?.response?.data.filter(control => control.limitType === 'ACCOUNT');
-cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD').map((control) => control.tokenizedPan);
+cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD');
 
 // console.log(cardLimit, updatedCardLimit)
 
@@ -76,7 +76,6 @@ const CardDetails = ({card}) => (
                 </Card>
                 </Col>
                 <Col sm="6">
-                
                   {cardControls.find(
           control => control.token === card.tokenizedPan
         )?<AccessControl
@@ -86,11 +85,10 @@ const CardDetails = ({card}) => (
                     <Link
                   className="btn btn-primary project-summary__btn"
                   to={{
-                    pathname: `/limit-requests/card/edit/${card.token}`,
+                    pathname: `/limit-requests/card/edit/${card.tokenizedPan}`,
                     state: { 
                       fromCustomerView: true,
-                      cardDetails: card,
-                      cardToken: card.token
+                      cardDetails: card
                     }
                   }}
                   id="link-edit-card-control"
