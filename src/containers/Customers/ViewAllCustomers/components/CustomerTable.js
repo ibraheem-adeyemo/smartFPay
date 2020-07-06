@@ -50,20 +50,16 @@ const CustomersTable = memo(
             // name={`${row.firstName} ${row.lastName}`}
           />
         ),
-        sortable: true,
+        // sortable: true,
         sortKey: "id"
       },
       {
         accessor: "accountNumber",
         name: "Account Number",
-        sortable: true,
-        sortKey: "accountNumber"
       },
       {
         accessor: "name",
         name: "Customer Name",
-        sortable: true,
-        sortKey: "name"
       },
       // {
       //   accessor: "lastName",
@@ -74,64 +70,25 @@ const CustomersTable = memo(
       {
         accessor: "customerStatus",
         name: "Status",
-        sortable: true,
-        sortKey: "customerStatus"
+        // filterable: true,
+        Cell: row => (
+          <button
+            type="button"
+            id={`toggle-btn-${row.customerStatus === 'SUBSCRIBED' ? "enabled" : "disabled"}-${row.id}`}
+            className={`btn ${
+              row.customerStatus === 'SUBSCRIBED' ? "btn-success" : "btn-secondary"
+            } badge mb-0`}
+          >
+            {row.customerStatus}
+          </button>
+        )
       },
-      // {
-      //   accessor: "active",
-      //   name: "Status (click to toggle)",
-      //   sortable: true,
-      //   sortKey: "active",
-      //   renderHeader: () => (
-      //     <span>
-      //       Status <small>(click to toggle)</small>
-      //     </span>
-      //   ),
-      //   filterable: true,
-      //   Cell: row => (
-      //     <button
-      //       type="button"
-      //       id={`toggle-btn-${row.active ? "enabled" : "disabled"}-${row.id}`}
-      //       onClick={() =>
-      //         accessControlFn(
-      //           permissions,
-      //           [ENABLE_ACCOUNT_CONTROL, DISABLE_ACCOUNT_CONTROL, ENABLE_CARD_CONTROL, DISABLE_CARD_CONTROL],
-      //           row.cardId ? toggleCardFn : toggleAccountFn,
-      //           row
-      //         )
-      //       }
-      //       className={`btn ${
-      //         row.active ? "btn-success" : "btn-secondary"
-      //       } badge mb-0`}
-      //     >
-      //       {(toggleaccount.loading) &&
-      //       (row.accountNumber === toggleaccount.request.accountNumber) || (togglecard.loading) &&
-      //       (row.cardId === togglecard.request.cardId) ? (
-      //         <Spinner size="sm" />
-      //       ) : (
-      //         <span>{row.active ? "Enabled" : "Disabled"}</span>
-      //       )}
-      //     </button>
-      //   )
-      // },
       {
         accessor: "coreBankingId",
         name: "Core Banking Id",
         sortable: true,
         sortKey: "coreBankingId"
       },
-     /*  {
-        accessor: "city",
-        name: "Address City",
-        sortable: true,
-        sortKey: "city"
-      },
-      {
-        accessor: "countryCode",
-        name: "Address Country",
-        sortable: true,
-        sortKey: "countryCode"
-      } */
     ];
 console.log('dataState', dataState)
     const sortFn = (pageNumber, pageSize, column) => {
