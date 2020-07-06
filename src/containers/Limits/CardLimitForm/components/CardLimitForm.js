@@ -105,7 +105,7 @@ const CardLimitForm = memo(props => {
                       </h5>
                       {postcardcontrol.error.errors.map(err => (
                         <p>
-                          <strong>{err.fieldName}:</strong> {err.message}
+                          <strong>{err.field}:</strong> {err.message}
                         </p>
                       ))}
                     </UncontrolledAlert>

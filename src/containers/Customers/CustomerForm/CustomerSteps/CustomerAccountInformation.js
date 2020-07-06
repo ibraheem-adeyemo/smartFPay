@@ -37,7 +37,7 @@ const CustomerAccountInformation = ({customer, submitting, onSubmit,invalid}) =>
                       </h5>
                       {customer.error.errors.map(err => (
                         <p>
-                          <strong>{err.fieldName}:</strong> {err.message}
+                          <strong>{err.field}:</strong> {err.message}
                         </p>
                       ))}
                     </UncontrolledAlert>

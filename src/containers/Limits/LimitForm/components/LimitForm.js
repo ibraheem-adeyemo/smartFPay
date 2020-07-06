@@ -96,17 +96,14 @@ const LimitForm = memo(props => {
                 </h4>
               ) : (
                 <form className="form" onSubmit={handleSubmit}>
-                  {postcontrol &&
-                  postcontrol.error &&
-                  postcontrol.error.errors &&
-                  postcontrol.error.errors.length ? (
+                  {postcontrol?.error?.errors?.length ? (
                     <UncontrolledAlert color="danger">
                       <h5 className="font-weight-bold">
                         Please check the following fields for errors
                       </h5>
                       {postcontrol.error.errors.map(err => (
                         <p>
-                          <strong>{err.fieldName}:</strong> {err.message}
+                          <strong>{err.field}:</strong> {err.message}
                         </p>
                       ))}
                     </UncontrolledAlert>

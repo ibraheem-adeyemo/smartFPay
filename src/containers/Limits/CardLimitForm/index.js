@@ -27,15 +27,19 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
     (match.params.id && control?.response);
     const controlObj = hasControl ? (control.response) : null;
     let channels=[], countries=[], countryCount = 0, channelsCount = 0;
-    for(var country of controlObj.enabledCountries.split(',')) {
-       countries[countryCount++] = {name: country,alpha3Code: country};
-    }
-    for(var channel of controlObj.enabledChannels.split(',')) {
-      channels[channelsCount++] = {label: channel,value: channel};
-    }
     console.log('channels', channels)
     if (controlObj) {
       console.log('controlObj', controlObj);
+      if(controlObj.enabledCountries) {
+        for(var country of controlObj.enabledCountries.split(',')) {
+          countries[countryCount++] = {name: country,alpha3Code: country};
+        }
+      }
+      if(controlObj.enabledChannels){
+        for(var channel of controlObj.enabledChannels.split(',')) {
+          channels[channelsCount++] = {label: channel,value: channel};
+        }
+      }
       controlData = {
         token: controlObj.token,
         duration: controlObj.duration || controlObj.transactionLimitCount,
@@ -58,6 +62,7 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   };
 
   function fetchControl() {
+    console.log(match.params.id)
     dispatch(getControl(match.params.id));
   }
 
@@ -80,6 +85,8 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   };
 
   useEffect(() => {
+    console.log(match.params.id)
+    console.log(location.state.cardDetails)
     if (match.params.id) {
       dispatch(getControl(match.params.id));
     }

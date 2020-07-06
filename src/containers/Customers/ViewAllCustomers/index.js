@@ -11,7 +11,7 @@ const CustomersList = ({ dispatch, customers, match }) => {
   };
 
   useEffect(() => {
-    dispatch(getCustomers({ page: 1, pageSize: 10 }, match.params.id));
+    dispatch(getCustomers({ pageNumber: 1, pageSize: 10 }));
   }, [dispatch, match.params.id]);
 
   return (

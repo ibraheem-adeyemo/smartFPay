@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
 import React, { memo, useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar } from "reactstrap";
+import { Card, CardBody, Col, ButtonToolbar, UncontrolledAlert } from "reactstrap";
 import {
   MdInsertDriveFile,
   /* MdModeEdit, */
@@ -17,6 +17,7 @@ import { accessControlFn } from "../../../../utils/accessControl";
 import ModalComponent from "../../../../shared/components/Modal";
 import ViewCustomer from "../../ViewCustomer";
 import Avatar from "react-avatar";
+import { getCustomers } from "../../reducers";
 
 const {
   CREATE_CUSTOMER
@@ -45,48 +46,79 @@ const CustomersTable = memo(
           <Avatar
             round={true}
             size="32"
-            name={`${row.firstName} ${row.lastName}`}
+            name={`${row.name}`}
+            // name={`${row.firstName} ${row.lastName}`}
           />
         ),
         sortable: true,
         sortKey: "id"
       },
       {
-        accessor: "firstName",
-        name: "First Name",
-        sortable: true,
-        sortKey: "FirstName"
-      },
-      {
-        accessor: "lastName",
-        name: "Last Name",
-        sortable: true,
-        sortKey: "LastName"
-      },
-     /*  {
-        accessor: "dateOfBirth",
-        name: "Date of Birth",
-        sortable: true,
-        sortKey: "dateOfBirth",
-        Cell: row => appUtils.formatDOB(row.dateOfBirth)
-      }, */
-      {
-        accessor: "emailAddress",
+        accessor: "accountNumber",
         name: "Account Number",
         sortable: true,
-        sortKey: "emailAddress"
+        sortKey: "accountNumber"
+      },
+      {
+        accessor: "name",
+        name: "Customer Name",
+        sortable: true,
+        sortKey: "name"
       },
       // {
-      //   accessor: "issuerName",
-      //   name: "Issuer",
+      //   accessor: "lastName",
+      //   name: "Last Name",
       //   sortable: true,
-      //   sortKey: "issuerName"
+      //   sortKey: "LastName"
       // },
       {
-        accessor: "mobileNr",
-        name: "Mobile Number",
+        accessor: "customerStatus",
+        name: "Status",
         sortable: true,
-        sortKey: "mobileNr"
+        sortKey: "customerStatus"
+      },
+      // {
+      //   accessor: "active",
+      //   name: "Status (click to toggle)",
+      //   sortable: true,
+      //   sortKey: "active",
+      //   renderHeader: () => (
+      //     <span>
+      //       Status <small>(click to toggle)</small>
+      //     </span>
+      //   ),
+      //   filterable: true,
+      //   Cell: row => (
+      //     <button
+      //       type="button"
+      //       id={`toggle-btn-${row.active ? "enabled" : "disabled"}-${row.id}`}
+      //       onClick={() =>
+      //         accessControlFn(
+      //           permissions,
+      //           [ENABLE_ACCOUNT_CONTROL, DISABLE_ACCOUNT_CONTROL, ENABLE_CARD_CONTROL, DISABLE_CARD_CONTROL],
+      //           row.cardId ? toggleCardFn : toggleAccountFn,
+      //           row
+      //         )
+      //       }
+      //       className={`btn ${
+      //         row.active ? "btn-success" : "btn-secondary"
+      //       } badge mb-0`}
+      //     >
+      //       {(toggleaccount.loading) &&
+      //       (row.accountNumber === toggleaccount.request.accountNumber) || (togglecard.loading) &&
+      //       (row.cardId === togglecard.request.cardId) ? (
+      //         <Spinner size="sm" />
+      //       ) : (
+      //         <span>{row.active ? "Enabled" : "Disabled"}</span>
+      //       )}
+      //     </button>
+      //   )
+      // },
+      {
+        accessor: "coreBankingId",
+        name: "Core Banking Id",
+        sortable: true,
+        sortKey: "coreBankingId"
       },
      /*  {
         accessor: "city",
@@ -101,19 +133,20 @@ const CustomersTable = memo(
         sortKey: "countryCode"
       } */
     ];
-
-    const sortFn = (page, pageSize, column) => {
+console.log('dataState', dataState)
+    const sortFn = (pageNumber, pageSize, column) => {
       let sortOrder = "ASC";
+      let sortKey = column.sortKey;
       if (!dataState.loading) {
         if (dataState.request && dataState.request.sortOrder) {
           sortOrder = dataState.request.sortOrder === "ASC" ? "DESC" : "ASC";
         }
         fetchData({
           ...dataState.request,
-          page,
+          pageNumber,
           pageSize,
-          sortKey: column.sortKey,
-          sortOrder
+          // sortKey,
+          // sortOrder
         });
       }
     };
@@ -133,8 +166,8 @@ const CustomersTable = memo(
       setSearchKey(values.searchWord);
       fetchData({
         ...dataState.request,
-        page: 1,
-        searchWord: values.searchWord || ""
+        pageNumber: 1,
+        accountNumber: values.searchWord || ""
       });
     };
 
@@ -155,22 +188,22 @@ const CustomersTable = memo(
         btnIcon: MdInsertDriveFile,
         permissions: [permissionsConstants.VIEW_CUSTOMER]
       },
-      {
-        name: "view_cards",
-        btnText: "View Cards",
-        btnAction: handleAction,
-        btnClass: "info",
-        btnIcon: MdCreditCard,
-        permissions: [permissionsConstants.VIEW_CUSTOMER_CARDS]
-      }
+      // {
+      //   name: "view_cards",
+      //   btnText: "View Cards",
+      //   btnAction: handleAction,
+      //   btnClass: "info",
+      //   btnIcon: MdCreditCard,
+      //   permissions: [permissionsConstants.VIEW_CUSTOMER_CARDS]
+      // }
     ];
 
-    const loadData = (page, pageSize) => {
+    const loadData = (pageNumber, pageSize) => {
       fetchData({
-        ...dataState.request,
-        page,
+        // ...dataState.request,
+        pageNumber,
         pageSize,
-        searchWord: searchKey
+        // searchWord: searchKey
       });
     };
     return (
@@ -202,8 +235,20 @@ const CustomersTable = memo(
                   Add new customer
                 </Link>
               </ButtonToolbar>
-            </AccessControl> 
+            </AccessControl>
             </div>
+            {false ? (
+                    <UncontrolledAlert color="danger">
+                      <h5 className="font-weight-bold">
+                        Please check the following filters for errors
+                      </h5>
+                      {/* {dataState.error.errors.map(err => (
+                        <p>
+                          <strong>{err.field}:</strong> {err.message}
+                        </p>
+                      ))} */}
+                    </UncontrolledAlert>
+                  ) : null}
             <DataTable
               columns={columns}
               loading={dataState && dataState.loading}
@@ -218,7 +263,8 @@ const CustomersTable = memo(
               bordered={true}
               striped={true}
               hover={true}
-              actions={actions}
+              NoDataText={'No Customers Found'}
+              // actions={actions}
               customSearch={
                 <CustomSearch
                   pageNumer={1}
