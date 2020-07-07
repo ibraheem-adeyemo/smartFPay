@@ -201,12 +201,14 @@ const LimitForm = memo(props => {
                       <div className="form__form-group">
                         <span className="form__form-group-label">Interbank Transaction</span>
                         <div className="form__form-group-field">
+                          <div>
                         <Field
                           id="interbankTransaction"
                           name="interbankTransaction"
                           component={renderToggleButtonField}
-                          defaultChecked={control?.response?.interbankTransaction || false}
+                          defaultChecked={control?.response?.interbankTransaction || true}
                         />
+                          </div>
                         </div>
                       </div>
                     </Col>

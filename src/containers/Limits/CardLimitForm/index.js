@@ -85,8 +85,8 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   };
 
   useEffect(() => {
-    console.log(match.params.id)
-    console.log(location.state.cardDetails)
+    // console.log(match.params.id)
+    // console.log(location.state.cardDetails)
     if (match.params.id) {
       dispatch(getControl(match.params.id));
     }
