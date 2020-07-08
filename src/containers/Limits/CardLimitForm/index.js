@@ -67,13 +67,13 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   }
 
   const addCardControl = values => {
-    const card = location.state?.cardDetails;
+    const card = location.state?.cardDetails? location.state?.cardDetails : control.response;
     let requestBody= {
       coreBankingId: customer?.response?.coreBankingId,
-      accountNumber: customer?.request,
-      tokenizedPan: card.tokenizedPan,
-      cardExpiryNumber: card.expiry,
-      cardMaskedPan: card.pan,
+      accountNumber: location.state?.fromCustomerView ? customer?.request : control.response.accountNumber,
+      tokenizedPan: card.tokenizedPan || card.token,
+      cardExpiryNumber: card.expiry || card.cardExpiryNumber,
+      cardMaskedPan: card.pan || card.cardMaskedPan,
       ...values
     }
 
@@ -99,7 +99,7 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   return (
     <Container>
       <PageHeader
-        header={`${match.params.id ? "Edit" : "Add"} Card Limit`}
+        header={`${match.params.id ? `Edit card limit with token ${match.params.id}` : "Add Card Limit"}`}
         subheader="Create new card limit"
       />
       <Row>

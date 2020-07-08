@@ -101,14 +101,14 @@ const LimitsTable = memo(props => {
     // },
     {
       accessor: "limitType",
-      name: "Limit Type",
+      name: "Payment Instrument",
       filterable: true,
       sortable: true,
       sortKey: "limitType"
     },
     {
       accessor: "transactionLimitAmount",
-      name: "Amount",
+      name: "Amount Limit",
       sortable: true,
       sortKey: "transactionLimitAmount"
     },
@@ -153,9 +153,9 @@ const LimitsTable = memo(props => {
 
   const handleAction = (row, action) => {
     if (action.name === "view_controls") {
-      props.history.push(`${props.location.pathname}/view/${row.accountNumber}`);
+      props.history.push(`${'/limit-requests'}/view/${row.accountNumber}`);
     } else if (action.name === "edit_controls") {
-      props.history.push(`${props.location.pathname}/edit/${row.accountNumber}`);
+       row.limitType === 'CARD'? props.history.push(`${'/limit-requests/card'}/edit/${row.token}`): props.history.push(`${'/limit-requests'}/edit/${row.token}`);
     }
   };
 

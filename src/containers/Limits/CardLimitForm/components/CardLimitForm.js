@@ -82,7 +82,7 @@ const CardLimitForm = memo(props => {
                 style={{ width: "6rem", height: "6rem" }}
               />
               <h4 className="text-secondary">
-                Fetching limit with id ({controlId})
+                Fetching card limit
               </h4>
             </div>
           ) : (

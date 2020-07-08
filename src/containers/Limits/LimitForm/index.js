@@ -10,6 +10,9 @@ import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';
 const LimitForm = ({ dispatch, control, match, history, customer, location }) => {
 
   const formatDate = (dateString) => {
+    if(!dateString){
+      return;
+    }
     let dateCharacters = dateString.split('');
       let temp = dateCharacters[0];
       dateCharacters[0] = dateCharacters[3];
@@ -51,7 +54,7 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
   const addControl = values => {
     let requestBody= {
       coreBankingId: customer?.response?.coreBankingId,
-      accountNumber: customer?.request,
+      accountNumber: location.state?.fromCustomerView ? customer?.request : control.response.accountNumber,
       ...values
     }
 
@@ -76,7 +79,7 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
   return (
     <Container>
       <PageHeader
-        header={`${match.params.id ? "Edit" : "Add"} Account Limit`}
+        header={`${match.params.id ? `Edit account limit with token ${match.params.id}` : "Add Account Limit"}`}
         subheader={`${match.params.id ? "Update existing" : "Create new"} account limit`}
       />
       <Row>

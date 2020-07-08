@@ -175,6 +175,10 @@ export const postControl = (values, id, controlToEdit, history, location) => {
               pathname: "/customers/add",
               state: {}
             });
+          } else{
+            history.push({
+              pathname: "/limit-requests"
+            });
           }
         } else if(location?.state?.fromCustomerView){
           history.push({
@@ -244,6 +248,10 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
           history.push({
             pathname: "/customers/add",
             state: {}
+          });
+        } else {
+          history.push({
+            pathname: "/limit-requests"
           });
         }
       } else if(location?.state?.fromCustomerView){
