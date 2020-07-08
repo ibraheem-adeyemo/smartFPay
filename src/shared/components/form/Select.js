@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState } from "react";
 import Select from "react-select";
 import PropTypes from "prop-types";
 
@@ -100,7 +100,7 @@ const renderSelectField = props => {
         isMulti={isMulti}
         defaultValue={defaultValue}
       />
-      {meta.touched && meta.error && (
+      {meta.error && (
         <span className="form__form-group-error">{meta.error}</span>
       )}
     </div>

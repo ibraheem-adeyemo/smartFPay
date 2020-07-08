@@ -50,7 +50,7 @@ const DatePickerField = memo(
           customInput={<CustomInput placeholder={placeholder} />}
           dropDownMode="select"
         />
-        {touched && error && (
+        {error && (
           <span className="form__form-group-error">{error}</span>
         )}
       </div>

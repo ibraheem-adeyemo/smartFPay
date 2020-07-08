@@ -47,7 +47,7 @@ export const LimitRequestRoutes = {
   routes: [
     {
       key: "limitRequests",
-      title: "Limit Requests",
+      title: "Limits Management",
       exact: true,
       icon: null,
       name: "LimitRequests",

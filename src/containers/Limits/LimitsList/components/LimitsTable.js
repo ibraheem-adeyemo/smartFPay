@@ -213,7 +213,7 @@ const LimitsTable = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">Limit Controls</h5>
-            <AccessControl
+            {/* <AccessControl
               allowedPermissions={[CREATE_CONTROL]}
               renderNoAccess={() => null}
             >
@@ -223,16 +223,8 @@ const LimitsTable = memo(props => {
                   to="/limit-requests/add"
                   id="link-create-control"
                 >
-                  Add new control
+                  Add new account control
                 </Link>
-              </ButtonToolbar>
-            </AccessControl> 
-          </div>
-            {/* <AccessControl
-              allowedPermissions={[CREATE_CARD_CONTROL]}
-              renderNoAccess={() => null}
-            >
-              <ButtonToolbar className="products-list__btn-toolbar-top">
                 <Link
                   className="btn btn-primary products-list__btn-add"
                   to="/limit-requests/card/add"
@@ -240,6 +232,15 @@ const LimitsTable = memo(props => {
                 >
                   Add new card control
                 </Link>
+              </ButtonToolbar>
+            </AccessControl>  */}
+          </div>
+            {/* <AccessControl
+              allowedPermissions={[CREATE_CARD_CONTROL]}
+              renderNoAccess={() => null}
+            >
+              <ButtonToolbar className="products-list__btn-toolbar-top">
+                
               </ButtonToolbar>
             </AccessControl> */}
           <DataTable
