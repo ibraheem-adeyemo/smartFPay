@@ -20,12 +20,12 @@ const validate = values => {
       errors.frequency = "Please select a limit frequency";
     }
 
-    if (!values.startDate) {
-      errors.startDate = "Please enter a start date";
-    }
-    if (!values.endDate) {
-      errors.endDate = "Please enter an end date";
-    }
+    // if (!values.startDate) {
+    //   errors.startDate = "Please enter a start date";
+    // }
+    // if (!values.endDate) {
+    //   errors.endDate = "Please enter an end date";
+    // }
     console.log(errors)
     return errors;
   };
