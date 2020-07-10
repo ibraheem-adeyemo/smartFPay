@@ -153,7 +153,7 @@ const LimitsTable = memo(props => {
 
   const handleAction = (row, action) => {
     if (action.name === "view_controls") {
-      props.history.push(`${'/limit-requests'}/view/${row.accountNumber}`);
+      props.history.push(`${'/limit-requests'}/view/${row.token}`);
     } else if (action.name === "edit_controls") {
        row.limitType === 'CARD'? props.history.push(`${'/limit-requests/card'}/edit/${row.token}`): props.history.push(`${'/limit-requests'}/edit/${row.token}`);
     }
@@ -204,7 +204,8 @@ const LimitsTable = memo(props => {
   };
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ pageNumber, pageSize });
+    fetchData({ ...allControls.request, pageNumber, pageSize });
+    // fetchData({ pageNumber, pageSize, accountNumber: searchKey });
   };
 
   return (

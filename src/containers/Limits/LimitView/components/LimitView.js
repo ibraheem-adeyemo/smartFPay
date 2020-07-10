@@ -9,12 +9,10 @@ const LimitView = props => {
   const { control, controlId, fetchData } = props;
   const foundControl =
     control.response &&
-    control.response.data &&
-    control.response.data.length &&
     !control.loading;
   const controlObj =
-    control.response && control.response.data && control.response.data.length
-      ? control.response.data[0]
+    control.response
+      ? control.response
       : {};
 
   return (
@@ -33,7 +31,7 @@ const LimitView = props => {
                 renderNoAccess={() => null}
               >
                 <Link
-                  to={`/limit-requests/edit/${controlId}`}
+                  to={`/limit-requests/edit/${control.response.token}`}
                   className="btn btn-sm btn-outline-secondary project-summary__btn"
                   id="link-edit-control"
                 >
@@ -42,19 +40,60 @@ const LimitView = props => {
               </AccessControl>
 
               <dl className="row">
-                <dt className="col-sm-2">Duration</dt>
+                <dt className="col-sm-2">Frequency Limit reset</dt>
                 <dd className="col-sm-10">
-                  <p>{controlObj.duration}</p>
+                  <p>{controlObj.frequencyLimitReset}</p>
                 </dd>
 
-                <dt className="col-sm-2">Frequency</dt>
+                <dt className="col-sm-2">Transaction Limit Count</dt>
                 <dd className="col-sm-10">
-                  <p>{controlObj.frequency}</p>
+                  <p>{controlObj.transactionLimitCount}</p>
                 </dd>
 
                 <dt className="col-sm-2">Amount</dt>
                 <dd className="col-sm-10">
-                  <p>{controlObj.amount}</p>
+                  <p>{controlObj.transactionLimitAmount}</p>
+                </dd>
+
+                <dt className="col-sm-2">Limit Type</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.limitType}</p>
+                </dd>
+                <dt className="col-sm-2">Card Status</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.cardStatus}</p>
+                </dd>
+                <dt className="col-sm-2">Limit Start Date</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.limitStartDate}</p>
+                </dd>
+                <dt className="col-sm-2">Limit End Date</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.limitEndDate}</p>
+                </dd>
+                <dt className="col-sm-2">Enabled Countries</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.enabledCountries}</p>
+                </dd>
+                <dt className="col-sm-2">Enabled Channels</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.enabledChannels}</p>
+                </dd>
+                <dt className="col-sm-2">Account Number</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.accountNumber}</p>
+                </dd>
+                <dt className="col-sm-2">Created Date</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.createdDate}</p>
+                </dd>
+                <dt className="col-sm-2">Card Masked Pan</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.cardMaskedPan}</p>
+                </dd>
+                <dt className="col-sm-2">Card Expiry</dt>
+                <dd className="col-sm-10">
+                  <p>{controlObj.cardExpiryNumber}</p>
                 </dd>
               </dl>
             </div>
@@ -93,7 +132,7 @@ const LimitView = props => {
           )}
           {control && !control.loading ? (
             <h5 className="bold-text mt-4">
-              <Link to="/limits-requests" id="link-all-controls">
+              <Link to="/limit-requests" id="link-all-controls">
                 <MdArrowBack size={20} /> Back to controls
               </Link>
             </h5>

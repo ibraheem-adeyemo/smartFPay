@@ -5,14 +5,14 @@ import LimitsTable from "./components/LimitsTable";
 import PageHeader from "../../../shared/components/PageHeader";
 import { getAllControls } from "../actions/limits.actions";
 
-const LimitsList = ({ dispatch, allControls }) => {
+const LimitsList = ({ dispatch, allControls, match }) => {
   const loadControls = requestParams => {
     dispatch(getAllControls(requestParams));
   };
 
   useEffect(() => {
-    dispatch(getAllControls({ pageNumber: 1, pageSize: 10 }));
-  }, [dispatch]);
+    dispatch(getAllControls({ pageNumber: 1, pageSize: 10 }, match.params.id));
+  }, [dispatch, match.params.id]);
 
   return (
     <Container>

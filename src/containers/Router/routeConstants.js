@@ -125,7 +125,7 @@ export const LimitRequestRoutes = {
       name: "ViewLimitRequest",
       path: "/limit-requests/view/:id",
       menu: true,
-      pageComponent: ViewCardRequest,
+      pageComponent: ViewLimit,
       enabled: true,
       permissions: [VIEW_CONTROL]
     },
