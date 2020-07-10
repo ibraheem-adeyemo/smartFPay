@@ -157,10 +157,8 @@ console.log('dataState', dataState)
 
     const loadData = (pageNumber, pageSize) => {
       fetchData({
-        // ...dataState.request,
         pageNumber,
         pageSize,
-        // searchWord: searchKey
       });
     };
     return (
