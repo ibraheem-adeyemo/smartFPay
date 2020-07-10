@@ -204,8 +204,7 @@ const LimitsTable = memo(props => {
   };
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allControls.request, pageNumber, pageSize });
-    // fetchData({ pageNumber, pageSize, accountNumber: searchKey });
+    fetchData({  pageNumber, pageSize });
   };
 
   return (
