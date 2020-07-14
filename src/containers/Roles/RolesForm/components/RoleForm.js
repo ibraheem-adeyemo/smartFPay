@@ -56,8 +56,9 @@ const RoleForm = memo(props => {
                   <span className="form__form-group-label required">Role name</span>
                   <div className="form__form-group-field">
                     <Field
+                      id = "role_name"
                       name="role_name"
-                      component="input"
+                      component={renderField}
                       type="text"
                       placeholder="Role name"
                     />

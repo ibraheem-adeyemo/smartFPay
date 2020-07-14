@@ -19,6 +19,13 @@ const LimitView = props => {
     <Col>
       <Card>
         <CardBody>
+        {control && !control.loading ? (<div className="card__title">
+            <h5 className="bold-text">
+            <Link to="/limit-requests" id="link-all-controls">
+                <MdArrowBack size={20} /> Back to controls
+              </Link>
+            </h5>
+          </div>):null}
           {foundControl ? (
             <div className="project-summary">
               <div className="card__title">
@@ -39,61 +46,64 @@ const LimitView = props => {
                 </Link>
               </AccessControl>
 
-              <dl className="row">
-                <dt className="col-sm-2">Frequency Limit reset</dt>
-                <dd className="col-sm-10">
+              <dl className="row" style={{fontSize: '18px'}}>
+                <dt className="col-sm-4">Account Number</dt>
+                <dd className="col-sm-8">
+                  <p>{controlObj.accountNumber}</p>
+                </dd>
+                <dt className="col-sm-4">Limit Type</dt>
+                <dd className="col-sm-8">
+                  <p>{controlObj.limitType}</p>
+                </dd>
+                <dt className="col-sm-4">Amount</dt>
+                <dd className="col-sm-8">
+                  <p>{controlObj.transactionLimitAmount}</p>
+                </dd>
+                <dt className="col-sm-4">Frequency Limit reset</dt>
+                <dd className="col-sm-8">
                   <p>{controlObj.frequencyLimitReset}</p>
                 </dd>
 
-                <dt className="col-sm-2">Transaction Limit Count</dt>
-                <dd className="col-sm-10">
+                <dt className="col-sm-4">Transaction Limit Count</dt>
+                <dd className="col-sm-8">
                   <p>{controlObj.transactionLimitCount}</p>
                 </dd>
 
-                <dt className="col-sm-2">Amount</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.transactionLimitAmount}</p>
+                {controlObj.limitType === "CARD" && 
+                <>
+                  <dt className="col-sm-4">Card Status</dt>
+                  <dd className="col-sm-8">
+                    <p>{controlObj.cardStatus}</p>
+                  </dd>
+                  <dt className="col-sm-4">Card Masked Pan</dt>
+                  <dd className="col-sm-8">
+                    <p>{controlObj.cardMaskedPan}</p>
+                  </dd>
+                  <dt className="col-sm-4">Card Expiry</dt>
+                  <dd className="col-sm-8">
+                    <p>{controlObj.cardExpiryNumber}</p>
+                  </dd>
+                  <dt className="col-sm-4">Enabled Countries</dt>
+                  <dd className="col-sm-8">
+                    <p>{controlObj.enabledCountries}</p>
+                  </dd>
+                  <dt className="col-sm-4">Enabled Channels</dt>
+                  <dd className="col-sm-8">
+                    <p>{controlObj.enabledChannels}</p>
+                  </dd>
+                  </>
+                }
+                <dt className="col-sm-4">Limit Start Date</dt>
+                <dd className="col-sm-8">
+                  <p>{controlObj.limitStartDate || 'No start date provided'}</p>
                 </dd>
-
-                <dt className="col-sm-2">Limit Type</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.limitType}</p>
+                <dt className="col-sm-4">Limit End Date</dt>
+                <dd className="col-sm-8">
+                  <p>{controlObj.limitEndDate || 'No end date provided'}</p>
                 </dd>
-                <dt className="col-sm-2">Card Status</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.cardStatus}</p>
-                </dd>
-                <dt className="col-sm-2">Limit Start Date</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.limitStartDate}</p>
-                </dd>
-                <dt className="col-sm-2">Limit End Date</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.limitEndDate}</p>
-                </dd>
-                <dt className="col-sm-2">Enabled Countries</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.enabledCountries}</p>
-                </dd>
-                <dt className="col-sm-2">Enabled Channels</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.enabledChannels}</p>
-                </dd>
-                <dt className="col-sm-2">Account Number</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.accountNumber}</p>
-                </dd>
-                <dt className="col-sm-2">Created Date</dt>
-                <dd className="col-sm-10">
+                <dt className="col-sm-4">Created Date</dt>
+                <dd className="col-sm-8">
                   <p>{controlObj.createdDate}</p>
-                </dd>
-                <dt className="col-sm-2">Card Masked Pan</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.cardMaskedPan}</p>
-                </dd>
-                <dt className="col-sm-2">Card Expiry</dt>
-                <dd className="col-sm-10">
-                  <p>{controlObj.cardExpiryNumber}</p>
                 </dd>
               </dl>
             </div>
@@ -130,13 +140,13 @@ const LimitView = props => {
               )}
             </div>
           )}
-          {control && !control.loading ? (
+          {/* {control && !control.loading ? (
             <h5 className="bold-text mt-4">
               <Link to="/limit-requests" id="link-all-controls">
                 <MdArrowBack size={20} /> Back to controls
               </Link>
             </h5>
-          ) : null}
+          ) : null} */}
         </CardBody>
       </Card>
     </Col>

@@ -11,7 +11,7 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
 
   const formatDate = (dateString) => {
     if(!dateString){
-      return;
+      return null;
     }
     let dateCharacters = dateString.split('');
       let temp = dateCharacters[0];
@@ -21,7 +21,7 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
       dateCharacters[1] = dateCharacters[4];
       dateCharacters[4] = temp;
 
-      return dateCharacters.join('');
+      return new Date(dateCharacters.join(''));
   }
 
   const createFormData = control => {
@@ -39,8 +39,8 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
         ),
         amount: controlObj.transactionLimitAmount,
         interbankTransaction: controlObj.interbankTransaction,
-        startDate: new Date(formatDate(controlObj.limitStartDate)),
-        endDate: new Date(formatDate(controlObj.limitEndDate))
+        startDate: formatDate(controlObj.limitStartDate),
+        endDate: formatDate(controlObj.limitEndDate)
       };
     }
 

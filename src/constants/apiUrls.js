@@ -100,5 +100,8 @@ export const API_URLS = {
   ROLES: {
     GET_ALL_ROLES: `${apiBaseUrl}/roles`,
     CREATE_ROLE: `${apiBaseUrl}/roles`
+  },
+  PERMISSIONS: {
+    GET_ALL_PERMISSIONS: `${apiBaseUrl}/permissons`
   }
 };
