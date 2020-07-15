@@ -91,6 +91,8 @@ export const createRole = (values, id, roleToEdit, history) => {
       );
       dispatch(getRoles({ pageNum: 1, pageSize: 10 }));
       dispatch(resetPost());
+      dispatch(resetView());
+      history.push("/roles");
     } catch (error) {
       dispatch(failure(error));
       dispatch(resetView());
