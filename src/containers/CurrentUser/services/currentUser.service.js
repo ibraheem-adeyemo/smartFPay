@@ -7,7 +7,7 @@ export const currentUserService = {
 };
 
 function getPermissions() {
-  return apiCall("GET", API_URLS.USERS.GET_PERMISSION);
+  return apiCall("GET", API_URLS.PERMISSIONS.GET_ALL_PERMISSIONS);
 }
 
 function getCurrentUser() {

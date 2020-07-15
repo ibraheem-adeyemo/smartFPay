@@ -11,8 +11,10 @@ const RolesSelect = props => {
   const { roles, label, dispatch, permissions, currentUser, id, required } = props;
   let userPermissions = permissions && permissions.response;
 
+  // userPermissions =
+  //   userPermissions && userPermissions.map(permission => permission.authority);
   userPermissions =
-    userPermissions && userPermissions.map(permission => permission.authority);
+    userPermissions && userPermissions.map(permission => permission);
 
   const isAdmin = userPermissions && userPermissions.includes(permissionsConstants.VIEW_DOMAINS_ROLE);
 

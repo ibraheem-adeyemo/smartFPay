@@ -9,8 +9,11 @@ const RoleDualList = props => {
   const { roles, label, dispatch, permissions, currentUser } = props;
   let userPermissions = permissions && permissions.response;
 
+  // userPermissions =
+  //   userPermissions && userPermissions.map(permission => permission.authority);
+
   userPermissions =
-    userPermissions && userPermissions.map(permission => permission.authority);
+    userPermissions && userPermissions.map(permission => permission);
 
   const isAdmin =
     userPermissions &&

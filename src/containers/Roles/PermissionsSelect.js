@@ -10,9 +10,15 @@ import { permissionsConstants } from "../../constants/permissions.constants";
 const PermissionsSelect = props => {
   const { roles, label, dispatch, permissions, currentUser, id, required } = props;
   let userPermissions = permissions && permissions.response;
+  let perm = [];
 
+  for(var permission of permissions.response) {
+   perm.push({id: permission,label: permission});
+  }
+  // userPermissions =
+  //   userPermissions && userPermissions.map(permission => permission.authority);
   userPermissions =
-    userPermissions && userPermissions.map(permission => permission.authority);
+    userPermissions && userPermissions.map(permission => permission);
 
   const isAdmin = userPermissions && userPermissions.includes(permissionsConstants.VIEW_DOMAINS_ROLE);
 
@@ -44,9 +50,10 @@ const PermissionsSelect = props => {
           id={id}
           name="permissions"
           component={renderSelectField}
-          options={permissions && permissions.response ? permissions.response.data : []}
+          isMulti={true}
+          options={perm || []}
           valueKey="id"
-          labelKey="name"
+          labelKey="label"
         />
       </div>
       {permissions && permissions.error ? (

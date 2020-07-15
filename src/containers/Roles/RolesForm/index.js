@@ -5,12 +5,18 @@ import { createRole } from "../actions/roles.actions";
 import HorizontalForm from './components/RoleForm';
 import PageHeader from "../../../shared/components/PageHeader";
 
-const RoleForm = ({ dispatch }) => {
+const RoleForm = ({ dispatch, permissions }) => {
   const addRole = values => {
     dispatch(
       createRole(values)
     );
   };
+
+  let allPermissions = [];
+
+  for(var permission of permissions.response) {
+    allPermissions.push({id: permission,label: permission});
+   }
 
   return (
     <Container>
@@ -22,10 +28,13 @@ const RoleForm = ({ dispatch }) => {
         <HorizontalForm
           onSubmit={addRole}
           initialValues={{name: ""}}
+          permissions={allPermissions}
         />
       </Row>
     </Container>
   )
   };
 
-export default connect(state=> ({}))(RoleForm);
+export default connect(state=> ({
+  permissions: state.permissions
+}))(RoleForm);

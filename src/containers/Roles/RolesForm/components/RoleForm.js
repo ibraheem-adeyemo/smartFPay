@@ -13,12 +13,14 @@ import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
+import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostRole } from "../../actions/roles.actions";
 import validate from "./validate";
 import PermissionsSelect from '../../PermissionsSelect';
 
 const RoleForm = memo(props => {
   const {
+    permissions,
     dispatch,
     handleSubmit,
     reset,
@@ -87,6 +89,23 @@ const RoleForm = memo(props => {
                   id="permission-select"
                   label="Assign permissions to role"
                 />
+                {/* <div className="form__form-group">
+                  <span className="form__form-group-label required">
+                  Permissions
+                  </span>
+                  <div className="form__form-group-field">
+                  <Field
+                      id="permissions"
+                      name="permissions"
+                      placeholder="Kindly assign permissions to the role"
+                      component={renderSelectField}
+                      options={permissions || []}
+                      isMulti={true}
+                      valueKey="value"
+                      labelKey="label"
+                  />
+                  </div>
+                </div> */}
               </Col>
             </Row>
             <ButtonToolbar className="form__button-toolbar">
@@ -123,6 +142,5 @@ export default reduxForm({
 })(
   connect(state => ({
     postrole: state.postrole,
-    permissions: state.permissions && state.permissions.response
   }))(RoleForm)
 );
