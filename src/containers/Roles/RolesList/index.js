@@ -7,11 +7,11 @@ import { getRoles } from "../actions/roles.actions";
 
 const RolesList = ({ dispatch, allRoles }) => {
   const loadRoles = requestParams => {
-    dispatch(getRoles(requestParams));
+    dispatch(getRoles({...requestParams}));
   };
 
   useEffect(() => {
-    dispatch(getRoles({ pageNum: 1, pageSize: 10 }));
+    dispatch(getRoles({ pageNumber: 1, pageSize: 10 }));
   }, [dispatch]);
 
   return (

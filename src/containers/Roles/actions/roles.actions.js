@@ -6,9 +6,9 @@ import { reset } from "redux-form";
 
 export const getRoles = requestParams => {
   return async dispatch => {
-    dispatch(request({ requestParams }));
+    dispatch(request(requestParams));
     try {
-      const response = await rolesService.getRoles({ requestParams });
+      const response = await rolesService.getRoles(requestParams);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));

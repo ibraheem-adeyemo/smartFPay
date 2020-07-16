@@ -19,6 +19,34 @@ const {
   VIEW_ADMIN
 } = permissionsConstants;
 
+const someRoles = [
+  {
+    id: 20060,
+    name: "ROLER_COASTER",
+    permissions: ["VIEW_PERMISSION"]
+  },{
+    id: 20060,
+    name: "ROLER_COASTER",
+    permissions: ["VIEW_PERMISSION"]
+  },{
+    id: 20060,
+    name: "ROLER_COASTER",
+    permissions: ["VIEW_PERMISSION"]
+  },{
+    id: 20060,
+    name: "ROLER_COASTER",
+    permissions: ["VIEW_PERMISSION"]
+  },{
+    id: 20060,
+    name: "ROLER_COASTER",
+    permissions: ["VIEW_PERMISSION"]
+  },{
+    id: 20060,
+    name: "ROLER_COASTER",
+    permissions: ["VIEW_PERMISSION"]
+  }
+]
+
 const RolesTable = memo(props => {
   const {
     dataState,
@@ -34,7 +62,7 @@ const RolesTable = memo(props => {
   const columns = [
     {
       accessor: "id",
-      name: "",
+      name: "ID",
       sortable: true,
       sortKey: "id"
     },
@@ -44,11 +72,6 @@ const RolesTable = memo(props => {
       filterable: true,
       sortable: true,
       sortKey: "name"
-    },
-    {
-      accessor: "description",
-      name: "Description",
-      sortKey: "description"
     }
   ];
 
@@ -62,7 +85,7 @@ const RolesTable = memo(props => {
     }
   };
 
-  const sortFn = (pageNum, pageSize, column) => {
+  const sortFn = (pageNumber, pageSize, column) => {
     let sortOrder = "ASC";
     if (!allRoles.loading) {
       if (allRoles.request && allRoles.request.sortOrder) {
@@ -70,7 +93,7 @@ const RolesTable = memo(props => {
       }
       fetchData({
         ...allRoles.request,
-        pageNum,
+        pageNumber,
         pageSize,
         sortKey: column.sortKey,
         sortOrder
@@ -93,13 +116,13 @@ const RolesTable = memo(props => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allRoles.request,
-      pageNum: 1,
+      pageNumber: 1,
       searchWord: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allRoles.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData({ ...allRoles.request, pageNumber, pageSize, searchWord: searchKey });
   };
 
   return (
@@ -126,8 +149,11 @@ const RolesTable = memo(props => {
           <DataTable
             columns={columns}
             loading={dataState && dataState.loading}
+            // data={
+            //   dataState && dataState.response ? dataState.response.content : []
+            // }
             data={
-              dataState && dataState.response ? dataState.response.content : []
+              someRoles
             }
             count={count}
             countName="Roles"
