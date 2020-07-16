@@ -23,7 +23,7 @@ const someRoles = [
   {
     id: 20060,
     name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION"]
+    permissions: ["VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION"]
   },{
     id: 20060,
     name: "ROLER_COASTER",
@@ -69,16 +69,16 @@ const RolesTable = memo(props => {
     {
       accessor: "name",
       name: "Name",
-      filterable: true,
-      sortable: true,
       sortKey: "name"
-    }
+    },
   ];
 
   const handleAction = (row, action) => {
     if (action.name === "view_roles") {
-      props.history.push(`${props.location.pathname}/view/${row.username}`);
-    } else if (action.name === "edit_users") {
+      props.history.push(`${props.location.pathname}/view/${row.id}`);
+    } else if (action.name === "edit_roles") {
+      props.history.push({pathname:`${props.location.pathname}/edit/${row.id}`, state: {role:row}});
+    }else if (action.name === "edit_users") {
       props.history.push(`${props.location.pathname}/edit/${row.username}`);
     } else if (action.name === "manageRoles") {
       props.history.push(`${props.location.pathname}/roles/${row.username}`);
@@ -102,6 +102,14 @@ const RolesTable = memo(props => {
   };
 
   const actions = [
+    {
+      name: "edit_roles",
+      btnText: "Update Role",
+      btnAction: handleAction,
+      btnClass: "default",
+      btnIcon: MdModeEdit,
+      permissions: [VIEW_ADMIN]
+    },
     {
       name: "view_roles",
       btnText: "View",

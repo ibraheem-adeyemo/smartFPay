@@ -69,8 +69,11 @@ export const getPermissions = (requestParams) => {
   }
 };
 
-export const createRole = (values, id, roleToEdit, history) => {
-  var requestBody = {
+export const createRole = (values, id, history) => {
+  let requestBody = id? {
+    id: id,
+    permissions: values.permissions.map(permission => permission.label)
+  }:{
     name: values.role_name,
     description: values.description || '',
     permissions:values.permissions.map(permission => permission.label)
@@ -79,7 +82,7 @@ export const createRole = (values, id, roleToEdit, history) => {
   return async dispatch => {
     dispatch(request(requestBody));
     try {
-      const response = await rolesService.createRole(requestBody, id);
+      const response = id ? await rolesService.reassignPermissions(requestBody) :await rolesService.createRole(requestBody);
       dispatch(success(response));
       dispatch(reset("role_form"));
       dispatch(

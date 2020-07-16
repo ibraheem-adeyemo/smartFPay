@@ -58,18 +58,6 @@ export const LimitRequestRoutes = {
       permissions: [VIEW_CONTROLS]
     },
     {
-      key: "limitRequestCustomers",
-      title: "Limit Request Customers Cards",
-      exact: false,
-      icon: null,
-      name: "LimitRequestCustomers",
-      path: "/card-requests/:id/customers",
-      menu: true,
-      pageComponent: BatchCustomersList,
-      enabled: true,
-      permissions: [VIEW_CUSTOMER]
-    },
-    {
       key: "addLimit",
       title: "Add Limit",
       exact: false,
@@ -118,8 +106,8 @@ export const LimitRequestRoutes = {
       permissions: [UPDATE_CARD_CONTROL]
     },
     {
-      key: "viewCardRequest",
-      title: "View Card Request",
+      key: "viewLimitRequest",
+      title: "View Limit Request",
       exact: false,
       icon: null,
       name: "ViewLimitRequest",
@@ -129,18 +117,6 @@ export const LimitRequestRoutes = {
       enabled: true,
       permissions: [VIEW_CONTROL]
     },
-    {
-      key: "viewRequestDetails",
-      title: "View Request Details",
-      exact: false,
-      icon: null,
-      name: "ViewRequestDetails",
-      path: "/card-requests/customers/1",
-      menu: true,
-      pageComponent: ViewCardRequest,
-      enabled: true,
-      permissions: [VIEW_CONTROLS]
-    }
   ]
 }; 
 
@@ -153,7 +129,7 @@ export const CustomerRoutes = {
       title: "Customers",
       exact: true,
       icon: null,
-      name: "CardRequests",
+      name: "Customers",
       path: "/customers",
       menu: true,
       pageComponent: CustomersList,
@@ -184,18 +160,18 @@ export const CustomerRoutes = {
       enabled: true,
       permissions: [VIEW_CUSTOMER_CARDS]
     },
-    {
-      key: "editCustomers",
-      title: "Edit Customers",
-      exact: false,
-      icon: null,
-      name: "EditCustomers",
-      path: "/customers/edit/:id",
-      menu: true,
-      pageComponent: ViewCardRequest,
-      enabled: true,
-      permissions: [VIEW_CUSTOMER]
-    },
+    // {
+    //   key: "editCustomers",
+    //   title: "Edit Customers",
+    //   exact: false,
+    //   icon: null,
+    //   name: "EditCustomers",
+    //   path: "/customers/edit/:id",
+    //   menu: true,
+    //   pageComponent: ViewCardRequest,
+    //   enabled: true,
+    //   permissions: [VIEW_CUSTOMER]
+    // },
     {
       key: "viewCustomer",
       title: "View ",
@@ -253,6 +229,30 @@ export const RolesRoutes = {
       icon: null,
       name: "Add Roles",
       path: "/roles/add",
+      menu: false,
+      pageComponent: RoleForm,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      key: "editRole",
+      title: "Update Role",
+      exact: true,
+      icon: null,
+      name: "Update Role",
+      path: "/roles/edit/:id",
+      menu: false,
+      pageComponent: RoleForm,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      key: "viewRole",
+      title: "View Role",
+      exact: true,
+      icon: null,
+      name: "View Role",
+      path: "/roles/view/:id",
       menu: false,
       pageComponent: RoleForm,
       enabled: true,

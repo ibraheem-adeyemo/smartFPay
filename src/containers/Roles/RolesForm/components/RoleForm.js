@@ -27,7 +27,8 @@ const RoleForm = memo(props => {
     pristine,
     invalid,
     submitting,
-    postrole } = props;
+    postrole,
+    disabled, } = props;
 
   const resetForm = () => {
     reset();
@@ -61,6 +62,7 @@ const RoleForm = memo(props => {
                       id = "role_name"
                       name="role_name"
                       component={renderField}
+                      disabled={disabled}
                       type="text"
                       placeholder="Role name"
                     />
@@ -76,37 +78,18 @@ const RoleForm = memo(props => {
                       component="input"
                       type="text"
                       placeholder="Role description"
+                      disabled={disabled}
                     />
                   </div>
                 </div>
               </Col>
-            </Row>
-
-            <Row>
               <Col lg="4">
                 <PermissionsSelect
                   required
                   id="permission-select"
                   label="Assign permissions to role"
                 />
-                {/* <div className="form__form-group">
-                  <span className="form__form-group-label required">
-                  Permissions
-                  </span>
-                  <div className="form__form-group-field">
-                  <Field
-                      id="permissions"
-                      name="permissions"
-                      placeholder="Kindly assign permissions to the role"
-                      component={renderSelectField}
-                      options={permissions || []}
-                      isMulti={true}
-                      valueKey="value"
-                      labelKey="label"
-                  />
-                  </div>
-                </div> */}
-              </Col>
+                </Col>
             </Row>
             <ButtonToolbar className="form__button-toolbar">
               <Button type="button" onClick={reset}
