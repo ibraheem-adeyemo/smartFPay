@@ -161,7 +161,7 @@ const RolesTable = memo(props => {
             //   dataState && dataState.response ? dataState.response.content : []
             // }
             data={
-              someRoles
+              allRoles?.response
             }
             count={count}
             countName="Roles"

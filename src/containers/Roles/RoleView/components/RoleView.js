@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
+import { permissionsNameSpace } from "../../constants/roles.constants";
 
 const RoleView = props => {
   const {location} = props;
@@ -12,6 +13,8 @@ const RoleView = props => {
   location.state?.role
       ? location.state?.role
       : {};
+
+const allPermissions = location.state?.role.permissions.map((permission, index) => (<div key = {index}>{permission.name}</div>))
 
   return (
     <Col>
@@ -62,7 +65,7 @@ const RoleView = props => {
                 </dd>
                 <dt className="col-sm-4">Permissions</dt>
                 <dd className="col-sm-8">
-                  <p>{roleObj.permissions}</p>
+                  <p>{allPermissions}</p>
                 </dd>
               </dl>
             </div>
