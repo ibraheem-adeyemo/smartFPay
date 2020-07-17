@@ -13,7 +13,7 @@ const PermissionsSelect = props => {
   let perm = [];
 
   for(var permission of permissions.response) {
-   perm.push({id: permission,label: permission});
+   perm.push({name: permission});
   }
   // userPermissions =
   //   userPermissions && userPermissions.map(permission => permission.authority);
@@ -52,8 +52,8 @@ const PermissionsSelect = props => {
           component={renderSelectField}
           isMulti={true}
           options={perm || []}
-          valueKey="id"
-          labelKey="label"
+          valueKey="name"
+          labelKey="name"
         />
       </div>
       {permissions && permissions.error ? (

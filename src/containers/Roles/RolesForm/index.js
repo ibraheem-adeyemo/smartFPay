@@ -22,7 +22,7 @@ const RoleForm = ({ dispatch, permissions, match, location, history }) => {
   let allPermissions = [];
 
   for(var permission of permissions.response) {
-    allPermissions.push({id: permission,label: permission});
+    allPermissions.push({name: permission});
   }
 
   const createFormData = role => {
@@ -32,7 +32,7 @@ const RoleForm = ({ dispatch, permissions, match, location, history }) => {
     let permissions = [];
     if(roleObj?.permissions) {
       for(let i = 0; i < roleObj.permissions.length; ++i) {
-        permissions.push({id: roleObj.permissions[i], label: roleObj.permissions[i]});
+        permissions.push({name: roleObj.permissions[i].name});
       }
     }
     if(roleObj) {
