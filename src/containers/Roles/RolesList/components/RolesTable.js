@@ -75,7 +75,7 @@ const RolesTable = memo(props => {
 
   const handleAction = (row, action) => {
     if (action.name === "view_roles") {
-      props.history.push(`${props.location.pathname}/view/${row.id}`);
+      props.history.push({pathname:`${props.location.pathname}/view/${row.id}`, state: {role:row}});
     } else if (action.name === "edit_roles") {
       props.history.push({pathname:`${props.location.pathname}/edit/${row.id}`, state: {role:row}});
     }else if (action.name === "edit_users") {

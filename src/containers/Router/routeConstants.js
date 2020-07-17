@@ -22,6 +22,7 @@ import LimitsList from "../Limits/LimitsList";
 import LimitForm from "../Limits/LimitForm";
 import CardLimitForm from "../Limits/CardLimitForm";
 import ViewLimit from "../Limits/LimitView";
+import ViewRole from "../Roles/RoleView";
 
 const {
   CREATE_CONTROL,
@@ -254,7 +255,7 @@ export const RolesRoutes = {
       name: "View Role",
       path: "/roles/view/:id",
       menu: false,
-      pageComponent: RoleForm,
+      pageComponent: ViewRole,
       enabled: true,
       permissions: [VIEW_ADMIN]
     },

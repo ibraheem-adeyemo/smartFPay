@@ -140,13 +140,6 @@ const LimitView = props => {
               )}
             </div>
           )}
-          {/* {control && !control.loading ? (
-            <h5 className="bold-text mt-4">
-              <Link to="/limit-requests" id="link-all-controls">
-                <MdArrowBack size={20} /> Back to controls
-              </Link>
-            </h5>
-          ) : null} */}
         </CardBody>
       </Card>
     </Col>
