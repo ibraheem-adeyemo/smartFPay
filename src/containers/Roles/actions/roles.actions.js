@@ -8,7 +8,7 @@ export const getRoles = requestParams => {
   return async dispatch => {
     dispatch(request(requestParams));
     try {
-      const response = await rolesService.getRoles(requestParams);
+      const response = await rolesService.getRoles();
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));

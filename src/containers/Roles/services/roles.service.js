@@ -8,13 +8,12 @@ export const rolesService = {
   reassignPermissions,
 };
 
-function getRoles(params) {
+function getRoles() {
   return apiCall(
     "GET",
     API_URLS.ROLES.GET_ALL_ROLES,
     null,
     null,
-    params
   );
 }
 
