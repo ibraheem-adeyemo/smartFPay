@@ -6,6 +6,7 @@ import {
   Col,
   Button,
   ButtonToolbar,
+  UncontrolledAlert,
 Spinner } from "reactstrap";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
@@ -53,6 +54,18 @@ const RoleForm = memo(props => {
             </h5>
           </div>
           <form className="form" onSubmit={handleSubmit}>
+          {postrole?.error?.errors?.length ? (
+                    <UncontrolledAlert color="danger">
+                      <h5 className="font-weight-bold">
+                        Please check the following fields for errors
+                      </h5>
+                      {postrole.error.errors.map(err => (
+                        <p>
+                          <strong>{err.field}:</strong> {err.message}
+                        </p>
+                      ))}
+                    </UncontrolledAlert>
+                  ) : null}
             <Row>
               <Col lg="4">
                 <div className="form__form-group">

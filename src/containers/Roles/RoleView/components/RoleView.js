@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Card, CardBody, Spinner, Button } from "reactstrap";
+import { Col, Card, CardBody, Spinner, Button, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import AccessControl from "../../../../shared/components/AccessControl";
@@ -14,7 +14,7 @@ const RoleView = props => {
       ? location.state?.role
       : {};
 
-const allPermissions = location.state?.role.permissions.map((permission, index) => (<div key = {index}>{permission.name}</div>))
+const allPermissions = location.state?.role.permissions.map((permission, index) => (<Badge key = {index} color="success" pill style={{marginRight: '10px', padding: '5px 10px'}}>{permission.name}</Badge>))
 
   return (
     <Col>

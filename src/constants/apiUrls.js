@@ -99,8 +99,8 @@ export const API_URLS = {
   },
   ROLES: {
     GET_ALL_ROLES: `${apiBaseUrl}/role`,
-    CREATE_ROLE: `${apiBaseUrl}/roles`,
-    REASSIGN_PERMISSIONS: `${apiBaseUrl}/rolex/permissions/reassign`
+    CREATE_ROLE: `${apiBaseUrl}/role`,
+    REASSIGN_PERMISSIONS: `${apiBaseUrl}/role/permissions/reassign`
   },
   PERMISSIONS: {
     GET_ALL_PERMISSIONS: `${apiBaseUrl}/role/permissions`

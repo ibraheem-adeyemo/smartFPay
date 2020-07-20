@@ -19,34 +19,6 @@ const {
   VIEW_ADMIN
 } = permissionsConstants;
 
-const someRoles = [
-  {
-    id: 20060,
-    name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION","VIEW_PERMISSION"]
-  },{
-    id: 20060,
-    name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION"]
-  },{
-    id: 20060,
-    name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION"]
-  },{
-    id: 20060,
-    name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION"]
-  },{
-    id: 20060,
-    name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION"]
-  },{
-    id: 20060,
-    name: "ROLER_COASTER",
-    permissions: ["VIEW_PERMISSION"]
-  }
-]
-
 const RolesTable = memo(props => {
   const {
     dataState,
@@ -130,7 +102,7 @@ const RolesTable = memo(props => {
   };
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allRoles.request, pageNumber, pageSize, searchWord: searchKey });
+    fetchData();
   };
 
   return (
@@ -161,7 +133,7 @@ const RolesTable = memo(props => {
             //   dataState && dataState.response ? dataState.response.content : []
             // }
             data={
-              allRoles?.response
+              dataState?.response
             }
             count={count}
             countName="Roles"
@@ -175,18 +147,18 @@ const RolesTable = memo(props => {
             permissions={permissions}
             actions={actions}
             responsive
-            customSearch={
-              <CustomSearch
-                pageNumer={1}
-                initialValues={{
-                  pageNumber: 1,
-                  pageSize: 10,
-                  searchKey: ""
-                }}
-                pageSize={10}
-                onSubmit={handleSubmit}
-              />
-            }
+            // customSearch={
+            //   <CustomSearch
+            //     pageNumer={1}
+            //     initialValues={{
+            //       pageNumber: 1,
+            //       pageSize: 10,
+            //       searchKey: ""
+            //     }}
+            //     pageSize={10}
+            //     onSubmit={handleSubmit}
+            //   />
+            // }
             sortFn={sortFn}
             searchKey={searchKey}
             serverside

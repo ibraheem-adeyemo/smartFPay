@@ -72,11 +72,11 @@ export const getPermissions = (requestParams) => {
 export const createRole = (values, id, history) => {
   let requestBody = id? {
     id: id,
-    permissions: values.permissions.map(permission => permission.label)
+    permissions: values.permissions.map(permission => permission.name)
   }:{
     name: values.role_name,
     description: values.description || '',
-    permissions:values.permissions.map(permission => permission.label)
+    permissions:values.permissions.map(permission => permission.name)
   }
   console.log(requestBody);
   return async dispatch => {
