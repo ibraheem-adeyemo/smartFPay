@@ -41,7 +41,7 @@ const UsersTable = memo(props => {
 
   const toggleUserFn = row => {
     confirmAlert({
-      message: `Are you sure you want to ${row.active ? "disable" : "enable"} this user?`, // Message dialog
+      message: `Are you sure you want to ${row.disabled ? "enable" : "disable"} this user?`, // Message dialog
       buttons: [
         {
           label: "Yes",
@@ -92,12 +92,6 @@ const UsersTable = memo(props => {
       sortKey: "email"
     },
     {
-      accessor: "mobileNo",
-      name: "Phone Number",
-      sortable: true,
-      sortKey: "mobileNo"
-    },
-    {
       accessor: "active",
       name: "Status (click to toggle)",
       sortable: true,
@@ -111,7 +105,7 @@ const UsersTable = memo(props => {
       Cell: row => (
         <button
           type="button"
-          id={`toggle-btn-${row.active ? "enabled" : "disabled"}-${row.id}`}
+          id={`toggle-btn-${row.disabled ? "disabled" : "enabled"}-${row.id}`}
           onClick={() =>
             accessControlFn(
               permissions,
@@ -121,14 +115,14 @@ const UsersTable = memo(props => {
             )
           }
           className={`btn ${
-            row.active ? "btn-success" : "btn-secondary"
+            row.disabled ? "btn-secondary" : "btn-success"
           } badge mb-0`}
         >
           {toggleuser.loading &&
           row.username === toggleuser.request.username ? (
             <Spinner size="sm" />
           ) : (
-            <span>{row.active ? "Enabled" : "Disabled"}</span>
+            <span>{row.disabled ? "Disabled" : "Enabled"}</span>
           )}
         </button>
       )
@@ -145,7 +139,7 @@ const UsersTable = memo(props => {
     }
   };
 
-  const sortFn = (pageNum, pageSize, column) => {
+  const sortFn = (pageNumber, pageSize, column) => {
     let sortOrder = "ASC";
     if (!allUsers.loading) {
       if (allUsers.request && allUsers.request.sortOrder) {
@@ -153,10 +147,10 @@ const UsersTable = memo(props => {
       }
       fetchData({
         ...allUsers.request,
-        pageNum,
+        pageNumber,
         pageSize,
-        sortKey: column.sortKey,
-        sortOrder
+        // sortKey: column.sortKey,
+        // sortOrder
       });
     }
   };
@@ -192,13 +186,13 @@ const UsersTable = memo(props => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allUsers.request,
-      pageNum: 1,
+      pageNumber: 1,
       searchWord: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allUsers.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData({ ...allUsers.request, pageNumber, pageSize, searchWord: searchKey });
   };
 
   return (
@@ -226,7 +220,7 @@ const UsersTable = memo(props => {
             columns={columns}
             loading={dataState && dataState.loading}
             data={
-              dataState && dataState.response ? dataState.response.content : []
+              dataState?.response?.data || []
             }
             count={count}
             countName="Users"

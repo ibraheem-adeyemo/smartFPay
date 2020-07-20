@@ -11,7 +11,7 @@ const UsersList = ({ dispatch, allUsers }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllUsers({ pageNum: 1, pageSize: 10 }));
+    dispatch(getAllUsers({ pageNumber: 1, pageSize: 10 }));
   }, [dispatch]);
 
   return (

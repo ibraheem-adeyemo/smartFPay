@@ -7,7 +7,7 @@ export const API_URLS = {
     LOGIN: `${apiBaseUrl}/auth/admin`
   },
   USERS: {
-    GET_USERS: `${apiBaseUrl}/users/admin`,
+    GET_USERS: `${apiBaseUrl}/admin`,
     GET_USER: `${apiBaseUrl}/users/`,
     POST_USER_ADMIN: `${apiBaseUrl}/users/admin`,
     FIND_USERS: `${apiBaseUrl}/users/find`,
