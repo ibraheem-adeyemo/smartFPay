@@ -6,6 +6,7 @@ export const rolesService = {
   createRole,
   getPermissions,
   reassignPermissions,
+  toggleRole
 };
 
 function getRoles() {
@@ -29,6 +30,10 @@ function getPermissions(params) {
 
 function createRole(request) {
   return apiCall("POST", API_URLS.ROLES.CREATE_ROLE, null, request);
+}
+
+function toggleRole(request) {
+  return apiCall("PUT", API_URLS.ROLES.TOGGLE_ROLE, null, request);
 }
 
 function reassignPermissions(request) {

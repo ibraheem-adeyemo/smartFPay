@@ -78,7 +78,6 @@ export const createRole = (values, id, history) => {
     description: values.description || '',
     permissions:values.permissions.map(permission => permission.name)
   }
-  console.log(requestBody);
   return async dispatch => {
     dispatch(request(requestBody));
     try {
@@ -123,6 +122,45 @@ export const createRole = (values, id, history) => {
   }
   function resetView() {
     return { type: rolesConstants[`VIEW_${namespace}_RESET`] };
+  }
+};
+
+export const toggleRole = (values, pageState) => {
+  let requestBody = {
+    id: values.id,
+    name: values.name,
+    disabled: !values.disabled
+  }
+  console.log('TTYUIKJH', values)
+  return async dispatch => {
+    dispatch(request(requestBody));
+    try {
+      const response = await rolesService.toggleRole(requestBody);
+      response && dispatch(success(response));
+      dispatch(
+        showAlert("success", values.name, response)
+      );
+      dispatch(getRoles(pageState));
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          "Failed to toggle role",
+          error ? error.message : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request(request) {
+    return { type: rolesConstants[`TOGGLE_${namespace}_REQUEST`], request };
+  }
+  function success(response) {
+    return { type: rolesConstants[`TOGGLE_${namespace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: rolesConstants[`TOGGLE_${namespace}_FAILURE`], error };
   }
 };
 

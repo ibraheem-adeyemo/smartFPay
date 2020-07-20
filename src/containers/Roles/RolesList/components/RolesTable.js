@@ -14,6 +14,7 @@ import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { accessControlFn } from "../../../../utils/accessControl";
 import { getFormValues } from "redux-form";
+import { toggleRole } from "../../actions/roles.actions";
 
 const {
   VIEW_ADMIN
@@ -25,11 +26,29 @@ const RolesTable = memo(props => {
     fetchData,
     dispatch,
     permissions,
-    allRoles
+    allRoles,
+    togglerole
   } = props;
 
   const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
+
+  const toggleRoleFn = row => {
+    confirmAlert({
+      message: `Are you sure you want to ${row.disabled ? "enabled" : "disable"} this user?`, // Message dialog
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () =>
+            dispatch(toggleRole(row, allRoles.request))
+        },
+        {
+          label: "No",
+          onClick: () => null
+        }
+      ]
+    });
+  };
 
   const columns = [
     {
@@ -43,6 +62,40 @@ const RolesTable = memo(props => {
       name: "Name",
       sortKey: "name"
     },
+    {
+      accessor: "active",
+      name: "Status (click to toggle)",
+      sortKey: "active",
+      renderHeader: () => (
+        <span>
+          Status <small>(click to toggle)</small>
+        </span>
+      ),
+      Cell: row => (
+        <button
+          type="button"
+          id={`toggle-btn-${row.disabled ? "disabled" : "enabled"}-${row.id}`}
+          onClick={() =>
+            accessControlFn(
+              permissions,
+              [VIEW_ADMIN],
+              toggleRoleFn,
+              row
+            )
+          }
+          className={`btn ${
+            row.disabled ? "btn-secondary" : "btn-success"
+          } badge mb-0`}
+        >
+          {togglerole.loading &&
+          row.name === togglerole.request.name ? (
+            <Spinner size="sm" />
+          ) : (
+            <span>{row.disabled ? "Disabled" : "Enabled"}</span>
+          )}
+        </button>
+      )
+    }
   ];
 
   const handleAction = (row, action) => {
@@ -172,5 +225,6 @@ const RolesTable = memo(props => {
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
   permissions: state.permissions && state.permissions.response,
-  allRoles: state.roles
+  allRoles: state.roles,
+  togglerole: state.togglerole
 }))(withRouter(RolesTable));
