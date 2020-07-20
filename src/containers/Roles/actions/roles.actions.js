@@ -147,7 +147,7 @@ export const toggleRole = (values, pageState) => {
         showAlert(
           "danger",
           "Failed to toggle role",
-          error ? error.message : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }
