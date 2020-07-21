@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
 import React, { memo, useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar, UncontrolledAlert } from "reactstrap";
+import { Card, CardBody, Col, ButtonToolbar, UncontrolledAlert,Spinner } from "reactstrap";
 import {
   MdInsertDriveFile,
   /* MdModeEdit, */
@@ -18,19 +18,44 @@ import ModalComponent from "../../../../shared/components/Modal";
 import ViewCustomer from "../../ViewCustomer";
 import Avatar from "react-avatar";
 import { getCustomers } from "../../reducers";
+import {subscribeCustomer, unsubscribeCustomer} from '../../actions/customers.actions';
+import { confirmAlert } from "react-confirm-alert";
 
 const {
-  CREATE_CUSTOMER
+  CREATE_CUSTOMER,
+  VIEW_ADMIN
 } = permissionsConstants;
 
 const CustomersTable = memo(
-  ({ dataState, fetchData, permissions, history, location, batchId }) => {
+  ({ dataState, dispatch, fetchData, permissions, history, location, batchId, togglecustomer, allCustomers }) => {
     const [searchKey, setSearchKey] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
 
     const toggleModal = () => {
       setShowModal(prev => !prev);
+    };
+
+    const toggleCustomerFn = row => {
+      confirmAlert({
+        message: `Are you sure you want to ${row.customerStatus === "SUBSCRIBED" ? "UNSUBSCRIBE" : "SUBSCRIBE"} this customer?`, // Message dialog
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => {
+              if(row.customerStatus === "SUBSCRIBED"){
+                dispatch(unsubscribeCustomer(row, allCustomers.request));
+                }else {
+                  dispatch(subscribeCustomer(row, allCustomers.request))
+                }
+            }
+          },
+          {
+            label: "No",
+            onClick: () => null
+          }
+        ]
+      });
     };
 
     const count =
@@ -75,11 +100,24 @@ const CustomersTable = memo(
           <button
             type="button"
             id={`toggle-btn-${row.customerStatus === 'SUBSCRIBED' ? "enabled" : "disabled"}-${row.id}`}
+            onClick={() =>
+              accessControlFn(
+                permissions,
+                [VIEW_ADMIN],
+                toggleCustomerFn,
+                row
+              )
+            }
             className={`btn ${
               row.customerStatus === 'SUBSCRIBED' ? "btn-success" : "btn-secondary"
             } badge mb-0`}
           >
-            {row.customerStatus}
+            {togglecustomer.loading &&
+          row.accountNumber === togglecustomer.request.accountNumber ? (
+            <Spinner size="sm" />
+          ) : (
+            <span>{row.customerStatus}</span>
+          )}
           </button>
         )
       },
@@ -254,6 +292,7 @@ console.log('dataState', dataState)
 export default withRouter(
   connect(state => ({
     permissions: state.permissions && state.permissions.response,
-    toggleuser: state.toggleuser
+    togglecustomer: state.togglecustomer,
+    allCustomers: state.getCustomers
   }))(CustomersTable)
 );

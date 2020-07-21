@@ -38,7 +38,9 @@ export const API_URLS = {
   CUSTOMERS: {
     POST_CUSTOMER: `${apiBaseUrl}/customers/create`,
     GET_CUTOMER_BY_ACCOUNT: `${apiBaseUrl}/customers`,
-    GET_CUSTOMERS: `${apiBaseUrl}/customers`
+    GET_CUSTOMERS: `${apiBaseUrl}/customers`,
+    SUBSCRIBE_CUSTOMERS: `${apiBaseUrl}/customers/subscribe`,
+    UNSUBSCRIBE_CUSTOMERS: `${apiBaseUrl}/customers/unsubscribe`
   },
   ISSUERS: {
     DOMAIN_MAPPINGS_URI: `${apiBaseUrl}/issuer`,

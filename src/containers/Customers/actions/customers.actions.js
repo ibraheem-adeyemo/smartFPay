@@ -184,6 +184,78 @@ export const postCustomer = (values, callBack) => {
     }
 }
 
+export const subscribeCustomer = (values, pageState) => {
+  let requestBody = {
+    accountNumber: values.accountNumber
+  }
+  return async dispatch => {
+    dispatch(request(requestBody));
+    try {
+      const response = await customersService.subscribeCustomer(requestBody);
+      response && dispatch(success(response));
+      dispatch(
+        showAlert("success", values.accountNumber, response)
+      );
+      dispatch(getCustomers(pageState));
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          "Failed to subscribe customer",
+          error ? error : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request(request) {
+    return { type: customerConstants[`TOGGLE_${nameSpace}_REQUEST`], request };
+  }
+  function success(response) {
+    return { type: customerConstants[`TOGGLE_${nameSpace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: customerConstants[`TOGGLE_${nameSpace}_FAILURE`], error };
+  }
+};
+
+export const unsubscribeCustomer = (values, pageState) => {
+  let requestBody = {
+    accountNumber: values.accountNumber
+  }
+  return async dispatch => {
+    dispatch(request(requestBody));
+    try {
+      const response = await customersService.unsubscribeCustomer(requestBody);
+      response && dispatch(success(response));
+      dispatch(
+        showAlert("success", values.accountNumber, response)
+      );
+      dispatch(getCustomers(pageState));
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          "Failed to unsubscribe customer",
+          error ? error : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request(request) {
+    return { type: customerConstants[`TOGGLE_${nameSpace}_REQUEST`], request };
+  }
+  function success(response) {
+    return { type: customerConstants[`TOGGLE_${nameSpace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: customerConstants[`TOGGLE_${nameSpace}_FAILURE`], error };
+  }
+};
+
 export const resetPost = () => {
   return { type: customerConstants[`POST_${nameSpace}_RESET`] };
 };

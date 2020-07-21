@@ -131,7 +131,6 @@ export const toggleRole = (values, pageState) => {
     name: values.name,
     disabled: !values.disabled
   }
-  console.log('TTYUIKJH', values)
   return async dispatch => {
     dispatch(request(requestBody));
     try {
