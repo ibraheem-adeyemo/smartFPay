@@ -194,7 +194,7 @@ export const subscribeCustomer = (values, pageState) => {
       const response = await customersService.subscribeCustomer(requestBody);
       response && dispatch(success(response));
       dispatch(
-        showAlert("success", values.accountNumber, response)
+        showAlert("success", `${values.accountNumber} subscribed ${response.responseMessage}LY`,)
       );
       dispatch(getCustomers(pageState));
     } catch (error) {
@@ -230,7 +230,7 @@ export const unsubscribeCustomer = (values, pageState) => {
       const response = await customersService.unsubscribeCustomer(requestBody);
       response && dispatch(success(response));
       dispatch(
-        showAlert("success", values.accountNumber, response)
+        showAlert("success", `${values.accountNumber} subscribed ${response.responseMessage}LY`,)
       );
       dispatch(getCustomers(pageState));
     } catch (error) {

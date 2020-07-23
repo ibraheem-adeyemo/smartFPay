@@ -87,8 +87,8 @@ export const createRole = (values, id, history) => {
       dispatch(
         showAlert(
           "success",
-          id ? "Role updated successfully" : "New control added successfully",
-          response && response.responseMessage
+          id ? "Role updated successfully" : "New role added successfully",
+          response?.responseMessage
         )
       );
       dispatch(getRoles({ pageNum: 1, pageSize: 10 }));
@@ -137,7 +137,7 @@ export const toggleRole = (values, pageState) => {
       const response = await rolesService.toggleRole(requestBody);
       response && dispatch(success(response));
       dispatch(
-        showAlert("success", values.name, response)
+        showAlert("success", `${values.name} ${values.disabled ? 'enabled' : 'disabled'} successfully`, response)
       );
       dispatch(getRoles(pageState));
     } catch (error) {
