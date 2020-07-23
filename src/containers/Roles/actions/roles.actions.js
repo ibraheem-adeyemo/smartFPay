@@ -4,9 +4,9 @@ import { message } from "../../../constants/app.constants";
 import { rolesConstants, namespace, permissionsNameSpace } from "../constants/roles.constants";
 import { reset } from "redux-form";
 
-export const getRoles = requestParams => {
+export const getRoles = () => {
   return async dispatch => {
-    dispatch(request(requestParams));
+    dispatch(request());
     try {
       const response = await rolesService.getRoles();
       response && dispatch(success(response));

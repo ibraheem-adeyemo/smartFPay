@@ -8,7 +8,7 @@ import { MdRefresh } from "react-icons/md";
 import { permissionsConstants } from "../../constants/permissions.constants";
 
 const PermissionsSelect = props => {
-  const { roles, label, dispatch, permissions, currentUser, id, required } = props;
+  const { label, dispatch, permissions, currentUser, id, required } = props;
   let userPermissions = permissions && permissions.response;
   let perm = [];
 

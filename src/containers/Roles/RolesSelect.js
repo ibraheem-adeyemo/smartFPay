@@ -16,27 +16,14 @@ const RolesSelect = props => {
   userPermissions =
     userPermissions && userPermissions.map(permission => permission);
 
-  const isAdmin = userPermissions && userPermissions.includes(permissionsConstants.VIEW_DOMAINS_ROLE);
-
-  const domainCode = props.domainCode
-    ? props.domainCode
-    : isAdmin
-    ? ""
-    : currentUser && currentUser.response && currentUser.response.domainCode;
-
   const fetchRoles = () => {
-    dispatch(getRoles(domainCode));
+    dispatch(getRoles());
   };
 
   useEffect(() => {
-    const fetchRoles = () => {
-      dispatch(getRoles(domainCode));
-    };
-    if (!isAdmin || props.domainCode) {
-      fetchRoles();
-    }
+    dispatch(getRoles());
     return () => dispatch(resetRoles());
-  }, [dispatch, domainCode, isAdmin, props.domainCode]);
+  }, [dispatch]);
 
   return (
     <div className="form__form-group">
@@ -46,7 +33,8 @@ const RolesSelect = props => {
           id={id}
           name="roles"
           component={renderSelectField}
-          options={roles && roles.response ? roles.response.data : []}
+          options={roles?.response || []}
+          isMulti = {true}
           valueKey="id"
           labelKey="name"
         />
