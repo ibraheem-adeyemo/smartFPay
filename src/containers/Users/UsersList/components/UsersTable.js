@@ -131,7 +131,7 @@ const UsersTable = memo(props => {
 
   const handleAction = (row, action) => {
     if (action.name === "view_users") {
-      props.history.push(`${props.location.pathname}/view/${row.username}`);
+      props.history.push(`${props.location.pathname}/view/${row.id}`);
     } else if (action.name === "edit_users") {
       props.history.push(`${props.location.pathname}/edit/${row.id}`);
     }

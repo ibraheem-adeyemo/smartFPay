@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Card, CardBody, Spinner, Button } from "reactstrap";
+import { Col, Card, CardBody, Spinner, Button, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import AccessControl from "../../../../shared/components/AccessControl";
@@ -8,19 +8,25 @@ import { permissionsConstants } from "../../../../constants/permissions.constant
 const UserView = props => {
   const { user, userId, fetchData } = props;
   const foundUser =
-    user.response &&
-    user.response.data &&
-    user.response.data.length &&
+    user?.response && 
     !user.loading;
   const userObj =
-    user.response && user.response.data && user.response.data.length
-      ? user.response.data[0]
-      : {};
+    user?.response
+      ||{};
+
+const allRoles = user.response?.roles.map((role, index) => (<Badge key = {index} color="success" pill style={{marginRight: '10px', padding: '5px 10px'}}>{role.name}</Badge>))
 
   return (
     <Col>
       <Card>
         <CardBody>
+        {!user?.loading && <div className="card__title">
+            <h5 className="bold-text">
+              <Link to="/users" id="link-all-users">
+                <MdArrowBack size={20} /> Back to users
+              </Link>
+            </h5>
+          </div>}
           {foundUser ? (
             <div className="project-summary">
               <div className="card__title">
@@ -41,10 +47,20 @@ const UserView = props => {
                 </Link>
               </AccessControl>
 
-              <dl className="row">
-                <dt className="col-sm-2">Username</dt>
+              <dl className="row" style={{fontSize: '18px'}}>
+              <dt className="col-sm-2">ID</dt>
                 <dd className="col-sm-10">
-                  <p>{userObj.username}</p>
+                  <p>{userObj.id}</p>
+                </dd>
+
+                <dt className="col-sm-2">First Name</dt>
+                <dd className="col-sm-10">
+                  <p>{userObj.firstName}</p>
+                </dd>
+
+                <dt className="col-sm-2">Last Name</dt>
+                <dd className="col-sm-10">
+                  <p>{userObj.lastName}</p>
                 </dd>
 
                 <dt className="col-sm-2">Email</dt>
@@ -52,9 +68,14 @@ const UserView = props => {
                   <p>{userObj.email}</p>
                 </dd>
 
-                <dt className="col-sm-2">Mobile number</dt>
+                <dt className="col-sm-2">Status</dt>
                 <dd className="col-sm-10">
-                  <p>{userObj.mobileNo}</p>
+                  <p>{userObj.disabled ? (<Badge color="danger" pill style={{marginRight: '10px', padding: '5px 10px'}}>Disabled</Badge>) : (<Badge color="success" pill style={{marginRight: '10px', padding: '5px 10px'}}>Enabled</Badge>)}</p>
+                </dd>
+
+                <dt className="col-sm-2">Roles</dt>
+                <dd className="col-sm-10">
+                  <p>{allRoles}</p>
                 </dd>
 
                 {/* <dt className="col-sm-2">Active</dt>
@@ -67,16 +88,6 @@ const UserView = props => {
                     )}
                   </p>
                 </dd> */}
-                <dt className="col-sm-2">Domains</dt>
-                <dd className="col-sm-10">
-                  {userObj.domains && userObj.domains.length ? (
-                    userObj.domains.map((domain, index) => (
-                      <p key={index}>{domain.name}</p>
-                    ))
-                  ) : (
-                    <p className="text-muted">-- No domains assigned --</p>
-                  )}
-                </dd>
                 {/* <dt className="col-sm-2">Apps</dt>
                 <dd className="col-sm-10">
                   {userObj.apps && userObj.app.length ? (
@@ -133,13 +144,6 @@ const UserView = props => {
               )}
             </div>
           )}
-          {user && !user.loading ? (
-            <h5 className="bold-text mt-4">
-              <Link to="/users" id="link-all-users">
-                <MdArrowBack size={20} /> Back to users
-              </Link>
-            </h5>
-          ) : null}
         </CardBody>
       </Card>
     </Col>
