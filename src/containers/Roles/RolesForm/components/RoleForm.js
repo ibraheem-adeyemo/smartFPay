@@ -83,20 +83,6 @@ const RoleForm = memo(props => {
                 </div>
               </Col>
               <Col lg="4">
-                <div className="form__form-group">
-                  <span className="form__form-group-label">Description</span>
-                  <div className="form__form-group-field">
-                    <Field
-                      name="description"
-                      component="input"
-                      type="text"
-                      placeholder="Role description"
-                      disabled={disabled}
-                    />
-                  </div>
-                </div>
-              </Col>
-              <Col lg="4">
                 <PermissionsSelect
                   required
                   id="permission-select"

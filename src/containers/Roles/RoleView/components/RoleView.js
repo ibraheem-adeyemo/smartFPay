@@ -59,10 +59,6 @@ const allPermissions = location.state?.role.permissions.map((permission, index) 
                 <dd className="col-sm-8">
                   <p>{roleObj.name}</p>
                 </dd>
-                <dt className="col-sm-4">Description</dt>
-                <dd className="col-sm-8">
-                  <p>{roleObj.description || 'No description'}</p>
-                </dd>
                 <dt className="col-sm-4">Permissions</dt>
                 <dd className="col-sm-8">
                   <p>{allPermissions}</p>

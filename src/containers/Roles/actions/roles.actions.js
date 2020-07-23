@@ -75,7 +75,6 @@ export const createRole = (values, id, history) => {
     permissions: values.permissions.map(permission => permission.name)
   }:{
     name: values.role_name,
-    description: values.description || '',
     permissions:values.permissions.map(permission => permission.name)
   }
   return async dispatch => {
