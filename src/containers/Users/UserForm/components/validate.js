@@ -21,14 +21,6 @@ const validate = values => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = "Invalid email address";
   }
-  
-  if (values.phone_number && !/^(\d{11})$/.test(values.phone_number)) {
-    errors.phone_number = "Invalid phone number (Must be 11 digits)";
-  }
-
-  if (!values.domains) {
-    errors.domains = "Please select a domain";
-  }
   if (!values.roles) {
     errors.roles = "Please select a role";
   }

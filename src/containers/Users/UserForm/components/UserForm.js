@@ -173,25 +173,7 @@ const UserForm = memo(props => {
                         </div>
                       </div>
                     </Col>
-                    <Col lg="4">
-                      <div className="form__form-group">
-                        <span className="form__form-group-label">
-                          Phone number
-                        </span>
-                        <div className="form__form-group-field">
-                          <Field
-                            id="phone_number"
-                            name="phone_number"
-                            component={renderField}
-                            type="tel"
-                            placeholder="phone number"
-                          />
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                  {!userId && (
-                    <Row>
+                    {!userId && (
                       <Col lg="4">
                         <RolesSelect
                           required
@@ -199,8 +181,9 @@ const UserForm = memo(props => {
                           label="Assign roles to user"
                         />
                       </Col>
-                    </Row>
                   )}
+                  </Row>
+                  
 
                   <ButtonToolbar className="form__button-toolbar">
                     <Button

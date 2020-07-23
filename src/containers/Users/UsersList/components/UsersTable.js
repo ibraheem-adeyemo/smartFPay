@@ -192,7 +192,7 @@ const UsersTable = memo(props => {
   };
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allUsers.request, pageNumber, pageSize, searchWord: searchKey });
+    fetchData({ ...allUsers.request, pageNumber, pageSize});
   };
 
   return (
