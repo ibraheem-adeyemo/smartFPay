@@ -1,7 +1,14 @@
 export const createRequestBody = (values, currentUser, id, userToEdit) => {
-  const { domains, domainCode, domainName, domainId } = currentUser.response;
-
-  const requestObject = {
+  const requestObject = id? {
+    id: id,
+    disabled: userToEdit.disabled,
+    email: values.email,
+    firstName: values.first_name,
+    lastName: values.last_name,
+    roles: values?.roles.map((role) => role.name)
+  } :{
+    id: id,
+    disabled: values.disabled,
     email: values.email,
     firstName: values.first_name,
     lastName: values.last_name,

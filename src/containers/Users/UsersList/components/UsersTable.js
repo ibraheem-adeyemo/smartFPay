@@ -133,9 +133,7 @@ const UsersTable = memo(props => {
     if (action.name === "view_users") {
       props.history.push(`${props.location.pathname}/view/${row.username}`);
     } else if (action.name === "edit_users") {
-      props.history.push(`${props.location.pathname}/edit/${row.username}`);
-    } else if (action.name === "manageRoles") {
-      props.history.push(`${props.location.pathname}/roles/${row.username}`);
+      props.history.push(`${props.location.pathname}/edit/${row.id}`);
     }
   };
 
@@ -172,14 +170,6 @@ const UsersTable = memo(props => {
       btnIcon: MdModeEdit,
       permissions: [UPDATE_USER]
     },
-    {
-      name: "manageRoles",
-      btnText: "Manage Roles",
-      btnAction: handleAction,
-      btnClass: "info",
-      btnIcon: MdLock,
-      permissions: [CHANGE_USER_ROLE]
-    }
   ];
 
   const handleSubmit = values => {

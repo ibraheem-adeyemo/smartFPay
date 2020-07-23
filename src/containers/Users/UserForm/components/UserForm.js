@@ -45,10 +45,7 @@ const UserForm = memo(props => {
   } = props;
 
   const foundUser =
-    user &&
-    user.response &&
-    user.response.data &&
-    user.response.data.length &&
+    user.response && 
     !user.loading;
 
   const resetForm = () => {
@@ -65,15 +62,6 @@ const UserForm = memo(props => {
     };
   }, [dispatch]);
 
-  // const getRolesFromDomain = selectedDomain => {
-  //   dispatch(clearFields("user_form", true, true, "roles"));
-
-  //   if (selectedDomain) {
-  //     dispatch(getRoles(selectedDomain.code));
-  //   } else {
-  //     dispatch(resetRoles());
-  //   }
-  // };
   return (
     <Col md={12} lg={12}>
       <Card>
@@ -85,7 +73,7 @@ const UserForm = memo(props => {
               </Link>
             </h5>
           </div>
-          {userId && user && user.loading ? (
+          {userId && user?.loading ? (
             <div className="text-center">
               <Spinner
                 color="success"
@@ -93,14 +81,14 @@ const UserForm = memo(props => {
                 style={{ width: "6rem", height: "6rem" }}
               />
               <h4 className="text-secondary">
-                Fetching user with username ({userId})
+                Fetching user
               </h4>
             </div>
           ) : (
             <div>
               {userId && !foundUser ? (
                 <h4 className="text-danger">
-                  {user && user.error
+                  {user?.error
                     ? `Something went wrong. Could not fetch user with username (${userId})`
                     : `User with username (${userId}) not found`}
                 </h4>
@@ -173,7 +161,6 @@ const UserForm = memo(props => {
                         </div>
                       </div>
                     </Col>
-                    {!userId && (
                       <Col lg="4">
                         <RolesSelect
                           required
@@ -181,7 +168,6 @@ const UserForm = memo(props => {
                           label="Assign roles to user"
                         />
                       </Col>
-                  )}
                   </Row>
                   
 

@@ -111,7 +111,7 @@ const RoleForm = memo(props => {
               </Button>
               <Button color="primary" type="submit"
                       disabled={submitting || invalid}>
-              {postrole && postrole.loading ? (
+              {postrole?.loading ? (
                         <span>
                           <Spinner size="sm" color="default" />{" "}
                         </span>

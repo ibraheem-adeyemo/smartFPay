@@ -5,23 +5,26 @@ import { postUser, getUser, resetViewUser } from "../actions/user.actions";
 import HorizontalForm from "./components/UserForm";
 import PageHeader from "../../../shared/components/PageHeader";
 
-const UserForm = ({ dispatch, currentUser, user, match }) => {
+const UserForm = ({ dispatch, currentUser, user, match, history }) => {
 
   const createFormData = user => {
     let userData;
     const hasUser =
     match.params.id &&
-      user &&
-      user.response &&
-      user.response.data &&
-      user.response.data.length;
-    const userObj = hasUser ? user.response.data[0] : null;
+      user?.response;
+    const userObj = hasUser ? user?.response : null;
+    // let roles = [];
+    // if(userObj?.roles) {
+    //   for(let i = 0; i < userObj.roles.length; ++i) {
+    //     roles.push({name: userObj.roles[i].name});
+    //   }
+    // }
     if (userObj) {
       userData = {
         first_name: userObj.firstName,
         last_name: userObj.lastName,
         email: userObj.email,
-        phone_number: userObj.mobileNo
+        roles: userObj.roles
       };
     }
 
@@ -34,7 +37,7 @@ const UserForm = ({ dispatch, currentUser, user, match }) => {
 
   const addUser = values => {
     dispatch(
-      postUser(values, currentUser, match.params.id, user.response)
+      postUser(values, currentUser, match.params.id, user.response, history)
     );
   };
 

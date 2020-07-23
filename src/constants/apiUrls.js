@@ -8,7 +8,7 @@ export const API_URLS = {
   },
   USERS: {
     GET_USERS: `${apiBaseUrl}/admin`,
-    GET_USER: `${apiBaseUrl}/users/`,
+    GET_USER: `${apiBaseUrl}/admin/`,
     POST_USER_ADMIN: `${apiBaseUrl}/admin`,
     FIND_USERS: `${apiBaseUrl}/users/find`,
     POST_USER_DOMAIN: `${apiBaseUrl}/domain`,
