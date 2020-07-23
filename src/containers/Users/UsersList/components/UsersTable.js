@@ -224,18 +224,18 @@ const UsersTable = memo(props => {
             permissions={permissions}
             actions={actions}
             responsive
-            customSearch={
-              <CustomSearch
-                pageNumer={1}
-                initialValues={{
-                  pageNumber: 1,
-                  pageSize: 10,
-                  searchKey: ""
-                }}
-                pageSize={10}
-                onSubmit={handleSubmit}
-              />
-            }
+            // customSearch={
+            //   <CustomSearch
+            //     pageNumer={1}
+            //     initialValues={{
+            //       pageNumber: 1,
+            //       pageSize: 10,
+            //       searchKey: ""
+            //     }}
+            //     pageSize={10}
+            //     onSubmit={handleSubmit}
+            //   />
+            // }
             sortFn={sortFn}
             searchKey={searchKey}
             serverside
