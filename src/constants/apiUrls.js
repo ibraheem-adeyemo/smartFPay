@@ -9,9 +9,9 @@ export const API_URLS = {
   USERS: {
     GET_USERS: `${apiBaseUrl}/admin`,
     GET_USER: `${apiBaseUrl}/users/`,
-    POST_USER_ADMIN: `${apiBaseUrl}/users/admin`,
+    POST_USER_ADMIN: `${apiBaseUrl}/admin`,
     FIND_USERS: `${apiBaseUrl}/users/find`,
-    POST_USER_DOMAIN: `${apiBaseUrl}/users/domain`,
+    POST_USER_DOMAIN: `${apiBaseUrl}/domain`,
     GET_USER_DOMAIN: `${apiBaseUrl}/users/domains`,
     GET_USER_ROLE: `${apiBaseUrl}/users/role-mapping`,
     GET_ROLES_ADMIN: `${apiBaseUrl}/users/roles`,

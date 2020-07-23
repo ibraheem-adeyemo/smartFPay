@@ -45,8 +45,6 @@ const RoleForm = ({ dispatch, permissions, match, location, history }) => {
     return roleData;
   }
 
-   console.log(location)
-
   return (
     <Container>
       <PageHeader

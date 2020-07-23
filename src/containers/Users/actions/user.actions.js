@@ -137,8 +137,9 @@ export const toggleUser = (username, active, postAction, pageState, domainCode) 
   }
 };
 
-export const postUser = (values, currentUser, id, userToEdit) => {
+export const postUser = (values, currentUser, id, userToEdit, history) => {
   const requestBody = createRequestBody(values, currentUser, id, userToEdit);
+  console.log(requestBody)
 
   return async (dispatch, getState) => {
     const state = getState();
@@ -148,11 +149,7 @@ export const postUser = (values, currentUser, id, userToEdit) => {
       const response = await userService.postUser(requestBody, id);
       dispatch(success(response));
       dispatch(reset("user_form"));
-      accessControlFn(
-        userPermissions,
-        [permissionsConstants.ASSIGN_USER_ROLE],
-        () => dispatch(resetRoles())
-      );
+      dispatch(resetRoles())
       dispatch(
         showAlert(
           "success",
@@ -160,13 +157,10 @@ export const postUser = (values, currentUser, id, userToEdit) => {
           response && response.responseMessage
         )
       );
-      dispatch(getAllUsers({ pageNum: 1, pageSize: 10 }));
+      dispatch(getAllUsers({ pageNumber: 1, pageSize: 10 }));
       dispatch(resetPost());
-      if (id) {
-        dispatch(getUser(id));
-      } else {
-        dispatch(resetView());
-      }
+      dispatch(resetView());
+      history.push('/users');
     } catch (error) {
       dispatch(failure(error));
       dispatch(

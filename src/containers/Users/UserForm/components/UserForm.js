@@ -200,7 +200,7 @@ const UserForm = memo(props => {
                       type="submit"
                       disabled={submitting || invalid}
                     >
-                      {postuser && postuser.loading ? (
+                      {postuser?.loading ? (
                         <span>
                           <Spinner size="sm" color="default" />{" "}
                         </span>
