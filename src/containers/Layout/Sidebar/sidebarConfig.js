@@ -3,7 +3,9 @@ import {
   MdAccountBalance,
   MdPersonAdd,
   MdCreditCard,
-  MdPeople
+  MdPeople,
+  MdSettings,
+  MdFileDownload
 } from "react-icons/md";
 import { permissionsConstants } from "../../../constants/permissions.constants";
 
@@ -32,7 +34,7 @@ export const menuConfig = {
       icon: MdPersonAdd
     },
     {
-      title: "Limits Requests",
+      title: "Limits Management",
       key: "limit-requests",
       icon: MdCreditCard,
       path: "/limit-requests",
@@ -46,10 +48,17 @@ export const menuConfig = {
       icon: MdPeople
     },
     {
+      title: "Audit Trail",
+      key: "audit-trail",
+      path: "/view-report",
+      permissions: [VIEW_ADMIN],
+      icon: MdFileDownload
+    },
+    {
       category: true,
-      title: "Admin Management",
+      title: "Settings",
       key: "admin-management",
-      icon: MdAccountBalance,
+      icon: MdSettings,
       permissions: [VIEW_ADMIN],
       menus: [
         {
@@ -58,12 +67,6 @@ export const menuConfig = {
           path: "/roles",
           permissions: [VIEW_ADMIN]
         },
-        {
-          title: "Audit Trail",
-          key: "audit-trail",
-          path: "/view-report",
-          permissions: [VIEW_ADMIN]
-        }
       ]
     }
   ]

@@ -11,14 +11,14 @@ const LimitsList = ({ dispatch, allControls }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+    dispatch(getAllControls({ pageNumber: 1, pageSize: 10 }));
   }, [dispatch]);
 
   return (
     <Container>
       <PageHeader
         header="Manage Controls"
-        subheader="View, Create and Modify Limit Controls"
+        subheader="Manage Limit Controls"
       />
       <Row>
         <LimitsTable dataState={allControls} fetchData={loadControls} />

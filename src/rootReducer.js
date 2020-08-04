@@ -4,6 +4,8 @@ import { combineReducers } from "redux";
 import { sidebarReducer, themeReducer } from "./containers/Layout/reducers";
 import { alert as notificationReducer } from "./containers/Notifications/reducers/alert.reducer";
 
+import {postlogin} from "./containers/Account/reducers";
+
 import {
   viewuser,
   postuser,
@@ -16,6 +18,7 @@ import {
 import {
   viewcontrol,
   postcontrol,
+  postcardcontrol,
   getcontrols,
   toggleaccount,
   togglecard
@@ -34,7 +37,7 @@ import { roles, postrole } from "./containers/Roles/reducers";
 
 import { cardProgramCount } from "./containers/Dashboard/reducers";
 
-import { getCustomers, getCustomer } from "./containers/Customers/reducers";
+import { getCustomers, getCustomer, createCustomer } from "./containers/Customers/reducers";
 import { getCardRecords, getCardRecord, pinReissue, blockCard, unblockCard } from "./containers/CardRecords/reducers";
 
 
@@ -44,6 +47,8 @@ export default combineReducers({
   theme: themeReducer,
   sidebar: sidebarReducer,
   notification: notificationReducer,
+
+  postlogin,
 
   viewuser,
   getusers,
@@ -60,6 +65,7 @@ export default combineReducers({
   toggleaccount,
   togglecard,
   postcontrol,
+  postcardcontrol,
 
   roles,
   postrole,
@@ -72,6 +78,7 @@ export default combineReducers({
 
   getCustomers,
   getCustomer,
+  createCustomer,
   
   getCardRecords,
   getCardRecord,

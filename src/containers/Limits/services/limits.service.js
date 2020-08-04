@@ -4,6 +4,7 @@ import { API_URLS } from "../../../constants/apiUrls";
 export const limitService = {
   getAllControls,
   postControl,
+  postCardControl,
   toggleAccountLimit,
   toggleCardLimit,
   getControl
@@ -24,8 +25,13 @@ function postControl(request, id) {
   return apiCall(method, API_URLS.LIMITS.POST_CONTROL, null, request);
 }
 
-function getControl(id) {
-  return apiCall("GET", `${API_URLS.LIMITS.GET_CONTROLS}${id}`);
+function postCardControl(request, id) {
+  const method = id ? "PUT" : "POST";
+  return apiCall(method, API_URLS.LIMITS.POST_CARD_CONTROL, null, request);
+}
+
+function getControl(token) {
+  return apiCall("GET", `${API_URLS.LIMITS.GET_CONTROL}/${token}`);
 }
 
 function toggleAccountLimit(accountNumber, active) {

@@ -19,7 +19,7 @@ class CustomInput extends PureComponent {
 }
 
 const DatePickerField = memo(
-  ({ onChange, meta: {touched, error}, id, minDate, placeholder, maxDate, dateFormat, onBlur, value, showMonthYearPicker }) => {
+  ({ onChange, meta: {touched, error}, id, minDate, placeholder, maxDate, dateFormat, onBlur, value, showMonthYearPicker, showTimeInput,  disabled, timeInputLabel }) => {
     const [startDate, setStartDate] = useState(null);
     const handleChange = date => {
       setStartDate(date);
@@ -34,10 +34,13 @@ const DatePickerField = memo(
           selected={value || null}
           dateFormat={dateFormat}
           onChange={handleChange}
+          showTimeInput={showTimeInput}
+          timeInputLabel={timeInputLabel}
           peekNextMonth
           value={startDate}
           minDate={minDate}
           maxDate={maxDate}
+          disabled={disabled}
           id={id}
           placeholderText={placeholder}
           showMonthYearPicker={showMonthYearPicker ? true : false}
@@ -47,7 +50,7 @@ const DatePickerField = memo(
           customInput={<CustomInput placeholder={placeholder} />}
           dropDownMode="select"
         />
-        {touched && error && (
+        {error && (
           <span className="form__form-group-error">{error}</span>
         )}
       </div>
@@ -56,13 +59,16 @@ const DatePickerField = memo(
 );
 
 const renderDatePickerField = props => {
-  const { input, id, placeholder, minDate, maxDate, meta, dateFormat, showMonthYearPicker } = props;
+  const { input, id, placeholder, minDate, maxDate, meta, dateFormat, showMonthYearPicker, showTimeInput, timeInputLabel, disabled } = props;
   return (
     <DatePickerField
       meta={meta}
       minDate={minDate}
       maxDate={maxDate}
       dateFormat={dateFormat}
+      showTimeInput={showTimeInput}
+      timeInputLabel={timeInputLabel}
+      disabled={disabled}
       id={id}
       placeholder={placeholder}
       showMonthYearPicker={showMonthYearPicker ? true : false}

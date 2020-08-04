@@ -1,34 +1,82 @@
 import React, { memo, useEffect, useState } from "react";
-import { Card, CardBody, Col } from "reactstrap";
+import { Card, CardBody, Col, UncontrolledAlert } from "reactstrap";
 import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
-import { resetPost } from "../../actions/cardrequests.actions";
-import CustomerInformation from "./CardSteps/CustomerInformation";
-import CardConfiguration from "./CardSteps/CardConfiguration";
-import Review from "./CardSteps/Review";
+import { getCustomerDetails,resetPost, postCustomer, getCustomers } from "../../actions/customers.actions";
+import {getControl} from '../../../Limits/actions/limits.actions';
+import { show as showAlert } from "../../../Notifications/actions/alert.actions";
+import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
+import CustomerDetails from '../CustomerSteps/CustomerDetails';
+import CustomerView from '../CustomerSteps/CustomerView';
+// import CardConfiguration from "./CardSteps/CardConfiguration";
+// import Review from "./CardSteps/Review";
 import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
 import FormError from "../../../../shared/components/FormError";
+import { getAllControls } from "../../../Limits/actions/limits.actions";
 
-const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
+const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, customers, controls, control, location }) => {
   const [page, setPage] = useState(1);
+  const [account, setAccount] = useState(null);
+  let cardControls = [], accountControls = [];
+  let accountNumber = '';
 
   const nextPage = () => {
     setPage(prev => prev + 1);
   };
 
+  const createCustomer = (customer) => {
+    let requestBody = {
+      accountNumber: customer.request,
+      name: customer.response.accountName,
+      coreBankingId: customer.response.coreBankingId || '0909090901'
+    }
+    dispatch(postCustomer(requestBody, nextPage));
+    // nextPage();
+  }
+
+  const getCustomer = (accountNumber) => {
+    setAccount(accountNumber);
+    dispatch(getCustomers({accountNumber, pageNumber:1, pageSize: 10}))
+    dispatch(getAllControls({accountNumber,pageNumber:1, pageSize: 1000}))
+    dispatch(getCustomerDetails(accountNumber, nextPage));
+    // setAccount(accountNumber);
+    // nextPage();
+  }
+
+  const getLimitByToken = (token) => {
+    // dispatch(getControl(token));
+  }
+
+  const fetchControls = (accountNumber) => {
+    
+    setAccount(accountNumber);
+    nextPage();
+  }
+
+  // console.log(count, data)
+
   const previousPage = () => {
     setPage(prev => prev - 1);
   };
 
+  const startFlow = () => {
+    setPage(1);
+  };
+
+
   useEffect(() => {
-    dispatch(resetPost());
-    return () => {
-      dispatch(resetPost());
-    };
+  if(location.state){setPage(3)}
+    // dispatch(resetPost());
+    // return () => {
+    //   dispatch(resetPost());
+    // };
+    console.log(accountControls, cardControls)
   }, [dispatch]);
+
+  console.log(accountControls);
+  console.log(location)
 
   return (
     <Col md={12} lg={12}>
@@ -36,12 +84,12 @@ const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              <Link to="/card-requests" id="link-all-cardrequests">
-                <MdArrowBack size={20} /> Back to card requests
+              <Link to="/customers" id="link-all-cardrequests">
+                <MdArrowBack size={20} /> Back to Customers
               </Link>
             </h5>
           </div>
-          <FormError formState={createCard} />
+          <FormError />
           <div className="wizard">
             <div className="wizard__steps">
               <div
@@ -49,42 +97,52 @@ const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
                   page === 1 ? " wizard__step--active" : ""
                 }`}
               >
-                <p>Customer Information</p>
+                <p>Customer Account Form</p>
               </div>
               <div
                 className={`wizard__step${
                   page === 2 ? " wizard__step--active" : ""
                 }`}
               >
-                <p>Card Configuration</p>
+                <p>Customer Details</p>
               </div>
               <div
                 className={`wizard__step${
                   page === 3 ? " wizard__step--active" : ""
                 }`}
               >
-                <p>Review</p>
+                <p>Limit Control</p>
               </div>
             </div>
             <div className="wizard__form-wrapper">
               {page === 1 && (
-                <CustomerInformation
-                  initialValues={{
-                    cardRequestType: CARD_REQUEST_TYPE.find(
-                      type => type.value === "single"
-                    )
-                  }}
-                  onSubmit={nextPage}
+                <CustomerAccountInformation
+                  onSubmit={getCustomer}
+                  customer={customer}
                 />
               )}
               {page === 2 && (
-                <CardConfiguration
+                <CustomerDetails
+                account={account}
                   previousPage={previousPage}
-                  onSubmit={nextPage}
+                  customer={customers}
+                  handleNextPage={nextPage}
+                  previous={previousPage}
+                  onSubmit={() => createCustomer(customer)}
                 />
               )}
               {page === 3 && (
-                <Review previousPage={previousPage} onSubmit={onSubmit} />
+                <CustomerView
+                  customer={customer}
+                  previous={previousPage}
+                  startFlow={startFlow}
+                  getControl={getLimitByToken}
+                  accountNumber={accountNumber}
+                  control={control}
+                  controls={controls}
+                  location={location}
+                  dispatch={dispatch}
+              />
               )}
             </div>
           </div>
@@ -94,10 +152,14 @@ const CardCreateForm = memo(({ dispatch, onSubmit, createCard }) => {
   );
 });
 
-CardCreateForm.propTypes = {
+CustomerCreateForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
 export default connect(state => ({
-  createCard: state.createCard
-}))(CardCreateForm);
+  createCustomer: state.createCustomercreateCustomer,
+  customer: state.getCustomer,
+  customers: state.getCustomers,
+  controls: state.getcontrols,
+  control: state.viewcontrol
+}))(CustomerCreateForm);

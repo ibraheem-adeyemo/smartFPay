@@ -23,6 +23,7 @@ const createUrlParams = (params, encode) => {
 };
 
 const handleResponse = response => {
+  console.log('RESPONSE', response)
   const contentType = response.headers.get("content-type");
   const isJson = contentType && contentType.indexOf("application/json") !== -1;
   if (response.ok) {
@@ -34,6 +35,7 @@ const handleResponse = response => {
     }
     return response.text();
   } else {
+    console.log('isJson', isJson)
     if (isJson) {
       return response.json().then(json => {
         if (process.env.NODE_ENV === "production") {
@@ -41,18 +43,20 @@ const handleResponse = response => {
             window.parent.location.replace(logoutUrl);
           }
         }
+    console.log('isJson', json)
 
         const error = new CustomError(
-          json.message ||
+          json.responseMessage ||
             json.description ||
             json.error_description ||
             GENERIC_ERROR,
           json.errors
         );
+        // console.log(Promise.reject(Object.assign(error, { response })));
         return Promise.reject(Object.assign(error, { response }));
       });
     } else {
-      throw new Error(GENERIC_ERROR);
+      throw new Error('GENERIC_ERROR');
     }
   }
 };
@@ -66,6 +70,7 @@ export const apiCall = async (
 ) => {
   let headers = {
     "Content-type": "application/json",
+    "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
     ...customHeaders
   };
 
@@ -80,6 +85,7 @@ export const apiCall = async (
     body: requestBody ? JSON.stringify(requestBody) : undefined
   };
   if (requestParams) {
+
     const urlParams = createUrlParams(requestParams);
     url = `${url}?${urlParams}`;
   }

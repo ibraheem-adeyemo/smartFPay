@@ -18,8 +18,10 @@ import { getFormValues } from "redux-form";
 
 const {
   CREATE_CONTROL,
+  CREATE_CARD_CONTROL,
+  UPDATE_CARD_CONTROL,
   VIEW_CONTROL,
-  UPDATE_CONTROLS,
+  UPDATE_CONTROL,
   ENABLE_ACCOUNT_CONTROL,
   ENABLE_CARD_CONTROL,
   DISABLE_ACCOUNT_CONTROL,
@@ -39,6 +41,7 @@ const LimitsTable = memo(props => {
 
   const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
+  const controlData = dataState && dataState.response ? dataState.response.data : [];
 
   const toggleAccountFn = row => {
     confirmAlert({
@@ -76,76 +79,83 @@ const LimitsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "id",
-      name: "Limit ID",
+      accessor: "accountNumber",
+      name: "Account Number",
       filterable: true,
       sortable: true,
-      sortKey: "controlId"
+      sortKey: "accountNumber"
     },
     {
-      accessor: "duration",
-      name: "Duration",
+      accessor: "accountName",
+      name: "Account Name",
       filterable: true,
       sortable: true,
-      sortKey: "duration"
+      sortKey: "accountNumber"
     },
+    // {
+    //   accessor: "limitType ",
+    //   name: "Account Name",
+    //   filterable: true,
+    //   sortable: true,
+    //   sortKey: "accountName"
+    // },
     {
-      accessor: "frequency",
-      name: "Frequency",
+      accessor: "limitType",
+      name: "Payment Instrument",
       filterable: true,
       sortable: true,
-      sortKey: "frequency"
+      sortKey: "limitType"
     },
     {
-      accessor: "amount",
-      name: "Amount",
+      accessor: "transactionLimitAmount",
+      name: "Amount Limit",
       sortable: true,
-      sortKey: "amount"
+      sortKey: "transactionLimitAmount"
     },
-    {
-      accessor: "active",
-      name: "Status (click to toggle)",
-      sortable: true,
-      sortKey: "active",
-      renderHeader: () => (
-        <span>
-          Status <small>(click to toggle)</small>
-        </span>
-      ),
-      filterable: true,
-      Cell: row => (
-        <button
-          type="button"
-          id={`toggle-btn-${row.active ? "enabled" : "disabled"}-${row.id}`}
-          onClick={() =>
-            accessControlFn(
-              permissions,
-              [ENABLE_ACCOUNT_CONTROL, DISABLE_ACCOUNT_CONTROL, ENABLE_CARD_CONTROL, DISABLE_CARD_CONTROL],
-              row.cardId ? toggleCardFn : toggleAccountFn,
-              row
-            )
-          }
-          className={`btn ${
-            row.active ? "btn-success" : "btn-secondary"
-          } badge mb-0`}
-        >
-          {(toggleaccount.loading) &&
-          (row.accountNumber === toggleaccount.request.accountNumber) || (togglecard.loading) &&
-          (row.cardId === togglecard.request.cardId) ? (
-            <Spinner size="sm" />
-          ) : (
-            <span>{row.active ? "Enabled" : "Disabled"}</span>
-          )}
-        </button>
-      )
-    }
+    // {
+    //   accessor: "active",
+    //   name: "Status (click to toggle)",
+    //   sortable: true,
+    //   sortKey: "active",
+    //   renderHeader: () => (
+    //     <span>
+    //       Status <small>(click to toggle)</small>
+    //     </span>
+    //   ),
+    //   filterable: true,
+    //   Cell: row => (
+    //     <button
+    //       type="button"
+    //       id={`toggle-btn-${row.active ? "enabled" : "disabled"}-${row.id}`}
+    //       onClick={() =>
+    //         accessControlFn(
+    //           permissions,
+    //           [ENABLE_ACCOUNT_CONTROL, DISABLE_ACCOUNT_CONTROL, ENABLE_CARD_CONTROL, DISABLE_CARD_CONTROL],
+    //           row.cardId ? toggleCardFn : toggleAccountFn,
+    //           row
+    //         )
+    //       }
+    //       className={`btn ${
+    //         row.active ? "btn-success" : "btn-secondary"
+    //       } badge mb-0`}
+    //     >
+    //       {(toggleaccount.loading) &&
+    //       (row.accountNumber === toggleaccount.request.accountNumber) || (togglecard.loading) &&
+    //       (row.cardId === togglecard.request.cardId) ? (
+    //         <Spinner size="sm" />
+    //       ) : (
+    //         <span>{row.active ? "Enabled" : "Disabled"}</span>
+    //       )}
+    //     </button>
+    //   )
+    // }
   ];
 
   const handleAction = (row, action) => {
     if (action.name === "view_controls") {
-      props.history.push(`${props.location.pathname}/view/${row.accountNumber}`);
+      props.history.push(`${'/limit-requests'}/view/${row.accountNumber}`);
     } else if (action.name === "edit_controls") {
-      props.history.push(`${props.location.pathname}/edit/${row.accountNumber}`);
+       row.limitType === 'CARD'? props.history.push(`${'/limit-requests/card'}/edit/${row.token}`): props.history.push(`${'/limit-requests'}/edit/${row.token}`);
     }
   };
 
@@ -180,7 +190,7 @@ const LimitsTable = memo(props => {
       btnAction: handleAction,
       btnClass: "default",
       btnIcon: MdModeEdit,
-      permissions: [UPDATE_CONTROLS]
+      permissions: [UPDATE_CONTROL]
     }
   ];
 
@@ -189,12 +199,12 @@ const LimitsTable = memo(props => {
     fetchData({
       ...allControls.request,
       pageNum: 1,
-      searchWord: values.searchWord || ""
+      accountNumber: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allControls.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData({ pageNumber, pageSize });
   };
 
   return (
@@ -203,7 +213,7 @@ const LimitsTable = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">Limit Controls</h5>
-            <AccessControl
+            {/* <AccessControl
               allowedPermissions={[CREATE_CONTROL]}
               renderNoAccess={() => null}
             >
@@ -213,17 +223,31 @@ const LimitsTable = memo(props => {
                   to="/limit-requests/add"
                   id="link-create-control"
                 >
-                  Add new control
+                  Add new account control
+                </Link>
+                <Link
+                  className="btn btn-primary products-list__btn-add"
+                  to="/limit-requests/card/add"
+                  id="link-create-card-control"
+                >
+                  Add new card control
                 </Link>
               </ButtonToolbar>
-            </AccessControl>
+            </AccessControl>  */}
           </div>
+            {/* <AccessControl
+              allowedPermissions={[CREATE_CARD_CONTROL]}
+              renderNoAccess={() => null}
+            >
+              <ButtonToolbar className="products-list__btn-toolbar-top">
+                
+              </ButtonToolbar>
+            </AccessControl> */}
           <DataTable
             columns={columns}
-            loading={dataState && dataState.loading}
-            data={
-              dataState && dataState.response ? dataState.response.content : []
-            }
+            loading={dataState?.loading}
+            data={controlData}
+            NoDataText={'No Controls Found'}
             count={count}
             countName="Controls"
             defaultPageSize={10}

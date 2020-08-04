@@ -9,15 +9,18 @@ import {
   ButtonToolbar,
   Spinner
 } from "reactstrap";
-import { Field, reduxForm } from "redux-form";
+import { Field, reduxForm, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
 import validate from "./validate";
-import RolesSelect from "../../../Roles/RolesSelect";
+import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostLimitControl } from "../../actions/limits.actions";
+import renderToggleButtonField from "../../../../shared/components/form/ToggleButton";
+import renderDatePickerField from "../../../../shared/components/form/DatePicker";
+import {FREQUENCY_OPTIONS} from '../../../../constants/app.constants';
 
 const LimitForm = memo(props => {
   const {
@@ -29,14 +32,15 @@ const LimitForm = memo(props => {
     submitting,
     controlId,
     control,
-    postcontrol
+    interbankTransaction,
+    postcontrol,
+    startDate,
+    endDate,
+    location,
   } = props;
 
   const foundControl =
-    control &&
-    control.response &&
-    control.response.data &&
-    control.response.data.length &&
+    control?.response &&
     !control.loading;
 
   const resetForm = () => {
@@ -56,12 +60,22 @@ const LimitForm = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              <Link to="/limit-requests" id="link-all-limits">
-                <MdArrowBack size={20} /> Back to limits
+              {location?.state?.fromCustomerView ? <Link
+              to={{
+                pathname: "/customers/add",
+                state: { 
+                  
+                }
+              }}
+              id="link-create-customer">
+                <MdArrowBack size={20} /> Back to Customers
               </Link>
+              :<Link to="/limit-requests" id="link-all-limits">
+                <MdArrowBack size={20} /> Back to Limits
+              </Link>}
             </h5>
           </div>
-          {controlId && control && control.loading ? (
+          {controlId && control?.loading ? (
             <div className="text-center">
               <Spinner
                 color="success"
@@ -69,7 +83,7 @@ const LimitForm = memo(props => {
                 style={{ width: "6rem", height: "6rem" }}
               />
               <h4 className="text-secondary">
-                Fetching limit with id ({controlId})
+                Fetching account limit
               </h4>
             </div>
           ) : (
@@ -82,17 +96,14 @@ const LimitForm = memo(props => {
                 </h4>
               ) : (
                 <form className="form" onSubmit={handleSubmit}>
-                  {postcontrol &&
-                  postcontrol.error &&
-                  postcontrol.error.errors &&
-                  postcontrol.error.errors.length ? (
+                  {postcontrol?.error?.errors?.length ? (
                     <UncontrolledAlert color="danger">
                       <h5 className="font-weight-bold">
                         Please check the following fields for errors
                       </h5>
                       {postcontrol.error.errors.map(err => (
                         <p>
-                          <strong>{err.fieldName}:</strong> {err.message}
+                          <strong>{err.field}:</strong> {err.message}
                         </p>
                       ))}
                     </UncontrolledAlert>
@@ -101,41 +112,7 @@ const LimitForm = memo(props => {
                     <Col lg="4">
                       <div className="form__form-group">
                         <span className="form__form-group-label required">
-                          Duration
-                        </span>
-                        <div className="form__form-group-field">
-                          <Field
-                            id="duration"
-                            name="duration"
-                            component={renderField}
-                            type="number"
-                            placeholder="duration"
-                          />
-                        </div>
-                      </div>
-                    </Col>
-                    <Col lg="4">
-                      <div className="form__form-group">
-                        <span className="form__form-group-label required">
-                          Frequency
-                        </span>
-                        <div className="form__form-group-field">
-                          <Field
-                            id="frequency"
-                            name="frequency"
-                            component={renderField}
-                            type="text"
-                            placeholder="frequency"
-                          />
-                        </div>
-                      </div>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg="4">
-                      <div className="form__form-group">
-                        <span className="form__form-group-label required">
-                          Amount
+                          Transaction Limit Amount
                         </span>
                         <div className="form__form-group-field">
                           <Field
@@ -145,6 +122,93 @@ const LimitForm = memo(props => {
                             type="number"
                             placeholder="amount"
                           />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label required">
+                          Frequency Limit Reset
+                        </span>
+                        <div className="form__form-group-field">
+                          <Field
+                            id="frequency"
+                            name="frequency"
+                            placeholder="Kindly input frequency limit"
+                            component={renderSelectField}
+                            options={FREQUENCY_OPTIONS}
+                            valueKey="value"
+                            labelKey="label"
+                          />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label required">
+                          Transaction Limit Count
+                        </span>
+                        <div className="form__form-group-field">
+                          <Field
+                            id="duration"
+                            name="duration"
+                            component={renderField}
+                            type="number"
+                            placeholder="Limit Count"
+                          />
+                        </div>
+                      </div>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label required">Start Date</span>
+                        <div className="form__form-group-field">
+                          <Field
+                            id="startDate"
+                            name="startDate"
+                            dateFormat="dd-MM-yyyy h:mm:ss"
+                            minDate={new Date()}
+                            timeFormat="HH:mm"
+                            showTimeInput={true}
+                            component={renderDatePickerField}
+                            placeholder="Start Date"
+                            timeInputLabel="Start Time"
+                          />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label required">End Date</span>
+                        <div className="form__form-group-field">
+                          <Field
+                            id="endDate"
+                            name="endDate"
+                            dateFormat="dd-MM-yyyy h:mm aa"
+                            minDate={new Date()}
+                            timeFormat="HH:mm"
+                            showTimeInput={true}
+                            component={renderDatePickerField}
+                            placeholder="End Date"
+                            timeInputLabel="End Time"
+                          />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label">Interbank Transaction</span>
+                        <div className="form__form-group-field">
+                          <div>
+                        <Field
+                          id="interbankTransaction"
+                          name="interbankTransaction"
+                          component={renderToggleButtonField}
+                          defaultChecked={control?.response?.interbankTransaction || true}
+                        />
+                          </div>
                         </div>
                       </div>
                     </Col>
@@ -188,6 +252,8 @@ LimitForm.propTypes = {
   reset: PropTypes.func.isRequired
 };
 
+const selector = formValueSelector("control_form");
+
 export default reduxForm({
   form: "control_form",
   validate,
@@ -195,5 +261,10 @@ export default reduxForm({
 })(
   connect(state => ({
     postcontrol: state.postcontrol,
+    duration: state.postcontrol.duration,
+    frequency: state.postcontrol.frequency,
+    amount: state.postcontrol.amount,
+    startDate: selector(state, "startDate"),
+    endDate: selector(state, "endDate")
   }))(LimitForm)
 );

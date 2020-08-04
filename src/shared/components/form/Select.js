@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState } from "react";
 import Select from "react-select";
 import PropTypes from "prop-types";
 
@@ -7,6 +7,7 @@ class SelectField extends PureComponent {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string,
+    isMulti: PropTypes.bool,
     options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.string,
@@ -24,6 +25,7 @@ class SelectField extends PureComponent {
 
   static defaultProps = {
     placeholder: "",
+    isMulti: false,
     options: [],
   };
 
@@ -41,10 +43,12 @@ class SelectField extends PureComponent {
       name,
       disabled,
       placeholder,
+      isMulti,
       id,
       options,
       labelKey,
-      valueKey
+      valueKey,
+      defaultValue
     } = this.props;
 
     return (
@@ -59,7 +63,9 @@ class SelectField extends PureComponent {
         options={options}
         clearable={false}
         className="react-select"
+        defaultValue={defaultValue}
         placeholder={placeholder}
+        isMulti={isMulti}
         classNamePrefix="react-select"
       />
     );
@@ -76,7 +82,9 @@ const renderSelectField = props => {
     id,
     valueKey,
     labelKey,
-    customChange
+    customChange,
+    isMulti,
+    defaultValue
   } = props;
   return (
     <div className="form__form-group-input-wrap form__form-group-input-wrap--error-above">
@@ -89,8 +97,10 @@ const renderSelectField = props => {
         disabled={disabled}
         labelKey={labelKey}
         customChange={customChange}
+        isMulti={isMulti}
+        defaultValue={defaultValue}
       />
-      {meta.touched && meta.error && (
+      {meta.error && (
         <span className="form__form-group-error">{meta.error}</span>
       )}
     </div>
@@ -112,13 +122,15 @@ renderSelectField.propTypes = {
       label: PropTypes.string
     })
   ),
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  isMulti: PropTypes.bool
 };
 
 renderSelectField.defaultProps = {
   meta: null,
   options: [],
-  placeholder: ""
+  placeholder: "",
+  isMulti: false
 };
 
 export default renderSelectField;

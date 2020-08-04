@@ -24,6 +24,23 @@ export const ACCOUNT_TYPES = [
   { id: "3", value: "10", label: "Savings Account" }
 ];
 
+export const FREQUENCY_OPTIONS = [
+  {label: "DAILY", value: "DAILY"},
+  {label: "WEEKLY", value: "WEEKLY"},
+  {label: "MONTHLY", value: "MONTHLY"}
+];
+
+export const CHANNELS_OPTIONS = [
+  {label: "WEB", value: "WEB"},
+  {label: "POS", value: "POS"},
+  {label: "ATM", value: "ATM"}
+];
+
+export const CARD_STATUS_OPTIONS = [
+  {label: "ACTIVE", value: "ACTIVE"},
+  {label: "BLOCKED", value: "BLOCKED"}
+];
+
 export const BATCH_UPLOAD_TEMPLATE = `${appConfig.mufasaTemplateUrl}/batch_card_issuance.xlsx`;
 
 export const CARD_REQUEST_TYPE = [

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
 import { resetPostRole } from "../../actions/roles.actions";
 import validate from "./validate";
+import PermissionsSelect from '../../PermissionsSelect';
 
 const RoleForm = memo(props => {
   const {
@@ -52,7 +53,7 @@ const RoleForm = memo(props => {
             <Row>
               <Col lg="4">
                 <div className="form__form-group">
-                  <span className="form__form-group-label">Role name</span>
+                  <span className="form__form-group-label required">Role name</span>
                   <div className="form__form-group-field">
                     <Field
                       name="role_name"
@@ -63,8 +64,30 @@ const RoleForm = memo(props => {
                   </div>
                 </div>
               </Col>
+              <Col lg="4">
+                <div className="form__form-group">
+                  <span className="form__form-group-label">Description</span>
+                  <div className="form__form-group-field">
+                    <Field
+                      name="description"
+                      component="input"
+                      type="text"
+                      placeholder="Role description"
+                    />
+                  </div>
+                </div>
+              </Col>
             </Row>
 
+            <Row>
+              <Col lg="4">
+                <PermissionsSelect
+                  required
+                  id="permission-select"
+                  label="Assign permissions to role"
+                />
+              </Col>
+            </Row>
             <ButtonToolbar className="form__button-toolbar">
               <Button type="button" onClick={reset}
                       disabled={pristine || submitting}>

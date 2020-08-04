@@ -3,15 +3,17 @@ import { show as showAlert } from "../../Notifications/actions/alert.actions";
 import { message } from "../../../constants/app.constants";
 import { controlConstants, nameSpace } from "../constants/limit.constants";
 import {
-  createRequestBody
+  createRequestBody,
+  createCardRequestBody
 } from "../factories/limit.factory.js";
 import { reset } from "redux-form";
 
-export const getAllControls = requestParams => {
+export const getAllControls = (requestParams) => {
     return async dispatch => {
       dispatch(request(requestParams));
       try {
         const response = await limitService.getAllControls(requestParams);
+        console.log(response)
         response && dispatch(success(response));
       } catch (error) {
         dispatch(failure(error));
@@ -36,11 +38,11 @@ export const getAllControls = requestParams => {
       }
 }
 
-export const getControl = id => {
+export const getControl = token => {
     return async dispatch => {
-      dispatch(request(id));
+      dispatch(request(token));
       try {
-        const response = await limitService.getControl(id);
+        const response = await limitService.getControl(token);
         response && dispatch(success(response));
       } catch (error) {
         dispatch(failure(error));
@@ -143,29 +145,49 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
       }
 };
 
-export const postControl = (values, id, controlToEdit) => {
+export const postControl = (values, id, controlToEdit, history, location) => {
     const requestBody = createRequestBody(values, id, controlToEdit);
-  
+    const accountNumber = values.accountNumber;
     return async (dispatch, getState) => {
       const state = getState();
       dispatch(request(requestBody));
       try {
         const response = await limitService.postControl(requestBody, id);
         dispatch(success(response));
+        // if(!location?.state?.fromCustomerView){
         dispatch(reset("control_form"));
+        // }
         dispatch(
           showAlert(
             "success",
-            id ? "Control edited successfully" : "New control added successfully",
+            id ? "Control updated successfully" : "New control added successfully",
             response && response.responseMessage
           )
         );
-        dispatch(getAllControls({ pageNum: 1, pageSize: 10 }));
+        if(location?.state?.fromCustomerView){
+        dispatch(getAllControls({ pageNumber: 1, pageSize: 1000, accountNumber }));
+        }
         dispatch(resetPost());
         if (id) {
           dispatch(getControl(id));
+          if(location?.state?.fromCustomerView){
+            history.push({
+              pathname: "/customers/add",
+              state: {}
+            });
+          } else{
+            history.push({
+              pathname: "/limit-requests"
+            });
+          }
+        } else if(location?.state?.fromCustomerView){
+          history.push({
+            pathname: "/customers/add",
+            state: {}
+          });
         } else {
           dispatch(resetView());
+          history.push("/limit-requests");
         }
       } catch (error) {
         dispatch(failure(error));
@@ -196,10 +218,84 @@ export const postControl = (values, id, controlToEdit) => {
     }
 };
 
-export const resetPostLimitControl = () => {
+export const postCardControl = (values, id, controlToEdit, history, location) => {
+  const accountNumber = values.accountNumber;
+  const requestBody = createCardRequestBody(values, id, controlToEdit);
+  console.log(requestBody);
+  return async (dispatch, getState) => {
+    const state = getState();
+    dispatch(request(requestBody));
+    try {
+      const response = await limitService.postCardControl(requestBody, id);
+      dispatch(success(response));
+      if(!location?.state?.fromCustomerView){
+        dispatch(reset("card_control_form"));
+      }
+      dispatch(
+        showAlert(
+          "success",
+          id ? "Control updated successfully" : "New card control added successfully",
+          response && response.responseMessage
+        )
+      );
+      if(location?.state?.fromCustomerView){
+        dispatch(getAllControls({ pageNumber: 1, pageSize: 1000, accountNumber }));
+        }
+      dispatch(resetPost());
+      if (id) {
+        dispatch(getControl(id));
+        if(location?.state?.fromCustomerView){
+          history.push({
+            pathname: "/customers/add",
+            state: {}
+          });
+        } else {
+          history.push({
+            pathname: "/limit-requests"
+          });
+        }
+      } else if(location?.state?.fromCustomerView){
+        history.push({
+          pathname: "/customers/add",
+          state: {}
+        });
+      } else {
+        dispatch(resetView());
+        history.push("/limit-requests");
+      }
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          requestBody.id ? "Failed to edit card control" : "Failed to add card control",
+          error ? error.message : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request() {
+    return { type: controlConstants[`POST_${nameSpace}_REQUEST`] };
+  }
+  function success(response) {
+    return { type: controlConstants[`POST_${nameSpace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: controlConstants[`POST_${nameSpace}_FAILURE`], error };
+  }
+  function resetPost() {
     return { type: controlConstants[`POST_${nameSpace}_RESET`] };
-  };
-  
-  export const resetViewLimitControl = () => {
+  }
+  function resetView() {
     return { type: controlConstants[`VIEW_${nameSpace}_RESET`] };
-  };
+  }
+};
+
+export const resetPostLimitControl = () => {
+  return { type: controlConstants[`POST_${nameSpace}_RESET`] };
+};
+
+export const resetViewLimitControl = () => {
+  return { type: controlConstants[`VIEW_${nameSpace}_RESET`] };
+};

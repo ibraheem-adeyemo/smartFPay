@@ -651,7 +651,7 @@ export const COUNTRIES = [
   },
   {
     name: "Nigeria",
-    alpha3Code: "NGA"
+    alpha3Code: "NG"
   },
   {
     name: "Niue",

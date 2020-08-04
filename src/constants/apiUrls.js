@@ -3,6 +3,9 @@ import { appConfig } from "../config/config";
 
 const { apiBaseUrl, apiVersion } = appConfig;
 export const API_URLS = {
+  AUTH: {
+    LOGIN: `${apiBaseUrl}/auth/admin`
+  },
   USERS: {
     GET_USERS: `${apiBaseUrl}/users/admin`,
     GET_USER: `${apiBaseUrl}/users/`,
@@ -21,15 +24,21 @@ export const API_URLS = {
     GET_PERMISSION: `/${apiVersion}/user/permissions`
   },
   LIMITS: {
-    GET_CONTROLS: `${apiBaseUrl}/controls`,
-    GET_CONTROL: `${apiBaseUrl}/control`,
-    POST_CONTROL: `${apiBaseUrl}/controls`,
+    GET_CONTROLS: `${apiBaseUrl}/limit`,
+    GET_CONTROL: `${apiBaseUrl}/limit`,
+    POST_CONTROL: `${apiBaseUrl}/limit/account`,
+    POST_CARD_CONTROL: `${apiBaseUrl}/limit/card`,
 
     ENABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/enable`,
     DISABLE_ACCOUNT_LIMIT: `${apiBaseUrl}/controls/account/disable`,
 
     ENABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/enable`,
     DISABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/disable`,
+  },
+  CUSTOMERS: {
+    POST_CUSTOMER: `${apiBaseUrl}/customers/create`,
+    GET_CUTOMER_BY_ACCOUNT: `${apiBaseUrl}/customers`,
+    GET_CUSTOMERS: `${apiBaseUrl}/customers`
   },
   ISSUERS: {
     DOMAIN_MAPPINGS_URI: `${apiBaseUrl}/issuer`,

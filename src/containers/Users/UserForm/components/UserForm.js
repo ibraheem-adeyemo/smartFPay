@@ -116,7 +116,7 @@ const UserForm = memo(props => {
                       </h5>
                       {postuser.error.errors.map(err => (
                         <p>
-                          <strong>{err.fieldName}:</strong> {err.message}
+                          <strong>{err.field}:</strong> {err.message}
                         </p>
                       ))}
                     </UncontrolledAlert>

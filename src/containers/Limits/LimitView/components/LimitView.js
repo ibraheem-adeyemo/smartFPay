@@ -29,7 +29,7 @@ const LimitView = props => {
                 </h4>
               </div>
               <AccessControl
-                allowedPermissions={[permissionsConstants.UPDATE_CONTROLS]}
+                allowedPermissions={[permissionsConstants.UPDATE_CONTROL]}
                 renderNoAccess={() => null}
               >
                 <Link

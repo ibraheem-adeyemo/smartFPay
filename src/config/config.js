@@ -21,10 +21,12 @@ switch (process.env.REACT_APP_STAGE) {
 export const appConfig = {
   ...config,
   appName: "Payment Control",
-  apiName: "prepaid-card-management",
+  apiName: "payment-control-management",
   apiVersion: "api/v1",
 
   get apiBaseUrl() {
-    return `/${this.apiName}/${this.apiVersion}`;
+    // return `/${this.apiName}/${this.apiVersion}`;
+    // return `http://payment-control-management-service.k13.isw.la/api`;
+    return `https://payment-control-management-service.k13.isw.la/api`
   }
 };

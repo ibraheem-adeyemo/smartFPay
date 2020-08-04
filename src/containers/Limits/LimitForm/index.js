@@ -1,27 +1,46 @@
 import React, { useEffect } from "react";
 import {  Container, Row } from "reactstrap";
+import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
 import { postControl, getControl, resetViewLimitControl } from "../actions/limits.actions";
 import HorizontalForm from "./components/LimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
+import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';
 
-const LimitForm = ({ dispatch, control, match }) => {
+const LimitForm = ({ dispatch, control, match, history, customer, location }) => {
+
+  const formatDate = (dateString) => {
+    if(!dateString){
+      return;
+    }
+    let dateCharacters = dateString.split('');
+      let temp = dateCharacters[0];
+      dateCharacters[0] = dateCharacters[3];
+      dateCharacters[3] = temp;
+      temp = dateCharacters[1];
+      dateCharacters[1] = dateCharacters[4];
+      dateCharacters[4] = temp;
+
+      return dateCharacters.join('');
+  }
 
   const createFormData = control => {
     let controlData;
     const hasControl =
-    match.params.id &&
-      control &&
-      control.response &&
-      control.response.data &&
-      control.response.data.length;
-    const controlObj = hasControl ? control.response.data[0] : null;
+    (match.params.id && control?.response);
+    const controlObj = hasControl ? (control.response) : null;
     if (controlObj) {
+      console.log('controlObj', controlObj);
       controlData = {
-        channel: controlObj.channel,
-        duration: controlObj.duration,
-        frequency: controlObj.frequency,
-        amount: controlObj.amount
+        token: controlObj.token,
+        duration: controlObj.duration || controlObj.transactionLimitCount,
+        frequency: FREQUENCY_OPTIONS.find(
+          frequency => frequency.label === controlObj.frequencyLimitReset
+        ),
+        amount: controlObj.transactionLimitAmount,
+        interbankTransaction: controlObj.interbankTransaction,
+        startDate: new Date(formatDate(controlObj.limitStartDate)),
+        endDate: new Date(formatDate(controlObj.limitEndDate))
       };
     }
 
@@ -33,25 +52,35 @@ const LimitForm = ({ dispatch, control, match }) => {
   }
 
   const addControl = values => {
+    let requestBody= {
+      coreBankingId: customer?.response?.coreBankingId,
+      accountNumber: location.state?.fromCustomerView ? customer?.request : control.response.accountNumber,
+      ...values
+    }
+
+    let controlToken = match.params.id;
     dispatch(
-      postControl(values, match.params.id, control.response)
+      postControl(requestBody, controlToken, control.response, history, location)
     );
   };
+  
 
   useEffect(() => {
     if (match.params.id) {
       dispatch(getControl(match.params.id));
     }
-    return () => {
-      dispatch(resetViewLimitControl());
-    };
+    // return () => {
+    //   dispatch(resetViewLimitControl());
+    // };
   }, [dispatch, match.params.id]);
+    
+  console.log(control, location)
 
   return (
     <Container>
       <PageHeader
-        header={`${match.params.id ? "Edit" : "Add"} Limit`}
-        subheader="Create new limit"
+        header={`${match.params.id ? `Edit account limit with token ${match.params.id}` : "Add Account Limit"}`}
+        subheader={`${match.params.id ? "Update existing" : "Create new"} account limit`}
       />
       <Row>
         <HorizontalForm
@@ -60,6 +89,8 @@ const LimitForm = ({ dispatch, control, match }) => {
           initialValues={createFormData(control)}
           fetchData={fetchControl}
           onSubmit={addControl}
+          location={location}
+          FREQUENCY_OPTIONS={FREQUENCY_OPTIONS}
         />
       </Row>
     </Container>
@@ -67,5 +98,6 @@ const LimitForm = ({ dispatch, control, match }) => {
 };
 
 export default connect(state => ({
-  control: state.viewcontrol
-}))(LimitForm);
+  control: state.viewcontrol,
+  customer: state.getCustomer
+}))(withRouter(LimitForm));
