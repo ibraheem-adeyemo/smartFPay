@@ -193,7 +193,7 @@ console.log('dataState', dataState)
       // }
     ];
 
-    const loadData = (pageNumber, pageSize) => {
+    const loadData = (pageNumber = 1, pageSize = 10) => {
       fetchData({
         pageNumber,
         pageSize,

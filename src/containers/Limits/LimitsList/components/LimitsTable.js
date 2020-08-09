@@ -166,11 +166,9 @@ const LimitsTable = memo(props => {
         sortOrder = allControls.request.sortOrder === "ASC" ? "DESC" : "ASC";
       }
       fetchData({
-        ...allControls.request,
+        ...dataState.request,
         pageNum,
         pageSize,
-        sortKey: column.sortKey,
-        sortOrder
       });
     }
   };
@@ -204,7 +202,7 @@ const LimitsTable = memo(props => {
   };
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({  pageNumber, pageSize });
+    fetchData({ pageNumber, pageSize });
   };
 
   return (
