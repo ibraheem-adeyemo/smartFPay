@@ -137,6 +137,7 @@ export const toggleUser = (user, pageState) => {
 };
 
 export const postUser = (values, currentUser, id, userToEdit, history) => {
+  console.log(values, userToEdit)
   const requestBody = createRequestBody(values, currentUser, id, userToEdit);
   console.log(requestBody)
 
