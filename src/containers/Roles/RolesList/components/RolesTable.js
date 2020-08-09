@@ -128,19 +128,19 @@ const RolesTable = memo(props => {
 
   const actions = [
     {
-      name: "edit_roles",
-      btnText: "Update Role",
-      btnAction: handleAction,
-      btnClass: "default",
-      btnIcon: MdModeEdit,
-      permissions: [VIEW_ADMIN]
-    },
-    {
       name: "view_roles",
       btnText: "View",
       btnAction: handleAction,
       btnClass: "success",
       btnIcon: MdInsertDriveFile,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      name: "edit_roles",
+      btnText: "Update Role",
+      btnAction: handleAction,
+      btnClass: "default",
+      btnIcon: MdModeEdit,
       permissions: [VIEW_ADMIN]
     },
   ];
