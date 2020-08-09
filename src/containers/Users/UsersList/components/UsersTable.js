@@ -46,7 +46,7 @@ const UsersTable = memo(props => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(toggleUser(row.username, row.active, "getAllUsers", allUsers.request))
+            dispatch(toggleUser(row, allUsers.request))
         },
         {
           label: "No",
@@ -119,7 +119,7 @@ const UsersTable = memo(props => {
           } badge mb-0`}
         >
           {toggleuser.loading &&
-          row.username === toggleuser.request.username ? (
+          row.email === toggleuser.request.email ? (
             <Spinner size="sm" />
           ) : (
             <span>{row.disabled ? "Disabled" : "Enabled"}</span>

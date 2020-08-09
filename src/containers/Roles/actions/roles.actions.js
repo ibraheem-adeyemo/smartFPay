@@ -90,7 +90,7 @@ export const createRole = (values, id, history) => {
           response?.responseMessage
         )
       );
-      dispatch(getRoles({ pageNum: 1, pageSize: 10 }));
+      dispatch(getRoles());
       dispatch(resetPost());
       dispatch(resetView());
       history.push("/roles");

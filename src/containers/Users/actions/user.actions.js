@@ -98,29 +98,28 @@ export const getUserRole = params => {
   }
 };
 
-export const toggleUser = (username, active, postAction, pageState, domainCode) => {
+export const toggleUser = (user, pageState) => {
+  let requestBody = {
+    ...user,
+    disabled:!user.disabled
+  }
   return async dispatch => {
-    dispatch(request({ username, active }));
+    dispatch(request(requestBody));
     try {
-      const response = await userService.toggleUser(username, active);
+      const response = await userService.postUser(requestBody, user.id);
       response && dispatch(success(response));
       dispatch(
-        showAlert("success", username, response && response.description)
+        showAlert("success", `${user.firstName} ${user.lastName} ${user.disabled ? 'enabled' : 'disabled'} successfully`, response?.description)
       );
-      if (postAction === "refreshMapping") {
-        dispatch(getUserRole({username, domainCode}));
-      }
 
-      if (postAction === "getAllUsers") {
-        dispatch(getAllUsers(pageState));
-      }
+      dispatch(getAllUsers(pageState));
     } catch (error) {
       dispatch(failure(error));
       dispatch(
         showAlert(
           "danger",
           "Failed to toggle user",
-          error ? error.message : message.GENERIC_ERROR
+          error || message.GENERIC_ERROR
         )
       );
     }
@@ -143,7 +142,6 @@ export const postUser = (values, currentUser, id, userToEdit, history) => {
 
   return async (dispatch, getState) => {
     const state = getState();
-    const userPermissions = state.permissions && state.permissions.response;
     dispatch(request(requestBody));
     try {
       const response = await userService.postUser(requestBody, id);

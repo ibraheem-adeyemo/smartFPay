@@ -1,4 +1,4 @@
-export const checkPermissions = (userPermissions, allowedPermissions) => {
+export const checkPermissions = (userPermissions = [], allowedPermissions) => {
   // const permissions =
   //   userPermissions &&
   //   userPermissions.map(permission => permission && permission.authority);
