@@ -40,7 +40,8 @@ const allPermissions = location.state?.role.permissions.map((permission, index) 
               >
                 <Link
                   to={{
-                      pathname:`roles/edit/${roleObj.id}`,
+                      // pathname:`roles/edit/${roleObj.id}`,
+                      pathname:"/roles/edit/" + roleObj.id,
                       state: {role:roleObj}
                     }}
                   className="btn btn-sm btn-outline-secondary project-summary__btn"
