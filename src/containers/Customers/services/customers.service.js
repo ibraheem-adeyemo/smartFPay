@@ -6,6 +6,8 @@ export const customersService = {
   getCustomers,
   getCustomerByAccountNumber,
   postCustomer,
+  subscribeCustomer,
+  unsubscribeCustomer
 };
 
 function postCustomer(request) {
@@ -46,5 +48,13 @@ function getCustomerByAccountNumber(accountNumber) {
   //   url = API_URLS.CARD_MANAGEMENT.GET_ADMIN_BATCH_CUSTOMER
   // }
   return apiCall("GET", `${url}/${accountNumber}`);
+}
+
+function subscribeCustomer(accountNumber) {
+  return apiCall("POST", API_URLS.CUSTOMERS.SUBSCRIBE_CUSTOMERS, null, accountNumber);
+}
+
+function unsubscribeCustomer(accountNumber) {
+  return apiCall("POST", API_URLS.CUSTOMERS.UNSUBSCRIBE_CUSTOMERS, null, accountNumber);
 }
 

@@ -134,9 +134,9 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
       <Card>
         <CardBody>
         <div className="project-summary">
-        <div className="card__title">
+          <div className="card__title">
             <h4 style={{color: '#000'}} className="bold-text">Account Details</h4>
-            </div>
+          </div>
         {accountControls.length > 0?
               <AccessControl
                 allowedPermissions={[permissionsConstants.UPDATE_CONTROL]}

@@ -20,12 +20,12 @@ const validate = values => {
     errors.frequency = "Kindly select a limit frequency";
   }
 
-  if (!values.startDate) {
-    errors.startDate = "Kindly select a start date and time";
-  }
-  if (!values.endDate) {
-    errors.endDate = "Kindly select an end date and time";
-  }
+  // if (!values.startDate) {
+  //   errors.startDate = "Kindly select a start date and time";
+  // }
+  // if (!values.endDate) {
+  //   errors.endDate = "Kindly select an end date and time";
+  // }
   if (!values.cardStatus) {
     errors.cardStatus = "Kindly select a card status";
   }

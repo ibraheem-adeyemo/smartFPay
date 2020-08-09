@@ -32,7 +32,7 @@ export const getPermissions = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      const response = await getPermissionsArray();
+      const response = await currentUserService.getPermissions();
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));

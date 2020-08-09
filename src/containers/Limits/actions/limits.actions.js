@@ -21,7 +21,7 @@ export const getAllControls = (requestParams) => {
           showAlert(
             "danger",
             "Failed to get all controls",
-            error ? error.message : message.GENERIC_ERROR
+            error ? error : message.GENERIC_ERROR
           )
         );
       }
@@ -50,7 +50,7 @@ export const getControl = token => {
           showAlert(
             "danger",
             "Failed to get control",
-            error ? error.message : message.GENERIC_ERROR
+            error ? error : message.GENERIC_ERROR
           )
         );
       }
@@ -89,7 +89,7 @@ export const toggleCardControl = (cardId, active, postAction, pageState) => {
           showAlert(
             "danger",
             "Failed to toggle control",
-            error ? error.message : message.GENERIC_ERROR
+            error ? error : message.GENERIC_ERROR
           )
         );
       }
@@ -128,7 +128,7 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
           showAlert(
             "danger",
             "Failed to toggle control",
-            error ? error.message : message.GENERIC_ERROR
+            error ? error : message.GENERIC_ERROR
           )
         );
       }
@@ -195,7 +195,7 @@ export const postControl = (values, id, controlToEdit, history, location) => {
           showAlert(
             "danger",
             requestBody.id ? "Failed to edit control" : "Failed to add control",
-            error ? error.message : message.GENERIC_ERROR
+            error ? error : message.GENERIC_ERROR
           )
         );
       }
@@ -269,7 +269,7 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
         showAlert(
           "danger",
           requestBody.id ? "Failed to edit card control" : "Failed to add card control",
-          error ? error.message : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }

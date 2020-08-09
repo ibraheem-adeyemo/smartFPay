@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 
 const checkPermissions = (userPermissions, allowedPermissions) => {
-  const permissions = userPermissions && userPermissions.map(permission => permission.authority);
+  // const permissions = userPermissions && userPermissions.map(permission => permission.authority);
+  const permissions =
+    userPermissions && userPermissions.map(permission => permission);
   if (allowedPermissions.length === 0) {
     return true;
   }

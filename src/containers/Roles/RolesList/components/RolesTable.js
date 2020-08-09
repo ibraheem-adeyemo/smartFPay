@@ -14,6 +14,7 @@ import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { accessControlFn } from "../../../../utils/accessControl";
 import { getFormValues } from "redux-form";
+import { toggleRole } from "../../actions/roles.actions";
 
 const {
   VIEW_ADMIN
@@ -25,44 +26,91 @@ const RolesTable = memo(props => {
     fetchData,
     dispatch,
     permissions,
-    allRoles
+    allRoles,
+    togglerole
   } = props;
 
   const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
 
+  const toggleRoleFn = row => {
+    confirmAlert({
+      message: `Are you sure you want to ${row.disabled ? "enabled" : "disable"} this user?`, // Message dialog
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () =>
+            dispatch(toggleRole(row, allRoles.request))
+        },
+        {
+          label: "No",
+          onClick: () => null
+        }
+      ]
+    });
+  };
+
   const columns = [
     {
       accessor: "id",
-      name: "",
+      name: "ID",
       sortable: true,
       sortKey: "id"
     },
     {
       accessor: "name",
       name: "Name",
-      filterable: true,
-      sortable: true,
       sortKey: "name"
     },
     {
-      accessor: "description",
-      name: "Description",
-      sortKey: "description"
+      accessor: "active",
+      name: "Status (click to toggle)",
+      sortKey: "active",
+      renderHeader: () => (
+        <span>
+          Status <small>(click to toggle)</small>
+        </span>
+      ),
+      Cell: row => (
+        <button
+          type="button"
+          id={`toggle-btn-${row.disabled ? "disabled" : "enabled"}-${row.id}`}
+          onClick={() =>
+            accessControlFn(
+              permissions,
+              [VIEW_ADMIN],
+              toggleRoleFn,
+              row
+            )
+          }
+          className={`btn ${
+            row.disabled ? "btn-secondary" : "btn-success"
+          } badge mb-0`}
+        >
+          {togglerole.loading &&
+          row.name === togglerole.request.name ? (
+            <Spinner size="sm" />
+          ) : (
+            <span>{row.disabled ? "Disabled" : "Enabled"}</span>
+          )}
+        </button>
+      )
     }
   ];
 
   const handleAction = (row, action) => {
     if (action.name === "view_roles") {
-      props.history.push(`${props.location.pathname}/view/${row.username}`);
-    } else if (action.name === "edit_users") {
+      props.history.push({pathname:`${props.location.pathname}/view/${row.id}`, state: {role:row}});
+    } else if (action.name === "edit_roles") {
+      props.history.push({pathname:`${props.location.pathname}/edit/${row.id}`, state: {role:row}});
+    }else if (action.name === "edit_users") {
       props.history.push(`${props.location.pathname}/edit/${row.username}`);
     } else if (action.name === "manageRoles") {
       props.history.push(`${props.location.pathname}/roles/${row.username}`);
     }
   };
 
-  const sortFn = (pageNum, pageSize, column) => {
+  const sortFn = (pageNumber, pageSize, column) => {
     let sortOrder = "ASC";
     if (!allRoles.loading) {
       if (allRoles.request && allRoles.request.sortOrder) {
@@ -70,7 +118,7 @@ const RolesTable = memo(props => {
       }
       fetchData({
         ...allRoles.request,
-        pageNum,
+        pageNumber,
         pageSize,
         sortKey: column.sortKey,
         sortOrder
@@ -79,6 +127,14 @@ const RolesTable = memo(props => {
   };
 
   const actions = [
+    {
+      name: "edit_roles",
+      btnText: "Update Role",
+      btnAction: handleAction,
+      btnClass: "default",
+      btnIcon: MdModeEdit,
+      permissions: [VIEW_ADMIN]
+    },
     {
       name: "view_roles",
       btnText: "View",
@@ -93,13 +149,13 @@ const RolesTable = memo(props => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allRoles.request,
-      pageNum: 1,
+      pageNumber: 1,
       searchWord: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allRoles.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData();
   };
 
   return (
@@ -126,8 +182,11 @@ const RolesTable = memo(props => {
           <DataTable
             columns={columns}
             loading={dataState && dataState.loading}
+            // data={
+            //   dataState && dataState.response ? dataState.response.content : []
+            // }
             data={
-              dataState && dataState.response ? dataState.response.content : []
+              dataState?.response
             }
             count={count}
             countName="Roles"
@@ -141,18 +200,18 @@ const RolesTable = memo(props => {
             permissions={permissions}
             actions={actions}
             responsive
-            customSearch={
-              <CustomSearch
-                pageNumer={1}
-                initialValues={{
-                  pageNumber: 1,
-                  pageSize: 10,
-                  searchKey: ""
-                }}
-                pageSize={10}
-                onSubmit={handleSubmit}
-              />
-            }
+            // customSearch={
+            //   <CustomSearch
+            //     pageNumer={1}
+            //     initialValues={{
+            //       pageNumber: 1,
+            //       pageSize: 10,
+            //       searchKey: ""
+            //     }}
+            //     pageSize={10}
+            //     onSubmit={handleSubmit}
+            //   />
+            // }
             sortFn={sortFn}
             searchKey={searchKey}
             serverside
@@ -166,5 +225,6 @@ const RolesTable = memo(props => {
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
   permissions: state.permissions && state.permissions.response,
-  allRoles: state.roles
+  allRoles: state.roles,
+  togglerole: state.togglerole
 }))(withRouter(RolesTable));

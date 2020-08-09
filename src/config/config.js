@@ -26,6 +26,7 @@ export const appConfig = {
 
   get apiBaseUrl() {
     // return `/${this.apiName}/${this.apiVersion}`;
+    // return `/${this.apiName}/api`;
     // return `http://payment-control-management-service.k13.isw.la/api`;
     return `https://payment-control-management-service.k13.isw.la/api`
   }

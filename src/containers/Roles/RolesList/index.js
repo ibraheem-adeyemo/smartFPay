@@ -6,12 +6,10 @@ import PageHeader from "../../../shared/components/PageHeader";
 import { getRoles } from "../actions/roles.actions";
 
 const RolesList = ({ dispatch, allRoles }) => {
-  const loadRoles = requestParams => {
-    dispatch(getRoles(requestParams));
-  };
+  const loadRoles = () => dispatch(getRoles({}));
 
   useEffect(() => {
-    dispatch(getRoles({ pageNum: 1, pageSize: 10 }));
+    dispatch(getRoles({}));
   }, [dispatch]);
 
   return (

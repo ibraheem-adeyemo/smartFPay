@@ -7,11 +7,11 @@ export const API_URLS = {
     LOGIN: `${apiBaseUrl}/auth/admin`
   },
   USERS: {
-    GET_USERS: `${apiBaseUrl}/users/admin`,
-    GET_USER: `${apiBaseUrl}/users/`,
-    POST_USER_ADMIN: `${apiBaseUrl}/users/admin`,
+    GET_USERS: `${apiBaseUrl}/admin`,
+    GET_USER: `${apiBaseUrl}/admin/`,
+    POST_USER_ADMIN: `${apiBaseUrl}/admin`,
     FIND_USERS: `${apiBaseUrl}/users/find`,
-    POST_USER_DOMAIN: `${apiBaseUrl}/users/domain`,
+    POST_USER_DOMAIN: `${apiBaseUrl}/domain`,
     GET_USER_DOMAIN: `${apiBaseUrl}/users/domains`,
     GET_USER_ROLE: `${apiBaseUrl}/users/role-mapping`,
     GET_ROLES_ADMIN: `${apiBaseUrl}/users/roles`,
@@ -38,7 +38,9 @@ export const API_URLS = {
   CUSTOMERS: {
     POST_CUSTOMER: `${apiBaseUrl}/customers/create`,
     GET_CUTOMER_BY_ACCOUNT: `${apiBaseUrl}/customers`,
-    GET_CUSTOMERS: `${apiBaseUrl}/customers`
+    GET_CUSTOMERS: `${apiBaseUrl}/customers`,
+    SUBSCRIBE_CUSTOMERS: `${apiBaseUrl}/customers/subscribe`,
+    UNSUBSCRIBE_CUSTOMERS: `${apiBaseUrl}/customers/unsubscribe`
   },
   ISSUERS: {
     DOMAIN_MAPPINGS_URI: `${apiBaseUrl}/issuer`,
@@ -98,7 +100,12 @@ export const API_URLS = {
     GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
   },
   ROLES: {
-    GET_ALL_ROLES: `${apiBaseUrl}/roles`,
-    CREATE_ROLE: `${apiBaseUrl}/roles`
+    GET_ALL_ROLES: `${apiBaseUrl}/role`,
+    CREATE_ROLE: `${apiBaseUrl}/role`,
+    REASSIGN_PERMISSIONS: `${apiBaseUrl}/role/permissions/reassign`,
+    TOGGLE_ROLE: `${apiBaseUrl}/role`
+  },
+  PERMISSIONS: {
+    GET_ALL_PERMISSIONS: `${apiBaseUrl}/role/permissions`
   }
 };

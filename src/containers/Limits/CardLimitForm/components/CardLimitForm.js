@@ -165,7 +165,7 @@ const CardLimitForm = memo(props => {
                   <Row>
                     <Col lg="4">
                       <div className="form__form-group">
-                        <span className="form__form-group-label required">Start Date</span>
+                        <span className="form__form-group-label">Start Date</span>
                         <div className="form__form-group-field">
                           <Field
                             id="startDate"
@@ -182,7 +182,7 @@ const CardLimitForm = memo(props => {
                     </Col>
                     <Col lg="4">
                       <div className="form__form-group">
-                        <span className="form__form-group-label required">End Date</span>
+                        <span className="form__form-group-label">End Date</span>
                         <div className="form__form-group-field">
                           <Field
                             id="endDate"

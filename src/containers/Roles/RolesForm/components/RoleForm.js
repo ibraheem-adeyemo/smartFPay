@@ -6,6 +6,7 @@ import {
   Col,
   Button,
   ButtonToolbar,
+  UncontrolledAlert,
 Spinner } from "reactstrap";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
@@ -13,19 +14,22 @@ import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
+import renderSelectField from "../../../../shared/components/form/Select";
 import { resetPostRole } from "../../actions/roles.actions";
 import validate from "./validate";
 import PermissionsSelect from '../../PermissionsSelect';
 
 const RoleForm = memo(props => {
   const {
+    permissions,
     dispatch,
     handleSubmit,
     reset,
     pristine,
     invalid,
     submitting,
-    postrole } = props;
+    postrole,
+    disabled, } = props;
 
   const resetForm = () => {
     reset();
@@ -50,14 +54,28 @@ const RoleForm = memo(props => {
             </h5>
           </div>
           <form className="form" onSubmit={handleSubmit}>
+          {postrole?.error?.errors?.length ? (
+                    <UncontrolledAlert color="danger">
+                      <h5 className="font-weight-bold">
+                        Please check the following fields for errors
+                      </h5>
+                      {postrole.error.errors.map(err => (
+                        <p>
+                          <strong>{err.field}:</strong> {err.message}
+                        </p>
+                      ))}
+                    </UncontrolledAlert>
+                  ) : null}
             <Row>
               <Col lg="4">
                 <div className="form__form-group">
                   <span className="form__form-group-label required">Role name</span>
                   <div className="form__form-group-field">
                     <Field
+                      id = "role_name"
                       name="role_name"
-                      component="input"
+                      component={renderField}
+                      disabled={disabled}
                       type="text"
                       placeholder="Role name"
                     />
@@ -65,28 +83,12 @@ const RoleForm = memo(props => {
                 </div>
               </Col>
               <Col lg="4">
-                <div className="form__form-group">
-                  <span className="form__form-group-label">Description</span>
-                  <div className="form__form-group-field">
-                    <Field
-                      name="description"
-                      component="input"
-                      type="text"
-                      placeholder="Role description"
-                    />
-                  </div>
-                </div>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col lg="4">
                 <PermissionsSelect
                   required
                   id="permission-select"
                   label="Assign permissions to role"
                 />
-              </Col>
+                </Col>
             </Row>
             <ButtonToolbar className="form__button-toolbar">
               <Button type="button" onClick={reset}
@@ -95,7 +97,7 @@ const RoleForm = memo(props => {
               </Button>
               <Button color="primary" type="submit"
                       disabled={submitting || invalid}>
-              {postrole && postrole.loading ? (
+              {postrole?.loading ? (
                         <span>
                           <Spinner size="sm" color="default" />{" "}
                         </span>
@@ -122,6 +124,5 @@ export default reduxForm({
 })(
   connect(state => ({
     postrole: state.postrole,
-    permissions: state.permissions && state.permissions.response
   }))(RoleForm)
 );

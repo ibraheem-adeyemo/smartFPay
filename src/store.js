@@ -8,7 +8,7 @@ import storage from "redux-persist/lib/storage";
 import rootReducer from "./rootReducer";
 
 const persistConfig = {
-  key: "prepaid-card-management",
+  key: "payment-control",
   blacklist: ["form", "roles", "cardStatement", "searchCards", "notifications"],
   storage
 };

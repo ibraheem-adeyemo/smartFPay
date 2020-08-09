@@ -41,12 +41,12 @@ const UsersTable = memo(props => {
 
   const toggleUserFn = row => {
     confirmAlert({
-      message: `Are you sure you want to ${row.active ? "disable" : "enable"} this user?`, // Message dialog
+      message: `Are you sure you want to ${row.disabled ? "enable" : "disable"} this user?`, // Message dialog
       buttons: [
         {
           label: "Yes",
           onClick: () =>
-            dispatch(toggleUser(row.username, row.active, "getAllUsers", allUsers.request))
+            dispatch(toggleUser(row, allUsers.request))
         },
         {
           label: "No",
@@ -92,12 +92,6 @@ const UsersTable = memo(props => {
       sortKey: "email"
     },
     {
-      accessor: "mobileNo",
-      name: "Phone Number",
-      sortable: true,
-      sortKey: "mobileNo"
-    },
-    {
       accessor: "active",
       name: "Status (click to toggle)",
       sortable: true,
@@ -111,7 +105,7 @@ const UsersTable = memo(props => {
       Cell: row => (
         <button
           type="button"
-          id={`toggle-btn-${row.active ? "enabled" : "disabled"}-${row.id}`}
+          id={`toggle-btn-${row.disabled ? "disabled" : "enabled"}-${row.id}`}
           onClick={() =>
             accessControlFn(
               permissions,
@@ -121,14 +115,14 @@ const UsersTable = memo(props => {
             )
           }
           className={`btn ${
-            row.active ? "btn-success" : "btn-secondary"
+            row.disabled ? "btn-secondary" : "btn-success"
           } badge mb-0`}
         >
           {toggleuser.loading &&
-          row.username === toggleuser.request.username ? (
+          row.email === toggleuser.request.email ? (
             <Spinner size="sm" />
           ) : (
-            <span>{row.active ? "Enabled" : "Disabled"}</span>
+            <span>{row.disabled ? "Disabled" : "Enabled"}</span>
           )}
         </button>
       )
@@ -137,15 +131,13 @@ const UsersTable = memo(props => {
 
   const handleAction = (row, action) => {
     if (action.name === "view_users") {
-      props.history.push(`${props.location.pathname}/view/${row.username}`);
+      props.history.push(`${props.location.pathname}/view/${row.id}`);
     } else if (action.name === "edit_users") {
-      props.history.push(`${props.location.pathname}/edit/${row.username}`);
-    } else if (action.name === "manageRoles") {
-      props.history.push(`${props.location.pathname}/roles/${row.username}`);
+      props.history.push(`${props.location.pathname}/edit/${row.id}`);
     }
   };
 
-  const sortFn = (pageNum, pageSize, column) => {
+  const sortFn = (pageNumber, pageSize, column) => {
     let sortOrder = "ASC";
     if (!allUsers.loading) {
       if (allUsers.request && allUsers.request.sortOrder) {
@@ -153,10 +145,10 @@ const UsersTable = memo(props => {
       }
       fetchData({
         ...allUsers.request,
-        pageNum,
+        pageNumber,
         pageSize,
-        sortKey: column.sortKey,
-        sortOrder
+        // sortKey: column.sortKey,
+        // sortOrder
       });
     }
   };
@@ -178,27 +170,19 @@ const UsersTable = memo(props => {
       btnIcon: MdModeEdit,
       permissions: [UPDATE_USER]
     },
-    {
-      name: "manageRoles",
-      btnText: "Manage Roles",
-      btnAction: handleAction,
-      btnClass: "info",
-      btnIcon: MdLock,
-      permissions: [CHANGE_USER_ROLE]
-    }
   ];
 
   const handleSubmit = values => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allUsers.request,
-      pageNum: 1,
+      pageNumber: 1,
       searchWord: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allUsers.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData({ ...allUsers.request, pageNumber, pageSize});
   };
 
   return (
@@ -226,7 +210,7 @@ const UsersTable = memo(props => {
             columns={columns}
             loading={dataState && dataState.loading}
             data={
-              dataState && dataState.response ? dataState.response.content : []
+              dataState?.response?.data || []
             }
             count={count}
             countName="Users"
@@ -240,18 +224,18 @@ const UsersTable = memo(props => {
             permissions={permissions}
             actions={actions}
             responsive
-            customSearch={
-              <CustomSearch
-                pageNumer={1}
-                initialValues={{
-                  pageNumber: 1,
-                  pageSize: 10,
-                  searchKey: ""
-                }}
-                pageSize={10}
-                onSubmit={handleSubmit}
-              />
-            }
+            // customSearch={
+            //   <CustomSearch
+            //     pageNumer={1}
+            //     initialValues={{
+            //       pageNumber: 1,
+            //       pageSize: 10,
+            //       searchKey: ""
+            //     }}
+            //     pageSize={10}
+            //     onSubmit={handleSubmit}
+            //   />
+            // }
             sortFn={sortFn}
             searchKey={searchKey}
             serverside

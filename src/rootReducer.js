@@ -33,11 +33,11 @@ import {
 
 import { domains } from "./containers/Domains/reducers";
 import { permissions, currentUser } from "./containers/CurrentUser/reducers";
-import { roles, postrole } from "./containers/Roles/reducers";
+import { roles, postrole, togglerole } from "./containers/Roles/reducers";
 
 import { cardProgramCount } from "./containers/Dashboard/reducers";
 
-import { getCustomers, getCustomer, createCustomer } from "./containers/Customers/reducers";
+import { getCustomers, getCustomer, createCustomer, togglecustomer } from "./containers/Customers/reducers";
 import { getCardRecords, getCardRecord, pinReissue, blockCard, unblockCard } from "./containers/CardRecords/reducers";
 
 
@@ -59,6 +59,7 @@ export default combineReducers({
   currentUser,
   getuserrole,
   editRole,
+  togglerole,
 
   viewcontrol,
   getcontrols,
@@ -79,6 +80,7 @@ export default combineReducers({
   getCustomers,
   getCustomer,
   createCustomer,
+  togglecustomer,
   
   getCardRecords,
   getCardRecord,
