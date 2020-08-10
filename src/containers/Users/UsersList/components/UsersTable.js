@@ -98,32 +98,18 @@ const UsersTable = memo(props => {
       sortKey: "active",
       renderHeader: () => (
         <span>
-          Status <small>(click to toggle)</small>
+          Status
         </span>
       ),
       filterable: true,
       Cell: row => (
         <button
-          type="button"
           id={`toggle-btn-${row.disabled ? "disabled" : "enabled"}-${row.id}`}
-          onClick={() =>
-            accessControlFn(
-              permissions,
-              [ENABLE_USER, DISABLE_USER],
-              toggleUserFn,
-              row
-            )
-          }
           className={`btn ${
             row.disabled ? "btn-secondary" : "btn-success"
           } badge mb-0`}
         >
-          {toggleuser.loading &&
-          row.email === toggleuser.request.email ? (
-            <Spinner size="sm" />
-          ) : (
             <span>{row.disabled ? "Disabled" : "Enabled"}</span>
-          )}
         </button>
       )
     }

@@ -159,7 +159,7 @@ const LimitsTable = memo(props => {
     }
   };
 
-  const sortFn = (pageNum, pageSize, column) => {
+  const sortFn = (pageNumber, pageSize, column) => {
     let sortOrder = "ASC";
     if (!allControls.loading) {
       if (allControls.request && allControls.request.sortOrder) {
@@ -167,10 +167,8 @@ const LimitsTable = memo(props => {
       }
       fetchData({
         ...allControls.request,
-        pageNum,
+        pageNumber,
         pageSize,
-        sortKey: column.sortKey,
-        sortOrder
       });
     }
   };
@@ -198,13 +196,13 @@ const LimitsTable = memo(props => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allControls.request,
-      pageNum: 1,
+      pageNumber: 1,
       accountNumber: values.searchWord || ""
     });
   };
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({  pageNumber, pageSize });
+    fetchData({ pageNumber, pageSize });
   };
 
   return (

@@ -3,7 +3,7 @@ export const checkPermissions = (userPermissions = [], allowedPermissions) => {
   //   userPermissions &&
   //   userPermissions.map(permission => permission && permission.authority);
   const permissions =
-    userPermissions && userPermissions.map(permission => permission);
+    Array.isArray(userPermissions) && userPermissions.map(permission => permission);
   if (allowedPermissions && allowedPermissions.length === 0) {
     return true;
   }

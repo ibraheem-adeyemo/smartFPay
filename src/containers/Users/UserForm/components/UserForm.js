@@ -16,6 +16,7 @@ import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
 import validate from "./validate";
+import renderToggleButtonField from "../../../../shared/components/form/ToggleButton";
 // import AccessControl from "../../../../shared/components/AccessControl";
 // import DomainDropDown from "../../../Domains/DomainDropDown";
 import RolesSelect from "../../../Roles/RolesSelect";
@@ -139,6 +140,21 @@ const UserForm = memo(props => {
                             type="text"
                             placeholder="last name"
                           />
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg="4">
+                      <div className="form__form-group">
+                        <span className="form__form-group-label">Enabled</span>
+                        <div className="form__form-group-field">
+                          <div>
+                        <Field
+                          id="disabled"
+                          name="disabled"
+                          component={renderToggleButtonField}
+                          defaultChecked={!user?.response?.disabled}
+                        />
+                          </div>
                         </div>
                       </div>
                     </Col>

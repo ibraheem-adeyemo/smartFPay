@@ -55,7 +55,7 @@ const SidebarContent = ({ onClick, permissions }) => {
           )}
         </Fragment>
       ))}
-      {/* <div>Powered By Interswitch</div> */}
+      <div style={{color: "#fff", padding: "0.7rem", marginTop: "3rem"}}>Powered By Interswitch</div>
     </div>
   );
 };
