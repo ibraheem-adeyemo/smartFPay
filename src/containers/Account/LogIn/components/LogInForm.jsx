@@ -109,9 +109,9 @@ class LogInForm extends Component {
                 </Alert>
             ) : null}
     <div>
-            {invalid ? (
+            {invalid && errorMessage.length > 0 ? (
                 <Alert color="danger">
-                    {errorMessage  || 'Enter your email address and pasword'}
+                    {errorMessage}
                 </Alert>
             ) : null}
           </div>
@@ -144,9 +144,9 @@ class LogInForm extends Component {
             ><EyeIcon />
             </button>
           </div>
-          <div className="account__forgot-password">
+          {/* <div className="account__forgot-password">
             <a href="/">Forgot a password?</a>
-          </div>
+          </div> */}
         </div>
         <br />
         {/* <Link className="btn btn-primary account__btn account__btn--small" to="/dashboard">Sign In</Link> */}
