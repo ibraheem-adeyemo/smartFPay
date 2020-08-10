@@ -234,7 +234,7 @@ const UsersTable = memo(props => {
 
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
-  permissions: state.permissions && state.permissions.response,
+  permissions: state.permissions && state.permissions.response.permissions,
   allUsers: state.getusers,
   toggleuser: state.toggleuser
 }))(withRouter(UsersTable));

@@ -12,9 +12,12 @@ const PermissionsSelect = props => {
   let userPermissions = permissions && permissions.response;
   let perm = [];
 
-  for(var permission of permissions.response) {
-   perm.push({name: permission});
+  if(permissions.response) {
+    for(var permission of permissions.response) {
+      perm.push({name: permission});
+    }
   }
+  console.log('dfghj', permissions)
   // userPermissions =
   //   userPermissions && userPermissions.map(permission => permission.authority);
   userPermissions =
@@ -76,6 +79,6 @@ const PermissionsSelect = props => {
 
 export default connect(state => ({
   roles: state.roles,
-  permissions: state.permissions,
+  permissions: state.getPermissions,
   currentUser: state.currentUser
 }))(PermissionsSelect);
