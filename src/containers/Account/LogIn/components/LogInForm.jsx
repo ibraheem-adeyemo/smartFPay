@@ -115,7 +115,7 @@ class LogInForm extends Component {
                 </Alert>
             ) : null}
           </div>
-      <form className="form" style={{width: '300px'}} onSubmit={this.handleLogin}>
+      <form className="form" onSubmit={this.handleLogin}>
         <div className="form__form-group">
           <div className="form__form-group-field">
             <input

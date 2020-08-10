@@ -136,7 +136,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
         <div className="project-summary">
           <div className="card__title">
             <h4 style={{color: '#000'}} className="bold-text">Account Details</h4>
-          </div>
+            
         {accountControls.length > 0?
               <AccessControl
                 allowedPermissions={[permissionsConstants.UPDATE_CONTROL]}
@@ -170,6 +170,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                   Create Account Control
                 </Link>
               </AccessControl>}
+          </div>
         <dl className="row" style={{fontSize: '18px'}}>
                 <dt className="col-sm-4">Customer Account Number</dt>
                 <dd className="col-sm-8">
