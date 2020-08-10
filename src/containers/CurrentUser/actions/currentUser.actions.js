@@ -11,7 +11,8 @@ export const getCurrentUser = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      const response = await currentUserService.getCurrentUser();
+      var token = localStorage.getItem('pc-token');
+      const response = jwtDecode(token);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
