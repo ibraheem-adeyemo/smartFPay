@@ -7,7 +7,7 @@ import NoAccess from "./NoAccess";
 const PermissionedRoute = ({
   component: Component,
   allowedPermissions,
-  permissions,
+  permissions = [],
   ...rest
 }) => (
   <Route
@@ -23,5 +23,5 @@ const PermissionedRoute = ({
 );
 
 export default connect(state => ({
-  permissions: state.permissions && state.permissions.response.permissions
+  permissions: state.permissions && state.permissions.response?.permissions
 }))(PermissionedRoute);

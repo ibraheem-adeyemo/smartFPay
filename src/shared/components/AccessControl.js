@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-const checkPermissions = (userPermissions, allowedPermissions) => {
+const checkPermissions = (userPermissions = [], allowedPermissions) => {
   // const permissions = userPermissions && userPermissions.map(permission => permission.authority);
   console.log('User parm', userPermissions)
   const permissions =
@@ -37,5 +37,5 @@ AccessControl.defaultProps = {
 // Compose AccessControl component with redux
 
 export default connect(state => ({
-  userPermissions: state.permissions && state.permissions.response.permissions
+  userPermissions: state.permissions && state.permissions.response?.permissions
 }))(AccessControl);
