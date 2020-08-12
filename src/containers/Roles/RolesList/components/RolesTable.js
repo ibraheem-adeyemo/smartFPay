@@ -25,7 +25,7 @@ const RolesTable = memo(props => {
     dataState,
     fetchData,
     dispatch,
-    permissions,
+    permissions = [],
     allRoles,
     togglerole
   } = props;
@@ -224,7 +224,7 @@ const RolesTable = memo(props => {
 
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
-  permissions: state.permissions && state.permissions.response.permissions,
+  permissions: state.permissions && state.permissions.response?.permissions,
   allRoles: state.roles,
   togglerole: state.togglerole
 }))(withRouter(RolesTable));

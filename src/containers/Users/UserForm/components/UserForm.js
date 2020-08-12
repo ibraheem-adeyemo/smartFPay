@@ -35,7 +35,7 @@ const UserForm = memo(props => {
   const {
     dispatch,
     handleSubmit,
-    permissions,
+    permissions = [],
     reset,
     pristine,
     invalid,
@@ -232,6 +232,6 @@ export default reduxForm({
 })(
   connect(state => ({
     postuser: state.postuser,
-    permissions: state.permissions && state.permissions.response.permissions
+    permissions: state.permissions && state.permissions.response?.permissions
   }))(UserForm)
 );

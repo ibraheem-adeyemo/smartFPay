@@ -35,7 +35,7 @@ const LimitsTable = memo(props => {
     dispatch,
     toggleaccount,
     togglecard,
-    permissions,
+    permissions = [],
     allControls
   } = props;
 
@@ -282,7 +282,7 @@ const LimitsTable = memo(props => {
 
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
-  permissions: state.permissions && state.permissions.response.permissions,
+  permissions: state.permissions && state.permissions.response?.permissions,
   allControls: state.getcontrols,
   toggleaccount: state.toggleaccount,
   togglecard: state.togglecard

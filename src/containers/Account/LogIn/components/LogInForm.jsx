@@ -98,7 +98,7 @@ class LogInForm extends Component {
       <>
       {(showError || response?.reponseCode) ? (
                 <Alert color="danger">
-                  <p><strong>{response.responseCode || 'Request failed'}</strong> : Try again later</p>
+                  <p><strong>{response?.responseCode || 'Request failed'}</strong> : Try again later</p>
                   {/* <p></p><strong>{error?.message}</strong>
                   <p>{`${errorTitle}` || ''}</p> */}
                   {/* <p>

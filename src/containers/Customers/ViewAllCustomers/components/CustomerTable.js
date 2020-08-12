@@ -27,7 +27,7 @@ const {
 } = permissionsConstants;
 
 const CustomersTable = memo(
-  ({ dataState, dispatch, fetchData, permissions, history, location, batchId, togglecustomer, allCustomers }) => {
+  ({ dataState, dispatch, fetchData, permissions = [], history, location, batchId, togglecustomer, allCustomers }) => {
     const [searchKey, setSearchKey] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -291,7 +291,7 @@ console.log('dataState', dataState)
 
 export default withRouter(
   connect(state => ({
-    permissions: state.permissions && state.permissions.response.permissions,
+    permissions: state.permissions && state.permissions.response?.permissions,
     togglecustomer: state.togglecustomer,
     allCustomers: state.getCustomers
   }))(CustomersTable)
