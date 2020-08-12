@@ -33,7 +33,7 @@ import {
 
 import { domains } from "./containers/Domains/reducers";
 import { permissions, currentUser } from "./containers/CurrentUser/reducers";
-import { roles, postrole, togglerole } from "./containers/Roles/reducers";
+import { roles, postrole, togglerole, getPermissions } from "./containers/Roles/reducers";
 
 import { cardProgramCount } from "./containers/Dashboard/reducers";
 
@@ -70,6 +70,7 @@ export default combineReducers({
 
   roles,
   postrole,
+  getPermissions,
 
   getAllCardRequests,
   getCardRequest,

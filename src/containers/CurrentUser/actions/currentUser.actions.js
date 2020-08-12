@@ -5,12 +5,14 @@ import {
   permissionConstants,
   permissionsNameSpace
 } from "../constants/currentUser.constants";
+import jwtDecode from "jwt-decode";
 
 export const getCurrentUser = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      const response = await currentUserService.getCurrentUser();
+      var token = localStorage.getItem('pc-token');
+      const response = jwtDecode(token);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
@@ -32,8 +34,11 @@ export const getPermissions = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      const response = await currentUserService.getPermissions();
+      var token = localStorage.getItem('pc-token');
+      const response = jwtDecode(token);
+      // const response = await currentUserService.getPermissions();
       response && dispatch(success(response));
+      // response && console.log(response)
     } catch (error) {
       dispatch(failure(error));
     }

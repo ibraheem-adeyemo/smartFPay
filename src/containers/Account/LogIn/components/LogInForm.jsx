@@ -59,10 +59,11 @@ class LogInForm extends Component {
         history.push('/dashboard')
       } 
       console.log('Success:', data);
-      this.setState({response: data, loading: false})
+      this.setState({response: data, loading: false, showError: false})
     })
     .catch(err => {
-      console.error('Error:', err)
+      this.setState({loading: false, showError: true})
+      console.error('Error:', err.message)
     })
   }
 
@@ -95,9 +96,9 @@ class LogInForm extends Component {
     const {error, errorTitle} = this.props;
     return (
       <>
-      {response?.responseCode ? (
+      {(showError || response?.reponseCode) ? (
                 <Alert color="danger">
-                  <p><strong>{response.responseCode}</strong> : {response.responseMessage}</p>
+                  <p><strong>{response.responseCode || 'Request failed'}</strong> : Try again later</p>
                   {/* <p></p><strong>{error?.message}</strong>
                   <p>{`${errorTitle}` || ''}</p> */}
                   {/* <p>

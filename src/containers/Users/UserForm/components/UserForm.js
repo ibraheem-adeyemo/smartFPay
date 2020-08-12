@@ -232,6 +232,6 @@ export default reduxForm({
 })(
   connect(state => ({
     postuser: state.postuser,
-    permissions: state.permissions && state.permissions.response
+    permissions: state.permissions && state.permissions.response.permissions
   }))(UserForm)
 );

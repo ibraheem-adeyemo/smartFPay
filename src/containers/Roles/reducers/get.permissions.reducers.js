@@ -10,13 +10,13 @@ const initialState = {
 
 export const getPermissions = (state = initialState, action) => {
   switch (action.type) {
-    case rolesConstants[`GET_${permissionsNameSpace}_REQUEST`]:
+    case `GET_APP_PERMISSIONS_REQUEST`:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case rolesConstants[`GET_${permissionsNameSpace}_SUCCESS`]:
+    case `GET_APP_PERMISSIONS_SUCCESS`:
       return {
         ...state,
         loading: false,
@@ -24,7 +24,7 @@ export const getPermissions = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case rolesConstants[`GET_${permissionsNameSpace}_FAILURE`]:
+    case `GET_APP_PERMISSIONS_FAILURE`:
       return {
         ...state,
         loading: false,

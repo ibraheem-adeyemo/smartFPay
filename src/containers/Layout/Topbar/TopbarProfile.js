@@ -23,10 +23,13 @@ const TopbarProfile = memo(props => {
               round={true}
               size="32"
               className="mr-2"
-              name={`${currentUser.response.firstName} ${currentUser.response.lastName}`}
+              // name={`${currentUser.response.firstName} ${currentUser.response.lastName}`}
+              name={`${currentUser.response.sub}`}
             />
-            {currentUser.response.firstName} {currentUser.response.lastName} (
-            {currentUser.response.domainName})
+            {currentUser.response.sub}
+            {currentUser.response.firstName} {currentUser.response.lastName} 
+            {/* (
+            {currentUser.response.domainName}) */}
           </div>
         ) : null}
 

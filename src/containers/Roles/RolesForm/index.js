@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row } from 'reactstrap';
 import { connect } from "react-redux";
-import { createRole } from "../actions/roles.actions";
+import { createRole, getPermissions } from "../actions/roles.actions";
 import HorizontalForm from './components/RoleForm';
 import PageHeader from "../../../shared/components/PageHeader";
 
@@ -19,11 +19,18 @@ const RoleForm = ({ dispatch, permissions, match, location, history }) => {
     );
   };
 
-  let allPermissions = [];
+  useEffect(()=> {
+    dispatch(getPermissions());
+  }, [dispatch]);
 
-  for(var permission of permissions.response) {
-    allPermissions.push({name: permission});
-  }
+  let allPermissions = [];
+  console.log('fdvghj', permissions)
+
+  if(permissions.response){
+    for(var permission of permissions.response) {
+      allPermissions.push({name: permission});
+    }
+  } 
 
   const createFormData = role => {
     let roleData;
@@ -66,5 +73,5 @@ const RoleForm = ({ dispatch, permissions, match, location, history }) => {
   };
 
 export default connect(state=> ({
-  permissions: state.permissions
+  permissions: state.getPermissions
 }))(RoleForm);

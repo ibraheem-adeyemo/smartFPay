@@ -291,7 +291,7 @@ console.log('dataState', dataState)
 
 export default withRouter(
   connect(state => ({
-    permissions: state.permissions && state.permissions.response,
+    permissions: state.permissions && state.permissions.response.permissions,
     togglecustomer: state.togglecustomer,
     allCustomers: state.getCustomers
   }))(CustomersTable)

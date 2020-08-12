@@ -37,5 +37,5 @@ AccessControl.defaultProps = {
 // Compose AccessControl component with redux
 
 export default connect(state => ({
-  userPermissions: state.permissions && state.permissions.response
+  userPermissions: state.permissions && state.permissions.response.permissions
 }))(AccessControl);

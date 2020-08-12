@@ -59,6 +59,6 @@ const RolesSelect = props => {
 
 export default connect(state => ({
   roles: state.roles,
-  permissions: state.permissions,
+  permissions: state.getPermissions,
   currentUser: state.currentUser
 }))(RolesSelect);

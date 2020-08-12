@@ -23,5 +23,5 @@ const PermissionedRoute = ({
 );
 
 export default connect(state => ({
-  permissions: state.permissions && state.permissions.response
+  permissions: state.permissions && state.permissions.response.permissions
 }))(PermissionedRoute);

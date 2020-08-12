@@ -53,17 +53,17 @@ export const getPermissions = (requestParams) => {
   };
 
   function request() {
-    return { type: rolesConstants[`GET_${permissionsNameSpace}_REQUEST`] };
+    return { type: `GET_APP_PERMISSIONS_REQUEST` };
   }
   function success(response) {
     return {
-      type: rolesConstants[`GET_${permissionsNameSpace}_SUCCESS`],
+      type: `GET_APP_PERMISSIONS_SUCCESS`,
       response
     };
   }
   function failure(error) {
     return {
-      type: rolesConstants[`GET_${permissionsNameSpace}_FAILURE`],
+      type: `GET_APP_PERMISSIONS_FAILURE`,
       error
     };
   }
