@@ -143,6 +143,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                 renderNoAccess={() => null}
               >
                     <Link
+                  style={{marginRight: '-16px'}}
                   id="link-create-control"
                   className="btn btn-primary project-summary__btn"
                   to={{
@@ -160,7 +161,8 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                 renderNoAccess={() => null}
               >
                     <Link
-                  className="btn btn-primary project-summary__btn"
+                  className="btn btn-prima
+                  style={{marginRight: '-16px'}}ry project-summary__btn"
                   to={{
                     pathname: "/limit-requests/add",
                     state: { fromCustomerView: true }

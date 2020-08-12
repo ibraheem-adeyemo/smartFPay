@@ -17,6 +17,7 @@ export const postLogin = (values, history) => {
         history.push('/dashboard');
         dispatch(resetPost());
       } catch (error) {
+        console.log(error)
         dispatch(failure(error));
         dispatch(
           showAlert(
