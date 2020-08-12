@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch /* Redirect */ } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Layout from "../Layout/index";
 import MainWrapper from "../App/MainWrapper";
 
@@ -108,6 +108,7 @@ const Customers = () => (
 
 const Router = ({ hasError }) => (
   <Switch>
+    <Redirect exact from="/" to="/login" />
     <Route exact path="/" component={LogIn} />
     <Route path="/login" component={LogIn} />
     <MainWrapper hasError={hasError}>
