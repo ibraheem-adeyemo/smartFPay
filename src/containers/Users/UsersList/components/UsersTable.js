@@ -163,7 +163,7 @@ const UsersTable = memo(props => {
     fetchData({
       ...allUsers.request,
       pageNumber: 1,
-      keyword: values.searchWord || ""
+      keyWord: values.searchWord || ""
     });
   };
 
