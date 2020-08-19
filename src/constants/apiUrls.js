@@ -96,8 +96,8 @@ export const API_URLS = {
     UNBLOCK_CARD: `${apiBaseUrl}/card-record/cards/unblock`
   },
   AUDIT: {
-    GET_AUDIT_REPORTS: `${apiBaseUrl}/reports`,
-    GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
+    GET_AUDIT_REPORTS: `${apiBaseUrl}/limit/download`,
+    // GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
   },
   ROLES: {
     GET_ALL_ROLES: `${apiBaseUrl}/role`,

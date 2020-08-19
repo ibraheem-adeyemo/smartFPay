@@ -11,7 +11,7 @@ const AuditList = ({ dispatch, allReports }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllAuditReports({ pageNum: 1, pageSize: 10 }));
+    dispatch(getAllAuditReports({ pageNumber: 1, pageSize: 10 }));
   }, [dispatch]);
 
   return (

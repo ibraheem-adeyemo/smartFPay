@@ -248,7 +248,7 @@ console.log('dataState', dataState)
               data={customerData}
               permissions={permissions}
               count={count}
-              countName="customers"
+              countName="Customers"
               defaultPageSize={10}
               defaultPageNumber={1}
               loadData={loadData}

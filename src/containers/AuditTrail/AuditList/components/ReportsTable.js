@@ -30,32 +30,39 @@ const ReportsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "User",
-      name: "User Name",
+      accessor: "accountNumber",
+      name: "Account Number",
       filterable: true,
       sortable: true,
-      sortKey: "userName"
+      sortKey: "accountNumber"
     },
     {
-      accessor: "email",
-      name: "Email",
+      accessor: "accountName",
+      name: "Account Name",
       filterable: true,
       sortable: true,
-      sortKey: "email"
+      sortKey: "accountName"
     },
     {
-        accessor: "Description",
-        name: "Description",
+        accessor: "limitType",
+        name: "Limit Type",
         filterable: true,
         sortable: true,
-        sortKey: "description"
+        sortKey: "limitType"
     },
     {
-        accessor: "Action",
-        name: "Action",
+        accessor: "startDate",
+        name: "Start date",
         filterable: true,
         sortable: true,
-        sortKey: "action"
+        sortKey: "startDate"
+    },
+    {
+        accessor: "endDate",
+        name: "End date",
+        filterable: true,
+        sortable: true,
+        sortKey: "endDate"
     },
   ];
 
@@ -69,27 +76,27 @@ const ReportsTable = memo(props => {
         ...allReports.request,
         pageNum,
         pageSize,
-        sortKey: column.sortKey,
-        sortOrder
+        // sortKey: column.sortKey,
+        // sortOrder
       });
     }
   };
 
   const actions = [
-    {
-      name: "view_reports",
-      btnText: "View",
-      btnClass: "success",
-      btnIcon: MdInsertDriveFile,
-      permissions: [VIEW_ADMIN]
-    },
+    // {
+    //   name: "view_reports",
+    //   btnText: "View",
+    //   btnClass: "success",
+    //   btnIcon: MdInsertDriveFile,
+    //   permissions: [VIEW_ADMIN]
+    // },
   ];
 
   const handleSubmit = values => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allReports.request,
-      pageNum: 1,
+      pageNumber: 1,
       searchWord: values.searchWord || ""
     });
   };
@@ -112,7 +119,7 @@ const ReportsTable = memo(props => {
               dataState && dataState.response ? dataState.response.content : []
             }
             count={count}
-            countName="Users"
+            countName="Reports"
             defaultPageSize={10}
             defaultPageNumber={1}
             loadData={loadData}
