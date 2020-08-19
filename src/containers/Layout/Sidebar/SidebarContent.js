@@ -6,7 +6,7 @@ import { menuConfig } from "./sidebarConfig";
 // import { checkPermissions } from "../../../utils/accessControl";
 import { connect } from "react-redux";
 
-const SidebarContent = ({ onClick, permissions }) => {
+const SidebarContent = ({ onClick, permissions = [] }) => {
   const hideSidebar = () => {
     onClick();
   };
@@ -69,5 +69,5 @@ SidebarLink.defaultProps = {
 };
 
 export default connect(state => ({
-  permissions: state.permissions && state.permissions.response.permissions
+  permissions: state.permissions && state.permissions.response?.permissions
 }))(SidebarContent);

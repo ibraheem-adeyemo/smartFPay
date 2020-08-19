@@ -57,7 +57,7 @@ class LogInForm extends Component {
       if(data.token){
         window.localStorage.setItem('pc-token', data.token)
         history.push('/dashboard')
-      } 
+      }
       console.log('Success:', data);
       this.setState({response: data, loading: false, showError: false})
     })
@@ -98,7 +98,7 @@ class LogInForm extends Component {
       <>
       {(showError || response?.reponseCode) ? (
                 <Alert color="danger">
-                  <p><strong>{response?.responseCode || 'Request failed'}</strong> : Try again later</p>
+                  <p><strong>{response?.responseCode || 'Request failed'}</strong> : {response?.responseMessage || 'Try again later'}</p>
                   {/* <p></p><strong>{error?.message}</strong>
                   <p>{`${errorTitle}` || ''}</p> */}
                   {/* <p>
