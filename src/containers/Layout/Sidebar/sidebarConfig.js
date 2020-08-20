@@ -5,10 +5,10 @@ import {
   MdCreditCard,
   MdPeople,
   MdSettings,
-  MdFileDownload,
+  MdLockOutline,
   MdSwapHoriz
 } from "react-icons/md";
-import {GrDocument} from 'react-icons/gr';
+// import {BiShieldQuarter} from 'react-icons/bi';
 import {AiOutlineAudit} from "react-icons/ai";
 import { permissionsConstants } from "../../../constants/permissions.constants";
 
@@ -63,6 +63,13 @@ export const menuConfig = {
       path: "/view-transactions",
       permissions: [VIEW_ADMIN],
       icon: MdSwapHoriz
+    },
+    {
+      title: "Generate Token",
+      key: "token",
+      path: "/generate-token",
+      permissions: [VIEW_ADMIN],
+      icon: MdLockOutline
     },
     {
       category: true,
