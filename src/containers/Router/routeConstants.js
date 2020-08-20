@@ -217,7 +217,7 @@ export const TransactionRoutes = {
       exact: false,
       icon: null,
       name: "TransactionReport",
-      path: "/transaction-report",
+      path: "/view-transactions",
       menu: true,
       pageComponent: AuditTrail,
       enabled: true,

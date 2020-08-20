@@ -8,7 +8,9 @@ import {
   LimitRequestRoutes,
   CustomerRoutes,
   AuditTrailRoutes,
-  RolesRoutes
+  RolesRoutes,
+  TransactionRoutes,
+  TokenRoutes
 } from "./routeConstants";
 import Dashboard from "../Dashboard";
 import PermissionedRoute from "./PermissionedRoute";
@@ -88,6 +90,42 @@ const Reports = () => (
   </Switch>
 );
 
+const Transactions = () => (
+  <Switch>
+    {TransactionRoutes.enabled &&
+      TransactionRoutes.routes.map(route =>
+        route.enabled ? (
+          <PermissionedRoute
+            key={route.key}
+            exact={route.exact}
+            allowedPermissions={route.permissions}
+            path={route.path}
+            name={route.name}
+            component={route.pageComponent}
+          />
+        ) : null
+      )}
+  </Switch>
+);
+
+const Token = () => (
+  <Switch>
+    {TokenRoutes.enabled &&
+      TokenRoutes.routes.map(route =>
+        route.enabled ? (
+          <PermissionedRoute
+            key={route.key}
+            exact={route.exact}
+            allowedPermissions={route.permissions}
+            path={route.path}
+            name={route.name}
+            component={route.pageComponent}
+          />
+        ) : null
+      )}
+  </Switch>
+);
+
 const Customers = () => (
   <Switch>
     {CustomerRoutes.enabled &&
@@ -124,7 +162,9 @@ const Router = ({ hasError }) => (
             <Route path="/report" component={Reports} />
             <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
-            <Route path="/roles-form" component={RoleForm} />
+            <Route path="/view-transactions" component={Transactions} />
+            <Route path="/generate-token" component={Token} />
+            {/* <Route path="/roles-form" component={RoleForm} /> */}
             {/* <PermissionedRoute
               path="/admin-management"
               allowedPermissions={[permissionsConstants.VIEW_CARD_STATEMENT]}
