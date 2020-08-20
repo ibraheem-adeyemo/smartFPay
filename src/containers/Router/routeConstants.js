@@ -207,6 +207,25 @@ export const AuditTrailRoutes = {
   ]
 }
 
+export const TransactionRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "transactionreport",
+      title: "Transaction Report",
+      exact: false,
+      icon: null,
+      name: "TransactionReport",
+      path: "/transaction-report",
+      menu: true,
+      pageComponent: AuditTrail,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+  ]
+}
+
 export const RolesRoutes = {
   enabled: true,
   menu: true,

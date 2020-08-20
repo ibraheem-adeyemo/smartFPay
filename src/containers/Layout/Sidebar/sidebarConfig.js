@@ -5,8 +5,11 @@ import {
   MdCreditCard,
   MdPeople,
   MdSettings,
-  MdFileDownload
+  MdFileDownload,
+  MdSwapHoriz
 } from "react-icons/md";
+import {GrDocument} from 'react-icons/gr';
+import {AiOutlineAudit} from "react-icons/ai";
 import { permissionsConstants } from "../../../constants/permissions.constants";
 
 const {
@@ -52,7 +55,14 @@ export const menuConfig = {
       key: "audit-trail",
       path: "/view-report",
       permissions: [VIEW_ADMIN],
-      icon: MdFileDownload
+      icon: AiOutlineAudit
+    },
+    {
+      title: "Transactions",
+      key: "transactions",
+      path: "/view-transactions",
+      permissions: [VIEW_ADMIN],
+      icon: MdSwapHoriz
     },
     {
       category: true,
