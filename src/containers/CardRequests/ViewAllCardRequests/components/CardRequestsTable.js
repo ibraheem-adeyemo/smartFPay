@@ -198,7 +198,7 @@ const CardRequestsTable = memo(
               actions={actions}
               customSearch={
                 <CustomSearch
-                  pageNumer={1}
+                  pageNumber={1}
                   initialValues={{
                     pageNumber: 1,
                     pageSize: 10,

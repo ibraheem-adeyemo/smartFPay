@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import SidebarLink from "./SidebarLink";
 import SidebarCategory from "./SidebarCategory";
 import { menuConfig } from "./sidebarConfig";
-// import { checkPermissions } from "../../../utils/accessControl";
+import { checkPermissions } from "../../../utils/accessControl";
 import { connect } from "react-redux";
 
 const SidebarContent = ({ onClick, permissions = [] }) => {
@@ -13,7 +13,7 @@ const SidebarContent = ({ onClick, permissions = [] }) => {
 
   const renderSidebarLink = menu => (
     <Fragment key={menu.title}>
-      {/* {checkPermissions(permissions, menu.permissions) && ( */}
+      {checkPermissions(permissions, menu.permissions) && (
         <SidebarLink
           id={menu.key}
           key={menu.key}
@@ -22,7 +22,7 @@ const SidebarContent = ({ onClick, permissions = [] }) => {
           route={menu.path}
           onClick={hideSidebar}
         />
-      {/* )} */}
+      )}
     </Fragment>
   );
 
@@ -55,7 +55,7 @@ const SidebarContent = ({ onClick, permissions = [] }) => {
           )}
         </Fragment>
       ))}
-      <div style={{color: "#fff", padding: "0.7rem", marginTop: "3rem"}}>Powered By Interswitch</div>
+      {/* <div style={{color: "#fff", padding: "0.7rem", marginTop: "3rem"}}>Powered By Interswitch</div> */}
     </div>
   );
 };

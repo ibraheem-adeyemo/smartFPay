@@ -12,6 +12,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
+import CustomFilter from "./CustomFilter";
 
 const {
   VIEW_ADMIN
@@ -97,12 +98,18 @@ const ReportsTable = memo(props => {
     fetchData({
       ...allReports.request,
       pageNumber: 1,
-      searchWord: values.searchWord || ""
+      accountName: values.accountName,
+      accountNumber: values.accountNumber,
+      startDate: values.startDate,
+      enddate: values.endDate,
+      enabledChannel: values.enabledChannel,
+      enabledCountry: values.enabledCountry
+      // searchWord: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allReports.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData({ ...allReports.request, pageNumber, pageSize, searchWord: searchKey });
   };
 
   return (
@@ -131,12 +138,17 @@ const ReportsTable = memo(props => {
             actions={actions}
             responsive
             customSearch={
-              <CustomSearch
-                pageNumer={1}
+              <CustomFilter
+                pageNumber={1}
                 initialValues={{
                   pageNumber: 1,
                   pageSize: 10,
-                  searchKey: ""
+                  accountNumber: "",
+                  accountName: "",
+                  endDate: "",
+                  startDate: "",
+                  enabledCountry: "",
+                  enabledChannel: ""
                 }}
                 pageSize={10}
                 onSubmit={handleSubmit}
