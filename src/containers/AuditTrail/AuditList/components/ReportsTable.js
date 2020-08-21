@@ -93,17 +93,16 @@ const ReportsTable = memo(props => {
     // },
   ];
 
-  const handleSubmit = values => {
+  const handleFilter = values => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allReports.request,
       pageNumber: 1,
-      accountName: values.accountName,
-      accountNumber: values.accountNumber,
+      email: values.email,
+      action: values.action,
       startDate: values.startDate,
       enddate: values.endDate,
-      enabledChannel: values.enabledChannel,
-      enabledCountry: values.enabledCountry
+      createdBy: values.createdBy,
       // searchWord: values.searchWord || ""
     });
   };
@@ -143,15 +142,14 @@ const ReportsTable = memo(props => {
                 initialValues={{
                   pageNumber: 1,
                   pageSize: 10,
-                  accountNumber: "",
-                  accountName: "",
+                  email: "",
+                  action: "",
                   endDate: "",
                   startDate: "",
-                  enabledCountry: "",
-                  enabledChannel: ""
+                  createdBy: "",
                 }}
                 pageSize={10}
-                onSubmit={handleSubmit}
+                handleFilter={handleFilter}
               />
             }
             sortFn={sortFn}

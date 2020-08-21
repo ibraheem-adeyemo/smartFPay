@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-import { MdSearch } from "react-icons/md";
-import { Row, Col, Button } from "reactstrap";
+import { MdSearch, MdFilterList, MdFileDownload } from "react-icons/md";
+import { Row, Col, Button, ButtonToolbar } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
@@ -13,17 +13,17 @@ const CustomFilter = props => {
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
       {/* <Col> */}
-        <form className="form" onSubmit={props.handleSubmit}>
+        <form className="form" onSubmit={props.handleFilter}>
             <Row>
                 <Col lg="3">
           <div className="form__form-group">
           <div className="form__form-group-field">
                           <Field
-                            id="accountNumber"
-                            name="accountNumber"
+                            id="email"
+                            name="email"
                             component={renderField}
-                            type="text"
-                            placeholder="Account Number"
+                            type="email"
+                            placeholder="Email Address"
                           />
             {/* <div className="form__form-group-field">
               <Field
@@ -47,11 +47,11 @@ const CustomFilter = props => {
           <div className="form__form-group">
             <div className="form__form-group-field">
             <Field
-                            id="accountName"
-                            name="accountName"
+                            id="createdBy"
+                            name="createdBy"
                             component={renderField}
                             type="text"
-                            placeholder="Account Name"
+                            placeholder="Actor"
                           />
               {/* <button type="submit" className={`form__form-group-button`}>
                 <MdSearch />
@@ -97,9 +97,9 @@ const CustomFilter = props => {
           <div className="form__form-group">
             <div className="form__form-group-field">
             <Field
-                            id="enabledCountry"
-                            name="enabledCountry"
-                            placeholder="Enabled Country"
+                            id="action"
+                            name="action"
+                            placeholder="User Action"
                             component={renderSelectField}
                             options={COUNTRIES}
                             valueKey="alpha3Code"
@@ -108,26 +108,30 @@ const CustomFilter = props => {
                           </div>
                           </div>
           </Col>
-          <Col lg="3">
-          <div className="form__form-group">
-            <div className="form__form-group-field">
-          
-            <Field
-                            id="enabledChannel"
-                            name="enabledChannel"
-                            placeholder="Enabled Channel"
-                            component={renderSelectField}
-                            options={CHANNELS_OPTIONS}
-                            valueKey="value"
-                            labelKey="label"
-                          />
-                          </div>
-                          </div>
-          </Col>
-          <Col lg={{size: 3, offset: 3}} style={{textAlign: "right"}}>
-          <Button color="primary">
-                  FIlter
-              </Button>
+          <Col lg={{size: 6, offset: 3}} style={{textAlign: "right"}}>
+                    <Button
+                      type="button"
+                      id="reset-form"
+                      onClick={props.handleFilter}
+                      // disabled={pristine || submitting}
+                    >
+                      {true && <span style={{marginRight:"5px"}}><MdFilterList /></span>}
+                      Filter
+                    </Button>
+                    <Button
+                      color="primary"
+                      id="submit-btn"
+                      type="submit"
+                      // disabled={submitting || invalid}
+                    >
+                      {/* {postuser?.loading ? (
+                        <span>
+                          <Spinner size="sm" color="default" />{" "}
+                        </span>
+                      ) : null} */}
+                      {true && <span style={{marginRight:"5px"}}><MdFileDownload /></span>}
+                      Download
+                    </Button>
           </Col>
               
           </Row>
