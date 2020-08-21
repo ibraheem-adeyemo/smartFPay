@@ -1,7 +1,7 @@
-import React from "react";
+import React, {memo} from "react";
 import { Field, reduxForm } from "redux-form";
 import { MdSearch, MdFilterList, MdFileDownload } from "react-icons/md";
-import { Row, Col, Button, ButtonToolbar } from "reactstrap";
+import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
@@ -9,7 +9,12 @@ import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
 
-const CustomFilter = props => {
+const CustomFilter = memo(props => {
+  const {
+    submitting,
+    pristine,
+    invalid
+  } = props;
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
       {/* <Col> */}
@@ -110,26 +115,22 @@ const CustomFilter = props => {
           </Col>
           <Col lg={{size: 6, offset: 3}} style={{textAlign: "right"}}>
                     <Button
+                    color="primary"
                       type="button"
-                      id="reset-form"
+                      id="filter-form"
                       onClick={props.handleFilter}
-                      // disabled={pristine || submitting}
+                      disabled={submitting || invalid}
                     >
-                      {true && <span style={{marginRight:"5px"}}><MdFilterList /></span>}
+                      {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
                       Filter
                     </Button>
                     <Button
                       color="primary"
                       id="submit-btn"
                       type="submit"
-                      // disabled={submitting || invalid}
+                      disabled={submitting || invalid}
                     >
-                      {/* {postuser?.loading ? (
-                        <span>
-                          <Spinner size="sm" color="default" />{" "}
-                        </span>
-                      ) : null} */}
-                      {true && <span style={{marginRight:"5px"}}><MdFileDownload /></span>}
+                      {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFileDownload /> </span>}
                       Download
                     </Button>
           </Col>
@@ -139,7 +140,7 @@ const CustomFilter = props => {
       {/* </Col> */}
     </Row>
   );
-};
+});
 
 export default reduxForm({
   form: "custom_search",

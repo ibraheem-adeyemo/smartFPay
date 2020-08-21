@@ -1,7 +1,7 @@
-import React from "react";
+import React, {memo} from "react";
 import { Field, reduxForm } from "redux-form";
-import { MdSearch } from "react-icons/md";
-import { Row, Col, Button } from "reactstrap";
+import { MdFileDownload, MdFilterList } from "react-icons/md";
+import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
 import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
@@ -9,7 +9,10 @@ import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
 
-const CustomFilter = props => {
+const CustomFilter = memo(props => {
+  const {
+    submitting, invalid
+  } = props;
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
       {/* <Col> */}
@@ -124,10 +127,26 @@ const CustomFilter = props => {
                           </div>
                           </div>
           </Col>
-          <Col lg={{size: 3, offset: 3}} style={{textAlign: "right"}}>
-          <Button color="primary">
-                  FIlter
-              </Button>
+          <Col style={{textAlign: "right"}}>
+          <Button
+                    color="primary"
+                      type="button"
+                      id="filter-form"
+                      onClick={props.handleFilter}
+                      disabled={submitting || invalid}
+                    >
+                      {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
+                      Filter
+                    </Button>
+                    <Button
+                      color="primary"
+                      id="submit-btn"
+                      type="submit"
+                      disabled={submitting || invalid}
+                    >
+                      {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFileDownload /> </span>}
+                      Download
+                    </Button>
           </Col>
               
           </Row>
@@ -135,7 +154,7 @@ const CustomFilter = props => {
       {/* </Col> */}
     </Row>
   );
-};
+});
 
 export default reduxForm({
   form: "custom_filter",
