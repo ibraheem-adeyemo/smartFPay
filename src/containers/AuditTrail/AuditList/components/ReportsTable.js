@@ -13,6 +13,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
 import CustomFilter from "./CustomFilter";
+import {createFilterRequestBody} from "../../factories/audit.factory";
 
 const {
   VIEW_ADMIN
@@ -96,26 +97,32 @@ const ReportsTable = memo(props => {
   ];
 
   const handleFilter = () => {
-    fetchData({
-      ...dataState.request,
-      pageNumber: 1,
+    let requestBody = createFilterRequestBody({
       email: values.email,
       action: values.action,
       startDate: values.startDate,
-      enddate: values.endDate,
+      endDate: values.endDate,
       createdBy: values.createdBy,
+    });
+    fetchData({
+      ...dataState.request,
+      pageNumber: 1,
+      ...requestBody
     });
   };
 
   const handleDownload = () => {
-    download({
-      ...dataState.request,
-      pageNumber: 1,
+    let requestBody = createFilterRequestBody({
       email: values.email,
       action: values.action,
       startDate: values.startDate,
-      enddate: values.endDate,
+      endDate: values.endDate,
       createdBy: values.createdBy,
+    });
+    download({
+      ...dataState.request,
+      pageNumber: 1,
+      ...requestBody
     });
   }; 
 
