@@ -97,7 +97,7 @@ export const API_URLS = {
   },
   AUDIT: {
     GET_AUDIT_REPORTS: `${apiBaseUrl}/audit/logs`,
-    // GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
+    DOWNLOAD_AUDIT_REPORT: `${apiBaseUrl}/audit/download`,
   },
   ROLES: {
     GET_ALL_ROLES: `${apiBaseUrl}/role`,

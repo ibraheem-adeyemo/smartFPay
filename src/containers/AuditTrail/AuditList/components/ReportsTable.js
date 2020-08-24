@@ -23,7 +23,9 @@ const ReportsTable = memo(props => {
     dataState,
     fetchData,
     permissions,
-    allReports
+    allReports,
+    download,
+    values
   } = props;
 
   const [searchKey, setSearchKey] = useState("");
@@ -31,21 +33,21 @@ const ReportsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "accountNumber",
+      accessor: "email",
       name: "Account Number",
       filterable: true,
       sortable: true,
       sortKey: "accountNumber"
     },
     {
-      accessor: "accountName",
+      accessor: "action",
       name: "Account Name",
       filterable: true,
       sortable: true,
       sortKey: "accountName"
     },
     {
-        accessor: "limitType",
+        accessor: "createdBy",
         name: "Limit Type",
         filterable: true,
         sortable: true,
@@ -93,22 +95,34 @@ const ReportsTable = memo(props => {
     // },
   ];
 
-  const handleFilter = values => {
-    setSearchKey(values.searchWord);
+  let filterValues = {};
+
+  const handleFilter = () => {
     fetchData({
-      ...allReports.request,
+      ...dataState.request,
       pageNumber: 1,
       email: values.email,
       action: values.action,
       startDate: values.startDate,
       enddate: values.endDate,
       createdBy: values.createdBy,
-      // searchWord: values.searchWord || ""
     });
   };
 
+  const handleDownload = () => {
+    download({
+      ...dataState.request,
+      pageNumber: 1,
+      email: values.email,
+      action: values.action,
+      startDate: values.startDate,
+      enddate: values.endDate,
+      createdBy: values.createdBy,
+    });
+  }; 
+
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allReports.request, pageNumber, pageSize, searchWord: searchKey });
+    fetchData({ ...allReports.request, ...filterValues, pageNumber, pageSize });
   };
 
   return (
@@ -149,7 +163,10 @@ const ReportsTable = memo(props => {
                   createdBy: "",
                 }}
                 pageSize={10}
+                email= ""
+                action= ""
                 handleFilter={handleFilter}
+                handleDownload={handleDownload}
               />
             }
             sortFn={sortFn}
@@ -163,7 +180,7 @@ const ReportsTable = memo(props => {
 });
 
 export default connect(state => ({
-  searchValues: getFormValues("custom_search")(state),
+  values: getFormValues("reports_custom_filter")(state),
   permissions: state.permissions && state.permissions.response,
   allReports: state.getauditreports
 }))(withRouter(ReportsTable));

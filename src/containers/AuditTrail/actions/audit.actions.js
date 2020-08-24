@@ -32,6 +32,35 @@ export const getAllAuditReports = requestParams => {
   }
 };
 
+export const downloadAuditReport = requestParams => {
+  return async dispatch => {
+    dispatch(request(requestParams));
+    try {
+      const response = await auditService.downloadAuditReport(requestParams);
+      response && dispatch(success(response));
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          "Failed to download report",
+          error ? error : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request(request) {
+    return { type: auditConstants[`DOWNLOAD_${nameSpace}_REQUEST`], request };
+  }
+  function success(response) {
+    return { type: auditConstants[`DOWNLOAD_${nameSpace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: auditConstants[`DOWNLOAD_${nameSpace}_FAILURE`], error };
+  }
+};
+
 export const getAuditReport = id => {
   return async dispatch => {
     dispatch(request(id));

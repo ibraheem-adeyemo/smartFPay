@@ -17,8 +17,7 @@ const CustomFilter = memo(props => {
   } = props;
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
-      {/* <Col> */}
-        <form className="form" onSubmit={props.handleFilter}>
+        <form className="form" onSubmit={props.handleDownload}>
             <Row>
                 <Col lg="3">
           <div className="form__form-group">
@@ -30,21 +29,6 @@ const CustomFilter = memo(props => {
                             type="email"
                             placeholder="Email Address"
                           />
-            {/* <div className="form__form-group-field">
-              <Field
-                name="pageNumber"
-                component="div"
-              />
-              <Field
-                name="pageSize"
-                component="div"
-              />
-              <Field
-                name="accountNumber"
-                component="input"
-                placeholder="Account Number"
-              />
-              </div> */}
               </div>
               </div>
               </Col>
@@ -58,9 +42,6 @@ const CustomFilter = memo(props => {
                             type="text"
                             placeholder="Actor"
                           />
-              {/* <button type="submit" className={`form__form-group-button`}>
-                <MdSearch />
-              </button> */}
             </div>
           </div></Col>
           <Col lg="3">
@@ -127,7 +108,8 @@ const CustomFilter = memo(props => {
                     <Button
                       color="primary"
                       id="submit-btn"
-                      type="submit"
+                      type="button"
+                      onClick={props.handleDownload}
                       disabled={submitting || invalid}
                     >
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFileDownload /> </span>}
@@ -137,13 +119,12 @@ const CustomFilter = memo(props => {
               
           </Row>
         </form>
-      {/* </Col> */}
     </Row>
   );
 });
 
 export default reduxForm({
-  form: "custom_search",
+  form: "reports_custom_filter",
   validate,
   enableReinitialize: true
 })(CustomFilter);
