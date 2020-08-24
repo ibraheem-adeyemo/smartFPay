@@ -95,8 +95,6 @@ const ReportsTable = memo(props => {
     // },
   ];
 
-  let filterValues = {};
-
   const handleFilter = () => {
     fetchData({
       ...dataState.request,
@@ -122,7 +120,7 @@ const ReportsTable = memo(props => {
   }; 
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allReports.request, ...filterValues, pageNumber, pageSize });
+    fetchData({ ...allReports.request, pageNumber, pageSize });
   };
 
   return (

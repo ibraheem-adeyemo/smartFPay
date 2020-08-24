@@ -16,6 +16,7 @@ import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { accessControlFn } from "../../../../utils/accessControl";
 import { getFormValues } from "redux-form";
+import { createFilterRequestBody } from "../../factories/limit.factory";
 
 const {
   CREATE_CONTROL,
@@ -37,7 +38,9 @@ const LimitsTable = memo(props => {
     toggleaccount,
     togglecard,
     permissions = [],
-    allControls
+    allControls,
+    download,
+    values
   } = props;
 
   const [searchKey, setSearchKey] = useState("");
@@ -193,12 +196,30 @@ const LimitsTable = memo(props => {
     }
   ];
 
-  const handleSubmit = values => {
-    setSearchKey(values.searchWord);
+  const handleFilter = () => {
+    let requestBody = createFilterRequestBody({accountNumber: values.accountNumber,
+      accountName: values.accountName,
+      startDate: values.startDate,
+      enddate: values.endDate,
+      enabledChannel: values.enabledChannel,
+      enabledCountry: values.enabledCountry});
     fetchData({
-      ...allControls.request,
+      ...dataState.request,
       pageNumber: 1,
-      accountNumber: values.searchWord || ""
+      ...requestBody
+    });
+  };
+
+  const handleDownload = () => {
+    download({
+      ...dataState.request,
+      pageNumber: 1,
+      accountNumber: values.accountNumber,
+      accountName: values.accountName,
+      startDate: values.startDate,
+      endDate: values.endDate,
+      enabledChannel: values.enabledChannel,
+      enabledCountry: values.enabledCountry
     });
   };
 
@@ -283,7 +304,8 @@ const LimitsTable = memo(props => {
                   enabledChannel: ""
                 }}
                 pageSize={10}
-                onSubmit={handleSubmit}
+                handleFilter={handleFilter}
+                handleDownload={handleDownload}
               />
             }
             sortFn={sortFn}
@@ -297,7 +319,7 @@ const LimitsTable = memo(props => {
 });
 
 export default connect(state => ({
-  searchValues: getFormValues("custom_search")(state),
+  values: getFormValues("limits_custom_filter")(state),
   permissions: state.permissions && state.permissions.response?.permissions,
   allControls: state.getcontrols,
   toggleaccount: state.toggleaccount,

@@ -34,6 +34,8 @@ export const API_URLS = {
 
     ENABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/enable`,
     DISABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/disable`,
+
+    DOWNLOAD_CONTROLS: `${apiBaseUrl}/limit/download`,
   },
   CUSTOMERS: {
     POST_CUSTOMER: `${apiBaseUrl}/customers/create`,

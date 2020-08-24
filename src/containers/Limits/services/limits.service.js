@@ -7,13 +7,24 @@ export const limitService = {
   postCardControl,
   toggleAccountLimit,
   toggleCardLimit,
-  getControl
+  getControl,
+  downloadControls
 };
 
 function getAllControls(params) {
   return apiCall(
     "GET",
     API_URLS.LIMITS.GET_CONTROLS,
+    null,
+    null,
+    params
+  );
+}
+
+function downloadControls(params) {
+  return apiCall(
+    "GET",
+    API_URLS.LIMITS.DOWNLOAD_CONTROLS,
     null,
     null,
     params
