@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
-import { resetChannelToken } from "../../actions/token.actions";
+import { resetChannelToken, generateChannelToken } from "../../actions/token.actions";
 import validate from "./validate";
 
 const ChannelTokenForm = memo(props => {
@@ -86,6 +86,8 @@ const ChannelTokenForm = memo(props => {
               </Button>
             </ButtonToolbar>
           </form>
+
+              {generatechanneltoken.response.token && <h4>{generatechanneltoken.response?.token}</h4>}
         </CardBody>
       </Card>
     </Col>
