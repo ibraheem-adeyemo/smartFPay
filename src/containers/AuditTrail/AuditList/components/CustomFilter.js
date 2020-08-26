@@ -51,7 +51,7 @@ const CustomFilter = memo(props => {
                             id="startDate"
                             name="startDate"
                             dateFormat="dd-MM-yyyy h:mm:ss"
-                            minDate={new Date()}
+                            minDate={new Date('October 1, 1960 00:00:00')}
                             timeFormat="HH:mm"
                             showTimeInput={true}
                             component={renderDatePickerField}
@@ -68,7 +68,7 @@ const CustomFilter = memo(props => {
                             id="endDate"
                             name="endDate"
                             dateFormat="dd-MM-yyyy h:mm:ss"
-                            minDate={new Date()}
+                            minDate={new Date('October 1, 1960 00:00:00')}
                             timeFormat="HH:mm"
                             showTimeInput={true}
                             component={renderDatePickerField}
