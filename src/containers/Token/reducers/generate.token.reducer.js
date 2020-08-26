@@ -10,13 +10,13 @@ const initialState = {
 
 export const generatechanneltoken = (state = initialState, action) => {
   switch (action.type) {
-    case tokenConstants[`${nameSpace}_REQUEST`]:
+    case `GENERATE_CHANNEL_TOKEN_REQUEST`:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case tokenConstants[`${nameSpace}_SUCCESS`]:
+    case `GENERATE_CHANNEL_TOKEN_SUCCESS`:
       return {
         ...state,
         loading: false,
@@ -24,14 +24,14 @@ export const generatechanneltoken = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case tokenConstants[`${nameSpace}_FAILURE`]:
+    case `GENERATE_CHANNEL_TOKEN_FAILURE`:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case tokenConstants[`GENERATE_RESET`]:
+    case `GENERATE_CHANNEL_TOKEN_RESET`:
       return {
         ...state,
         ...initialState

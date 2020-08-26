@@ -5,7 +5,7 @@ import { generateChannelToken, resetChannelToken } from "../actions/token.action
 import HorizontalForm from './components/ChannelTokenForm';
 import PageHeader from "../../../shared/components/PageHeader";
 
-const ChannelTokenForm = ({ dispatch, match, location, history }) => {
+const ChannelTokenForm = ({ dispatch, location, history }) => {
   const generateToken = values => {
     dispatch(
       generateChannelToken(values)
@@ -13,32 +13,10 @@ const ChannelTokenForm = ({ dispatch, match, location, history }) => {
   };
 
   useEffect(()=> {
-    // return () => {
-    //   dispatch(resetChannelToken());
-    // };
+    return () => {
+      dispatch(resetChannelToken());
+    };
   }, [dispatch]);
-
-  const createFormData = role => {
-    let roleData;
-    const hasRole = match.params.id && location.state?.role;
-    const roleObj = hasRole ? location.state?.role : null;
-    let permissions = [];
-    if(roleObj?.permissions) {
-      for(let i = 0; i < roleObj.permissions.length; ++i) {
-        permissions.push({name: roleObj.permissions[i].name});
-      }
-    }
-    if(roleObj) {
-      roleData = {
-        id: roleObj.id,
-        role_name: roleObj.name,
-        permissions
-      }
-    }
-    return roleData;
-  }
-
-  console.log(location);
 
   return (
     <Container>
@@ -47,7 +25,7 @@ const ChannelTokenForm = ({ dispatch, match, location, history }) => {
       />
       <Row>
         <HorizontalForm
-          onSubmit={generateChannelToken}
+          onSubmit={generateToken}
         />
       </Row>
     </Container>

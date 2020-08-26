@@ -189,7 +189,7 @@ const CustomFilter = memo(props => {
                           </div>
                           </div>
           </Col>
-          <Col lg={{size: 3, offset: 9}} style={{textAlign: "right"}}>
+          <Col lg={{size: 6, offset: 6}} style={{textAlign: "right"}}>
                     <Button
                     color="primary"
                       type="button"

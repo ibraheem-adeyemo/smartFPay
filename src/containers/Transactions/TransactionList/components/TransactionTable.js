@@ -216,7 +216,7 @@ const TransactionsTable = memo(props => {
             columns={columns}
             loading={dataState && dataState.loading}
             data={
-              dataState && dataState.response ? dataState.response.content : someTableData
+              dataState && dataState.response ? dataState.response.data : []
             }
             count={count}
             countName="Transactions"

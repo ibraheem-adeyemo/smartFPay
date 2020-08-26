@@ -4,10 +4,11 @@ import { message } from "../../../constants/app.constants";
 import { tokenConstants, nameSpace } from "../constants/token.constants";
 
 export const generateChannelToken = (values) => {
+  console.log('GENERATE_CHANNEL_TOKEN_RESET', values)
   return async dispatch => {
-    dispatch(request(values.channel));
+    dispatch(request({channel: values.channel}));
     try {
-      const response = await tokenService.generateChannelToken(values.channel);
+      const response = await tokenService.generateChannelToken({channel: values.channel});
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
@@ -22,16 +23,16 @@ export const generateChannelToken = (values) => {
   };
 
   function request(request) {
-    return { type: tokenConstants[`${nameSpace}_REQUEST`], request };
+    return { type: `GENERATE_CHANNEL_TOKEN_REQUEST`, request };
   }
   function success(response) {
-    return { type: tokenConstants[`${nameSpace}_SUCCESS`], response };
+    return { type: `GENERATE_CHANNEL_TOKEN_SUCCESS`, response };
   }
   function failure(error) {
-    return { type: tokenConstants[`${nameSpace}_FAILURE`], error };
+    return { type: `GENERATE_CHANNEL_TOKEN_FAILURE`, error };
   }
 };
 
 export const resetChannelToken = () => {
-  return { type: tokenConstants[`GENERATE_RESET`] };
+  return { type: `GENERATE_CHANNEL_TOKEN_RESET` };
 };

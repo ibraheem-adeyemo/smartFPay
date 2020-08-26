@@ -44,13 +44,6 @@ const ChannelTokenForm = memo(props => {
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
-          <div className="card__title">
-            <h5 className="bold-text">
-              <Link to="/roles">
-                <MdArrowBack size={20} /> Back to roles
-              </Link>
-            </h5>
-          </div>
           <form className="form" onSubmit={handleSubmit}>
           {generatechanneltoken?.error?.errors?.length ? (
                     <UncontrolledAlert color="danger">
@@ -67,7 +60,7 @@ const ChannelTokenForm = memo(props => {
                   <div className="form__form-group-field">
                     <Field
                       id = "channel"
-                      name="channnel"
+                      name="channel"
                       component={renderField}
                       disabled={disabled}
                       type="text"
