@@ -34,39 +34,46 @@ const ReportsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "email",
-      name: "Account Number",
+      accessor: "clientIp",
+      name: "Client Ip",
       filterable: true,
       sortable: true,
-      sortKey: "accountNumber"
+      sortKey: "clientIp"
     },
     {
       accessor: "action",
-      name: "Account Name",
+      name: "Action",
       filterable: true,
       sortable: true,
-      sortKey: "accountName"
+      sortKey: "action"
     },
     {
-        accessor: "createdBy",
-        name: "Limit Type",
-        filterable: true,
-        sortable: true,
-        sortKey: "limitType"
+      accessor: "createdBy",
+      name: "Action Initiator",
+      filterable: true,
+      sortable: true,
+      sortKey: "createdBy"
     },
     {
-        accessor: "startDate",
-        name: "Start date",
+        accessor: "logDate",
+        name: "Log date",
         filterable: true,
         sortable: true,
-        sortKey: "startDate"
+        sortKey: "logDate"
     },
     {
-        accessor: "endDate",
-        name: "End date",
+        accessor: "previousDataExist",
+        name: "Prior Existence",
         filterable: true,
         sortable: true,
-        sortKey: "endDate"
+        sortKey: "previousDataExist"
+    },
+    {
+        accessor: "actionStatus",
+        name: "Action Status",
+        filterable: true,
+        sortable: true,
+        sortKey: "actionStatus"
     },
   ];
 
@@ -135,13 +142,13 @@ const ReportsTable = memo(props => {
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Reports</h5>
+            <h5 className="bold-text">Audit Reports</h5>
           </div>
           <DataTable
             columns={columns}
             loading={dataState && dataState.loading}
             data={
-              dataState && dataState.response ? dataState.response.content : []
+              dataState?.response ? dataState.response.data : []
             }
             count={count}
             countName="Reports"
@@ -153,7 +160,6 @@ const ReportsTable = memo(props => {
             striped={true}
             hover={true}
             permissions={permissions}
-            actions={actions}
             responsive
             customSearch={
               <CustomFilter

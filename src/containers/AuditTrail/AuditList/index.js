@@ -21,7 +21,7 @@ const AuditList = ({ dispatch, allReports }) => {
   return (
     <Container>
       <PageHeader
-        header="Manage Reports"
+        header="Manage Audit Reports"
         subheader="View Audit information"
       />
       <Row>

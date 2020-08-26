@@ -65,9 +65,9 @@ export const menuConfig = {
       icon: MdSwapHoriz
     },
     {
-      title: "Generate Token",
-      key: "token",
-      path: "/generate-token",
+      title: "Channel Token",
+      key: "channeltoken",
+      path: "/channel-token",
       permissions: [VIEW_ADMIN],
       icon: MdLockOutline
     },

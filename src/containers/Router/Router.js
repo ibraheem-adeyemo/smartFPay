@@ -163,7 +163,7 @@ const Router = ({ hasError }) => (
             <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
             <Route path="/view-transactions" component={Transactions} />
-            <Route path="/generate-token" component={Token} />
+            <Route path="/channel-token" component={Token} />
             {/* <Route path="/roles-form" component={RoleForm} /> */}
             {/* <PermissionedRoute
               path="/admin-management"

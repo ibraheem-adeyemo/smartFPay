@@ -26,6 +26,8 @@ import CardLimitForm from "../Limits/CardLimitForm";
 import ViewLimit from "../Limits/LimitView";
 import ViewRole from "../Roles/RoleView";
 
+import ChannelTokenForm from "../Token/ChannelTokenForm";
+
 const {
   CREATE_CONTROL,
   CREATE_CUSTOMER,
@@ -233,14 +235,14 @@ export const TokenRoutes = {
   menu: true,
   routes: [
     {
-      key: "generatetoken",
-      title: "Generate Token",
+      key: "channeltoken",
+      title: "Channel Token",
       exact: false,
       icon: null,
-      name: "GenerateToken",
-      path: "/generate-token",
+      name: "ChannelToken",
+      path: "/channel-token",
       menu: true,
-      pageComponent: AuditTrail,
+      pageComponent: ChannelTokenForm,
       enabled: true,
       permissions: [VIEW_ADMIN]
     },

@@ -41,6 +41,7 @@ import { getCustomers, getCustomer, createCustomer, togglecustomer } from "./con
 import { getCardRecords, getCardRecord, pinReissue, blockCard, unblockCard } from "./containers/CardRecords/reducers";
 import { getauditreports, downloadauditreports } from "./containers/AuditTrail/reducers";
 import {gettransactionreport, downloadtransactionreport} from "./containers/Transactions/reducers";
+import {generatechanneltoken} from "./containers/Token/reducers";
 
 export default combineReducers({
   form: reduxFormReducer,
@@ -92,5 +93,7 @@ export default combineReducers({
   getauditreports,
 
   gettransactionreport,
-  downloadtransactionreport
+  downloadtransactionreport,
+
+  generatechanneltoken,
 });

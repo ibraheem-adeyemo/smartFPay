@@ -1,4 +1,5 @@
 import { appConfig } from "../config/config";
+import { appUtils } from "../utils/app.utils";
 
 
 const { apiBaseUrl, apiVersion } = appConfig;
@@ -113,5 +114,8 @@ export const API_URLS = {
   TRANSACTIONS: {
     GET_ALLTRANSACTIONS: `${apiBaseUrl}/transactions`,
     DOWNLOAD_TRANSACTIONS: `${apiBaseUrl}/transactions/download`,
-  }
+  },
+  TOKEN: {
+    GENERATE_CHANNEL_TOKEN: `${apiBaseUrl}/auth/channel`,
+  },
 };
