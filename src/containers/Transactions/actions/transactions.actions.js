@@ -1,4 +1,4 @@
-import { auditService } from "../services/transactions.service";
+import { transactionService } from "../services/transactions.service";
 import { show as showAlert } from "../../Notifications/actions/alert.actions";
 import { message } from "../../../constants/app.constants";
 import { transactionConstants, nameSpace } from "../constants/transactions.constants";
@@ -7,7 +7,7 @@ export const getAllTransactions = requestParams => {
   return async dispatch => {
     dispatch(request(requestParams));
     try {
-      const response = await auditService.getAllTransactions(requestParams);
+      const response = await transactionService.getAllTransactions(requestParams);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
@@ -36,7 +36,7 @@ export const downloadTransactionReport = requestParams => {
   return async dispatch => {
     dispatch(request(requestParams));
     try {
-      const response = await auditService.downloadTransactions(requestParams);
+      const response = await transactionService.downloadTransactions(requestParams);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
