@@ -36,45 +36,56 @@ const ReportsTable = memo(props => {
     {
       accessor: "clientIp",
       name: "Client Ip",
-      filterable: true,
-      sortable: true,
-      sortKey: "clientIp"
     },
     {
       accessor: "action",
       name: "Action",
-      filterable: true,
-      sortable: true,
-      sortKey: "action"
     },
     {
       accessor: "createdBy",
       name: "Action Initiator",
-      filterable: true,
-      sortable: true,
-      sortKey: "createdBy"
     },
     {
         accessor: "logDate",
-        name: "Log date",
-        filterable: true,
-        sortable: true,
-        sortKey: "logDate"
+        name: "Log Date",
     },
     {
-        accessor: "previousDataExist",
-        name: "Prior Existence",
-        filterable: true,
-        sortable: true,
-        sortKey: "previousDataExist"
+      accessor: "previousDataExist",
+      name: "Prior Existence",
+      Cell: row => (
+        <button
+          type="button"
+          id={`toggle-btn-${row.previousDataExist ? "enabled" : "disabled"}-${row.id}`}
+          className={`btn ${
+            row.previousDataExist ? "btn-success" : "btn-secondary"
+          } badge mb-0`}
+        >
+          {
+            <span>{row.previousDataExist ? "True" : "False"}</span>
+          }
+        </button>
+      )
     },
     {
-        accessor: "actionStatus",
-        name: "Action Status",
-        filterable: true,
-        sortable: true,
-        sortKey: "actionStatus"
-    },
+      accessor: "actionStatus",
+      name: "Status",
+      sortable: true,
+      sortKey: "active",
+      filterable: true,
+      Cell: row => (
+        <button
+          type="button"
+          id={`toggle-btn-${row.actionStatus ? "enabled" : "disabled"}-${row.id}`}
+          className={`btn ${
+            row.actionStatus ? "btn-success" : "btn-secondary"
+          } badge mb-0`}
+        >
+          {
+            <span>{row.actionStatus ? "Active" : "Inactive"}</span>
+          }
+        </button>
+      )
+    }
   ];
 
   const sortFn = (pageNum, pageSize, column) => {
