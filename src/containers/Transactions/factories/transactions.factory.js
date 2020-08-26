@@ -5,7 +5,7 @@ export const createFilterRequestBody = (values) => {
       decline: values.decline,
       accountNumber: values.accountNumber,
       channel: values.channel,
-      violationCode: values. violationCode,
+      violationCode: values.violationCode,
       customerName: values.customerName,
       country: values.country,
       paymentType: values.paymentType,
@@ -23,7 +23,13 @@ export const createFilterRequestBody = (values) => {
         ).slice(-2)}-${values.endDate.getFullYear()} ${("0" + values.endDate.getHours()).slice(-2)}:${("0" + values.endDate.getMinutes()).slice(-2)}:${("0" + values.endDate.getSeconds()).slice(-2)}`
       : ""
     };
-    console.log(values)
+
+    for (var propName in requestObject) { 
+      if (!requestObject[propName]) {
+        delete requestObject[propName];
+      }
+    }
+    console.log(requestObject)
   
     return requestObject;
   };

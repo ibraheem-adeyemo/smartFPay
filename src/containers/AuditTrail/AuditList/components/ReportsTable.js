@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
-import CustomSearch from "./CustomSearch";
 import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";

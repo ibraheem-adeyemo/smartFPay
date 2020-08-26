@@ -200,7 +200,7 @@ const LimitsTable = memo(props => {
     let requestBody = createFilterRequestBody({accountNumber: values.accountNumber,
       accountName: values.accountName,
       startDate: values.startDate,
-      enddate: values.endDate,
+      endDate: values.endDate,
       enabledChannel: values.enabledChannel,
       enabledCountry: values.enabledCountry});
     fetchData({

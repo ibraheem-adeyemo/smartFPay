@@ -16,6 +16,11 @@ export const createFilterRequestBody = (values) => {
         ).slice(-2)}-${values.endDate.getFullYear()} ${("0" + values.endDate.getHours()).slice(-2)}:${("0" + values.endDate.getMinutes()).slice(-2)}:${("0" + values.endDate.getSeconds()).slice(-2)}`
       : ""
     };
+    for (var propName in requestObject) { 
+      if (!requestObject[propName]) {
+        delete requestObject[propName];
+      }
+    }
     console.log(values)
   
     return requestObject;
