@@ -109,5 +109,9 @@ export const API_URLS = {
   },
   PERMISSIONS: {
     GET_ALL_PERMISSIONS: `${apiBaseUrl}/role/permissions`
+  },
+  TRANSACTIONS: {
+    GET_ALLTRANSACTIONS: `${apiBaseUrl}/transactions`,
+    DOWNLOAD_TRANSACTIONS: `${apiBaseUrl}/transactions/download`,
   }
 };

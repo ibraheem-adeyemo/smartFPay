@@ -18,6 +18,8 @@ import AuditTrail from "../AuditTrail/AuditList/index";
 import Roles from "../Roles/RolesList/index";
 import RoleForm from "../Roles/RolesForm";
 
+import Transactions from "../Transactions/TransactionList/index";
+
 import LimitsList from "../Limits/LimitsList";
 import LimitForm from "../Limits/LimitForm";
 import CardLimitForm from "../Limits/CardLimitForm";
@@ -219,7 +221,7 @@ export const TransactionRoutes = {
       name: "TransactionReport",
       path: "/view-transactions",
       menu: true,
-      pageComponent: AuditTrail,
+      pageComponent: Transactions,
       enabled: true,
       permissions: [VIEW_ADMIN]
     },

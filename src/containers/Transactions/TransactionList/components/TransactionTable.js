@@ -6,25 +6,24 @@ import { Link } from "react-router-dom";
 import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
-import CustomSearch from "./CustomSearch";
 import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
 import CustomFilter from "./CustomFilter";
-import {createFilterRequestBody} from "../../factories/audit.factory";
+import {createFilterRequestBody} from "../../factories/transactions.factory";
 
 const {
   VIEW_ADMIN
 } = permissionsConstants;
 
-const ReportsTable = memo(props => {
+const TransactionsTable = memo(props => {
   const {
     dataState,
     fetchData,
     permissions,
-    allReports,
+    allTransactions,
     download,
     values
   } = props;
@@ -34,75 +33,93 @@ const ReportsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "email",
+      accessor: "accountNumber",
       name: "Account Number",
-      filterable: true,
-      sortable: true,
-      sortKey: "accountNumber"
     },
     {
-      accessor: "action",
-      name: "Account Name",
-      filterable: true,
-      sortable: true,
-      sortKey: "accountName"
+      accessor: "limitId",
+      name: "Limit ID",
     },
     {
-        accessor: "createdBy",
-        name: "Limit Type",
-        filterable: true,
-        sortable: true,
-        sortKey: "limitType"
+        accessor: "decline",
+        name: "Decline",
+    },
+    // {
+    //     accessor: "startDate",
+    //     name: "Start date",
+    // },
+    // {
+    //     accessor: "endDate",
+    //     name: "End date",
+    // },
+    // {
+    //   accessor: "tokenizedPan",
+    //   name: "Tokenized Pan",
+    // },
+    {
+      accessor: "channel",
+      name: "Channel",
+    },
+    // {
+    //     accessor: "violationCode",
+    //     name: "Violation Code",
+    // },
+    // {
+    //     accessor: "customerName",
+    //     name: "Customer Name",
+    // },
+    {
+        accessor: "country",
+        name: "Country",
     },
     {
-        accessor: "startDate",
-        name: "Start date",
-        filterable: true,
-        sortable: true,
-        sortKey: "startDate"
+        accessor: "paymentType",
+        name: "Payment Type",
     },
-    {
-        accessor: "endDate",
-        name: "End date",
-        filterable: true,
-        sortable: true,
-        sortKey: "endDate"
-    },
+    // {
+    //     accessor: "maskedPan",
+    //     name: "Masked Pan",
+    // },
   ];
 
   const sortFn = (pageNum, pageSize, column) => {
     let sortOrder = "ASC";
-    if (!allReports.loading) {
-      if (allReports.request && allReports.request.sortOrder) {
-        sortOrder = allReports.request.sortOrder === "ASC" ? "DESC" : "ASC";
+    if (!allTransactions.loading) {
+      if (allTransactions.request && allTransactions.request.sortOrder) {
+        sortOrder = allTransactions.request.sortOrder === "ASC" ? "DESC" : "ASC";
       }
       fetchData({
-        ...allReports.request,
+        ...allTransactions.request,
         pageNum,
         pageSize,
-        // sortKey: column.sortKey,
-        // sortOrder
       });
     }
   };
 
   const actions = [
-    // {
-    //   name: "view_reports",
-    //   btnText: "View",
-    //   btnClass: "success",
-    //   btnIcon: MdInsertDriveFile,
-    //   permissions: [VIEW_ADMIN]
-    // },
+    {
+      name: "view_transaction",
+      btnText: "View",
+      btnClass: "success",
+      btnIcon: MdInsertDriveFile,
+      permissions: [VIEW_ADMIN]
+    },
   ];
 
   const handleFilter = () => {
     let requestBody = createFilterRequestBody({
-      email: values.email,
-      action: values.action,
+      limitId: values.limitId,
+      tokenizedPan: values.tokenizedPan,
+      decline: values.decline,
       startDate: values.startDate,
       endDate: values.endDate,
-      createdBy: values.createdBy,
+      accountNumber: values.accountNumber,
+      channel: values.channel,
+      violationCode: values.violationCode,
+      customerName: values.customerName,
+      country: values.country,
+      paymentType: values.paymentType,
+      maskedPan: values.maskedPan
     });
     fetchData({
       ...dataState.request,
@@ -113,11 +130,18 @@ const ReportsTable = memo(props => {
 
   const handleDownload = () => {
     let requestBody = createFilterRequestBody({
-      email: values.email,
-      action: values.action,
+      limitId: values.limitId,
+      tokenizedPan: values.tokenizedPan,
+      decline: values.decline,
       startDate: values.startDate,
       endDate: values.endDate,
-      createdBy: values.createdBy,
+      accountNumber: values.accountNumber,
+      channel: values.channel,
+      violationCode: values.violationCode,
+      customerName: values.customerName,
+      country: values.country,
+      paymentType: values.paymentType,
+      maskedPan: values.maskedPan
     });
     download({
       ...dataState.request,
@@ -127,7 +151,7 @@ const ReportsTable = memo(props => {
   }; 
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allReports.request, pageNumber, pageSize });
+    fetchData({ ...allTransactions.request, pageNumber, pageSize });
   };
 
   return (
@@ -135,7 +159,7 @@ const ReportsTable = memo(props => {
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Reports</h5>
+            <h5 className="bold-text">Transactions</h5>
           </div>
           <DataTable
             columns={columns}
@@ -144,7 +168,7 @@ const ReportsTable = memo(props => {
               dataState && dataState.response ? dataState.response.content : []
             }
             count={count}
-            countName="Reports"
+            countName="Transactions"
             defaultPageSize={10}
             defaultPageNumber={1}
             loadData={loadData}
@@ -161,11 +185,18 @@ const ReportsTable = memo(props => {
                 initialValues={{
                   pageNumber: 1,
                   pageSize: 10,
-                  email: "",
-                  action: "",
-                  endDate: "",
+                  limitId: "",
+                  tokenizedPan: "",
+                  decline: "",
                   startDate: "",
-                  createdBy: "",
+                  endDate: "",
+                  accountNumber: "",
+                  channel: "",
+                  violationCode: "",
+                  customerName: "",
+                  country: "",
+                  paymentType: "",
+                  maskedPan: ""
                 }}
                 pageSize={10}
                 handleFilter={handleFilter}
@@ -182,7 +213,7 @@ const ReportsTable = memo(props => {
 });
 
 export default connect(state => ({
-  values: getFormValues("reports_custom_filter")(state),
+  values: getFormValues("transactions_custom_filter")(state),
   permissions: state.permissions && state.permissions.response,
-  allReports: state.getauditreports
-}))(withRouter(ReportsTable));
+  allTransactions: state.gettransactionreport
+}))(withRouter(TransactionsTable));
