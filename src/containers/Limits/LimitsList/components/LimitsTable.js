@@ -281,16 +281,6 @@ const LimitsTable = memo(props => {
             actions={actions}
             responsive
             customSearch={
-              // <CustomSearch
-              //   pageNumber={1}
-              //   initialValues={{
-              //     pageNumber: 1,
-              //     pageSize: 10,
-              //     searchKey: ""
-              //   }}
-              //   pageSize={10}
-              //   onSubmit={handleSubmit}
-              // />
               <CustomFilter
                 pageNumber={1}
                 initialValues={{

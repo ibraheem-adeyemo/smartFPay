@@ -18,6 +18,69 @@ const {
   VIEW_ADMIN
 } = permissionsConstants;
 
+let someTableData = [
+  {
+      "switchKey": "knksnakns",
+      "messageType": "0200",
+      "terminalId": "2233",
+      "cardAcceptorNameLocation": "22",
+      "additionalInfo": "",
+      "transactionDateTime": "",
+      "transactionDate": 1597766949793,
+      "systemTraceAuditNr": "333",
+      "customerName": "Victor Abidoye z",
+      "fromAccount": "1122316430",
+      "tokenizedPan": "d46199675e2a0355373f02e6971bed03f4a2130a9edfd97a775dba416962c585",
+      "channel": "atm",
+      "transactionAmount": 500,
+      "country": "NG",
+      "paymentType": "CARD",
+      "violationCode": "FREQUENCY_LIMIT_VIOLATION",
+      "limitId": 1,
+      "transactionStatus": "Failed"
+  },
+  {
+      "switchKey": "knksnakns",
+      "messageType": "0200",
+      "terminalId": "2233",
+      "cardAcceptorNameLocation": "22",
+      "additionalInfo": "",
+      "transactionDateTime": "",
+      "transactionDate": 1597766948913,
+      "systemTraceAuditNr": "333",
+      "customerName": "Victor Abidoye z",
+      "fromAccount": "1122316430",
+      "tokenizedPan": "d46199675e2a0355373f02e6971bed03f4a2130a9edfd97a775dba416962c585",
+      "channel": "atm",
+      "transactionAmount": 500,
+      "country": "NG",
+      "paymentType": "CARD",
+      "violationCode": "FREQUENCY_LIMIT_VIOLATION",
+      "limitId": 1,
+      "transactionStatus": "Failed"
+  },
+  {
+      "switchKey": "knksnakns",
+      "messageType": "0200",
+      "terminalId": "2233",
+      "cardAcceptorNameLocation": "22",
+      "additionalInfo": "",
+      "transactionDateTime": "",
+      "transactionDate": 1597766948200,
+      "systemTraceAuditNr": "333",
+      "customerName": "Victor Abidoye z",
+      "fromAccount": "1122316430",
+      "tokenizedPan": "d46199675e2a0355373f02e6971bed03f4a2130a9edfd97a775dba416962c585",
+      "channel": "atm",
+      "transactionAmount": 500,
+      "country": "NG",
+      "paymentType": "CARD",
+      "violationCode": "FREQUENCY_LIMIT_VIOLATION",
+      "limitId": 1,
+      "transactionStatus": "Failed"
+  }
+]
+
 const TransactionsTable = memo(props => {
   const {
     dataState,
@@ -33,54 +96,41 @@ const TransactionsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "accountNumber",
-      name: "Account Number",
-    },
-    {
       accessor: "limitId",
       name: "Limit ID",
     },
     {
-        accessor: "decline",
-        name: "Decline",
-    },
-    // {
-    //     accessor: "startDate",
-    //     name: "Start date",
-    // },
-    // {
-    //     accessor: "endDate",
-    //     name: "End date",
-    // },
-    // {
-    //   accessor: "tokenizedPan",
-    //   name: "Tokenized Pan",
-    // },
-    {
-      accessor: "channel",
-      name: "Channel",
-    },
-    // {
-    //     accessor: "violationCode",
-    //     name: "Violation Code",
-    // },
-    // {
-    //     accessor: "customerName",
-    //     name: "Customer Name",
-    // },
-    {
-        accessor: "country",
-        name: "Country",
+      accessor: "fromAccount",
+      name: "Sender's Account",
     },
     {
         accessor: "paymentType",
         name: "Payment Type",
     },
-    // {
-    //     accessor: "maskedPan",
-    //     name: "Masked Pan",
-    // },
+    {
+        accessor: "terminalId",
+        name: "Terminal ID",
+    },
+    {
+      accessor: "channel",
+      name: "Channel",
+    },
+    {
+        accessor: "customerName",
+        name: "Customer Name",
+    },
+    {
+        accessor: "country",
+        name: "Country",
+    },
   ];
+
+  const handleAction = (row, action) => {
+    if (action.name === "view_transaction") {
+      // props.history.push(`${'/limit-requests'}/view/${row.token}`);
+      console.log('khf')
+    }
+  };
 
   const sortFn = (pageNum, pageSize, column) => {
     let sortOrder = "ASC";
@@ -100,9 +150,10 @@ const TransactionsTable = memo(props => {
     {
       name: "view_transaction",
       btnText: "View",
+      btnAction: handleAction,
       btnClass: "success",
       btnIcon: MdInsertDriveFile,
-      permissions: [VIEW_ADMIN]
+      permissions: []
     },
   ];
 
@@ -165,7 +216,7 @@ const TransactionsTable = memo(props => {
             columns={columns}
             loading={dataState && dataState.loading}
             data={
-              dataState && dataState.response ? dataState.response.content : []
+              dataState && dataState.response ? dataState.response.content : someTableData
             }
             count={count}
             countName="Transactions"
