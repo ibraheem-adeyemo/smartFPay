@@ -1,7 +1,7 @@
 import { apiCall } from "../../../utils/api.utils";
 import { API_URLS } from "../../../constants/apiUrls";
 
-export const auditService = {
+export const transactionService = {
     getAllTransactions,
     downloadTransactions
 };
