@@ -64,7 +64,12 @@ const TransactionsTable = memo(props => {
 
   const handleAction = (row, action) => {
     if (action.name === "view_transaction") {
-      // props.history.push(`${'/limit-requests'}/view/${row.token}`);
+      props.history.push(
+        {
+          pathname:`${'/view-transactions'}/view/${row.limitId}`,
+          state: {transaction: row}
+        }
+      );
       console.log('khf')
     }
   };

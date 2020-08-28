@@ -161,7 +161,7 @@ const ReportsTable = memo(props => {
               dataState?.response ? dataState.response.data : []
             }
             count={count}
-            countName="Reports"
+            countName="Audit Reports"
             defaultPageSize={10}
             defaultPageNumber={1}
             loadData={loadData}
