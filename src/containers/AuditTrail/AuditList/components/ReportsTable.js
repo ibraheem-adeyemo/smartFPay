@@ -12,6 +12,7 @@ import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
+import CustomFilter from "./CustomFilter";
 
 const {
   VIEW_ADMIN
@@ -30,32 +31,39 @@ const ReportsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "User",
-      name: "User Name",
+      accessor: "accountNumber",
+      name: "Account Number",
       filterable: true,
       sortable: true,
-      sortKey: "userName"
+      sortKey: "accountNumber"
     },
     {
-      accessor: "email",
-      name: "Email",
+      accessor: "accountName",
+      name: "Account Name",
       filterable: true,
       sortable: true,
-      sortKey: "email"
+      sortKey: "accountName"
     },
     {
-        accessor: "Description",
-        name: "Description",
+        accessor: "limitType",
+        name: "Limit Type",
         filterable: true,
         sortable: true,
-        sortKey: "description"
+        sortKey: "limitType"
     },
     {
-        accessor: "Action",
-        name: "Action",
+        accessor: "startDate",
+        name: "Start date",
         filterable: true,
         sortable: true,
-        sortKey: "action"
+        sortKey: "startDate"
+    },
+    {
+        accessor: "endDate",
+        name: "End date",
+        filterable: true,
+        sortable: true,
+        sortKey: "endDate"
     },
   ];
 
@@ -69,33 +77,38 @@ const ReportsTable = memo(props => {
         ...allReports.request,
         pageNum,
         pageSize,
-        sortKey: column.sortKey,
-        sortOrder
+        // sortKey: column.sortKey,
+        // sortOrder
       });
     }
   };
 
   const actions = [
-    {
-      name: "view_reports",
-      btnText: "View",
-      btnClass: "success",
-      btnIcon: MdInsertDriveFile,
-      permissions: [VIEW_ADMIN]
-    },
+    // {
+    //   name: "view_reports",
+    //   btnText: "View",
+    //   btnClass: "success",
+    //   btnIcon: MdInsertDriveFile,
+    //   permissions: [VIEW_ADMIN]
+    // },
   ];
 
-  const handleSubmit = values => {
+  const handleFilter = values => {
     setSearchKey(values.searchWord);
     fetchData({
       ...allReports.request,
-      pageNum: 1,
-      searchWord: values.searchWord || ""
+      pageNumber: 1,
+      email: values.email,
+      action: values.action,
+      startDate: values.startDate,
+      enddate: values.endDate,
+      createdBy: values.createdBy,
+      // searchWord: values.searchWord || ""
     });
   };
 
-  const loadData = (pageNum, pageSize) => {
-    fetchData({ ...allReports.request, pageNum, pageSize, searchWord: searchKey });
+  const loadData = (pageNumber, pageSize) => {
+    fetchData({ ...allReports.request, pageNumber, pageSize, searchWord: searchKey });
   };
 
   return (
@@ -112,7 +125,7 @@ const ReportsTable = memo(props => {
               dataState && dataState.response ? dataState.response.content : []
             }
             count={count}
-            countName="Users"
+            countName="Reports"
             defaultPageSize={10}
             defaultPageNumber={1}
             loadData={loadData}
@@ -124,15 +137,19 @@ const ReportsTable = memo(props => {
             actions={actions}
             responsive
             customSearch={
-              <CustomSearch
-                pageNumer={1}
+              <CustomFilter
+                pageNumber={1}
                 initialValues={{
                   pageNumber: 1,
                   pageSize: 10,
-                  searchKey: ""
+                  email: "",
+                  action: "",
+                  endDate: "",
+                  startDate: "",
+                  createdBy: "",
                 }}
                 pageSize={10}
-                onSubmit={handleSubmit}
+                handleFilter={handleFilter}
               />
             }
             sortFn={sortFn}

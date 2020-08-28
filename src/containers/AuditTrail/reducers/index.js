@@ -1,1 +1,1 @@
-export * from "./get.audit.reducers";
+export * from "./get.audit.reducer";

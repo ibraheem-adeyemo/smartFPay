@@ -248,7 +248,7 @@ console.log('dataState', dataState)
               data={customerData}
               permissions={permissions}
               count={count}
-              countName="customers"
+              countName="Customers"
               defaultPageSize={10}
               defaultPageNumber={1}
               loadData={loadData}
@@ -260,7 +260,7 @@ console.log('dataState', dataState)
               // actions={actions}
               customSearch={
                 <CustomSearch
-                  pageNumer={1}
+                  pageNumber={1}
                   initialValues={{
                     pageNumber: 1,
                     pageSize: 10,

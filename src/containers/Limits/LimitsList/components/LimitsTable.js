@@ -7,6 +7,7 @@ import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
 import CustomSearch from "./CustomSearch";
+import CustomFilter from './CustomFilter';
 import { toggleAccountControl, toggleCardControl } from "../../actions/limits.actions";
 import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
@@ -259,12 +260,27 @@ const LimitsTable = memo(props => {
             actions={actions}
             responsive
             customSearch={
-              <CustomSearch
-                pageNumer={1}
+              // <CustomSearch
+              //   pageNumber={1}
+              //   initialValues={{
+              //     pageNumber: 1,
+              //     pageSize: 10,
+              //     searchKey: ""
+              //   }}
+              //   pageSize={10}
+              //   onSubmit={handleSubmit}
+              // />
+              <CustomFilter
+                pageNumber={1}
                 initialValues={{
                   pageNumber: 1,
                   pageSize: 10,
-                  searchKey: ""
+                  accountNumber: "",
+                  accountName: "",
+                  endDate: "",
+                  startDate: "",
+                  enabledCountry: "",
+                  enabledChannel: ""
                 }}
                 pageSize={10}
                 onSubmit={handleSubmit}

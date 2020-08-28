@@ -39,8 +39,7 @@ import { cardProgramCount } from "./containers/Dashboard/reducers";
 
 import { getCustomers, getCustomer, createCustomer, togglecustomer } from "./containers/Customers/reducers";
 import { getCardRecords, getCardRecord, pinReissue, blockCard, unblockCard } from "./containers/CardRecords/reducers";
-
-
+import { getauditreports } from "./containers/AuditTrail/reducers";
 
 export default combineReducers({
   form: reduxFormReducer,
@@ -90,5 +89,5 @@ export default combineReducers({
   blockCard,
   unblockCard,
 
-  cardProgramCount
+  getauditreports,
 });

@@ -15,7 +15,7 @@ export const getAllAuditReports = requestParams => {
         showAlert(
           "danger",
           "Failed to get report",
-          error ? error.message : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }
@@ -44,7 +44,7 @@ export const getAuditReport = id => {
         showAlert(
           "danger",
           "Failed to get report",
-          error ? error.message : message.GENERIC_ERROR
+          error ? error : message.GENERIC_ERROR
         )
       );
     }

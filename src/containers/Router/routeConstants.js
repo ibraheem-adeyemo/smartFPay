@@ -207,6 +207,44 @@ export const AuditTrailRoutes = {
   ]
 }
 
+export const TransactionRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "transactionreport",
+      title: "Transaction Report",
+      exact: false,
+      icon: null,
+      name: "TransactionReport",
+      path: "/view-transactions",
+      menu: true,
+      pageComponent: AuditTrail,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+  ]
+}
+
+export const TokenRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "generatetoken",
+      title: "Generate Token",
+      exact: false,
+      icon: null,
+      name: "GenerateToken",
+      path: "/generate-token",
+      menu: true,
+      pageComponent: AuditTrail,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+  ]
+}
+
 export const RolesRoutes = {
   enabled: true,
   menu: true,
