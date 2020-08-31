@@ -23,11 +23,11 @@ const CustomFilter = memo(props => {
           <div className="form__form-group">
           <div className="form__form-group-field">
                           <Field
-                            id="email"
-                            name="email"
+                            id="limitId"
+                            name="limitId"
                             component={renderField}
-                            type="email"
-                            placeholder="Email Address"
+                            type="number"
+                            placeholder="Limit ID"
                           />
               </div>
               </div>
@@ -36,11 +36,61 @@ const CustomFilter = memo(props => {
           <div className="form__form-group">
             <div className="form__form-group-field">
             <Field
-                            id="createdBy"
-                            name="createdBy"
+                            id="tokenizedPan"
+                            name="tokenizedPan"
                             component={renderField}
                             type="text"
-                            placeholder="Actor"
+                            placeholder="Tokenized Pan"
+                          />
+            </div>
+          </div></Col>
+          <Col lg="3">
+          <div className="form__form-group">
+          <div className="form__form-group-field">
+                          <Field
+                            id="decline"
+                            name="decline"
+                            component={renderField}
+                            type="number"
+                            placeholder="Decline"
+                          />
+              </div>
+              </div>
+              </Col>
+              <Col lg="3">
+          <div className="form__form-group">
+            <div className="form__form-group-field">
+            <Field
+                            id="accountNumber"
+                            name="accountNumber"
+                            component={renderField}
+                            type="text"
+                            placeholder="Account Number"
+                          />
+            </div>
+          </div></Col>
+          <Col lg="3">
+          <div className="form__form-group">
+          <div className="form__form-group-field">
+                          <Field
+                            id="customerName"
+                            name="customerName"
+                            component={renderField}
+                            type="text"
+                            placeholder="customerName"
+                          />
+              </div>
+              </div>
+              </Col>
+              <Col lg="3">
+          <div className="form__form-group">
+            <div className="form__form-group-field">
+            <Field
+                            id="maskedPan"
+                            name="maskedPan"
+                            component={renderField}
+                            type="text"
+                            placeholder="Masked Pan"
                           />
             </div>
           </div></Col>
@@ -83,9 +133,9 @@ const CustomFilter = memo(props => {
           <div className="form__form-group">
             <div className="form__form-group-field">
             <Field
-                            id="action"
-                            name="action"
-                            placeholder="User Action"
+                            id="country"
+                            name="country"
+                            placeholder="Country"
                             component={renderSelectField}
                             options={COUNTRIES}
                             valueKey="alpha3Code"
@@ -94,7 +144,52 @@ const CustomFilter = memo(props => {
                           </div>
                           </div>
           </Col>
-          <Col lg={{size: 6, offset: 3}} style={{textAlign: "right"}}>
+          <Col lg="3">
+          <div className="form__form-group">
+            <div className="form__form-group-field">
+            <Field
+                            id="paymentType"
+                            name="paymentType"
+                            placeholder="Payment Type"
+                            component={renderSelectField}
+                            options={COUNTRIES}
+                            valueKey="alpha3Code"
+                            labelKey="name"
+                          />
+                          </div>
+                          </div>
+          </Col>
+          <Col lg="3">
+          <div className="form__form-group">
+            <div className="form__form-group-field">
+            <Field
+                            id="channel"
+                            name="channel"
+                            placeholder="Channel"
+                            component={renderSelectField}
+                            options={CHANNELS_OPTIONS}
+                            valueKey="label"
+                            labelKey="value"
+                          />
+                          </div>
+                          </div>
+          </Col>
+          <Col lg="3">
+          <div className="form__form-group">
+            <div className="form__form-group-field">
+            <Field
+                            id="violationCode"
+                            name="violationCode"
+                            placeholder="Violation Code"
+                            component={renderSelectField}
+                            options={COUNTRIES}
+                            valueKey="alpha3Code"
+                            labelKey="name"
+                          />
+                          </div>
+                          </div>
+          </Col>
+          <Col lg={{size: 6, offset: 6}} style={{textAlign: "right"}}>
                     <Button
                     color="primary"
                       type="button"
@@ -124,7 +219,7 @@ const CustomFilter = memo(props => {
 });
 
 export default reduxForm({
-  form: "reports_custom_filter",
+  form: "transactions_custom_filter",
   validate,
   enableReinitialize: true
 })(CustomFilter);

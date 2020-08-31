@@ -12,18 +12,18 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
 import CustomFilter from "./CustomFilter";
-import {createFilterRequestBody} from "../../factories/audit.factory";
+import {createFilterRequestBody} from "../../factories/transactions.factory";
 
 const {
   VIEW_ADMIN
 } = permissionsConstants;
 
-const ReportsTable = memo(props => {
+const TransactionsTable = memo(props => {
   const {
     dataState,
     fetchData,
     permissions,
-    allReports,
+    allTransactions,
     download,
     values
   } = props;
@@ -33,93 +33,86 @@ const ReportsTable = memo(props => {
 
   const columns = [
     {
-      accessor: "clientIp",
-      name: "Client Ip",
+      accessor: "limitId",
+      name: "Limit ID",
     },
     {
-      accessor: "action",
-      name: "Action",
+      accessor: "fromAccount",
+      name: "Sender's Account",
     },
     {
-      accessor: "createdBy",
-      name: "Action Initiator",
+        accessor: "paymentType",
+        name: "Payment Type",
     },
     {
-        accessor: "logDate",
-        name: "Log Date",
+        accessor: "terminalId",
+        name: "Terminal ID",
     },
     {
-      accessor: "previousDataExist",
-      name: "Prior Existence",
-      Cell: row => (
-        <button
-          type="button"
-          id={`toggle-btn-${row.previousDataExist ? "enabled" : "disabled"}-${row.id}`}
-          className={`btn ${
-            row.previousDataExist ? "btn-success" : "btn-secondary"
-          } badge mb-0`}
-        >
-          {
-            <span>{row.previousDataExist ? "True" : "False"}</span>
-          }
-        </button>
-      )
+      accessor: "channel",
+      name: "Channel",
     },
     {
-      accessor: "actionStatus",
-      name: "Status",
-      sortable: true,
-      sortKey: "active",
-      filterable: true,
-      Cell: row => (
-        <button
-          type="button"
-          id={`toggle-btn-${row.actionStatus ? "enabled" : "disabled"}-${row.id}`}
-          className={`btn ${
-            row.actionStatus ? "btn-success" : "btn-secondary"
-          } badge mb-0`}
-        >
-          {
-            <span>{row.actionStatus ? "Active" : "Inactive"}</span>
-          }
-        </button>
-      )
-    }
+        accessor: "customerName",
+        name: "Customer Name",
+    },
+    {
+        accessor: "country",
+        name: "Country",
+    },
   ];
+
+  const handleAction = (row, action) => {
+    if (action.name === "view_transaction") {
+      props.history.push(
+        {
+          pathname:`${'/view-transactions'}/view/${row.limitId}`,
+          state: {transaction: row}
+        }
+      );
+      console.log('khf')
+    }
+  };
 
   const sortFn = (pageNum, pageSize, column) => {
     let sortOrder = "ASC";
-    if (!allReports.loading) {
-      if (allReports.request && allReports.request.sortOrder) {
-        sortOrder = allReports.request.sortOrder === "ASC" ? "DESC" : "ASC";
+    if (!allTransactions.loading) {
+      if (allTransactions.request && allTransactions.request.sortOrder) {
+        sortOrder = allTransactions.request.sortOrder === "ASC" ? "DESC" : "ASC";
       }
       fetchData({
-        ...allReports.request,
+        ...allTransactions.request,
         pageNum,
         pageSize,
-        // sortKey: column.sortKey,
-        // sortOrder
       });
     }
   };
 
   const actions = [
-    // {
-    //   name: "view_reports",
-    //   btnText: "View",
-    //   btnClass: "success",
-    //   btnIcon: MdInsertDriveFile,
-    //   permissions: [VIEW_ADMIN]
-    // },
+    {
+      name: "view_transaction",
+      btnText: "View",
+      btnAction: handleAction,
+      btnClass: "success",
+      btnIcon: MdInsertDriveFile,
+      permissions: []
+    },
   ];
 
   const handleFilter = () => {
     let requestBody = createFilterRequestBody({
-      email: values.email,
-      action: values.action,
+      limitId: values.limitId,
+      tokenizedPan: values.tokenizedPan,
+      decline: values.decline,
       startDate: values.startDate,
       endDate: values.endDate,
-      createdBy: values.createdBy,
+      accountNumber: values.accountNumber,
+      channel: values.channel,
+      violationCode: values.violationCode,
+      customerName: values.customerName,
+      country: values.country,
+      paymentType: values.paymentType,
+      maskedPan: values.maskedPan
     });
     fetchData({
       ...dataState.request,
@@ -130,11 +123,18 @@ const ReportsTable = memo(props => {
 
   const handleDownload = () => {
     let requestBody = createFilterRequestBody({
-      email: values.email,
-      action: values.action,
+      limitId: values.limitId,
+      tokenizedPan: values.tokenizedPan,
+      decline: values.decline,
       startDate: values.startDate,
       endDate: values.endDate,
-      createdBy: values.createdBy,
+      accountNumber: values.accountNumber,
+      channel: values.channel,
+      violationCode: values.violationCode,
+      customerName: values.customerName,
+      country: values.country,
+      paymentType: values.paymentType,
+      maskedPan: values.maskedPan
     });
     download({
       ...dataState.request,
@@ -144,7 +144,7 @@ const ReportsTable = memo(props => {
   }; 
 
   const loadData = (pageNumber, pageSize) => {
-    fetchData({ ...allReports.request, pageNumber, pageSize });
+    fetchData({ ...allTransactions.request, pageNumber, pageSize });
   };
 
   return (
@@ -152,16 +152,16 @@ const ReportsTable = memo(props => {
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Audit Reports</h5>
+            <h5 className="bold-text">Transactions</h5>
           </div>
           <DataTable
             columns={columns}
             loading={dataState && dataState.loading}
             data={
-              dataState?.response ? dataState.response.data : []
+              dataState && dataState.response ? dataState.response.data : []
             }
             count={count}
-            countName="Audit Reports"
+            countName="Transactions"
             defaultPageSize={10}
             defaultPageNumber={1}
             loadData={loadData}
@@ -170,6 +170,7 @@ const ReportsTable = memo(props => {
             striped={true}
             hover={true}
             permissions={permissions}
+            actions={actions}
             responsive
             customSearch={
               <CustomFilter
@@ -177,11 +178,18 @@ const ReportsTable = memo(props => {
                 initialValues={{
                   pageNumber: 1,
                   pageSize: 10,
-                  email: "",
-                  action: "",
-                  endDate: "",
+                  limitId: "",
+                  tokenizedPan: "",
+                  decline: "",
                   startDate: "",
-                  createdBy: "",
+                  endDate: "",
+                  accountNumber: "",
+                  channel: "",
+                  violationCode: "",
+                  customerName: "",
+                  country: "",
+                  paymentType: "",
+                  maskedPan: ""
                 }}
                 pageSize={10}
                 handleFilter={handleFilter}
@@ -198,7 +206,7 @@ const ReportsTable = memo(props => {
 });
 
 export default connect(state => ({
-  values: getFormValues("reports_custom_filter")(state),
+  values: getFormValues("transactions_custom_filter")(state),
   permissions: state.permissions && state.permissions.response,
-  allReports: state.getauditreports
-}))(withRouter(ReportsTable));
+  allTransactions: state.gettransactionreport
+}))(withRouter(TransactionsTable));

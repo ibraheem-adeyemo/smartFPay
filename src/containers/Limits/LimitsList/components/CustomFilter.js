@@ -16,7 +16,7 @@ const CustomFilter = memo(props => {
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
       {/* <Col> */}
-        <form className="form" onSubmit={props.handleSubmit}>
+        <form className="form">
             <Row>
                 <Col lg="3">
           <div className="form__form-group">
@@ -68,7 +68,7 @@ const CustomFilter = memo(props => {
                             id="startDate"
                             name="startDate"
                             dateFormat="dd-MM-yyyy h:mm:ss"
-                            minDate={new Date()}
+                            minDate={new Date('October 1, 1960 00:00:00')}
                             timeFormat="HH:mm"
                             showTimeInput={true}
                             component={renderDatePickerField}
@@ -85,7 +85,7 @@ const CustomFilter = memo(props => {
                             id="endDate"
                             name="endDate"
                             dateFormat="dd-MM-yyyy h:mm:ss"
-                            minDate={new Date()}
+                            minDate={new Date('October 1, 1960 00:00:00')}
                             timeFormat="HH:mm"
                             showTimeInput={true}
                             component={renderDatePickerField}
@@ -141,7 +141,8 @@ const CustomFilter = memo(props => {
                     <Button
                       color="primary"
                       id="submit-btn"
-                      type="submit"
+                      type="button"
+                      onClick={props.handleDownload}
                       disabled={submitting || invalid}
                     >
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFileDownload /> </span>}
@@ -157,7 +158,7 @@ const CustomFilter = memo(props => {
 });
 
 export default reduxForm({
-  form: "custom_filter",
+  form: "limits_custom_filter",
   validate,
   enableReinitialize: true
 })(CustomFilter);

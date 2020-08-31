@@ -4,7 +4,8 @@ import { message } from "../../../constants/app.constants";
 import { controlConstants, nameSpace } from "../constants/limit.constants";
 import {
   createRequestBody,
-  createCardRequestBody
+  createCardRequestBody,
+  createFilterRequestBody
 } from "../factories/limit.factory.js";
 import { reset } from "redux-form";
 
@@ -37,6 +38,36 @@ export const getAllControls = (requestParams) => {
         return { type: controlConstants[`GET_${nameSpace}_FAILURE`], error };
       }
 }
+
+export const downloadControls = requestParams => {
+  return async dispatch => {
+    const requestBody = createFilterRequestBody(requestParams);
+    dispatch(request(requestBody));
+    try {
+      const response = await limitService.downloadControls(requestBody);
+      response && dispatch(success(response));
+    } catch (error) {
+      dispatch(failure(error));
+      dispatch(
+        showAlert(
+          "danger",
+          "Failed to download controls",
+          error ? error : message.GENERIC_ERROR
+        )
+      );
+    }
+  };
+
+  function request(request) {
+    return { type: controlConstants[`DOWNLOAD_${nameSpace}_REQUEST`], request };
+  }
+  function success(response) {
+    return { type: controlConstants[`DOWNLOAD_${nameSpace}_SUCCESS`], response };
+  }
+  function failure(error) {
+    return { type: controlConstants[`DOWNLOAD_${nameSpace}_FAILURE`], error };
+  }
+};
 
 export const getControl = token => {
     return async dispatch => {

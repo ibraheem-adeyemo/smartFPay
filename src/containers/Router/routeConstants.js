@@ -18,11 +18,16 @@ import AuditTrail from "../AuditTrail/AuditList/index";
 import Roles from "../Roles/RolesList/index";
 import RoleForm from "../Roles/RolesForm";
 
+import Transactions from "../Transactions/TransactionList/index";
+import ViewTransaction from "../Transactions/TransactionView/index";
+
 import LimitsList from "../Limits/LimitsList";
 import LimitForm from "../Limits/LimitForm";
 import CardLimitForm from "../Limits/CardLimitForm";
 import ViewLimit from "../Limits/LimitView";
 import ViewRole from "../Roles/RoleView";
+
+import ChannelTokenForm from "../Token/ChannelTokenForm";
 
 const {
   CREATE_CONTROL,
@@ -214,12 +219,24 @@ export const TransactionRoutes = {
     {
       key: "transactionreport",
       title: "Transaction Report",
-      exact: false,
+      exact: true,
       icon: null,
       name: "TransactionReport",
       path: "/view-transactions",
       menu: true,
-      pageComponent: AuditTrail,
+      pageComponent: Transactions,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      key: "viewTransaction",
+      title: "View Transaction",
+      exact: false,
+      icon: null,
+      name: "View Transaction",
+      path: "/view-transactions/view/:id",
+      menu: true,
+      pageComponent: ViewTransaction,
       enabled: true,
       permissions: [VIEW_ADMIN]
     },
@@ -231,14 +248,14 @@ export const TokenRoutes = {
   menu: true,
   routes: [
     {
-      key: "generatetoken",
-      title: "Generate Token",
+      key: "channeltoken",
+      title: "Channel Token",
       exact: false,
       icon: null,
-      name: "GenerateToken",
-      path: "/generate-token",
+      name: "ChannelToken",
+      path: "/channel-token",
       menu: true,
-      pageComponent: AuditTrail,
+      pageComponent: ChannelTokenForm,
       enabled: true,
       permissions: [VIEW_ADMIN]
     },

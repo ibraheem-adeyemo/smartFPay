@@ -1,4 +1,5 @@
 import { appConfig } from "../config/config";
+import { appUtils } from "../utils/app.utils";
 
 
 const { apiBaseUrl, apiVersion } = appConfig;
@@ -34,6 +35,8 @@ export const API_URLS = {
 
     ENABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/enable`,
     DISABLE_CARD_LIMIT: `${apiBaseUrl}/controls/card/disable`,
+
+    DOWNLOAD_CONTROLS: `${apiBaseUrl}/limit/download`,
   },
   CUSTOMERS: {
     POST_CUSTOMER: `${apiBaseUrl}/customers/create`,
@@ -97,7 +100,7 @@ export const API_URLS = {
   },
   AUDIT: {
     GET_AUDIT_REPORTS: `${apiBaseUrl}/audit/logs`,
-    // GET_AUDIT_REPORT: `${apiBaseUrl}/report/`,
+    DOWNLOAD_AUDIT_REPORT: `${apiBaseUrl}/audit/download`,
   },
   ROLES: {
     GET_ALL_ROLES: `${apiBaseUrl}/role`,
@@ -107,5 +110,12 @@ export const API_URLS = {
   },
   PERMISSIONS: {
     GET_ALL_PERMISSIONS: `${apiBaseUrl}/role/permissions`
-  }
+  },
+  TRANSACTIONS: {
+    GET_ALLTRANSACTIONS: `${apiBaseUrl}/transactions`,
+    DOWNLOAD_TRANSACTIONS: `${apiBaseUrl}/transactions/download`,
+  },
+  TOKEN: {
+    GENERATE_CHANNEL_TOKEN: `${apiBaseUrl}/auth/channel`,
+  },
 };

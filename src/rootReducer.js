@@ -21,7 +21,7 @@ import {
   postcardcontrol,
   getcontrols,
   toggleaccount,
-  togglecard
+  togglecard,
 } from "./containers/Limits/reducers"
 
 import {
@@ -39,7 +39,9 @@ import { cardProgramCount } from "./containers/Dashboard/reducers";
 
 import { getCustomers, getCustomer, createCustomer, togglecustomer } from "./containers/Customers/reducers";
 import { getCardRecords, getCardRecord, pinReissue, blockCard, unblockCard } from "./containers/CardRecords/reducers";
-import { getauditreports } from "./containers/AuditTrail/reducers";
+import { getauditreports, downloadauditreports } from "./containers/AuditTrail/reducers";
+import {gettransactionreport, downloadtransactionreport} from "./containers/Transactions/reducers";
+import {generatechanneltoken} from "./containers/Token/reducers";
 
 export default combineReducers({
   form: reduxFormReducer,
@@ -76,7 +78,6 @@ export default combineReducers({
   getCardStatus,
   createCard,
 
-
   getCustomers,
   getCustomer,
   createCustomer,
@@ -90,4 +91,9 @@ export default combineReducers({
   unblockCard,
 
   getauditreports,
+
+  gettransactionreport,
+  downloadtransactionreport,
+
+  generatechanneltoken,
 });
