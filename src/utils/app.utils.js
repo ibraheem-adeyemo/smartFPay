@@ -90,6 +90,7 @@ const downloadFile = filePath => {
   var link = document.createElement("a");
   link.target = '_blank';
   link.href = filePath;
+  console.log('FilePath', filePath)
   link.download = filePath.substr(filePath.lastIndexOf("/") + 1);
   link.click();
 };

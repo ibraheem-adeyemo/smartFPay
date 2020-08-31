@@ -44,7 +44,7 @@ const TopbarProfile = memo(props => {
             external
             title="Log Out"
             icon={MdExitToApp}
-            path="/login"
+            path="/pc/signin"
           />
         </div>
       </Collapse>

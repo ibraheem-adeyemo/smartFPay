@@ -146,9 +146,8 @@ const Customers = () => (
 
 const Router = ({ hasError }) => (
   <Switch>
-    <Redirect exact from="/" to="/login" />
-    <Route exact path="/" component={LogIn} />
-    <Route path="/login" component={LogIn} />
+    <Redirect exact from="/" to="/pc/signin" />
+    <Route path="/pc/signin" component={LogIn} />
     <MainWrapper hasError={hasError}>
       <main>
         <div>
@@ -159,17 +158,16 @@ const Router = ({ hasError }) => (
             <Route path="/users" component={Users} />
             <Route path="/customers" component={Customers} />
             <Route path="/limit-requests" component={Limits} />
-            <Route path="/report" component={Reports} />
+            {/* <Route path="/report" component={Reports} /> */}
             <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
             <Route path="/view-transactions" component={Transactions} />
             <Route path="/channel-token" component={Token} />
-            {/* <Route path="/roles-form" component={RoleForm} /> */}
             {/* <PermissionedRoute
               path="/admin-management"
-              allowedPermissions={[permissionsConstants.VIEW_CARD_STATEMENT]}
+              allowedPermissions={[permissionsConstants.VIEW_ADMIN]}
               name="Admin Management"
-              component={CardStatement}
+              component={}
             /> */}
           </div>
         </div>
