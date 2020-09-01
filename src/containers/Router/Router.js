@@ -146,12 +146,12 @@ const Customers = () => (
 
 const Router = ({ hasError }) => (
   <Switch>
-    <Redirect exact from="/" to="/pc/signin" />
     <MainWrapper hasError={hasError}>
       <main>
         <div>    
-          {localStorage.getItem('pc-token') ? <>
-          <Layout />
+          <Redirect exact from="/" to="/pc/signin" />
+          <Route exact path="/pc/signin" component={LogIn} />
+          {/* <Layout /> */}
           <div className="container__wrap">
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/users" component={Users} />
@@ -163,8 +163,6 @@ const Router = ({ hasError }) => (
             <Route path="/view-transactions" component={Transactions} />
             <Route path="/channel-token" component={Token} />
           </div>
-          </>:
-          <Route exact path="/pc/signin" component={LogIn} />}
         </div>
       </main>
     </MainWrapper>
