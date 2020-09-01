@@ -147,13 +147,12 @@ const Customers = () => (
 const Router = ({ hasError }) => (
   <Switch>
     <Redirect exact from="/" to="/pc/signin" />
-    <Route path="/pc/signin" component={LogIn} />
     <MainWrapper hasError={hasError}>
       <main>
-        <div>
+        <div>    
+          {localStorage.getItem('pc-token') ? <>
           <Layout />
           <div className="container__wrap">
-            
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/users" component={Users} />
             <Route path="/customers" component={Customers} />
@@ -163,17 +162,15 @@ const Router = ({ hasError }) => (
             <Route path="/roles" component={Roles} />
             <Route path="/view-transactions" component={Transactions} />
             <Route path="/channel-token" component={Token} />
-            {/* <PermissionedRoute
-              path="/admin-management"
-              allowedPermissions={[permissionsConstants.VIEW_ADMIN]}
-              name="Admin Management"
-              component={}
-            /> */}
           </div>
+          </>:
+          <Route exact path="/pc/signin" component={LogIn} />}
         </div>
       </main>
     </MainWrapper>
   </Switch>
 );
+
+console.log(localStorage.getItem('pc-token'));
 
 export default Router;

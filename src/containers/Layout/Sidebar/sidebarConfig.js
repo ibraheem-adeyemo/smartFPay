@@ -72,7 +72,6 @@ export const menuConfig = {
       icon: MdLockOutline
     },
     {
-      category: true,
       title: "Settings",
       key: "admin-management",
       icon: MdSettings,
