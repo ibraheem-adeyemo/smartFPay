@@ -73,8 +73,8 @@ export const createFilterRequestBody = (values) => {
   const requestObject = {
     accountNumber: values.accountNumber,
     accountName: values.accountName,
-    enabledChannel: values.enabledChannel,
-    enabledCountry: values.enabledCountry,
+    enabledChannel: values.enabledChannel.value,
+    enabledCountry: values.enabledCountry.alpha3Code,
     startDate: values.startDate
     ? `${("0" + values.startDate.getDate()).slice(-2)}-${(
         "0" +
