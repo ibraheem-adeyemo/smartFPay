@@ -74,6 +74,11 @@ export const CARD_STATUS_OPTIONS = [
   {label: "BLOCKED", value: "BLOCKED"}
 ];
 
+export const PAYMENT_TYPE = [
+  {label: "Account", value: "ACCOUNT"},
+  {label: "Card", value: "CARD"}
+]
+
 export const BATCH_UPLOAD_TEMPLATE = `${appConfig.mufasaTemplateUrl}/batch_card_issuance.xlsx`;
 
 export const CARD_REQUEST_TYPE = [
