@@ -1,7 +1,7 @@
 export const createFilterRequestBody = (values) => {  
     const requestObject = {
       email: values.email,
-      action: values.action,
+      action: values.action.value,
       createdBy: values.createdBy,
       startDate: values.startDate
       ? `${("0" + values.startDate.getDate()).slice(-2)}-${(
