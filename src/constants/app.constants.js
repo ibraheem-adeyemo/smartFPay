@@ -25,9 +25,9 @@ export const ACCOUNT_TYPES = [
 ];
 
 export const FREQUENCY_OPTIONS = [
-  {label: "DAILY", value: "DAILY"},
-  {label: "WEEKLY", value: "WEEKLY"},
-  {label: "MONTHLY", value: "MONTHLY"}
+  {label: "Daily", value: "DAILY"},
+  {label: "Weekly", value: "WEEKLY"},
+  {label: "Monthly", value: "MONTHLY"}
 ];
 
 export const ACTION_TYPES = [
@@ -64,19 +64,34 @@ export const ACTION_TYPES = [
 ]
 
 export const CHANNELS_OPTIONS = [
-  {label: "WEB", value: "WEB"},
-  {label: "POS", value: "POS"},
-  {label: "ATM", value: "ATM"}
+  {label: "Web", value: "WEB"},
+  {label: "Pos", value: "POS"},
+  {label: "Atm", value: "ATM"}
 ];
 
 export const CARD_STATUS_OPTIONS = [
-  {label: "ACTIVE", value: "ACTIVE"},
-  {label: "BLOCKED", value: "BLOCKED"}
+  {label: "Active", value: "ACTIVE"},
+  {label: "BLocked", value: "BLOCKED"}
 ];
 
 export const PAYMENT_TYPE = [
   {label: "Account", value: "ACCOUNT"},
   {label: "Card", value: "CARD"}
+];
+
+export const CUSTOMER_STATUS = [
+  {label: "Subscribed", value: "SUBSCRIBED"},
+  {label: "Unsubscribed", value: "UNSUBSCRIBED"}
+];
+
+export const VIOLATION_CODES = [
+  {code: 101,	message: "CUSTOMER_UNSUBSCRIBED"},
+  {code: 102,	message: "COUNTRY_VIOLATION"},
+  {code: 103,	message: "CHANNEL_VIOLATION"},
+  {code: 104,	message: "CARD_BLOCKED"},
+  {code: 105,	message: "INTER_BANK_TRANSACTION_VIOLATION"},
+  {code: 106,	message: "AMOUNT_LIMIT_VIOLATION"},
+  {code: 107,	message: "FREQUENCY_LIMIT_VIOLATION"}
 ]
 
 export const BATCH_UPLOAD_TEMPLATE = `${appConfig.mufasaTemplateUrl}/batch_card_issuance.xlsx`;
