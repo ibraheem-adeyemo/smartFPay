@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const SidebarLink = ({ title, icon, newLink, route, onClick, id }) => (
   <NavLink
-    to={route}
+    to={route || ''}
     id={id}
     name={id}
     onClick={onClick}

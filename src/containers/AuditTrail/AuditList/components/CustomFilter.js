@@ -4,7 +4,7 @@ import { MdSearch, MdFilterList, MdFileDownload } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
-import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
+import { ACTION_TYPES } from "../../../../constants/app.constants";
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
@@ -87,9 +87,9 @@ const CustomFilter = memo(props => {
                             name="action"
                             placeholder="User Action"
                             component={renderSelectField}
-                            options={COUNTRIES}
-                            valueKey="alpha3Code"
-                            labelKey="name"
+                            options={ACTION_TYPES}
+                            valueKey="value"
+                            labelKey="label"
                           />
                           </div>
                           </div>

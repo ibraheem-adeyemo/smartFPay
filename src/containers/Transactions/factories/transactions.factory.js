@@ -4,11 +4,11 @@ export const createFilterRequestBody = (values) => {
       tokenizedPan: values.tokenizedPan,
       decline: values.decline,
       accountNumber: values.accountNumber,
-      channel: values.channel,
-      violationCode: values.violationCode,
+      channel: values.channel.value,
+      violationCode: values.violationCode.value,
       customerName: values.customerName,
-      country: values.country,
-      paymentType: values.paymentType,
+      country: values.country.alpha3Code,
+      paymentType: values.paymentType.value,
       maskedPan: values.maskedPan,
       startDate: values.startDate
       ? `${("0" + values.startDate.getDate()).slice(-2)}-${(

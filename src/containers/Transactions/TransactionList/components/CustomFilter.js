@@ -4,7 +4,7 @@ import { MdSearch, MdFilterList, MdFileDownload } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
-import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
+import { CHANNELS_OPTIONS, PAYMENT_TYPE } from "../../../../constants/app.constants";
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
@@ -77,7 +77,7 @@ const CustomFilter = memo(props => {
                             name="customerName"
                             component={renderField}
                             type="text"
-                            placeholder="customerName"
+                            placeholder="Customer Name"
                           />
               </div>
               </div>
@@ -152,9 +152,9 @@ const CustomFilter = memo(props => {
                             name="paymentType"
                             placeholder="Payment Type"
                             component={renderSelectField}
-                            options={COUNTRIES}
-                            valueKey="alpha3Code"
-                            labelKey="name"
+                            options={PAYMENT_TYPE}
+                            valueKey="value"
+                            labelKey="label"
                           />
                           </div>
                           </div>

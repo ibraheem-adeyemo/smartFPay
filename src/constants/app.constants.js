@@ -25,21 +25,74 @@ export const ACCOUNT_TYPES = [
 ];
 
 export const FREQUENCY_OPTIONS = [
-  {label: "DAILY", value: "DAILY"},
-  {label: "WEEKLY", value: "WEEKLY"},
-  {label: "MONTHLY", value: "MONTHLY"}
+  {label: "Daily", value: "DAILY"},
+  {label: "Weekly", value: "WEEKLY"},
+  {label: "Monthly", value: "MONTHLY"}
 ];
 
+export const ACTION_TYPES = [
+  {label: "Create User", value: "CREATE_USER"}
+,{label: "View User", value: "VIEW_USER"}
+,{label: "Delete User", value: "DELETE_USER"}
+,{label: "Create Role", value: "CREATE_ROLE"}
+,{label: "Create Admin User", value: "CREATE_ADMIN_USER"}
+,{label: "Update Admin User", value: "UPDATE_ADMIN_USER"}
+,{label: "View Admin Users", value: "VIEW_ADMIN_USERS"}
+,{label: "Admin User login", value: "ADMIN_USER_LOGIN"}
+,{label: "Update Role", value: "UPDATE_ROLE"}
+,{label: "Reassign Role", value: "REASSIGN_ROLE"}
+,{label: "View Permissions", value: "VIEW_PERMISSIONS"}
+,{label: "View Roles", value: "VIEW_ROLES"}
+,{label: "Download Action Logs", value: "DOWNLOAD_ACTION_LOGS"}
+,{label: "View Tranactions", value: "VIEW_TRANSACTIONS"}
+,{label: "Download Trasactions", value: "DOWNLOAD_TRANSACTIONS"}
+,{label: "Update User Info", value: "UPDATE_USER_INFO"}
+,{label: "Create Customer", value: "CREATE_CUSTOMER"}
+,{label: "Change Customer Status", value: "CHANGE_CUSTOMER_STATUS"}
+,{label: "Subscribe Customer", value: "SUBSCRIBE_CUSTOMER"}
+,{label: "Unsubscribe Customer", value: "UNSUBSCRIBE_CUSTOMER"}
+,{label: "View Customer Info", value: "VIEW_CUSTOMER_INFO"}
+,{label: "View Customers", value: "VIEW_CUSTOMERS"}
+,{label: "Set Account Limit", value: "SET_ACCOUNT_LIMIT"}
+,{label: "Set Card Limit", value: "SET_CARD_LIMIT"}
+,{label: "View Limits", value: "VIEW_LIMITS"}
+,{label: "Download Limits", value: "DOWNLOAD_LIMITS"}
+,{label: "Channel Configuration", value: "CHANNEL_CONFIGURATION"}
+,{label: "View Action Logs", value: "VIEW_ACTIONS_LOGS"}
+,{label: "Generate Channel Token", value: "GENERATE_CHANNEL_TOKEN"}
+,{label: "Send Notification", value: "SEND_NOTIFICATION"}
+]
+
 export const CHANNELS_OPTIONS = [
-  {label: "WEB", value: "WEB"},
-  {label: "POS", value: "POS"},
-  {label: "ATM", value: "ATM"}
+  {label: "Web", value: "WEB"},
+  {label: "Pos", value: "POS"},
+  {label: "Atm", value: "ATM"}
 ];
 
 export const CARD_STATUS_OPTIONS = [
-  {label: "ACTIVE", value: "ACTIVE"},
-  {label: "BLOCKED", value: "BLOCKED"}
+  {label: "Active", value: "ACTIVE"},
+  {label: "BLocked", value: "BLOCKED"}
 ];
+
+export const PAYMENT_TYPE = [
+  {label: "Account", value: "ACCOUNT"},
+  {label: "Card", value: "CARD"}
+];
+
+export const CUSTOMER_STATUS = [
+  {label: "Subscribed", value: "SUBSCRIBED"},
+  {label: "Unsubscribed", value: "UNSUBSCRIBED"}
+];
+
+export const VIOLATION_CODES = [
+  {code: 101,	message: "CUSTOMER_UNSUBSCRIBED"},
+  {code: 102,	message: "COUNTRY_VIOLATION"},
+  {code: 103,	message: "CHANNEL_VIOLATION"},
+  {code: 104,	message: "CARD_BLOCKED"},
+  {code: 105,	message: "INTER_BANK_TRANSACTION_VIOLATION"},
+  {code: 106,	message: "AMOUNT_LIMIT_VIOLATION"},
+  {code: 107,	message: "FREQUENCY_LIMIT_VIOLATION"}
+]
 
 export const BATCH_UPLOAD_TEMPLATE = `${appConfig.mufasaTemplateUrl}/batch_card_issuance.xlsx`;
 

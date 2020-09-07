@@ -17,7 +17,7 @@ class LogInForm extends Component {
       errorMessage: '',
       email: '',
       password: '',
-      invalid: true,
+      invalid: false,
       response: null,
       loading: false
     };
@@ -59,7 +59,10 @@ class LogInForm extends Component {
         history.push('/dashboard')
       }
       console.log('Success:', data);
-      this.setState({response: data, loading: false, showError: false})
+      if(data.responseMessage) {
+        this.setState({showError:true});
+      }
+      this.setState({response: data, loading: false});
     })
     .catch(err => {
       this.setState({loading: false, showError: true})
@@ -88,6 +91,10 @@ class LogInForm extends Component {
     } else {
       this.setState({errorMessage : "Enter your email address and password"})
     }
+    this.setState({invalid: !(this.state.email && this.state.password)})
+  }
+
+  componentDidMount() {
     this.setState({invalid: !(this.state.email && this.state.password)})
   }
 
