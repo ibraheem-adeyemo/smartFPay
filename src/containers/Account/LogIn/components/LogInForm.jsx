@@ -17,7 +17,7 @@ class LogInForm extends Component {
       errorMessage: '',
       email: '',
       password: '',
-      invalid: true,
+      invalid: false,
       response: null,
       loading: false
     };
@@ -88,6 +88,10 @@ class LogInForm extends Component {
     } else {
       this.setState({errorMessage : "Enter your email address and password"})
     }
+    this.setState({invalid: !(this.state.email && this.state.password)})
+  }
+
+  componentDidMount() {
     this.setState({invalid: !(this.state.email && this.state.password)})
   }
 
