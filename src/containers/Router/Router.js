@@ -146,14 +146,15 @@ const Customers = () => (
 
 const Router = ({ hasError }) => (
   <Switch>
+          <Redirect exact from="/" to="/pc/signin" />
+          <Route exact path="/pc/signin" component={LogIn} />
     <MainWrapper hasError={hasError}>
       <main>
         <div>    
-          {/* <Redirect exact from="/" to="/pc/signin" /> */}
-          <Route exact path="/pc/signin" component={LogIn} />
             <>
-          {window.location.pathname.slice(-10) !== "/pc/signin" && <Layout />}
-          <div className={window.location.pathname.slice(-10) !== "/pc/signin" ?"container__wrap" : ""}>
+          {/* {window.location.pathname.slice(-10) !== "/pc/signin" && <Layout />} */}
+          <Layout />
+          <div className="container__wrap">
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/users" component={Users} />
             <Route path="/customers" component={Customers} />

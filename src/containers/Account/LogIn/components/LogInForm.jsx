@@ -59,7 +59,10 @@ class LogInForm extends Component {
         history.push('/dashboard')
       }
       console.log('Success:', data);
-      this.setState({response: data, loading: false, showError: false})
+      if(data.responseMessage) {
+        this.setState({showError:true});
+      }
+      this.setState({response: data, loading: false});
     })
     .catch(err => {
       this.setState({loading: false, showError: true})
