@@ -149,8 +149,8 @@ const Router = ({ hasError }) => (
   <Switch>
     <MainWrapper hasError={hasError}>
           <Route exact path="/pc/signin" component={LogIn} />
-    <Route path="/dashboard" component={Dashboard} />
-          {/* <Redirect exact from="/" to="/pc/signin" /> */}
+          <Route path="/dashboard" component={Dashboard} />
+          <Redirect exact from="/" to="/pc/signin" />
       {/* <main>
         <div>
             <>
