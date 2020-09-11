@@ -4,7 +4,7 @@ import { MdSearch, MdFilterList, MdFileDownload } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
-import { CHANNELS_OPTIONS, PAYMENT_TYPE } from "../../../../constants/app.constants";
+import { CHANNELS_OPTIONS, PAYMENT_TYPE, VIOLATION_CODES } from "../../../../constants/app.constants";
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
@@ -182,9 +182,9 @@ const CustomFilter = memo(props => {
                             name="violationCode"
                             placeholder="Violation Code"
                             component={renderSelectField}
-                            options={COUNTRIES}
-                            valueKey="alpha3Code"
-                            labelKey="name"
+                            options={VIOLATION_CODES}
+                            valueKey="message"
+                            labelKey="message"
                           />
                           </div>
                           </div>
