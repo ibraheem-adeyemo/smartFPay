@@ -143,24 +143,25 @@ const Customers = () => (
       )}
   </Switch>
 );
-
+console.log('localStorage.getItem', localStorage.getItem('pc-token'));
+let token = localStorage.getItem('pc-token');
 const Router = ({ hasError }) => (
   <Switch>
     <MainWrapper hasError={hasError}>
           <Route exact path="/pc/signin" component={LogIn} />
-          <Redirect exact from="/" to="/pc/signin" />
+    <Route path="/dashboard" component={Dashboard} />
+          {/* <Redirect exact from="/" to="/pc/signin" /> */}
       {/* <main>
-        <div>    
-            <> */}
-          {/* {window.location.pathname.slice(-10) !== "/pc/signin" && <Layout />} */}
-          {/* <Layout />
+        <div>
+            <>
+          <Layout />
           <div className="container__wrap">
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/users" component={Users} />
             <Route path="/customers" component={Customers} />
-            <Route path="/limit-requests" component={Limits} /> */}
-            {/* <Route path="/report" component={Reports} /> */}
-            {/* <Route path="/view-report" component={Reports} />
+            <Route path="/limit-requests" component={Limits} />
+            <Route path="/report" component={Reports} />
+            <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
             <Route path="/view-transactions" component={Transactions} />
             <Route path="/channel-token" component={Token} />
