@@ -87,7 +87,7 @@ const ChannelTokenForm = memo(props => {
             </ButtonToolbar>
           </form>
 
-              {generatechanneltoken.response.token && <h4>{generatechanneltoken.response?.token}</h4>}
+              {generatechanneltoken.response?.token && <h4>{generatechanneltoken.response?.token}</h4>}
         </CardBody>
       </Card>
     </Col>

@@ -19,6 +19,10 @@ import RoleForm from "../Roles/RolesForm";
 import LimitForm from "../Limits/LimitForm";
 
 const Users = () => (
+  <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
   <Switch>
     {UserRoutes.enabled &&
       UserRoutes.routes.map(route =>
@@ -34,9 +38,16 @@ const Users = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 
 const Roles = () => (
+  <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
   <Switch>
     {RolesRoutes.enabled &&
       RolesRoutes.routes.map(route =>
@@ -52,9 +63,16 @@ const Roles = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 
 const Limits = () => (
+  <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
   <Switch>
     {LimitRequestRoutes.enabled &&
       LimitRequestRoutes.routes.map(route =>
@@ -70,9 +88,16 @@ const Limits = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 
 const Reports = () => (
+  <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
   <Switch>
     {AuditTrailRoutes.enabled &&
       AuditTrailRoutes.routes.map(route =>
@@ -88,9 +113,16 @@ const Reports = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 
 const Transactions = () => (
+  <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
   <Switch>
     {TransactionRoutes.enabled &&
       TransactionRoutes.routes.map(route =>
@@ -106,9 +138,15 @@ const Transactions = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 
-const Token = () => (
+const Token = () => ( <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
   <Switch>
     {TokenRoutes.enabled &&
       TokenRoutes.routes.map(route =>
@@ -124,9 +162,16 @@ const Token = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 
 const Customers = () => (
+  <main>
+    <div>
+   <Layout />
+   <div className="container__wrap">
   <Switch>
     {CustomerRoutes.enabled &&
       CustomerRoutes.routes.map(route =>
@@ -142,29 +187,31 @@ const Customers = () => (
         ) : null
       )}
   </Switch>
+  </div>
+  </div>
+  </main>
 );
 console.log('localStorage.getItem', localStorage.getItem('pc-token'));
 let token = localStorage.getItem('pc-token');
 const Router = ({ hasError }) => (
   <Switch>
     <MainWrapper hasError={hasError}>
+          <Redirect exact from="/" to="/pc/signin" />
           <Route exact path="/pc/signin" component={LogIn} />
           <Route path="/dashboard" component={Dashboard} />
-          <Redirect exact from="/" to="/pc/signin" />
+          <Route path="/customers" component={Customers} />
+          <Route path="/users" component={Users} />
+          <Route path="/limit-requests" component={Limits} />
+          <Route path="/report" component={Reports} />
+          <Route path="/view-report" component={Reports} />
+          <Route path="/roles" component={Roles} />
+          <Route path="/view-transactions" component={Transactions} />
+          <Route path="/channel-token" component={Token} />
       {/* <main>
         <div>
             <>
           <Layout />
           <div className="container__wrap">
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/users" component={Users} />
-            <Route path="/customers" component={Customers} />
-            <Route path="/limit-requests" component={Limits} />
-            <Route path="/report" component={Reports} />
-            <Route path="/view-report" component={Reports} />
-            <Route path="/roles" component={Roles} />
-            <Route path="/view-transactions" component={Transactions} />
-            <Route path="/channel-token" component={Token} />
           </div>
           </>
         </div>
