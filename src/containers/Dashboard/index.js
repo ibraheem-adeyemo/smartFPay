@@ -4,8 +4,13 @@ import { Col, Container, Row } from "reactstrap";
 import CardRequestsStatsCard from "./components/StatsCard";
 import QuickLinks from "./components/QuickLinks"
 import PageHeader from "../../shared/components/PageHeader";
+import Layout from "../Layout/index";
 
 const Dashboard = () => (
+  <main>
+    <div>
+   <Layout />
+   <div className="container__wrap">
   <Container className="dashboard">
     <Row>
       <Col md={12}>
@@ -26,7 +31,9 @@ const Dashboard = () => (
     <Row>
       <QuickLinks />
     </Row>
-  </Container>
+  </Container></div>
+  </div>
+  </main>
 );
 
 export default Dashboard;

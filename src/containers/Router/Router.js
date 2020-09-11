@@ -146,28 +146,28 @@ const Customers = () => (
 
 const Router = ({ hasError }) => (
   <Switch>
-          <Redirect exact from="/" to="/pc/signin" />
-          <Route exact path="/pc/signin" component={LogIn} />
     <MainWrapper hasError={hasError}>
-      <main>
+          <Route exact path="/pc/signin" component={LogIn} />
+          <Redirect exact from="/" to="/pc/signin" />
+      {/* <main>
         <div>    
-            <>
+            <> */}
           {/* {window.location.pathname.slice(-10) !== "/pc/signin" && <Layout />} */}
-          <Layout />
+          {/* <Layout />
           <div className="container__wrap">
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/users" component={Users} />
             <Route path="/customers" component={Customers} />
-            <Route path="/limit-requests" component={Limits} />
+            <Route path="/limit-requests" component={Limits} /> */}
             {/* <Route path="/report" component={Reports} /> */}
-            <Route path="/view-report" component={Reports} />
+            {/* <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
             <Route path="/view-transactions" component={Transactions} />
             <Route path="/channel-token" component={Token} />
           </div>
           </>
         </div>
-      </main>
+      </main> */}
     </MainWrapper>
   </Switch>
 );

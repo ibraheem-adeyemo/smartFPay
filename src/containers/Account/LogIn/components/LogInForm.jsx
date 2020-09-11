@@ -95,6 +95,7 @@ class LogInForm extends Component {
   }
 
   componentDidMount() {
+    localStorage.setItem('pc-token', '');
     this.setState({invalid: !(this.state.email && this.state.password)})
   }
 
