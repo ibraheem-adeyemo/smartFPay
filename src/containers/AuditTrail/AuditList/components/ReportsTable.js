@@ -74,13 +74,12 @@ const ReportsTable = memo(props => {
       Cell: row => (
         <button
           type="button"
-          id={`toggle-btn-${row.actionStatus ? "enabled" : "disabled"}-${row.id}`}
-          className={`btn ${
-            row.actionStatus ? "btn-success" : "btn-secondary"
+          id={`toggle-btn-${row.actionStatus.toLowerCase() === 'successful' ? "enabled" : "disabled"}-${row.id}`}
+          className={`btn ${row.actionStatus.toLowerCase() === 'successful' ? "btn-success" : "btn-danger"
           } badge mb-0`}
         >
           {
-            <span>{row.actionStatus ? "Active" : "Inactive"}</span>
+            <span>{row.actionStatus}</span>
           }
         </button>
       )
