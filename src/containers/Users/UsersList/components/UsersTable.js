@@ -198,6 +198,7 @@ const UsersTable = memo(props => {
             data={
               dataState?.response?.data || []
             }
+            NoDataText={'No Users Found'}
             count={count}
             countName="Users"
             defaultPageSize={10}

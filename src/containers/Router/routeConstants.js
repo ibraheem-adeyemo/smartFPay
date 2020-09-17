@@ -317,7 +317,6 @@ export const RolesRoutes = {
   ]
 }
 
-
 export const UserRoutes = {
   enabled: true,
   menu: true,
