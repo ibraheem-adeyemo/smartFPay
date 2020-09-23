@@ -27,7 +27,8 @@ function downloadControls(params) {
     API_URLS.LIMITS.DOWNLOAD_CONTROLS,
     null,
     null,
-    params
+    params,
+    'limit.csv'
   );
 }
 

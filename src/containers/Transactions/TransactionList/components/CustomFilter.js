@@ -8,6 +8,7 @@ import { CHANNELS_OPTIONS, PAYMENT_TYPE, VIOLATION_CODES } from "../../../../con
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
+import CsvDownloader from 'react-csv-downloader';
 
 const CustomFilter = memo(props => {
   const {
@@ -200,6 +201,7 @@ const CustomFilter = memo(props => {
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
                       Filter
                     </Button>
+                    <CsvDownloader>
                     <Button
                       color="primary"
                       id="submit-btn"
@@ -210,6 +212,7 @@ const CustomFilter = memo(props => {
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFileDownload /> </span>}
                       Download
                     </Button>
+                    </CsvDownloader>
           </Col>
               
           </Row>

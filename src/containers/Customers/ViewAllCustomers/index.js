@@ -7,13 +7,12 @@ import { getCustomers } from "../actions/customers.actions";
 
 const CustomersList = ({ dispatch, customers, match }) => {
   const fetchRequests = requestParams => {
-    console.log(requestParams)
     dispatch(getCustomers(requestParams));
   };
 
   useEffect(() => {
     getCustomers({ page: 1, pageSize: 10 }, match.params.id);
-  }, [dispatch, match.params.id]);
+  }, [dispatch]);
 
   return (
     <Container>

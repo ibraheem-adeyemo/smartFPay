@@ -13,7 +13,7 @@ export const getCurrentUser = () => {
     try {
       var token = localStorage.getItem('pc-token');
       console.log('Token', token)
-      // var token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiR0VORVJBVEVfQ0xJRU5UX1RPS0VOIiwiVVBEQVRFX0FETUlOX1VTRVIiLCJVUERBVEVfQ1VTVE9NRVIiLCJVUERBVEVfTElNSVQiLCJVUERBVEVfUk9MRSIsIlZJRVdfUEVSTUlTU0lPTiJdLCJpYXQiOjE1OTAwNjA1MjUsImV4cCI6MTk1MDA2MDUyNX0.kyLqZV2R6dwekUxSRSV8R-bSKiAH-Lzjogu0AlQ6ltI"
+      // var token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY"
       const response = jwtDecode(token);
       response && dispatch(success(response));
     } catch (error) {

@@ -88,6 +88,10 @@ const Pill = ({title, color}) => (<Badge color={color} pill style={{marginRight:
                 <dd className="col-sm-8">
                   <p>{transactionObj.tokenizedPan}</p>
                 </dd></>}
+                {transactionObj.cardMaskedPan && <><dt className="col-sm-4">Card Masked Pan</dt>
+                <dd className="col-sm-8">
+                  <p>{transactionObj.cardMaskedPan}</p>
+                </dd></>}
                 {transactionObj.transactionAmount && <><dt className="col-sm-4">Transaction Amount</dt>
                 <dd className="col-sm-8">
                   <p>{transactionObj.transactionAmount}</p>
@@ -96,7 +100,7 @@ const Pill = ({title, color}) => (<Badge color={color} pill style={{marginRight:
                 <dd className="col-sm-8">
                   <p>{transactionObj.country}</p>
                 </dd></>}
-                {transactionObj.paymentType && <><dt className="col-sm-4">Payment Typr</dt>
+                {transactionObj.paymentType && <><dt className="col-sm-4">Payment Type</dt>
                 <dd className="col-sm-8">
                   <p>{transactionObj.paymentType}</p>
                 </dd></>}
@@ -106,7 +110,7 @@ const Pill = ({title, color}) => (<Badge color={color} pill style={{marginRight:
                 </dd></>}
                 <dt className="col-sm-4">Transaction Status</dt>
                 <dd className="col-sm-8">
-                  <p>{<Pill title={transactionObj.transactionStatus} colo={transactionObj.transactionStatus === "Failed"? "failure":"success"}/>}</p>
+                  <p>{<Pill title={transactionObj.transactionStatus} color={transactionObj.transactionStatus.toLowerCase() === "successful"? "success":"failure"}/>}</p>
                 </dd>
               </dl>
             </div>
