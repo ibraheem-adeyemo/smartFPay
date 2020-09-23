@@ -196,7 +196,7 @@ let token = localStorage.getItem('pc-token');
 const Router = ({ hasError }) => (
   <Switch>
     <MainWrapper hasError={hasError}>
-          <Redirect exact from="/" to="/pc/signin" />
+          {/* <Redirect exact from="/" to="/pc/signin" /> */}
           <Route exact path="/pc/signin" component={LogIn} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/customers" component={Customers} />

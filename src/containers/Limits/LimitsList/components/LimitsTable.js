@@ -266,7 +266,7 @@ const LimitsTable = memo(props => {
           <DataTable
             columns={columns}
             loading={dataState?.loading}
-            data={controlData}
+            data={dataState?.response?.data || []}
             NoDataText={'No Controls Found'}
             count={count}
             countName="Controls"

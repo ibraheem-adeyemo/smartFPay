@@ -70,7 +70,8 @@ export const apiCall = async (
 ) => {
   let headers = {
     "Content-type": "application/json",
-    "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY",
+    // "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
     ...customHeaders
   };
 
@@ -116,4 +117,52 @@ export const apiCallForUpload = async (
     url = `${url}?${urlParams}`;
   }
   return fetch(url, requestOptions).then(handleResponse);
+};
+
+export const apiCallForDownload = async (
+  requestType,
+  url,
+  customHeaders,
+  requestBody,
+  requestParams,
+  filename
+) => {
+  let headers = {
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY",
+    ...customHeaders
+  };
+  const { xsrfToken, xsrfTokenHeader } = appConfig;
+  let newUrl;
+  if (xsrfToken && xsrfTokenHeader) {
+    headers[xsrfTokenHeader] = xsrfToken;
+  }
+
+  const requestOptions = {
+    method: requestType,
+    headers,
+    body: requestBody ? JSON.stringify(requestBody) : undefined,
+    responseType: 'blob'
+  };
+  if (requestParams) {
+
+    const urlParams = createUrlParams(requestParams);
+    url = `${url}?${urlParams}`;
+  }
+
+  console.log(url);
+
+  return fetch(url, requestOptions).then(async (response) => {
+    console.log(url, requestOptions)
+    let resp = await response.text();
+    console.log(resp);
+     newUrl = window.URL.createObjectURL(new Blob([resp]))
+     const link = document.createElement('a');
+     link.href = newUrl;
+     link.setAttribute('download', filename); //or any other extension
+     document.body.appendChild(link);
+     link.click();
+     console.log("Clicked");
+  }).catch((err) => {
+    console.log('This happened', err)
+  });
 };

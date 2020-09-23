@@ -39,12 +39,12 @@ export const downloadTransactionReport = requestParams => {
     try {
       const response = await transactionService.downloadTransactions(requestParams);
 
-      if (response) {
-        dispatch(success(response));
-        const transactionsDownloadLink =
-          "https://payment-control-management-service.k13.isw.la/api/transactions/download?pageNumber=1&pageSize=10&startDate=01-08-2015%2000:00:00&endDate=12-09-2020%2000:00:00"
-        appUtils.downloadFile(transactionsDownloadLink);
-      }
+      // if (response) {
+      //   dispatch(success(response));
+      //   const transactionsDownloadLink =
+      //     "https://payment-control-management-service.k13.isw.la/api/transactions/download?startDate=10-08-2020 00:00:00&endDate=09-08-2021 00:42:38";
+      //   appUtils.downloadFile('transactionsDownloadLink');
+      // }
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));

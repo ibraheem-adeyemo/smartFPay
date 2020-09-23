@@ -15,7 +15,7 @@ const LimitsList = ({ dispatch, allControls, match }) => {
   };
 
   useEffect(() => {
-    dispatch(getAllControls({...allControls.request}));
+    dispatch(getAllControls({pageNumber: 1, pageSize: 10}));
   }, [dispatch]);
 
   return (

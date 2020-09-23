@@ -29,6 +29,6 @@ export const appConfig = {
     // return `${this.apiName}`;
     // return `/${this.apiName}/api`;
     // return `http://payment-control-management-service.k13.isw.la/api`;
-    return `https://payment-control-management-service.k13.isw.la/api`
+    return `https://payment-control-management-service.k8.isw.la/api`
   }
 };

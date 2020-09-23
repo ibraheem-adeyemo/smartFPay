@@ -18,6 +18,7 @@
     "react-avatar": "^3.6.0",
     "react-confirm-alert": "^2.4.1",
     "react-credit-cards": "^0.8.3",
+    "react-csv-downloader": "^2.1.0",
     "react-data-grid": "^6.1.0",
     "react-datepicker": "^2.8.0",
     "react-dom": "^16.8.6",

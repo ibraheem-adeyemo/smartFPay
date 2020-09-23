@@ -5,7 +5,7 @@ export const createFilterRequestBody = (values) => {
       decline: values.decline,
       accountNumber: values.accountNumber,
       channel: values.channel.value,
-      violationCode: values.violationCode.value,
+      violationCode: values.violationCode.message,
       customerName: values.customerName,
       country: values.country.alpha3Code,
       paymentType: values.paymentType.value,

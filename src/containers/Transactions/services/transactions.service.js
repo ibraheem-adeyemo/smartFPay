@@ -1,5 +1,6 @@
-import { apiCall } from "../../../utils/api.utils";
+import { apiCall, apiCallForDownload } from "../../../utils/api.utils";
 import { API_URLS } from "../../../constants/apiUrls";
+import axios from 'axios';
 
 export const transactionService = {
     getAllTransactions,
@@ -17,11 +18,12 @@ function getAllTransactions(params) {
 }
 
 function downloadTransactions(params) {
-  return apiCall(
+  return apiCallForDownload(
     "GET",
     API_URLS.TRANSACTIONS.DOWNLOAD_TRANSACTIONS,
     null,
     null,
-    params
+    params,
+    'transactions.csv'
   );
 }

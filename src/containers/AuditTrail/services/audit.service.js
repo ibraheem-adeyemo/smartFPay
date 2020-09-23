@@ -23,7 +23,8 @@ function downloadAuditReport(params) {
     API_URLS.AUDIT.DOWNLOAD_AUDIT_REPORT,
     null,
     null,
-    params
+    params,
+    'audit.csv'
   );
 }
 
