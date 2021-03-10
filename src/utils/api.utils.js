@@ -23,7 +23,6 @@ const createUrlParams = (params, encode) => {
 };
 
 const handleResponse = response => {
-  console.log('RESPONSE', response)
   const contentType = response.headers.get("content-type");
   const isJson = contentType && contentType.indexOf("application/json") !== -1;
   if (response.ok) {
@@ -70,8 +69,8 @@ export const apiCall = async (
 ) => {
   let headers = {
     "Content-type": "application/json",
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY",
-    // "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
+    //"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY",
+    "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
     ...customHeaders
   };
 

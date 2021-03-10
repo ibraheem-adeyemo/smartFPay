@@ -17,7 +17,6 @@ class LogInForm extends Component {
       errorMessage: '',
       email: '',
       password: '',
-      invalid: false,
       response: null,
       loading: false
     };
@@ -74,11 +73,11 @@ class LogInForm extends Component {
     const {dispatch, error, history} = this.props;
     let {email, password} = this.state;
     e.preventDefault();
-    // this.setState({loading: true});
-    console.log(this.state.email, this.state.password)
-    // dispatch(postLogin({email, password}, history));
-    // this.postLogin({email, password}, history)
-    window.localStorage.setItem('pc-token', "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY");
+    //this.setState({loading: true});
+    //dispatch(postLogin({email, password}, history));
+    this.postLogin({email, password}, history);
+    //this.setState({loading: false});
+    //window.localStorage.setItem('pc-token', "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY");
     history.push('/dashboard')
   }
 
@@ -92,16 +91,14 @@ class LogInForm extends Component {
     } else {
       this.setState({errorMessage : "Enter your email address and password"})
     }
-    this.setState({invalid: !(this.state.email && this.state.password)})
   }
 
   componentDidMount() {
     localStorage.setItem('pc-token', '');
-    this.setState({invalid: !(this.state.email && this.state.password)})
   }
 
   render() {
-    const { showPassword, showError, errorMessage, invalid, response, loading } = this.state;
+    const { showPassword, showError, errorMessage, response, loading, email, password } = this.state;
     const {error, errorTitle} = this.props;
     return (
       <>
@@ -119,7 +116,7 @@ class LogInForm extends Component {
                 </Alert>
             ) : null}
     <div>
-            {invalid && errorMessage.length > 0 ? (
+            {(!email || !password) && errorMessage.length > 0 ? (
                 <Alert color="danger">
                     {errorMessage}
                 </Alert>
@@ -164,7 +161,7 @@ class LogInForm extends Component {
           color="primary"
           id="submit-btn"
           type="submit"
-          disabled={loading || invalid}
+          disabled={loading || !email || !password}
           className="btn btn-primary account__btn account__btn--small"
         >
           {loading ? (
