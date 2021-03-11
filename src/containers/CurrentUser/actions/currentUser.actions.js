@@ -36,9 +36,9 @@ export const getPermissions = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      var token = localStorage.getItem('pc-token');
-      const response = jwtDecode(token);
-      // const response = await currentUserService.getPermissions();
+      //var token = localStorage.getItem('pc-token');
+      //const response = jwtDecode(token);
+      const response = await currentUserService.getPermissions();
       response && dispatch(success(response));
       // response && console.log(response)
     } catch (error) {
