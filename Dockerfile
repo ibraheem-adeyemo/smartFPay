@@ -1,5 +1,6 @@
 FROM node:10 as build-deps
 WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 COPY package.json /usr/src/app
 
 RUN npm --proxy http://172.16.10.20:8080 install
