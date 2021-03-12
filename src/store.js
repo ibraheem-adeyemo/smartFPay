@@ -20,7 +20,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [thunkMiddleware];
 
 if (process.env.NODE_ENV !== "production") {
-  middleWares.push(loggerMiddleware);
+  //middleWares.push(loggerMiddleware);
 }
 
 const store = createStore(persistedReducer, applyMiddleware(...middleWares));

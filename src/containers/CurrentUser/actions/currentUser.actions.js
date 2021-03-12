@@ -11,10 +11,9 @@ export const getCurrentUser = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      var token = localStorage.getItem('pc-token');
-      console.log('Token', token)
-      // var token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY"
+      const token = localStorage.getItem('pc-token');
       const response = jwtDecode(token);
+      console.log({response})
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
@@ -36,9 +35,9 @@ export const getPermissions = () => {
   return async dispatch => {
     dispatch(request());
     try {
-      //var token = localStorage.getItem('pc-token');
-      //const response = jwtDecode(token);
-      const response = await currentUserService.getPermissions();
+      const token = localStorage.getItem('pc-token');
+      const response = jwtDecode(token);
+      //const response = await currentUserService.getPermissions();
       response && dispatch(success(response));
       // response && console.log(response)
     } catch (error) {

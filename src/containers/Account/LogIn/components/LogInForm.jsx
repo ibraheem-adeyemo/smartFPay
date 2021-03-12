@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { API_URLS } from "../../../../constants/apiUrls";
 import {postLogin} from '../../actions/account.actions';
 import {accountService} from '../../services/account.service';
-
 class LogInForm extends Component {
   constructor() {
     super();
@@ -74,11 +73,11 @@ class LogInForm extends Component {
     let {email, password} = this.state;
     e.preventDefault();
     //this.setState({loading: true});
-    //dispatch(postLogin({email, password}, history));
-    this.postLogin({email, password}, history);
+    dispatch(postLogin({email, password}, history));
+    //this.postLogin({email, password}, history);
     //this.setState({loading: false});
     //window.localStorage.setItem('pc-token', "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY");
-    history.push('/dashboard')
+    //history.push('/dashboard')
   }
 
   handleChange = (e) => {
@@ -100,6 +99,7 @@ class LogInForm extends Component {
   render() {
     const { showPassword, showError, errorMessage, response, loading, email, password } = this.state;
     const {error, errorTitle} = this.props;
+
     return (
       <>
       {(showError || response?.reponseCode) ? (
@@ -127,10 +127,11 @@ class LogInForm extends Component {
           <div className="form__form-group-field">
             <input
               name="email"
-              type="text"
+              type="email"
               placeholder="Name"
               style={{border: "1px solid"}}
               onChange={this.handleChange}
+              required
             />
           </div>
         </div>
@@ -142,6 +143,7 @@ class LogInForm extends Component {
               placeholder="Password"
               onChange={this.handleChange}
               style={{border: "1px solid", borderRightStyle: "hidden"}}
+              required
             />
             <button
               className={`form__form-group-button${showPassword ? ' active' : ''}`}
@@ -161,7 +163,7 @@ class LogInForm extends Component {
           color="primary"
           id="submit-btn"
           type="submit"
-          disabled={loading || !email || !password}
+          disabled={loading}
           className="btn btn-primary account__btn account__btn--small"
         >
           {loading ? (
