@@ -13,8 +13,8 @@ export const postLogin = (values, history) => {
       try {
         const response = await accountService.postLogin(requestBody);
         dispatch(success(response));
-        dispatch(reset("login_form"));
         history.push('/dashboard');
+        dispatch(reset("login_form"));
         dispatch(resetPost());
       } catch (error) {
         console.log(error)

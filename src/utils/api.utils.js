@@ -60,7 +60,7 @@ const handleResponse = response => {
   }
 };
 
-export const apiCall = async (
+export const apiCall = (
   requestType,
   url,
   customHeaders,
