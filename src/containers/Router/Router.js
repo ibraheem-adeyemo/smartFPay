@@ -17,6 +17,7 @@ import PermissionedRoute from "./PermissionedRoute";
 import LogIn from "../Account/LogIn";
 import RoleForm from "../Roles/RolesForm";
 import LimitForm from "../Limits/LimitForm";
+import { connect } from "react-redux";
 
 const Users = () => (
   <main>
@@ -191,35 +192,40 @@ const Customers = () => (
   </div>
   </main>
 );
-console.log('localStorage.getItem', localStorage.getItem('pc-token'));
-let token = localStorage.getItem('pc-token');
-const Router = ({ hasError }) => (
-  <Switch>
-    <MainWrapper hasError={hasError}>
-          {/* <Redirect exact from="/" to="/pc/signin" /> */}
-          <Route exact path="/pc/signin" component={LogIn} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/customers" component={Customers} />
-          <Route path="/users" component={Users} />
-          <Route path="/limit-requests" component={Limits} />
-          <Route path="/report" component={Reports} />
-          <Route path="/view-report" component={Reports} />
-          <Route path="/roles" component={Roles} />
-          <Route path="/view-transactions" component={Transactions} />
-          <Route path="/channel-token" component={Token} />
-      {/* <main>
-        <div>
-            <>
-          <Layout />
-          <div className="container__wrap">
+
+const Router = ({ hasError, currentUser, permissions }) => {
+  const unAuth = !currentUser.response;
+
+  return (
+    <Switch>
+      <MainWrapper hasError={hasError}>
+            {unAuth && <Redirect exact from="/" to="/pc/signin" />}
+            <Route exact path="/pc/signin" component={LogIn} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/customers" component={Customers} />
+            <Route path="/users" component={Users} />
+            <Route path="/limit-requests" component={Limits} />
+            <Route path="/report" component={Reports} />
+            <Route path="/view-report" component={Reports} />
+            <Route path="/roles" component={Roles} />
+            <Route path="/view-transactions" component={Transactions} />
+            <Route path="/channel-token" component={Token} />
+        {/* <main>
+          <div>
+              <>
+            <Layout />
+            <div className="container__wrap">
+            </div>
+            </>
           </div>
-          </>
-        </div>
-      </main> */}
-    </MainWrapper>
-  </Switch>
-);
+        </main> */}
+      </MainWrapper>
+    </Switch>
+  );
+}
 
-console.log(localStorage.getItem('pc-token'), window.location.pathname.slice(-10));
-
-export default Router;
+export default connect(state => ({
+  permissions: state.permissions,
+  currentUser: state.currentUser,
+  assignedIssuer: state.getIssuerDomainMapping
+}))(Router);

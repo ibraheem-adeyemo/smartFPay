@@ -13,7 +13,6 @@ export const getCurrentUser = () => {
     try {
       const token = localStorage.getItem('pc-token');
       const response = jwtDecode(token);
-      console.log({response})
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));

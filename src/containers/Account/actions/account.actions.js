@@ -3,6 +3,7 @@ import { message } from "../../../constants/app.constants";
 import {accountService} from '../services/account.service';
 import {accountConstants, nameSpace} from '../constants/account.constant';
 import { reset } from "redux-form";
+import { getCurrentUser, getPermissions } from "../../CurrentUser/actions/currentUser.actions";
 
 export const postLogin = (values, history) => {
     const requestBody = values;
@@ -13,6 +14,8 @@ export const postLogin = (values, history) => {
       try {
         const response = await accountService.postLogin(requestBody);
         dispatch(success(response));
+        dispatch(getCurrentUser());
+        dispatch(getPermissions());
         history.push('/dashboard');
         dispatch(reset("login_form"));
         dispatch(resetPost());
