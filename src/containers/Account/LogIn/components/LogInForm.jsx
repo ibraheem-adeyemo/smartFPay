@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { API_URLS } from "../../../../constants/apiUrls";
 import {postLogin} from '../../actions/account.actions';
 import {accountService} from '../../services/account.service';
+import { show } from '../../../Notifications/actions/alert.actions';
 class LogInForm extends Component {
   constructor() {
     super();
@@ -82,6 +83,8 @@ class LogInForm extends Component {
 
   handleChange = (e) => {
     const {name, value} = e.currentTarget;
+    const {error, errorTitle} = this.props;
+
     this.setState({name: value})
     if(name === "email" && this.validateMail(value)) {
       this.setState({email: value})
@@ -90,37 +93,27 @@ class LogInForm extends Component {
     } else {
       this.setState({errorMessage : "Enter your email address and password"})
     }
+    if (error && errorTitle)
+      this.props.dispatch(show())
   }
 
   componentDidMount() {
     localStorage.setItem('pc-token', '');
+    this.props.dispatch(show())
   }
 
   render() {
-    const { showPassword, showError, errorMessage, response, loading, email, password } = this.state;
+    const { showPassword, response, loading, email, password } = this.state;
     const {error, errorTitle} = this.props;
 
     return (
       <>
-      {(showError || response?.reponseCode) ? (
+          <div>
+            {error && errorTitle && (
                 <Alert color="danger">
-                  <p><strong>{response?.responseCode || 'Request failed'}</strong> : {response?.responseMessage || 'Try again later'}</p>
-                  {/* <p></p><strong>{error?.message}</strong>
-                  <p>{`${errorTitle}` || ''}</p> */}
-                  {/* <p>
-                    {`${error?.response.status} - ${error?.response.statusText}` || ''}
-                  </p>
-                  <p>
-                    {error?.message || ''}
-                  </p> */}
+                    {errorTitle}
                 </Alert>
-            ) : null}
-    <div>
-            {(!email || !password) && errorMessage.length > 0 ? (
-                <Alert color="danger">
-                    {errorMessage}
-                </Alert>
-            ) : null}
+            )}
           </div>
       <form className="form" onSubmit={this.handleLogin}>
         <div className="form__form-group">
@@ -131,6 +124,7 @@ class LogInForm extends Component {
               placeholder="Name"
               style={{border: "1px solid"}}
               onChange={this.handleChange}
+              value={email}
               required
             />
           </div>
@@ -143,6 +137,7 @@ class LogInForm extends Component {
               placeholder="Password"
               onChange={this.handleChange}
               style={{border: "1px solid", borderRightStyle: "hidden"}}
+              value={password}
               required
             />
             <button
