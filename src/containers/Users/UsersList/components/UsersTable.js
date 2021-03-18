@@ -32,6 +32,7 @@ const UsersTable = memo(props => {
     fetchData,
     dispatch,
     toggleuser,
+    currentUser,
     permissions = [],
     allUsers
   } = props;
@@ -46,7 +47,7 @@ const UsersTable = memo(props => {
         {
           label: "Yes",
           onClick: () =>
-            dispatch(toggleUser(row, allUsers.request))
+            dispatch(toggleUser(row, allUsers.request, currentUser))
         },
         {
           label: "No",
@@ -98,18 +99,32 @@ const UsersTable = memo(props => {
       sortKey: "active",
       renderHeader: () => (
         <span>
-          Status
+          Status <small>(click to toggle)</small>
         </span>
       ),
       filterable: true,
       Cell: row => (
         <button
+          type="button"
           id={`toggle-btn-${row.disabled ? "disabled" : "enabled"}-${row.id}`}
+          onClick={() =>
+            accessControlFn(
+              permissions,
+              [UPDATE_USER],
+              toggleUserFn,
+              row
+            )
+          }
           className={`btn ${
             row.disabled ? "btn-secondary" : "btn-success"
           } badge mb-0`}
         >
+          {toggleUser.loading &&
+          row.name === toggleUser.request.name ? (
+            <Spinner size="sm" />
+          ) : (
             <span>{row.disabled ? "Disabled" : "Enabled"}</span>
+          )}
         </button>
       )
     }
@@ -237,5 +252,6 @@ export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
   permissions: state.permissions && state.permissions.response?.permissions,
   allUsers: state.getusers,
-  toggleuser: state.toggleuser
+  toggleuser: state.toggleuser,
+  currentUser: state.currentUser,
 }))(withRouter(UsersTable));

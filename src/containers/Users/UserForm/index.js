@@ -54,7 +54,7 @@ const UserForm = ({ dispatch, currentUser, user, match, history }) => {
     <Container>
       <PageHeader
         header={`${match.params.id ? "Edit" : "Add"} User`}
-        subheader="Create new user"
+        subheader={match.params.id ? "Edit user information" : "Add new user"}
       />
       <Row>
         <HorizontalForm

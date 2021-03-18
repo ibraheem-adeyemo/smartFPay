@@ -98,12 +98,16 @@ export const getUserRole = params => {
   }
 };
 
-export const toggleUser = (user, pageState) => {
-  let requestBody = {
-    ...user,
-    disabled:!user.disabled
-  }
+export const toggleUser = (user, pageState, currentUser) => {
   return async dispatch => {
+    const userData = await userService.getUser(user.id);
+    let requestBody = {
+      ...userData,
+      ...user,
+      first_name: user.firstName,
+      last_name: user.lastName
+    }
+    requestBody = createRequestBody(requestBody, currentUser, user.id, userData);
     dispatch(request(requestBody));
     try {
       const response = await userService.postUser(requestBody, user.id);

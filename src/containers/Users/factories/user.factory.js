@@ -1,5 +1,4 @@
 export const createRequestBody = (values, currentUser, id, userToEdit) => {
-  console.log('User to edut', userToEdit)
   const requestObject = id? {
     id: id,
     disabled: !values.disabled,
@@ -20,7 +19,6 @@ export const createRequestBody = (values, currentUser, id, userToEdit) => {
     requestObject.id = userToEdit.data[0].id;
   }
 
-  console.log()
 
   return requestObject;
 };
