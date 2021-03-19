@@ -7,7 +7,7 @@ const LogIn = () => (
     <div className="account__wrapper">
       <div className="account__card">
       <div>
-        <img src={logo} />
+        <img src={logo} alt="logo" />
       </div>
         <div className="account__head">
           <h3 className="account__title">

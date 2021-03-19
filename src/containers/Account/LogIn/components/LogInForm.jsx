@@ -103,8 +103,8 @@ class LogInForm extends Component {
   }
 
   render() {
-    const { showPassword, response, loading, email, password } = this.state;
-    const {error, errorTitle} = this.props;
+    const { showPassword, email, password } = this.state;
+    const {error, errorTitle, loading} = this.props;
 
     return (
       <>
