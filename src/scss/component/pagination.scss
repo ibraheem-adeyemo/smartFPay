@@ -1,5 +1,25 @@
-.pagination {
-
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  .paginator-control {
+    padding: 0.2rem 0.6rem;
+    margin: 0 0.6rem;
+  }
+  .page-desc {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0 0.6rem;
+  }
+  .page-input {
+    width: 3rem;
+    margin: 0 0.4rem;
+    &.select {
+      cursor: pointer;
+    }
+  }
 }
 
 .pagination__link {
