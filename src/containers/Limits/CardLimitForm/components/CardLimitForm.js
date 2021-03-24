@@ -25,16 +25,11 @@ const CardLimitForm = memo(props => {
   const {
     dispatch,
     handleSubmit,
-    reset,
-    pristine,
     invalid,
     submitting,
     controlId,
     control,
     postcardcontrol,
-    startDate,
-    endDate,
-    cardLimit,
     location,
     COUNTRIES
   } = props;
@@ -43,18 +38,12 @@ const CardLimitForm = memo(props => {
     control?.response &&
     !control.loading;
 
-  const resetForm = () => {
-    reset();
-  };
-
   useEffect(() => {
     dispatch(resetPostLimitControl());
     return () => {
       dispatch(resetPostLimitControl());
     };
   }, [dispatch]);
-
-  console.log(location)
 
   return (
     <Col md={12} lg={12}>
@@ -256,14 +245,12 @@ const CardLimitForm = memo(props => {
                   </Row>
 
                   <ButtonToolbar className="form__button-toolbar">
-                    <Button
-                      type="button"
+                    <Link
+                      to="/limit-requests"
                       id="reset-form"
-                      onClick={resetForm}
-                      disabled={pristine || submitting}
                     >
-                      Cancel
-                    </Button>
+                      <Button type="button">Cancel</Button>
+                    </Link>
                     <Button
                       color="primary"
                       id="submit-btn"
@@ -295,10 +282,21 @@ CardLimitForm.propTypes = {
 
 const selector = formValueSelector("card_control_form");
 
+const handleFormChange = (values, dispatch, _, previousValues) =>
+{
+  const initial = previousValues.enabledCountries || [],
+    final = values.enabledCountries || [];
+  if (final.length > 5 && initial.length <= 5)
+  {
+    console.log({initial})
+  }
+}
+
 export default reduxForm({
   form: "card_control_form",
   validate,
-  enableReinitialize: true
+  enableReinitialize: true,
+  onChange: handleFormChange
 })(
   connect(state => ({
     postcardcontrol: state.postcardcontrol,

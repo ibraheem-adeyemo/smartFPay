@@ -6,6 +6,7 @@ import HorizontalForm from "./components/CardLimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 import { COUNTRIES } from "../../../constants/countries";
 import {FREQUENCY_OPTIONS, CARD_STATUS_OPTIONS} from '../../../constants/app.constants';
+import "antd/dist/antd.css"
 
 const CardLimitForm = ({ dispatch, control, match, customer, history, location }) => {
 
@@ -30,9 +31,7 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
     (match.params.id && control?.response);
     const controlObj = hasControl ? (control.response) : null;
     let channels=[], countries=[], countryCount = 0, channelsCount = 0;
-    console.log('channels', channels)
     if (controlObj) {
-      console.log('controlObj', controlObj);
       if(controlObj.enabledCountries) {
         for(var country of controlObj.enabledCountries.split(',')) {
           countries[countryCount++] = {name: country,alpha3Code: country};
@@ -47,25 +46,22 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
         token: controlObj.token,
         duration: controlObj.duration || controlObj.transactionLimitCount,
         frequency: FREQUENCY_OPTIONS.find(
-          frequency => frequency.label === controlObj.frequencyLimitReset
+          frequency => frequency.value === controlObj.frequencyLimitReset
         ),
         amount: controlObj.transactionLimitAmount,
         startDate: formatDate(controlObj.limitStartDate),
         endDate: formatDate(controlObj.limitEndDate),
         cardStatus: CARD_STATUS_OPTIONS.find(
-          status => status.label === controlObj.cardStatus
+          status => status.value === controlObj.cardStatus
         ),
         channels: channels,
         enabledCountries: countries
       };
-      console.log('Control Data', controlData)
     }
-
     return controlData;
   };
 
   function fetchControl() {
-    console.log(match.params.id)
     dispatch(getControl(match.params.id));
   }
 
@@ -88,22 +84,19 @@ const CardLimitForm = ({ dispatch, control, match, customer, history, location }
   };
 
   useEffect(() => {
-    // console.log(match.params.id)
-    // console.log(location.state.cardDetails)
     if (match.params.id) {
       dispatch(getControl(match.params.id));
     }
     // return () => {
     //   dispatch(resetViewLimitControl());
     // };
-  }, [dispatch, match.params.id]); 
-  console.log(control, location)
+  }, [dispatch, match.params.id]);
 
   return (
     <Container>
       <PageHeader
-        header={`${match.params.id ? `Edit card limit with token ${match.params.id}` : "Add Card Limit"}`}
-        subheader="Create new card limit"
+        header={`${match.params.id ? `Edit card limit` : "Add Card Limit"}`}
+        subheader={`${match.params.id ? "Update existing" : "Create new"} card limit`}
       />
       <Row>
         <HorizontalForm

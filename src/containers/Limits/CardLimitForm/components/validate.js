@@ -35,7 +35,6 @@ const validate = values => {
   if (!values.enabledCountries) {
     errors.enabledCountries = "At least one country is required";
   }
-  console.log(errors)
   return errors;
 };
 

@@ -71,7 +71,7 @@ export const CHANNELS_OPTIONS = [
 
 export const CARD_STATUS_OPTIONS = [
   {label: "Active", value: "ACTIVE"},
-  {label: "BLocked", value: "BLOCKED"}
+  {label: "Blocked", value: "BLOCKED"}
 ];
 
 export const PAYMENT_TYPE = [

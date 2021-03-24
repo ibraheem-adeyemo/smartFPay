@@ -15,6 +15,10 @@ const LimitView = props => {
       ? control.response
       : {};
 
+  const editLink = controlObj.limitType === "CARD"
+    ? `/limit-requests/card/edit/${control.response?.token}`
+    : `/limit-requests/edit/${control.response?.token}`;
+
   return (
     <Col>
       <Card>
@@ -38,7 +42,7 @@ const LimitView = props => {
                 renderNoAccess={() => null}
               >
                 <Link
-                  to={`/limit-requests/edit/${control.response.token}`}
+                  to={editLink}
                   className="btn btn-sm btn-outline-secondary project-summary__btn"
                   id="link-edit-control"
                 >
@@ -117,7 +121,7 @@ const LimitView = props => {
                     style={{ width: "6rem", height: "6rem" }}
                   />
                   <h4 className="text-secondary">
-                    Fetching limits with accountNumber/cardId ({controlId})
+                    Fetching limits
                   </h4>
                 </div>
               ) : (

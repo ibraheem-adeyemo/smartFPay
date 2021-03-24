@@ -215,14 +215,12 @@ const LimitForm = memo(props => {
                   </Row>
 
                   <ButtonToolbar className="form__button-toolbar">
-                    <Button
-                      type="button"
+                    <Link
+                      to="/limit-requests"
                       id="reset-form"
-                      onClick={resetForm}
-                      disabled={pristine || submitting}
                     >
-                      Cancel
-                    </Button>
+                      <Button type="button">Cancel</Button>
+                    </Link>
                     <Button
                       color="primary"
                       id="submit-btn"

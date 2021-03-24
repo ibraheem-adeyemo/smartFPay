@@ -30,7 +30,6 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
     (match.params.id && control?.response);
     const controlObj = hasControl ? (control.response) : null;
     if (controlObj) {
-      console.log('controlObj', controlObj);
       controlData = {
         token: controlObj.token,
         duration: controlObj.duration || controlObj.transactionLimitCount,
@@ -73,13 +72,11 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
     //   dispatch(resetViewLimitControl());
     // };
   }, [dispatch, match.params.id]);
-    
-  console.log(control, location)
 
   return (
     <Container>
       <PageHeader
-        header={`${match.params.id ? `Edit account limit with token ${match.params.id}` : "Add Account Limit"}`}
+        header={`${match.params.id ? `Edit account limit` : "Add Account Limit"}`}
         subheader={`${match.params.id ? "Update existing" : "Create new"} account limit`}
       />
       <Row>
