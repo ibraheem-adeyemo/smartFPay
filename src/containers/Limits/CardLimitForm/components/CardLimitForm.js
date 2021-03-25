@@ -282,21 +282,10 @@ CardLimitForm.propTypes = {
 
 const selector = formValueSelector("card_control_form");
 
-const handleFormChange = (values, dispatch, _, previousValues) =>
-{
-  const initial = previousValues.enabledCountries || [],
-    final = values.enabledCountries || [];
-  if (final.length > 5 && initial.length <= 5)
-  {
-    console.log({initial})
-  }
-}
-
 export default reduxForm({
   form: "card_control_form",
   validate,
-  enableReinitialize: true,
-  onChange: handleFormChange
+  enableReinitialize: true
 })(
   connect(state => ({
     postcardcontrol: state.postcardcontrol,

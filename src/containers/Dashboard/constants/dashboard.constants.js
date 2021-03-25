@@ -9,7 +9,7 @@ export const dashboardConstants = {
 
 export const quicklinks = [
   {
-    path: "/create-limit",
+    path: "/customers/add",
     title: "Create limit",
     icon: MdCreditCard
   },

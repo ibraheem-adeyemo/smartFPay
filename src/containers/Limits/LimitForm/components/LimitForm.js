@@ -26,26 +26,17 @@ const LimitForm = memo(props => {
   const {
     dispatch,
     handleSubmit,
-    reset,
-    pristine,
     invalid,
     submitting,
     controlId,
     control,
-    interbankTransaction,
     postcontrol,
-    startDate,
-    endDate,
     location,
   } = props;
 
   const foundControl =
     control?.response &&
     !control.loading;
-
-  const resetForm = () => {
-    reset();
-  };
 
   useEffect(() => {
     dispatch(resetPostLimitControl());

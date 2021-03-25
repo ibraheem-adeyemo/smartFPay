@@ -30,10 +30,15 @@ class SelectField extends PureComponent {
   };
 
   handleChange = selectedOption => {
-    if (this.props.customChange) {
-      this.props.customChange(selectedOption);
+    const { onChange, id, customChange } = this.props;
+    if (customChange) {
+      customChange(selectedOption);
     }
-    const { onChange } = this.props;
+
+    if (id === "enabledCountries" && (selectedOption || []).length > 5) {
+      return;
+    }
+    
     onChange(selectedOption);
   };
 

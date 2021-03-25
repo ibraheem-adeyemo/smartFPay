@@ -1,8 +1,12 @@
 .date-picker {
   width: 100%;
+  z-index: 9999;
 
   & > div, .react-datepicker-wrapper, .react-datepicker__input-container {
     width: 100%;
+    .react-datepicker-time__input {
+      padding: 5px 10px;
+    }
   }
 
   .react-datepicker__time-list {
@@ -15,6 +19,7 @@
 
   .react-datepicker__time {
     overflow: hidden;
+
   }
 
   &.date-picker--interval {

@@ -7,6 +7,7 @@
 .react-select__control {
   min-height: 32px;
   border-radius: 0 !important;
+  cursor: pointer !important;
   transition: all 0.3s;
 
   @include themify($themes) {
@@ -81,7 +82,7 @@
 }
 
 .react-select__menu {
-  box-shadow: none !important;
+  //box-shadow: none !important;
   margin-top: 6px;
   margin-bottom: 6px;
 }
@@ -113,7 +114,7 @@
   transition: all 0.3s;
   border-radius: 0;
   display: flex;
-  cursor: pointer;
+  cursor: pointer !important;
   padding: 8px 10px;
 
   @include themify($themes) {

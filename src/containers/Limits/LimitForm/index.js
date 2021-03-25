@@ -34,7 +34,7 @@ const LimitForm = ({ dispatch, control, match, history, customer, location }) =>
         token: controlObj.token,
         duration: controlObj.duration || controlObj.transactionLimitCount,
         frequency: FREQUENCY_OPTIONS.find(
-          frequency => frequency.label === controlObj.frequencyLimitReset
+          frequency => frequency.value === controlObj.frequencyLimitReset
         ),
         amount: controlObj.transactionLimitAmount,
         interbankTransaction: controlObj.interbankTransaction,

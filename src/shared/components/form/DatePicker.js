@@ -49,6 +49,7 @@ const DatePickerField = memo(
           isClearable={true}
           customInput={<CustomInput placeholder={placeholder} />}
           dropDownMode="select"
+          popperModifiers={{preventOverflow: {priority: ["top"]}}}
         />
         {error && (
           <span className="form__form-group-error">{error}</span>
