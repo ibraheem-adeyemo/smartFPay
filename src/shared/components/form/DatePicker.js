@@ -21,6 +21,7 @@ class CustomInput extends PureComponent {
 const DatePickerField = memo(
   ({ onChange, meta: {touched, error}, id, minDate, placeholder, maxDate, dateFormat, onBlur, value, showMonthYearPicker, showTimeInput,  disabled, timeInputLabel }) => {
     const [startDate, setStartDate] = useState(null);
+    const [isOpen, setIsOpen] = useState(false);
     const handleChange = date => {
       setStartDate(date);
       onChange(date);
@@ -28,7 +29,7 @@ const DatePickerField = memo(
     };
 
     return (
-      <div className="date-picker form__form-group-input-wrap form__form-group-input-wrap--error-above">
+      <div className={`date-picker form__form-group-input-wrap form__form-group-input-wrap--error-above ${isOpen ? 'open' : ''}`}>
         <DatePicker
           className="form__form-group-datepicker"
           selected={value || null}
@@ -42,6 +43,8 @@ const DatePickerField = memo(
           maxDate={maxDate}
           disabled={disabled}
           id={id}
+          onCalendarClose={() => setIsOpen(false)}
+          onCalendarOpen={() => setIsOpen(true)}
           placeholderText={placeholder}
           showMonthYearPicker={showMonthYearPicker ? true : false}
           showMonthDropdown

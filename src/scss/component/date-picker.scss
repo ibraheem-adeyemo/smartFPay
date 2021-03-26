@@ -1,6 +1,8 @@
 .date-picker {
   width: 100%;
-  z-index: 9999;
+  &.open {
+    z-index: 9999;
+  }
 
   & > div, .react-datepicker-wrapper, .react-datepicker__input-container {
     width: 100%;

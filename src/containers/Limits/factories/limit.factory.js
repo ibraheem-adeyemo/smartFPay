@@ -71,10 +71,10 @@ export const createCardRequestBody = (values, id, controlToEdit) => {
 
 export const createFilterRequestBody = (values) => {  
   const requestObject = {
-    accountNumber: values.accountNumber,
-    accountName: values.accountName,
-    enabledChannel: values.enabledChannel.value,
-    enabledCountry: values.enabledCountry.alpha3Code,
+    accountNumber: values.accountNumber || "",
+    accountName: values.accountName || "",
+    enabledChannel: values.enabledChannel?.value,
+    enabledCountry: values.enabledCountry?.alpha3Code,
     startDate: values.startDate
     ? `${("0" + values.startDate.getDate()).slice(-2)}-${(
         "0" +
@@ -93,7 +93,6 @@ export const createFilterRequestBody = (values) => {
       delete requestObject[propName];
     }
   }
-  console.log(values)
 
   return requestObject;
 };

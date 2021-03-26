@@ -91,7 +91,6 @@ const CustomFilter = memo(props => {
                             component={renderDatePickerField}
                             placeholder="End Date"
                             timeInputLabel="End Time"
-                            required
                           />
                           </div>
                           </div>
@@ -105,6 +104,7 @@ const CustomFilter = memo(props => {
                             placeholder="Enabled Country"
                             component={renderSelectField}
                             options={COUNTRIES}
+                            isClearable={true}
                             valueKey="alpha3Code"
                             labelKey="name"
                           />
@@ -123,6 +123,7 @@ const CustomFilter = memo(props => {
                             options={CHANNELS_OPTIONS}
                             valueKey="value"
                             labelKey="label"
+                            isClearable={true}
                           />
                           </div>
                           </div>

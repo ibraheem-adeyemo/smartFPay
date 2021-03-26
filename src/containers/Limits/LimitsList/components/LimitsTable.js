@@ -1,42 +1,26 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
 import React, { memo, useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar, Spinner } from "reactstrap";
+import { Card, CardBody, Col } from "reactstrap";
 
-import { Link } from "react-router-dom";
-import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
+import { MdModeEdit, MdInsertDriveFile } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
-import CustomSearch from "./CustomSearch";
 import CustomFilter from './CustomFilter';
-import { toggleAccountControl, toggleCardControl } from "../../actions/limits.actions";
 import { connect } from "react-redux";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
-import { accessControlFn } from "../../../../utils/accessControl";
 import { getFormValues } from "redux-form";
 import { createFilterRequestBody } from "../../factories/limit.factory";
 
 const {
-  CREATE_CONTROL,
-  CREATE_CARD_CONTROL,
-  UPDATE_CARD_CONTROL,
   VIEW_CONTROL,
   UPDATE_CONTROL,
-  ENABLE_ACCOUNT_CONTROL,
-  ENABLE_CARD_CONTROL,
-  DISABLE_ACCOUNT_CONTROL,
-  DISABLE_CARD_CONTROL
 } = permissionsConstants;
 
 const LimitsTable = memo(props => {
   const {
     dataState,
     fetchData,
-    dispatch,
-    toggleaccount,
-    togglecard,
     permissions = [],
     allControls,
     download,
@@ -45,41 +29,40 @@ const LimitsTable = memo(props => {
 
   const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
-  const controlData = dataState && dataState.response ? dataState.response.data : [];
 
-  const toggleAccountFn = row => {
-    confirmAlert({
-      message: `Are you sure you want to ${row.active ? "disable" : "enable"} limit controls on this account?`, // Message dialog
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () =>
-            dispatch(toggleAccountControl(row.accountNumber, row.active, "getAllControls", allControls.request))
-        },
-        {
-          label: "No",
-          onClick: () => null
-        }
-      ]
-    });
-  };
+  // const toggleAccountFn = row => {
+  //   confirmAlert({
+  //     message: `Are you sure you want to ${row.active ? "disable" : "enable"} limit controls on this account?`, // Message dialog
+  //     buttons: [
+  //       {
+  //         label: "Yes",
+  //         onClick: () =>
+  //           dispatch(toggleAccountControl(row.accountNumber, row.active, "getAllControls", allControls.request))
+  //       },
+  //       {
+  //         label: "No",
+  //         onClick: () => null
+  //       }
+  //     ]
+  //   });
+  // };
   
-  const toggleCardFn = row => {
-    confirmAlert({
-      message: `Are you sure you want to ${row.active ? "disable" : "enable"} limit controls on this card?`, // Message dialog
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () =>
-            dispatch(toggleCardControl(row.cardId, row.active, "getAllControls", allControls.request))
-        },
-        {
-          label: "No",
-          onClick: () => null
-        }
-      ]
-    });
-  };
+  // const toggleCardFn = row => {
+  //   confirmAlert({
+  //     message: `Are you sure you want to ${row.active ? "disable" : "enable"} limit controls on this card?`, // Message dialog
+  //     buttons: [
+  //       {
+  //         label: "Yes",
+  //         onClick: () =>
+  //           dispatch(toggleCardControl(row.cardId, row.active, "getAllControls", allControls.request))
+  //       },
+  //       {
+  //         label: "No",
+  //         onClick: () => null
+  //       }
+  //     ]
+  //   });
+  // };
 
   const columns = [
     {
@@ -164,11 +147,11 @@ const LimitsTable = memo(props => {
   };
 
   const sortFn = (pageNumber, pageSize, column) => {
-    let sortOrder = "ASC";
+    //let sortOrder = "ASC";
     if (!allControls.loading) {
-      if (allControls.request && allControls.request.sortOrder) {
-        sortOrder = allControls.request.sortOrder === "ASC" ? "DESC" : "ASC";
-      }
+      // if (allControls.request && allControls.request.sortOrder) {
+      //   sortOrder = allControls.request.sortOrder === "ASC" ? "DESC" : "ASC";
+      // }
       fetchData({
         ...allControls.request,
         pageNumber,
@@ -204,7 +187,7 @@ const LimitsTable = memo(props => {
       enabledChannel: values.enabledChannel,
       enabledCountry: values.enabledCountry});
     fetchData({
-      ...dataState.request,
+      pageSize: dataState.request?.pageSize || 10,
       pageNumber: 1,
       ...requestBody
     });

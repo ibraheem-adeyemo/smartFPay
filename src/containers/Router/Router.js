@@ -194,12 +194,20 @@ const Customers = () => (
 );
 
 const Router = ({ hasError, currentUser, permissions }) => {
+  const onHome = window.location.pathname === "/";
   const unAuth = !currentUser.response;
 
   return (
     <Switch>
       <MainWrapper hasError={hasError}>
-            {unAuth && <Redirect exact from="/" to="/pc/signin" />}
+            {
+              onHome && (
+                unAuth ?
+                <Redirect exact from="/" to="/pc/signin" />
+                :
+                <Redirect exact from="/" to="/dashboard" />
+              )
+            }
             <Route exact path="/pc/signin" component={LogIn} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/customers" component={Customers} />

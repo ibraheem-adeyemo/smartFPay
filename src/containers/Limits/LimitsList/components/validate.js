@@ -7,20 +7,18 @@ const validate = values => {
         errors.accountNumber = "Only numbers allowed";
     }
 
-    if (values.accountName && values.accountName.length < 3) {
-        errors.accountName = "Enter a minimum of three characters";
-      } else if (values.accountName && !/^[A-Za-z- ]+$/g.test(values.accountName)) {
-        errors.accountName = "Only alphabets allowed";
-      }
+    // if (values.accountName && values.accountName.length < 3) {
+    //     errors.accountName = "Enter a minimum of three characters";
+    //   } else if (values.accountName && !/^[A-Za-z- ]+$/g.test(values.accountName)) {
+    //     errors.accountName = "Only alphabets allowed";
+    //   }
 
-    if (!values.startDate) {
-        errors.startDate = "Kindly select a start date and time";
-    }
-    if (!values.endDate) {
-        errors.endDate = "Kindly select an end date and time";
-    }
-
-    console.log(errors);
+    // if (!values.startDate) {
+    //     errors.startDate = "Kindly select a start date and time";
+    // }
+    // if (!values.endDate) {
+    //     errors.endDate = "Kindly select an end date and time";
+    // }
     return errors;
 }
 
