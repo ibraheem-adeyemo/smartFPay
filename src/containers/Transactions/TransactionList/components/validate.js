@@ -20,12 +20,12 @@ const validate = values => {
         errors.decline = "Enter a valid decline";
     }
 
-    if (!values.startDate) {
-        errors.startDate = "Kindly select a start date and time";
-    }
-    if (!values.endDate) {
-        errors.endDate = "Kindly select an end date and time";
-    }
+    // if (!values.startDate) {
+    //     errors.startDate = "Kindly select a start date and time";
+    // }
+    // if (!values.endDate) {
+    //     errors.endDate = "Kindly select an end date and time";
+    // }
 
     console.log(errors);
     return errors;

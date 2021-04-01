@@ -2,6 +2,7 @@ import { auditService } from "../services/audit.service";
 import { show as showAlert } from "../../Notifications/actions/alert.actions";
 import { message } from "../../../constants/app.constants";
 import { auditConstants, nameSpace } from "../constants/audit.constants";
+import { appUtils } from "../../../utils/app.utils";
 
 export const getAllAuditReports = requestParams => {
   return async dispatch => {
@@ -38,6 +39,7 @@ export const downloadAuditReport = requestParams => {
     try {
       const response = await auditService.downloadAuditReport(requestParams);
       response && dispatch(success(response));
+      response && appUtils.downloadFile("audit-trail.csv", response)
     } catch (error) {
       dispatch(failure(error));
       dispatch(

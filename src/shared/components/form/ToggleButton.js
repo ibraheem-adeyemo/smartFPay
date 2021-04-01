@@ -19,8 +19,8 @@ class ToggleButtonField extends PureComponent {
   };
 
   componentDidMount() {
-    const { onChange, defaultChecked } = this.props;
-    onChange(defaultChecked);
+    //const { onChange, defaultChecked } = this.props;
+    //onChange(defaultChecked);
   }
 
   render() {

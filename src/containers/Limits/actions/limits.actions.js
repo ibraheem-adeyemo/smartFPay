@@ -8,6 +8,7 @@ import {
   createFilterRequestBody
 } from "../factories/limit.factory.js";
 import { reset } from "redux-form";
+import { appUtils } from "../../../utils/app.utils";
 
 export const getAllControls = (requestParams) => {
     return async dispatch => {
@@ -46,6 +47,7 @@ export const downloadControls = requestParams => {
     try {
       const response = await limitService.downloadControls(requestBody);
       response && dispatch(success(response));
+      response && appUtils.downloadFile("limits.csv", response)
     } catch (error) {
       dispatch(failure(error));
       dispatch(

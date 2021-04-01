@@ -86,14 +86,20 @@ const isEmptyObject = obj => {
   return Object.keys(obj).length === 0 && obj.constructor === Object
 }
 
-const downloadFile = filePath => {
-  var link = document.createElement("a");
-  link.target = '_blank';
-  link.href = filePath;
-  console.log('FilePath', filePath)
-  link.download = filePath.substr(filePath.lastIndexOf("/") + 1);
-  link.click();
-};
+function downloadFile (filename, data) {
+  const blob = new Blob([data], {type: 'text/csv'});
+  if(window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveBlob(blob, filename);
+  }
+  else{
+      const elem = window.document.createElement('a');
+      elem.href = window.URL.createObjectURL(blob);
+      elem.download = filename;        
+      document.body.appendChild(elem);
+      elem.click();        
+      document.body.removeChild(elem);
+  }
+}
 
 export const appUtils = {
   commanumbers,
