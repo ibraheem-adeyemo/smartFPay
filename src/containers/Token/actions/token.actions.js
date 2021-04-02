@@ -3,11 +3,12 @@ import { show as showAlert } from "../../Notifications/actions/alert.actions";
 import { message } from "../../../constants/app.constants";
 
 export const generateChannelToken = (values) => {
-  console.log('GENERATE_CHANNEL_TOKEN_RESET', values)
+  const channel = values.channel.length > 1 ? values.channel.map(({value}) => value)
+    : values.channel[0];
   return async dispatch => {
-    dispatch(request({channel: values.channel}));
+    dispatch(request({channel}));
     try {
-      const response = await tokenService.generateChannelToken({channel: values.channel?.value});
+      const response = await tokenService.generateChannelToken({channel});
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));

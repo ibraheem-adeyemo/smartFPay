@@ -56,15 +56,16 @@ const ChannelTokenForm = props => {
             <Row>
               <Col lg="4">
                 <div className="form__form-group">
-                  <span className="form__form-group-label required">Channel</span>
+                  <span className="form__form-group-label required">Channels</span>
                   <div className="form__form-group-field">
                     <Field
                       id = "channel"
                       name="channel"
                       component={renderSelectField}
                       disabled={disabled}
+                      isMulti={true}
                       options={CHANNELS_OPTIONS}
-                      placeholder="Select channel"
+                      placeholder="Select channels"
                       isClearable
                       valueKey="value"
                       labelKey="label"
