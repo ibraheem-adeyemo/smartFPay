@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { useState } from "react";
 import { 
   Card,
   CardBody,
@@ -11,16 +11,12 @@ Spinner } from "reactstrap";
 import { Field, reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { MdArrowBack } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { renderField } from "../../../../utils/renderfield";
-import { resetChannelToken, generateChannelToken } from "../../actions/token.actions";
+import renderSelectField from "../../../../shared/components/form/Select";
 import validate from "./validate";
+import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
 
-const ChannelTokenForm = memo(props => {
+const ChannelTokenForm = props => {
   const {
-    permissions,
-    dispatch,
     handleSubmit,
     reset,
     pristine,
@@ -29,9 +25,7 @@ const ChannelTokenForm = memo(props => {
     generatechanneltoken,
     disabled, } = props;
 
-  const resetForm = () => {
-    reset();
-  }
+    const [justCopied, setJustCopied] = useState(false);
 
   // useEffect(() => {
   //   dispatch(resetChannelToken());
@@ -39,6 +33,12 @@ const ChannelTokenForm = memo(props => {
   //     dispatch(resetChannelToken());
   //   };
   // }, [dispatch]);
+
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(generatechanneltoken.response?.token)
+    setJustCopied(true);
+    setTimeout(() => setJustCopied(false), 1300)
+  }
 
   return (
     <Col md={12} lg={12}>
@@ -61,10 +61,13 @@ const ChannelTokenForm = memo(props => {
                     <Field
                       id = "channel"
                       name="channel"
-                      component={renderField}
+                      component={renderSelectField}
                       disabled={disabled}
-                      type="text"
-                      placeholder="Channel"
+                      options={CHANNELS_OPTIONS}
+                      placeholder="Select channel"
+                      isClearable
+                      valueKey="value"
+                      labelKey="label"
                     />
                   </div>
                 </div>
@@ -87,12 +90,28 @@ const ChannelTokenForm = memo(props => {
             </ButtonToolbar>
           </form>
 
-              {generatechanneltoken.response?.token && <h4>{generatechanneltoken.response?.token}</h4>}
+              {
+                generatechanneltoken.response?.token &&
+                <div className="generated-token-wrapper">
+                  <span className="generated-token">
+                    {generatechanneltoken.response?.token}
+                  </span>
+                  <Button
+                    color={justCopied ? "success" : "primary"}
+                    type="button"
+                    onClick={copyToClipboard}
+                    outline
+                    size="sm"
+                  >
+                    {justCopied ? "Copied!" : "Copy to Clipboard"}
+                  </Button>
+                </div>
+              }
         </CardBody>
       </Card>
     </Col>
   );
-});
+};
 
 ChannelTokenForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,

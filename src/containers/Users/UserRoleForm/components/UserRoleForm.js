@@ -164,7 +164,7 @@ const UserForm = memo(props => {
                                 This user is currently disabled
                               </p>
                               <small>
-                                To change role, please re-enabled this user
+                                To change role, please re-enable this user
                               </small>
                             </Col>
                             <Col lg="5">

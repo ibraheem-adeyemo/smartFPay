@@ -136,7 +136,7 @@ export const toggleRole = (values, pageState) => {
       const response = await rolesService.toggleRole(requestBody);
       response && dispatch(success(response));
       dispatch(
-        showAlert("success", `${values.name} ${values.disabled ? 'enabled' : 'disabled'} successfully`, response)
+        showAlert("success", `${values.name} ${values.disabled ? 'enabled' : 'disabled'} successfully`)
       );
       dispatch(getRoles(pageState));
     } catch (error) {

@@ -35,7 +35,7 @@ const RolesTable = memo(props => {
 
   const toggleRoleFn = row => {
     confirmAlert({
-      message: `Are you sure you want to ${row.disabled ? "enabled" : "disable"} this user?`, // Message dialog
+      message: `Are you sure you want to ${row.disabled ? "enable" : "disable"} this user?`, // Message dialog
       buttons: [
         {
           label: "Yes",
