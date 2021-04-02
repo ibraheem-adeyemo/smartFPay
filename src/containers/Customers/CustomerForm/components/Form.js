@@ -65,19 +65,6 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
     setPage(1);
   };
 
-
-  useEffect(() => {
-  if(location.state){setPage(3)}
-    // dispatch(resetPost());
-    // return () => {
-    //   dispatch(resetPost());
-    // };
-    console.log(accountControls, cardControls)
-  }, [dispatch]);
-
-  console.log(accountControls);
-  console.log(location)
-
   return (
     <Col md={12} lg={12}>
       <Card>

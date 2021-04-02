@@ -9,12 +9,7 @@ import chip from '../../../../assets/chip.png';
 import { getAllControls } from "../../../Limits/actions/limits.actions";
 
 const CustomerView = props => {
-  const { submitting, previous, startFlow, getControl, customer, location, dispatch, accountNumber, controls } = props;
-  const updatedLimit = location?.state?.limit;
-  const updatedCardLimit = location?.state?.cardLimit;
-  const [limit, setLimit] = useState(location?.state?.limit?.success?updatedLimit : null);
-  // const [cardLimit, setCardLimit] = useState(location?.state?.cardLimit?.success?updatedCardLimit : null);
-  // const [accountLimit, setAccountLimit] = useState(location?.state?.limit?.success?updatedLimit.response:accountControls[0]);
+  const { previous, startFlow, customer, controls } = props;
   let accountControls = [], cardControls = [];
   // if(location?.state?.limit.success)
   //   setAccountLimit(location?.state?.limit?.accountLimit)
@@ -39,28 +34,9 @@ const CustomerView = props => {
   // }
 
   const {request, response} = customer;
-//   const foundControl =
-//     control.response &&
-//     control.response.data &&
-//     control.response.data.length &&
-//     !control.loading;
-//   const controlObj =
-//     control.response && control.response.data && control.response.data.length
-//       ? control.response.data[0]
-//       : {};
-// useEffect(() => {
-  // if(updatedLimit?.success) {
-  //   setLimit(updatedLimit.response)
-  // }
-//     dispatch(getAllControls({accountNumber, pageSize:1000, pageNumber: 1}));
-//     console.log(accountControls, cardControls)
-//   console.log(updatedLimit)
-//   console.log(limit)
-// }, [controls]);
-accountControls = controls?.response?.data.filter(control => control.limitType === 'ACCOUNT');
-cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD');
 
-// console.log(cardLimit, updatedCardLimit)
+  accountControls = controls?.response?.data.filter(control => control.limitType === 'ACCOUNT');
+  cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD');
 
 const CardDetails = ({card}) => (
   <>
@@ -161,8 +137,8 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                 renderNoAccess={() => null}
               >
                     <Link
-                  className="btn btn-prima
-                  style={{marginRight: '-16px'}}ry project-summary__btn"
+                  className="btn btn-primary project-summary__btn"
+                  style={{marginRight: '-16px'}}
                   to={{
                     pathname: "/limit-requests/add",
                     state: { fromCustomerView: true }

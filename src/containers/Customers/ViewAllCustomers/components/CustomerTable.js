@@ -128,7 +128,6 @@ const CustomersTable = memo(
         sortKey: "coreBankingId"
       },
     ];
-console.log('dataState', dataState)
     const sortFn = (pageNumber, pageSize, column) => {
       let sortOrder = "ASC";
       let sortKey = column.sortKey;
