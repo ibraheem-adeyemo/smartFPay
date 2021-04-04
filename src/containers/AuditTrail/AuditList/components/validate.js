@@ -5,14 +5,14 @@ const validate = values => {
         errors.email = "Invalid email address";
     }
 
-    if (!values.startDate) {
-        errors.startDate = "Kindly select a start date and time";
-    }
-    if (!values.endDate) {
-        errors.endDate = "Kindly select an end date and time";
-    }
+    // if (!values.startDate) {
+    //     errors.startDate = "Kindly select a start date and time";
+    // }
+    // if (!values.endDate) {
+    //     errors.endDate = "Kindly select an end date and time";
+    // }
 
-    console.log(errors);
+    //console.log(errors);
     return errors;
 }
 

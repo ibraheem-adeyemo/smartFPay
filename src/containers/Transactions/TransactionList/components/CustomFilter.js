@@ -1,6 +1,6 @@
 import React, {memo} from "react";
-import { Field, reduxForm } from "redux-form";
-import { MdSearch, MdFilterList, MdFileDownload } from "react-icons/md";
+import { Field, reduxForm, reset } from "redux-form";
+import { MdFilterList, MdFileDownload, MdClear } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
@@ -12,7 +12,8 @@ import validate from './validate';
 const CustomFilter = memo(props => {
   const {
     submitting,
-    invalid
+    invalid,
+    dispatch
   } = props;
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
@@ -189,6 +190,15 @@ const CustomFilter = memo(props => {
                           </div>
           </Col>
           <Col lg={{size: 6, offset: 6}} style={{textAlign: "right"}}>
+                    <Button
+                      color="primary"
+                      type="button"
+                      id="reset-form"
+                      onClick={() => dispatch(reset("transactions_custom_filter"))}
+                    >
+                      <span><MdClear /> </span>
+                      Reset
+                    </Button>
                     <Button
                     color="primary"
                       type="button"
