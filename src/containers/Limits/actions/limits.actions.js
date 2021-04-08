@@ -42,9 +42,13 @@ export const getAllControls = (requestParams) => {
 
 export const downloadControls = requestParams => {
   return async dispatch => {
-    const requestBody = createFilterRequestBody(requestParams);
-    dispatch(request(requestBody));
     try {
+      const requestBody = createFilterRequestBody(requestParams);
+      if (!request.startDate || !requestBody.endDate)
+      {
+        throw Error("Please pick a date range")
+      }
+      dispatch(request(requestBody));
       const response = await limitService.downloadControls(requestBody);
       response && dispatch(success(response));
       response && appUtils.downloadFile("limits.csv", response)
@@ -53,7 +57,7 @@ export const downloadControls = requestParams => {
       dispatch(
         showAlert(
           "danger",
-          "Failed to download controls",
+          "Failed to download",
           error ? error : message.GENERIC_ERROR
         )
       );
