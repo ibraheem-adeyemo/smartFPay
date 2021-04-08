@@ -1,6 +1,6 @@
 import React, {memo} from "react";
-import { Field, reduxForm } from "redux-form";
-import { MdFileDownload, MdFilterList } from "react-icons/md";
+import { Field, reduxForm, reset } from "redux-form";
+import { MdFileDownload, MdFilterList, MdClear } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
@@ -11,8 +11,14 @@ import validate from './validate';
 
 const CustomFilter = memo(props => {
   const {
-    submitting, invalid
+    submitting, invalid, dispatch
   } = props;
+
+  const handleReset = () => {
+    dispatch(reset("limits_custom_filter"));
+    props.handleFilter(true)
+  }
+
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
       {/* <Col> */}
@@ -129,11 +135,20 @@ const CustomFilter = memo(props => {
                           </div>
           </Col>
           <Col style={{textAlign: "right"}}>
+            <Button
+                      color="primary"
+                      type="button"
+                      id="reset-form"
+                      onClick={handleReset}
+                    >
+                      <span><MdClear /> </span>
+                      Reset
+                    </Button>
           <Button
                     color="primary"
                       type="button"
                       id="filter-form"
-                      onClick={props.handleFilter}
+                      onClick={() => props.handleFilter()}
                       disabled={submitting || invalid}
                     >
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
@@ -161,5 +176,5 @@ const CustomFilter = memo(props => {
 export default reduxForm({
   form: "limits_custom_filter",
   validate,
-  enableReinitialize: true
+  destroyOnUnmount: false
 })(CustomFilter);

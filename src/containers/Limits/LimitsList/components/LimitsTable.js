@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
-import React, { memo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 
 import { MdModeEdit, MdInsertDriveFile } from "react-icons/md";
@@ -17,7 +17,7 @@ const {
   UPDATE_CONTROL,
 } = permissionsConstants;
 
-const LimitsTable = memo(props => {
+const LimitsTable = props => {
   const {
     dataState,
     fetchData,
@@ -27,8 +27,8 @@ const LimitsTable = memo(props => {
     values
   } = props;
 
-  const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
+  const [initialFetch, setInitialFetch] = useState(false);
 
   // const toggleAccountFn = row => {
   //   confirmAlert({
@@ -179,19 +179,28 @@ const LimitsTable = memo(props => {
     }
   ];
 
-  const handleFilter = () => {
-    let requestBody = createFilterRequestBody({accountNumber: values.accountNumber,
+  const handleFilter = (isReset) => {
+    let requestBody = isReset ? {} : createFilterRequestBody({
+      accountNumber: values.accountNumber,
       accountName: values.accountName,
       startDate: values.startDate,
       endDate: values.endDate,
       enabledChannel: values.enabledChannel,
-      enabledCountry: values.enabledCountry});
+      enabledCountry: values.enabledCountry
+    });
     fetchData({
       pageSize: dataState.request?.pageSize || 10,
       pageNumber: 1,
       ...requestBody
     });
+    setInitialFetch(true);
   };
+
+  useEffect(() => {
+    if (!initialFetch && values)
+      handleFilter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values])
 
   const handleDownload = () => {
     download({
@@ -282,14 +291,13 @@ const LimitsTable = memo(props => {
               />
             }
             sortFn={sortFn}
-            searchKey={searchKey}
             serverside
           />
         </CardBody>
       </Card>
     </Col>
   );
-});
+};
 
 export default connect(state => ({
   values: getFormValues("limits_custom_filter")(state),

@@ -27,7 +27,6 @@ const validate = values => {
     //     errors.endDate = "Kindly select an end date and time";
     // }
 
-    console.log(errors);
     return errors;
 }
 

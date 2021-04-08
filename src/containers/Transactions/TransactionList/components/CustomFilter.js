@@ -15,6 +15,12 @@ const CustomFilter = memo(props => {
     invalid,
     dispatch
   } = props;
+
+  const handleReset = () => {
+    dispatch(reset("transactions_custom_filter"));
+    props.handleFilter(true)
+  }
+
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
         <form className="form" onSubmit={props.handleDownload}>
@@ -194,7 +200,7 @@ const CustomFilter = memo(props => {
                       color="primary"
                       type="button"
                       id="reset-form"
-                      onClick={() => dispatch(reset("transactions_custom_filter"))}
+                      onClick={handleReset}
                     >
                       <span><MdClear /> </span>
                       Reset
@@ -203,7 +209,7 @@ const CustomFilter = memo(props => {
                     color="primary"
                       type="button"
                       id="filter-form"
-                      onClick={props.handleFilter}
+                      onClick={() => props.handleFilter()}
                       disabled={submitting || invalid}
                     >
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
@@ -230,7 +236,5 @@ const CustomFilter = memo(props => {
 export default reduxForm({
   form: "transactions_custom_filter",
   validate,
-  enableReinitialize: true,
-  destroyOnUnmount: false,
-  forceUnregisterOnUnmount: false
+  destroyOnUnmount: false
 })(CustomFilter);

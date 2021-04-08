@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Container, Row } from "reactstrap";
 import LimitsTable from "./components/LimitsTable";
@@ -13,10 +13,6 @@ const LimitsList = ({ dispatch, allControls, match }) => {
   const downloadControlData = requestParams => {
     dispatch(downloadControls(requestParams))
   };
-
-  useEffect(() => {
-    dispatch(getAllControls({pageNumber: 1, pageSize: 10}));
-  }, [dispatch]);
 
   return (
     <Container>

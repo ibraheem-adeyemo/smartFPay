@@ -1,24 +1,18 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
-import React, { memo, useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar, Spinner } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Card, CardBody, Col } from "reactstrap";
 
-import { Link } from "react-router-dom";
-import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
+import { MdInsertDriveFile } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
 import CustomFilter from "./CustomFilter";
 import {createFilterRequestBody} from "../../factories/transactions.factory";
 
-const {
-  VIEW_ADMIN
-} = permissionsConstants;
 
-const TransactionsTable = memo(props => {
+const TransactionsTable = props => {
   const {
     dataState,
     fetchData,
@@ -28,8 +22,8 @@ const TransactionsTable = memo(props => {
     values
   } = props;
 
-  const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
+  const [initialFetch, setInitialFetch] = useState(false);
 
   const columns = [
     {
@@ -70,16 +64,11 @@ const TransactionsTable = memo(props => {
           state: {transaction: row}
         }
       );
-      console.log('khf')
     }
   };
 
   const sortFn = (pageNum, pageSize, column) => {
-    let sortOrder = "ASC";
     if (!allTransactions.loading) {
-      if (allTransactions.request && allTransactions.request.sortOrder) {
-        sortOrder = allTransactions.request.sortOrder === "ASC" ? "DESC" : "ASC";
-      }
       fetchData({
         ...allTransactions.request,
         pageNum,
@@ -99,27 +88,34 @@ const TransactionsTable = memo(props => {
     },
   ];
 
-  const handleFilter = () => {
-    let requestBody = createFilterRequestBody({
-      limitId: values.limitId,
-      tokenizedPan: values.tokenizedPan,
-      decline: values.decline,
-      startDate: values.startDate,
-      endDate: values.endDate,
-      accountNumber: values.accountNumber,
-      channel: values.channel,
-      violationCode: values.violationCode,
-      customerName: values.customerName,
-      country: values.country,
-      paymentType: values.paymentType,
-      maskedPan: values.maskedPan
-    });
+  const handleFilter = (isReset) => {
+    let requestBody = isReset ? {} : createFilterRequestBody({
+        limitId: values.limitId,
+        tokenizedPan: values.tokenizedPan,
+        decline: values.decline,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        accountNumber: values.accountNumber,
+        channel: values.channel,
+        violationCode: values.violationCode,
+        customerName: values.customerName,
+        country: values.country,
+        paymentType: values.paymentType,
+        maskedPan: values.maskedPan
+      });
     fetchData({
-      ...dataState.request,
+      pageSize: dataState.request?.pageSize || 10,
       pageNumber: 1,
       ...requestBody
     });
+    setInitialFetch(true);
   };
+
+  useEffect(() => {
+    if (!initialFetch && values)
+      handleFilter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values])
 
   const handleDownload = () => {
     let requestBody = createFilterRequestBody({
@@ -203,7 +199,7 @@ const TransactionsTable = memo(props => {
       </Card>
     </Col>
   );
-});
+};
 
 export default connect(state => ({
   values: getFormValues("transactions_custom_filter")(state),
