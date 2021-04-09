@@ -131,7 +131,8 @@ const TransactionsTable = props => {
       customerName: values.customerName,
       country: values.country,
       paymentType: values.paymentType,
-      maskedPan: values.maskedPan
+      maskedPan: values.maskedPan,
+      status: values.status
     });
     download({
       ...dataState.request,
