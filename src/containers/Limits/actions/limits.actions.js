@@ -40,11 +40,12 @@ export const getAllControls = (requestParams) => {
       }
 }
 
-export const downloadControls = requestParams => {
+export const downloadControls = _requestParams => {
   return async dispatch => {
     try {
+      const { pageSize, pageNumber, ...requestParams } = _requestParams;
       const requestBody = createFilterRequestBody(requestParams);
-      if (!request.startDate || !requestBody.endDate)
+      if (!requestBody.startDate || !requestBody.endDate)
       {
         throw Error("Please pick a date range")
       }

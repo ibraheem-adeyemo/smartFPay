@@ -33,10 +33,15 @@ export const getAllAuditReports = requestParams => {
   }
 };
 
-export const downloadAuditReport = requestParams => {
+export const downloadAuditReport = _requestParams => {
+  const { pageSize, pageNumber, ...requestParams } = _requestParams
   return async dispatch => {
-    dispatch(request(requestParams));
     try {
+      if (!requestParams.startDate || !requestParams.endDate)
+      {
+        throw Error("Please pick a date range")
+      }
+      dispatch(request(requestParams));
       const response = await auditService.downloadAuditReport(requestParams);
       response && dispatch(success(response));
       response && appUtils.downloadFile("audit-trail.csv", response)
@@ -45,7 +50,7 @@ export const downloadAuditReport = requestParams => {
       dispatch(
         showAlert(
           "danger",
-          "Failed to download report",
+          "Failed to download",
           error ? error : message.GENERIC_ERROR
         )
       );

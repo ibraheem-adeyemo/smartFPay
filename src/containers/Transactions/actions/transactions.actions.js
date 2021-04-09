@@ -33,20 +33,24 @@ export const getAllTransactions = requestParams => {
   }
 };
 
-export const downloadTransactionReport = requestParams => {
+export const downloadTransactionReport = _requestParams => {
   return async dispatch => {
-    dispatch(request(requestParams));
     try {
+      const { pageSize, pageNumber, ...requestParams } = _requestParams;
+      if (!requestParams.startDate || !requestParams.endDate)
+      {
+        throw Error("Please pick a date range")
+      }
+      dispatch(request(requestParams));
       const response = await transactionService.downloadTransactions(requestParams);
-
-      response && appUtils.downloadFile("transactions.csv", response)
+      response && appUtils.downloadFile("transactions.csv", response);
       response && dispatch(success(response));
     } catch (error) {
       dispatch(failure(error));
       dispatch(
         showAlert(
           "danger",
-          "Failed to download transactions",
+          "Failed to download",
           error ? error : message.GENERIC_ERROR
         )
       );
