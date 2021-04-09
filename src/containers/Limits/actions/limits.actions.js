@@ -185,8 +185,7 @@ export const toggleAccountControl = (accountNumber, active, postAction, pageStat
 export const postControl = (values, id, controlToEdit, history, location) => {
     const requestBody = createRequestBody(values, id, controlToEdit);
     const accountNumber = values.accountNumber;
-    return async (dispatch, getState) => {
-      const state = getState();
+    return async (dispatch) => {
       dispatch(request(requestBody));
       try {
         const response = await limitService.postControl(requestBody, id);
@@ -259,8 +258,7 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
   const accountNumber = values.accountNumber;
   const requestBody = createCardRequestBody(values, id, controlToEdit);
   console.log(requestBody);
-  return async (dispatch, getState) => {
-    const state = getState();
+  return async (dispatch) => {
     dispatch(request(requestBody));
     try {
       const response = await limitService.postCardControl(requestBody, id);

@@ -1,24 +1,17 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
-import React, { memo, useState } from "react";
-import { Card, CardBody, Col, ButtonToolbar, Spinner } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { Card, CardBody, Col } from "reactstrap";
 
-import { Link } from "react-router-dom";
-import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { getFormValues } from "redux-form";
 import CustomFilter from "./CustomFilter";
 import {createFilterRequestBody} from "../../factories/audit.factory";
 
-const {
-  VIEW_ADMIN
-} = permissionsConstants;
 
-const ReportsTable = memo(props => {
+const ReportsTable = props => {
   const {
     dataState,
     fetchData,
@@ -28,8 +21,8 @@ const ReportsTable = memo(props => {
     values
   } = props;
 
-  const [searchKey, setSearchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
+  const [initialFetch, setInitialFetch] = useState(false);
 
   const columns = [
     {
@@ -87,11 +80,7 @@ const ReportsTable = memo(props => {
   ];
 
   const sortFn = (pageNum, pageSize, column) => {
-    let sortOrder = "ASC";
     if (!allReports.loading) {
-      if (allReports.request && allReports.request.sortOrder) {
-        sortOrder = allReports.request.sortOrder === "ASC" ? "DESC" : "ASC";
-      }
       fetchData({
         ...allReports.request,
         pageNum,
@@ -102,18 +91,8 @@ const ReportsTable = memo(props => {
     }
   };
 
-  const actions = [
-    // {
-    //   name: "view_reports",
-    //   btnText: "View",
-    //   btnClass: "success",
-    //   btnIcon: MdInsertDriveFile,
-    //   permissions: [VIEW_ADMIN]
-    // },
-  ];
-
-  const handleFilter = () => {
-    let requestBody = createFilterRequestBody({
+  const handleFilter = isReset => {
+    let requestBody = isReset ? {} : createFilterRequestBody({
       email: values.email,
       action: values.action,
       startDate: values.startDate,
@@ -121,11 +100,18 @@ const ReportsTable = memo(props => {
       createdBy: values.createdBy,
     });
     fetchData({
-      ...dataState.request,
+      pageSize: dataState.request?.pageSize || 10,
       pageNumber: 1,
       ...requestBody
     });
+    setInitialFetch(true);
   };
+
+  useEffect(() => {
+    if (!initialFetch && values)
+      handleFilter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values])
 
   const handleDownload = () => {
     let requestBody = createFilterRequestBody({
@@ -194,7 +180,7 @@ const ReportsTable = memo(props => {
       </Card>
     </Col>
   );
-});
+};
 
 export default connect(state => ({
   values: getFormValues("reports_custom_filter")(state),
