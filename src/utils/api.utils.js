@@ -34,7 +34,6 @@ const handleResponse = response => {
     }
     return response.text();
   } else {
-    console.log('isJson', isJson)
     if (isJson) {
       return response.json().then(json => {
         if (process.env.NODE_ENV === "production") {
@@ -42,7 +41,6 @@ const handleResponse = response => {
             window.parent.location.replace(logoutUrl);
           }
         }
-    console.log('isJson', json)
 
         const error = new CustomError(
           json.responseMessage ||
@@ -51,7 +49,6 @@ const handleResponse = response => {
             GENERIC_ERROR,
           json.errors
         );
-        // console.log(Promise.reject(Object.assign(error, { response })));
         return Promise.reject(Object.assign(error, { response }));
       });
     } else {
@@ -69,7 +66,6 @@ export const apiCall = (
 ) => {
   let headers = {
     "Content-type": "application/json",
-    //"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY",
     "Authorization": `Bearer ${window.localStorage.getItem('pc-token')}`,
     ...customHeaders
   };
@@ -127,7 +123,6 @@ export const apiCallForDownload = async (
   filename
 ) => {
   let headers = {
-    "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbHV3YXNldW4uYXdvdHVuZHVuQGludGVyc3dpdGNobmcuY29tIiwicGVybWlzc2lvbnMiOlsiU1VQRVJfQURNSU4iXSwiaWF0IjoxNTk4MzUyMDIwLCJleHAiOjE2MDE5NTIwMjB9.fYTcg9GdXvhXSf0pvAzpYWtAUTGUd5jwfxD6RY65xxY",
     ...customHeaders
   };
   const { xsrfToken, xsrfTokenHeader } = appConfig;
@@ -148,20 +143,16 @@ export const apiCallForDownload = async (
     url = `${url}?${urlParams}`;
   }
 
-  console.log(url);
 
   return fetch(url, requestOptions).then(async (response) => {
-    console.log(url, requestOptions)
     let resp = await response.text();
-    console.log(resp);
      newUrl = window.URL.createObjectURL(new Blob([resp]))
      const link = document.createElement('a');
      link.href = newUrl;
      link.setAttribute('download', filename); //or any other extension
      document.body.appendChild(link);
      link.click();
-     console.log("Clicked");
   }).catch((err) => {
-    console.log('This happened', err)
+    console.log('Error downloading: ', err)
   });
 };

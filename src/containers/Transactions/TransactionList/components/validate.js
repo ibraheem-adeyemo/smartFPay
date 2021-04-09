@@ -16,9 +16,9 @@ const validate = values => {
     if (values.limitId && values.limitId <= 0) {
         errors.limitId = "Enter a valid limit Id";
     }
-    if (values.decline && values.decline <= 0) {
-        errors.decline = "Enter a valid decline";
-    }
+    // if (values.decline && values.decline <= 0) {
+    //     errors.decline = "Enter a valid decline";
+    // }
 
     // if (!values.startDate) {
     //     errors.startDate = "Kindly select a start date and time";

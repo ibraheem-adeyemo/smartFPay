@@ -305,6 +305,15 @@
   margin-bottom: 20px;
   width: 100%;
   position: relative;
+  &.column {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .toggle-btn__input-label {
+      margin-left: unset;
+    }
+  }
 }
 
 .form__form-group--address {
@@ -336,6 +345,9 @@
 
   span {
     color: #dddddd;
+  }
+  &.faint {
+    color: #acadaf;
   }
 }
 

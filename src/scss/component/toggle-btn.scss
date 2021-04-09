@@ -13,6 +13,10 @@
   }
 }
 
+  .theme-light button.toggle-btn__input-label {
+    background-color: #d8d8da;
+  }
+
 .toggle-btn__input-label {
   cursor: pointer;
   text-indent: -9999px;
@@ -39,7 +43,7 @@
     border-radius: 50%;
     transition: 0.3s;
     box-shadow: 0 5px 10px rgba(153, 153, 153, 0.4);
-    background-color: gray;
+    background-color: rgb(182, 180, 180);
   }
 }
 

@@ -21,6 +21,12 @@ const CustomFilter = memo(props => {
     props.handleFilter(true)
   }
 
+  const transactionStatus =
+  [
+    { label: "Successful", value: "SUCCESS" },
+    { label: "Failed", value: "FAIL" }
+  ]
+
   return (
     <Row style={{paddingRight: "1rem", paddingLeft: "1rem"}}>
         <form className="form" onSubmit={props.handleDownload}>
@@ -54,11 +60,14 @@ const CustomFilter = memo(props => {
           <div className="form__form-group">
           <div className="form__form-group-field">
                           <Field
-                            id="decline"
-                            name="decline"
-                            component={renderField}
-                            type="number"
-                            placeholder="Decline"
+                            id="status"
+                            name="status"
+                            component={renderSelectField}
+                            isClearable
+                            options={transactionStatus}
+                            placeholder="Transaction status"
+                            valueKey="value"
+                            labelKey="label"
                           />
               </div>
               </div>
@@ -143,6 +152,7 @@ const CustomFilter = memo(props => {
                             name="country"
                             placeholder="Country"
                             component={renderSelectField}
+                            isClearable
                             options={COUNTRIES}
                             valueKey="alpha3Code"
                             labelKey="name"
@@ -158,6 +168,7 @@ const CustomFilter = memo(props => {
                             name="paymentType"
                             placeholder="Payment Type"
                             component={renderSelectField}
+                            isClearable
                             options={PAYMENT_TYPE}
                             valueKey="value"
                             labelKey="label"
@@ -173,6 +184,7 @@ const CustomFilter = memo(props => {
                             name="channel"
                             placeholder="Channel"
                             component={renderSelectField}
+                            isClearable
                             options={CHANNELS_OPTIONS}
                             valueKey="label"
                             labelKey="value"
@@ -188,6 +200,7 @@ const CustomFilter = memo(props => {
                             name="violationCode"
                             placeholder="Violation Code"
                             component={renderSelectField}
+                            isClearable
                             options={VIOLATION_CODES}
                             valueKey="message"
                             labelKey="message"

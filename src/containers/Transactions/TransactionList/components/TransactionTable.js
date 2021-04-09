@@ -101,7 +101,8 @@ const TransactionsTable = props => {
         customerName: values.customerName,
         country: values.country,
         paymentType: values.paymentType,
-        maskedPan: values.maskedPan
+        maskedPan: values.maskedPan,
+        status: values.status
       });
     fetchData({
       pageSize: dataState.request?.pageSize || 10,
