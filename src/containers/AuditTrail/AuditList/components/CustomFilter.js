@@ -1,5 +1,5 @@
 import React from "react";
-import { Field, reduxForm, reset } from "redux-form";
+import { Field, getFormValues, reduxForm, reset } from "redux-form";
 import { MdFilterList, MdFileDownload, MdClear } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
@@ -7,13 +7,27 @@ import renderSelectField from "../../../../shared/components/form/Select";
 import { ACTION_TYPES } from "../../../../constants/app.constants";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
+import { connect } from "react-redux";
 
 const CustomFilter = props => {
   const {
     submitting,
     invalid,
-    dispatch
+    dispatch,
+    values
   } = props;
+
+
+  const {
+    email,
+    action,
+    createdBy,
+    startDate,
+    endDate
+  } = values;
+  
+  const hasFilter = email || action || createdBy
+    || (startDate && endDate);
 
   const handleReset = () => {
     dispatch(reset("reports_custom_filter"));
@@ -105,6 +119,7 @@ const CustomFilter = props => {
                       type="button"
                       id="reset-form"
                       onClick={handleReset}
+                      disabled={!hasFilter}
                     >
                       <span><MdClear /> </span>
                       Reset
@@ -114,7 +129,7 @@ const CustomFilter = props => {
                       type="button"
                       id="filter-form"
                       onClick={() => props.handleFilter()}
-                      disabled={submitting || invalid}
+                      disabled={submitting || invalid || !hasFilter}
                     >
                       <span><MdFilterList /> </span>
                       Filter
@@ -141,4 +156,7 @@ export default reduxForm({
   form: "reports_custom_filter",
   validate,
   destroyOnUnmount: false
-})(CustomFilter);
+})(
+  connect(state => ({
+    values: getFormValues("reports_custom_filter")(state),
+  }))(CustomFilter))

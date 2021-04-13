@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import { Field, reduxForm, reset } from "redux-form";
+import { Field, getFormValues, reduxForm, reset } from "redux-form";
 import { MdFilterList, MdFileDownload, MdClear } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
@@ -8,13 +8,34 @@ import { CHANNELS_OPTIONS, PAYMENT_TYPE, VIOLATION_CODES } from "../../../../con
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
+import { connect } from "react-redux";
 
 const CustomFilter = memo(props => {
   const {
     submitting,
     invalid,
-    dispatch
+    dispatch,
+    values
   } = props;
+
+  const {
+    accountNumber,
+    channel,
+    country,
+    customerName,
+    status,
+    endDate,
+    limitId,
+    maskedPan,
+    paymentType,
+    startDate,
+    tokenizedPan,
+    violationCode
+  } = values;
+  
+  const hasFilter = accountNumber || channel || country || customerName || status
+    || limitId || maskedPan || paymentType || tokenizedPan || violationCode
+    || (startDate && endDate);
 
   const handleReset = () => {
     dispatch(reset("transactions_custom_filter"));
@@ -214,6 +235,7 @@ const CustomFilter = memo(props => {
                       type="button"
                       id="reset-form"
                       onClick={handleReset}
+                      disabled={!hasFilter}
                     >
                       <span><MdClear /> </span>
                       Reset
@@ -223,7 +245,7 @@ const CustomFilter = memo(props => {
                       type="button"
                       id="filter-form"
                       onClick={() => props.handleFilter()}
-                      disabled={submitting || invalid}
+                      disabled={submitting || invalid || !hasFilter}
                     >
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
                       Filter
@@ -250,4 +272,8 @@ export default reduxForm({
   form: "transactions_custom_filter",
   validate,
   destroyOnUnmount: false
-})(CustomFilter);
+})(
+  connect(state => ({
+    values: getFormValues("transactions_custom_filter")(state),
+  }))(CustomFilter))
+

@@ -1,5 +1,5 @@
 import React, {memo} from "react";
-import { Field, reduxForm, reset } from "redux-form";
+import { Field, getFormValues, reduxForm, reset } from "redux-form";
 import { MdFileDownload, MdFilterList, MdClear } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
@@ -8,11 +8,24 @@ import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
+import { connect } from "react-redux";
 
 const CustomFilter = memo(props => {
   const {
-    submitting, invalid, dispatch
+    submitting, invalid, dispatch, values
   } = props;
+
+  const {
+    accountName,
+    accountNumber,
+    enabledCountry,
+    enabledChannel,
+    startDate,
+    endDate
+  } = values;
+
+  const hasFilter = accountName || accountNumber || enabledChannel || enabledCountry
+    || (startDate && endDate);
 
   const handleReset = () => {
     dispatch(reset("limits_custom_filter"));
@@ -140,6 +153,7 @@ const CustomFilter = memo(props => {
                       type="button"
                       id="reset-form"
                       onClick={handleReset}
+                      disabled={!hasFilter}
                     >
                       <span><MdClear /> </span>
                       Reset
@@ -149,7 +163,7 @@ const CustomFilter = memo(props => {
                       type="button"
                       id="filter-form"
                       onClick={() => props.handleFilter()}
-                      disabled={submitting || invalid}
+                      disabled={submitting || invalid || !hasFilter}
                     >
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFilterList /> </span>}
                       Filter
@@ -177,4 +191,7 @@ export default reduxForm({
   form: "limits_custom_filter",
   validate,
   destroyOnUnmount: false
-})(CustomFilter);
+})(
+  connect(state => ({
+    values: getFormValues("limits_custom_filter")(state),
+  }))(CustomFilter))
