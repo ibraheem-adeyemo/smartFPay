@@ -1,5 +1,4 @@
 import { appConfig } from "../config/config";
-import { appUtils } from "../utils/app.utils";
 
 
 const { apiBaseUrl, apiVersion } = appConfig;
@@ -65,6 +64,9 @@ export const API_URLS = {
   },
   CREATE_CARD_ADMIN: {
     GET_CARD_REQUESTS: `${apiBaseUrl}/admin/card/request`
+  },
+  DASHBOARD_STATS: {
+    SUMMARY: `${apiBaseUrl}/dashboard`
   },
   CREATE_CARD: {
     GET_CARD_REQUESTS: `${apiBaseUrl}/card/request`,

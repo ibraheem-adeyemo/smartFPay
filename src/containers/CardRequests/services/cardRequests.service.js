@@ -1,6 +1,6 @@
 import { apiCall, apiCallForUpload } from "../../../utils/api.utils";
 import { API_URLS } from "../../../constants/apiUrls";
-import {store} from '../../../store';
+//import {store} from '../../../store';
 
 
 
@@ -12,11 +12,11 @@ export const cardRequestsService = {
 };
 
 function getAllCardRequests(params) {
-  const domain = store.getState().currentUser.response.domainCode
-  let url = API_URLS.CREATE_CARD.GET_CARD_REQUESTS
-  if(domain === "ISW") {
-    url = API_URLS.CREATE_CARD_ADMIN.GET_CARD_REQUESTS
-  }
+  //const domain = store.getState().currentUser.response.domainCode
+  let url = API_URLS.DASHBOARD_STATS.SUMMARY
+  // if(domain === "ISW") {
+  //   url = API_URLS.CREATE_CARD_ADMIN.GET_CARD_REQUESTS
+  // }
   return apiCall(
     "GET",
     url,

@@ -1,18 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Card, CardBody } from "reactstrap";
 import { MdRefresh } from "react-icons/md";
 import { getAllCardRequests } from "../../CardRequests/actions/cardrequests.actions";
 
-const StatsCard = ({ dispatch, requests, bigText, smallText }) => {
+const StatsCard = ({ dispatch, requests, bigText, smallText, data }) => {
 
   function fetchRequests() {
-    dispatch(getAllCardRequests({ page: 1, pageSize: 10 }));
+    dispatch(getAllCardRequests());
   }
-
-  useEffect(() => {
-    dispatch(getAllCardRequests({ page: 1, pageSize: 10 }));
-  }, [dispatch]);
 
   return (
     <Card>
@@ -22,11 +18,11 @@ const StatsCard = ({ dispatch, requests, bigText, smallText }) => {
         }`}
       >
         <div className="dashboard__booking-total-container">
-          <h5 className="dashboard__booking-total-title dashboard__booking-total-title--red">
+          <h5 className="dashboard__booking-total-title dashboard__booking-total-title--green">
             <span
               className={`${requests && requests.error ? "text-muted" : ""}`}
             >
-              100
+              {data}
             </span>
           </h5>
           <MdRefresh

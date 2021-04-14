@@ -8,7 +8,6 @@ const validate = values => {
       errors.accountNumber = "Only numbers allowed";
     }
 
-    console.log(errors)
     return errors;
   };
   

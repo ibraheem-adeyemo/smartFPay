@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import {  Container, Row } from "reactstrap";
 import { connect } from "react-redux";
-import { postCardControl, getControl, resetViewLimitControl } from "../actions/limits.actions";
+import { postCardControl, getControl } from "../actions/limits.actions";
 import HorizontalForm from "./components/CardLimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 import { COUNTRIES } from "../../../constants/countries";

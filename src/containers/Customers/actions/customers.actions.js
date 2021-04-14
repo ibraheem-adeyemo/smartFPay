@@ -84,13 +84,13 @@ export const getCustomerDetails = (accountNumber, callBack) => {
       console.log('RESPONSE',response);
       dispatch(success(response));
       dispatch(reset("customer_form"));
-      dispatch(
-        showAlert(
-          "success",
-          "Customer fetched successfully",
-          response?.responseMessage
-        )
-      );
+      // dispatch(
+      //   showAlert(
+      //     "success",
+      //     "Customer fetched successfully",
+      //     response?.responseMessage
+      //   )
+      // );
       dispatch(resetPost());
       callBack();
     } catch (error) {
@@ -127,8 +127,7 @@ export const getCustomerDetails = (accountNumber, callBack) => {
 export const postCustomer = (values, callBack) => {
   const requestBody = createRequestBody(values);
     console.log(requestBody);
-    return async (dispatch, getState) => {
-      const state = getState();
+    return async (dispatch) => {
       dispatch(request(requestBody));
       try {
         const response = await customersService.postCustomer(requestBody);

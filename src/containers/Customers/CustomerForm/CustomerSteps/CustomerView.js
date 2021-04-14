@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Col, Card, CardBody, Spinner, Button, ButtonToolbar, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
-import Cards from 'react-credit-cards';
 import chip from '../../../../assets/chip.png';
-import { getAllControls } from "../../../Limits/actions/limits.actions";
+
+const pathname = `/${window.location.pathname.split("/").slice(2).join("/")}`;
+console.log(pathname)
 
 const CustomerView = props => {
   const { previous, startFlow, customer, controls } = props;
@@ -44,7 +45,7 @@ const CardDetails = ({card}) => (
                 <Col sm="6">
                 <Card>
                   <CardBody style={styles.card}>
-                    <img src={chip} style={styles.chip}/>
+                    <img src={chip} style={styles.chip} alt="chip" />
                     <div style={styles.maskedPan}>{`${card.pan.substring(0,4)} ${card.pan.substring(4,8)} ${card.pan.substring(8,12)} ${card.pan.substring(12)}`}</div>
               <div style={styles.validity}><span>Valid Thru</span><span style={styles.expiryDate}>{card.expiry}</span></div>
                     <div style={styles.cardName}>{response?.accountName}</div>
@@ -64,6 +65,7 @@ const CardDetails = ({card}) => (
                     pathname: `/limit-requests/card/edit/${card.tokenizedPan}`,
                     state: { 
                       fromCustomerView: true,
+                      referer: pathname,
                       cardDetails: card
                     }
                   }}
@@ -81,6 +83,7 @@ const CardDetails = ({card}) => (
                     pathname: "/limit-requests/card/add",
                     state: { 
                       fromCustomerView: true,
+                      referer: pathname,
                       cardDetails: card
                     }
                   }}
@@ -126,7 +129,8 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                     pathname: `/limit-requests/edit/${accountControls[0].token}`,
                     state: { 
                       fromCustomerView: true,
-                      accountLimit:{}
+                      accountLimit:{},
+                      referer: pathname
                     }
                   }}
                 >
@@ -141,7 +145,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                   style={{marginRight: '-16px'}}
                   to={{
                     pathname: "/limit-requests/add",
-                    state: { fromCustomerView: true }
+                    state: { fromCustomerView: true, referer: window.location.pathname }
                   }}
                   id="link-create-control"
                 >

@@ -45,25 +45,33 @@ const LimitForm = memo(props => {
     };
   }, [dispatch]);
 
+  const getBackButton = options =>
+  {
+    return location?.state?.referer ?
+      <Link
+        to={{
+          pathname: location.state.referer,
+          state: {}
+        }}>
+        {options.userArrow && <MdArrowBack size={20} />} {options.customers}
+      </Link>
+      :
+      <Link to="/limit-requests" id="link-all-limits">
+      <MdArrowBack size={20} /> {options.limits}
+    </Link>
+  }
+
   return (
     <Col md={12} lg={12}>
       <Card>
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              {location?.state?.fromCustomerView ? <Link
-              to={{
-                pathname: "/customers/add",
-                state: { 
-                  
-                }
-              }}
-              id="link-create-customer">
-                <MdArrowBack size={20} /> Back to Customers
-              </Link>
-              :<Link to="/limit-requests" id="link-all-limits">
-                <MdArrowBack size={20} /> Back to Limits
-              </Link>}
+              {getBackButton({
+                customers: "Back to customers",
+                limits: "Back to limits",
+                userArrow: true
+              })}
             </h5>
           </div>
           {controlId && control?.loading ? (
@@ -206,12 +214,11 @@ const LimitForm = memo(props => {
                   </Row>
 
                   <ButtonToolbar className="form__button-toolbar">
-                    <Link
-                      to="/limit-requests"
-                      id="reset-form"
-                    >
-                      <Button type="button">Cancel</Button>
-                    </Link>
+                    {getBackButton({
+                      limits: <Button type="button">Cancel</Button>,
+                      customers: <Button type="button">Cancel</Button>,
+                      userArrow: false
+                    })}
                     <Button
                       color="primary"
                       id="submit-btn"

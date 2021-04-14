@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {  Container, Row } from "reactstrap";
 import {withRouter} from 'react-router-dom';
 import { connect } from "react-redux";
-import { postControl, getControl, resetViewLimitControl } from "../actions/limits.actions";
+import { postControl, getControl } from "../actions/limits.actions";
 import HorizontalForm from "./components/LimitForm";
 import PageHeader from "../../../shared/components/PageHeader";
 import {FREQUENCY_OPTIONS} from '../../../constants/app.constants';

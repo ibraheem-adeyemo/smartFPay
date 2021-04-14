@@ -12,7 +12,7 @@ import {
 import validate from "./validate";
 import { connect } from "react-redux";
 import { renderField } from "../../../../utils/renderfield";
-import { Field, reduxForm, formValueSelector } from "redux-form";
+import { Field, reduxForm } from "redux-form";
 
 const CustomerAccountInformation = ({customer, submitting, onSubmit,invalid}) => {
     const [accountNumber, setAccountNumber] = useState('');

@@ -2,22 +2,21 @@
 import React, { memo, useState } from "react";
 import { Card, CardBody, Col, ButtonToolbar, UncontrolledAlert,Spinner } from "reactstrap";
 import {
-  MdInsertDriveFile,
+  MdModeEdit,
   /* MdModeEdit, */
-  MdCreditCard
 } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import CustomSearch from "./CustomSearch";
-import { Link } from "react-router-dom";import AccessControl from "../../../../shared/components/AccessControl";
+import { Link } from "react-router-dom";
+import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { accessControlFn } from "../../../../utils/accessControl";
 import ModalComponent from "../../../../shared/components/Modal";
 import ViewCustomer from "../../ViewCustomer";
 import Avatar from "react-avatar";
-import { getCustomers } from "../../reducers";
 import {subscribeCustomer, unsubscribeCustomer} from '../../actions/customers.actions';
 import { confirmAlert } from "react-confirm-alert";
 
@@ -129,12 +128,7 @@ const CustomersTable = memo(
       },
     ];
     const sortFn = (pageNumber, pageSize, column) => {
-      let sortOrder = "ASC";
-      let sortKey = column.sortKey;
       if (!dataState.loading) {
-        if (dataState.request && dataState.request.sortOrder) {
-          sortOrder = dataState.request.sortOrder === "ASC" ? "DESC" : "ASC";
-        }
         fetchData({
           ...dataState.request,
           pageNumber,
@@ -147,7 +141,7 @@ const CustomersTable = memo(
 
     const handleAction = (row, action) => {
       if (action.name === "edit_customers") {
-        history.push(`${location.pathname}/edit/${row.id}`);
+        history.push(`${location.pathname}/edit/${row.accountNumber}`);
       } else if (action.name === "view_customer") {
         toggleModal();
         setSelectedRow(row);
@@ -156,6 +150,7 @@ const CustomersTable = memo(
       }
     };
 
+    
     const handleSubmit = values => {
       setSearchKey(values.searchWord);
       fetchData({
@@ -166,21 +161,21 @@ const CustomersTable = memo(
     };
 
     const actions = [
-      /* {
+      // {
+      //   name: "view_customer",
+      //   btnText: "View Customer",
+      //   btnAction: handleAction,
+      //   btnClass: "success",
+      //   btnIcon: MdInsertDriveFile,
+      //   permissions: [permissionsConstants.VIEW_CUSTOMER]
+      // },
+      {
         name: "edit_customers",
         btnText: "Update Customer",
         btnAction: handleAction,
         btnClass: "default",
         btnIcon: MdModeEdit,
         permissions: []
-      }, */
-      {
-        name: "view_customer",
-        btnText: "View Customer",
-        btnAction: handleAction,
-        btnClass: "success",
-        btnIcon: MdInsertDriveFile,
-        permissions: [permissionsConstants.VIEW_CUSTOMER]
       },
       // {
       //   name: "view_cards",
@@ -256,7 +251,7 @@ const CustomersTable = memo(
               striped={true}
               hover={true}
               NoDataText={'No Customers Found'}
-              // actions={actions}
+              actions={actions}
               customSearch={
                 <CustomSearch
                   pageNumber={1}

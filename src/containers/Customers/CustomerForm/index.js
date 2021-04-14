@@ -19,7 +19,7 @@ const CustomerForm = props => {
         subheader=""
       />
       <Row>
-        <CustomerCreateForm onSubmit={createCustomer} location={location} />
+        <CustomerCreateForm history={history} onSubmit={createCustomer} location={location} />
       </Row>
     </Container>
   );

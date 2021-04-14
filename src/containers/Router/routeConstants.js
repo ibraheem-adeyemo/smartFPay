@@ -2,11 +2,11 @@ import UsersList from "../Users/UsersList";
 import UserRoleForm from "../Users/UserRoleForm";
 import UserForm from "../Users/UserForm";
 import ViewUser from "../Users/UserView";
-import CardRequestsList from "../CardRequests/ViewAllCardRequests";
-import CardRequestsForm from "../CardRequests/CardRequestsForm";
-import ViewCardRequest from "../CardRequests/ViewCardRequest";
+// import CardRequestsList from "../CardRequests/ViewAllCardRequests";
+// import CardRequestsForm from "../CardRequests/CardRequestsForm";
+// import ViewCardRequest from "../CardRequests/ViewCardRequest";
 
-import BatchCustomersList from "../Customers/ViewBatchCustomers";
+// import BatchCustomersList from "../Customers/ViewBatchCustomers";
 import CustomersList from "../Customers/ViewAllCustomers";
 import CustomerForm from "../Customers/CustomerForm";
 import CardsRecordsList from "../CardRecords/ViewAllCardRecords";
@@ -166,18 +166,18 @@ export const CustomerRoutes = {
       enabled: true,
       permissions: [VIEW_CUSTOMER_CARDS]
     },
-    // {
-    //   key: "editCustomers",
-    //   title: "Edit Customers",
-    //   exact: false,
-    //   icon: null,
-    //   name: "EditCustomers",
-    //   path: "/customers/edit/:id",
-    //   menu: true,
-    //   pageComponent: ViewCardRequest,
-    //   enabled: true,
-    //   permissions: [VIEW_CUSTOMER]
-    // },
+    {
+      key: "editCustomers",
+      title: "Edit Customers",
+      exact: false,
+      icon: null,
+      name: "EditCustomers",
+      path: "/customers/edit/:id",
+      menu: true,
+      pageComponent: CustomerForm,
+      enabled: true,
+      permissions: [CREATE_CUSTOMER]
+    },
     {
       key: "viewCustomer",
       title: "View ",

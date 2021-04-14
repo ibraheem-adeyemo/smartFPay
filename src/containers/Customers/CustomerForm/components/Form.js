@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardBody, Col, UncontrolledAlert } from "reactstrap";
 import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
@@ -16,7 +16,7 @@ import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
 import FormError from "../../../../shared/components/FormError";
 import { getAllControls } from "../../../Limits/actions/limits.actions";
 
-const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, customers, controls, control, location }) => {
+const CustomerCreateForm = ({ dispatch, onSubmit, history, customer, customers, controls, control, location }) => {
   const [page, setPage] = useState(1);
   const [account, setAccount] = useState(null);
   let cardControls = [], accountControls = [];
@@ -25,6 +25,21 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
   const nextPage = () => {
     setPage(prev => prev + 1);
   };
+
+  useEffect(() =>
+  {
+    if (window.location.pathname.includes("/edit"))
+    {
+      const accNumber = window.location.pathname.split("/").pop();
+      if (!Number(accNumber))
+        return history.push("/customers")
+
+      getCustomer(accNumber, () => setPage(3));
+    }
+    else
+      history.push("/customers");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const createCustomer = (customer) => {
     let requestBody = {
@@ -36,11 +51,11 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
     // nextPage();
   }
 
-  const getCustomer = (accountNumber) => {
+  const getCustomer = (accountNumber, callBack = nextPage) => {
     setAccount(accountNumber);
     dispatch(getCustomers({accountNumber, pageNumber:1, pageSize: 10}))
     dispatch(getAllControls({accountNumber,pageNumber:1, pageSize: 1000}))
-    dispatch(getCustomerDetails(accountNumber, nextPage));
+    dispatch(getCustomerDetails(accountNumber, callBack));
     // setAccount(accountNumber);
     // nextPage();
   }
@@ -112,7 +127,6 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
                 <CustomerDetails
                 account={account}
                   previousPage={previousPage}
-                  customer={customers}
                   handleNextPage={nextPage}
                   previous={previousPage}
                   onSubmit={() => createCustomer(customer)}
@@ -137,7 +151,7 @@ const CustomerCreateForm = memo(({ dispatch, onSubmit, history, customer, custom
       </Card>
     </Col>
   );
-});
+};
 
 CustomerCreateForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
