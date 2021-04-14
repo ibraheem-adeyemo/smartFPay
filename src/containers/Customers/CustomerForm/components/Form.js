@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardBody, Col, UncontrolledAlert } from "reactstrap";
+import { Card, CardBody, Col } from "reactstrap";
 import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getCustomerDetails,resetPost, postCustomer, getCustomers } from "../../actions/customers.actions";
-import {getControl} from '../../../Limits/actions/limits.actions';
-import { show as showAlert } from "../../../Notifications/actions/alert.actions";
+import { getCustomerDetails, postCustomer, getCustomers } from "../../actions/customers.actions";
 import CustomerAccountInformation from "../CustomerSteps/CustomerAccountInformation";
 import CustomerDetails from '../CustomerSteps/CustomerDetails';
 import CustomerView from '../CustomerSteps/CustomerView';
 // import CardConfiguration from "./CardSteps/CardConfiguration";
 // import Review from "./CardSteps/Review";
-import { CARD_REQUEST_TYPE } from "../../../../constants/app.constants";
 import FormError from "../../../../shared/components/FormError";
 import { getAllControls } from "../../../Limits/actions/limits.actions";
 
 const CustomerCreateForm = ({ dispatch, onSubmit, history, customer, customers, controls, control, location }) => {
   const [page, setPage] = useState(1);
   const [account, setAccount] = useState(null);
-  let cardControls = [], accountControls = [];
   let accountNumber = '';
 
   const nextPage = () => {
@@ -36,8 +32,6 @@ const CustomerCreateForm = ({ dispatch, onSubmit, history, customer, customers, 
 
       getCustomer(accNumber, () => setPage(3));
     }
-    else
-      history.push("/customers");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -47,7 +41,7 @@ const CustomerCreateForm = ({ dispatch, onSubmit, history, customer, customers, 
       name: customer.response.accountName,
       coreBankingId: customer.response.coreBankingId || '0909090901'
     }
-    dispatch(postCustomer(requestBody, nextPage));
+    dispatch(postCustomer(requestBody, () => getCustomer(customer.request)));
     // nextPage();
   }
 
@@ -62,12 +56,6 @@ const CustomerCreateForm = ({ dispatch, onSubmit, history, customer, customers, 
 
   const getLimitByToken = (token) => {
     // dispatch(getControl(token));
-  }
-
-  const fetchControls = (accountNumber) => {
-    
-    setAccount(accountNumber);
-    nextPage();
   }
 
   // console.log(count, data)
@@ -130,6 +118,7 @@ const CustomerCreateForm = ({ dispatch, onSubmit, history, customer, customers, 
                   handleNextPage={nextPage}
                   previous={previousPage}
                   onSubmit={() => createCustomer(customer)}
+                  customer={customer}
                 />
               )}
               {page === 3 && (

@@ -1,26 +1,20 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import {
   Card,
   CardBody,
   Row,
   Col,
   Button,
-  UncontrolledAlert,
   ButtonToolbar,
   Spinner
 } from "reactstrap";
 import validate from "./validate";
 import { connect } from "react-redux";
-import { renderField } from "../../../../utils/renderfield";
 import { MdArrowBack } from "react-icons/md";
-import { Field, reduxForm, formValueSelector } from "redux-form";
-import {customersService} from "../../services/customers.service";
+import { reduxForm } from "redux-form";
 
 const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid, handleNextPage, previous}) => {
-  const {getCustomers} = customersService;
-    const [accountNumber, setAccountNumber] = useState('');
-    const {response} = customer;
-    let data = response?.data?.[0];
+    const [accountNumber] = useState('');
 
     // useEffect(() => {
     //   getCustomers({pageSize:10, pageNumber:1 ,accountNumber: customer?.request}).then(res => {
@@ -50,7 +44,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='account'
                             disabled={true}
                             type='text'
-                            value={data?.accountNumber || ''}
+                            value={customer?.request || ''}
                             />
                         </div>
                         </div>
@@ -67,7 +61,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='name'
                             disabled={true}
                             type='text'
-                            value={data?.name || ''}
+                            value={customer?.response?.accountName || ''}
                             />
                         </div>
                         </div>
@@ -84,7 +78,7 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                             id='cbi'
                             disabled={true}
                             type='text'
-                            value={data?.coreBankingId || ""}
+                            value={customer?.response?.coreBankingId || ""}
                             />
                         </div>
                         </div>
@@ -108,7 +102,8 @@ const CustomerDetails = ({createCustomer, customer, submitting, onSubmit,invalid
                       ) : null}
                       Customer Account Form
                     </Button>
-                  {response.count > 0?<Button
+                    {customer?.response?.count > 0 ?
+                      <Button
                       color="primary"
                       id="submit-btn"
                       type="submit"

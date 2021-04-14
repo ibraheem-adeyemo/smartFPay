@@ -7,11 +7,11 @@ import { permissionsConstants } from "../../../../constants/permissions.constant
 import chip from '../../../../assets/chip.png';
 
 const pathname = `/${window.location.pathname.split("/").slice(2).join("/")}`;
-console.log(pathname)
 
 const CustomerView = props => {
   const { previous, startFlow, customer, controls } = props;
   let accountControls = [], cardControls = [];
+  console.log({customer})
   // if(location?.state?.limit.success)
   //   setAccountLimit(location?.state?.limit?.accountLimit)
   // else

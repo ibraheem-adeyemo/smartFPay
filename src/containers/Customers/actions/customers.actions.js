@@ -126,12 +126,10 @@ export const getCustomerDetails = (accountNumber, callBack) => {
 
 export const postCustomer = (values, callBack) => {
   const requestBody = createRequestBody(values);
-    console.log(requestBody);
     return async (dispatch) => {
       dispatch(request(requestBody));
       try {
         const response = await customersService.postCustomer(requestBody);
-        console.log(response)
         dispatch(success(response));
         dispatch(reset("customer_form"));
         dispatch(
@@ -141,7 +139,7 @@ export const postCustomer = (values, callBack) => {
             response && response.responseMessage
           )
         );
-        dispatch(getCustomers({ pageNum: 1, pageSize: 10 }));
+        getCustomer(response.accountNumber);
         dispatch(resetPost());
         dispatch(resetView());
         callBack();
