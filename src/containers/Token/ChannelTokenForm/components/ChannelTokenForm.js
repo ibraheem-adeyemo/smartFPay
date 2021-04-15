@@ -63,7 +63,6 @@ const ChannelTokenForm = props => {
                       name="channel"
                       component={renderSelectField}
                       disabled={disabled}
-                      isMulti={true}
                       options={CHANNELS_OPTIONS}
                       placeholder="Select channels"
                       isClearable

@@ -1,8 +1,8 @@
 const validate = values => {
     const errors = {};
 
-    if (!values.channel?.length) {
-        errors.channel = "Please select one or more channels";
+    if (!values.channel) {
+        errors.channel = "Please select a channel";
       }
     return errors;
 }

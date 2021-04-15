@@ -3,8 +3,7 @@ import { show as showAlert } from "../../Notifications/actions/alert.actions";
 import { message } from "../../../constants/app.constants";
 
 export const generateChannelToken = (values) => {
-  const channel = values.channel.length > 1 ? values.channel.map(({value}) => value)
-    : values.channel[0].value;
+  const channel = values.channel.value;
   return async dispatch => {
     dispatch(request({channel}));
     try {
