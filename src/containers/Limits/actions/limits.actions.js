@@ -207,21 +207,21 @@ export const postControl = (values, id, controlToEdit, history, location) => {
         dispatch(resetPost());
         if (id) {
           dispatch(getControl(id));
-          if(location?.state?.fromCustomerView){
-            history.push({
-              pathname: "/customers/add",
+          if(location?.state?.referer){
+            setTimeout(() => history.push({
+              pathname: location.state.referer,
               state: {}
-            });
+            }), 600);
           } else{
             history.push({
               pathname: "/limit-requests"
             });
           }
-        } else if(location?.state?.fromCustomerView){
-          history.push({
-            pathname: "/customers/add",
+        } else if(location?.state?.referer){
+          setTimeout(() => history.push({
+            pathname: location.state.referer,
             state: {}
-          });
+          }), 600);
         } else {
           dispatch(resetView());
           history.push("/limit-requests");
@@ -258,15 +258,11 @@ export const postControl = (values, id, controlToEdit, history, location) => {
 export const postCardControl = (values, id, controlToEdit, history, location) => {
   const accountNumber = values.accountNumber;
   const requestBody = createCardRequestBody(values, id, controlToEdit);
-  console.log(requestBody);
   return async (dispatch) => {
     dispatch(request(requestBody));
     try {
       const response = await limitService.postCardControl(requestBody, id);
       dispatch(success(response));
-      if(!location?.state?.fromCustomerView){
-        dispatch(reset("card_control_form"));
-      }
       dispatch(
         showAlert(
           "success",
@@ -274,27 +270,30 @@ export const postCardControl = (values, id, controlToEdit, history, location) =>
           response && response.responseMessage
         )
       );
+      if(!location?.state?.fromCustomerView){
+        dispatch(reset("card_control_form"));
+      }
       if(location?.state?.fromCustomerView){
         dispatch(getAllControls({ pageNumber: 1, pageSize: 1000, accountNumber }));
         }
       dispatch(resetPost());
       if (id) {
         dispatch(getControl(id));
-        if(location?.state?.fromCustomerView){
-          history.push({
-            pathname: "/customers/add",
+        if(location?.state?.referer){
+          setTimeout(() => history.push({
+            pathname: location.state.referer,
             state: {}
-          });
+          }), 600);
         } else {
           history.push({
             pathname: "/limit-requests"
           });
         }
-      } else if(location?.state?.fromCustomerView){
-        history.push({
-          pathname: "/customers/add",
+      } else if(location?.state?.referer){
+        setTimeout(() => history.push({
+          pathname: location.state.referer,
           state: {}
-        });
+        }), 600);
       } else {
         dispatch(resetView());
         history.push("/limit-requests");

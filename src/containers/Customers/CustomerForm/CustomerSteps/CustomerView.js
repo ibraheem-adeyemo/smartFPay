@@ -6,12 +6,9 @@ import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import chip from '../../../../assets/chip.png';
 
-const pathname = `/${window.location.pathname.split("/").slice(2).join("/")}`;
-
 const CustomerView = props => {
   const { previous, startFlow, customer, controls } = props;
   let accountControls = [], cardControls = [];
-  console.log({customer})
   // if(location?.state?.limit.success)
   //   setAccountLimit(location?.state?.limit?.accountLimit)
   // else
@@ -38,6 +35,8 @@ const CustomerView = props => {
 
   accountControls = controls?.response?.data.filter(control => control.limitType === 'ACCOUNT');
   cardControls = controls?.response?.data.filter(control => control.limitType === 'CARD');
+
+  const pathname = `/${window.location.pathname.split("/").slice(2).join("/")}`;
 
 const CardDetails = ({card}) => (
   <>
@@ -145,7 +144,7 @@ const cards = response?.cards?.map((card, index) => <CardDetails key ={index} ca
                   style={{marginRight: '-16px'}}
                   to={{
                     pathname: "/limit-requests/add",
-                    state: { fromCustomerView: true, referer: window.location.pathname }
+                    state: { fromCustomerView: true, referer: pathname }
                   }}
                   id="link-create-control"
                 >
