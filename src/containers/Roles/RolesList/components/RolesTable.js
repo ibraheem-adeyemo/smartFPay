@@ -3,10 +3,9 @@ import React, { memo, useState } from "react";
 import { Card, CardBody, Col, ButtonToolbar, Spinner } from "reactstrap";
 
 import { Link } from "react-router-dom";
-import { MdModeEdit, MdInsertDriveFile, MdLock } from "react-icons/md";
+import { MdInsertDriveFile } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
-import CustomSearch from "./CustomSearch";
 import { connect } from "react-redux";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -30,7 +29,7 @@ const RolesTable = memo(props => {
     togglerole
   } = props;
 
-  const [searchKey, setSearchKey] = useState("");
+  const [searchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
 
   const toggleRoleFn = row => {
@@ -135,24 +134,15 @@ const RolesTable = memo(props => {
       btnIcon: MdInsertDriveFile,
       permissions: [VIEW_ADMIN]
     },
-    {
-      name: "edit_roles",
-      btnText: "Update Role",
-      btnAction: handleAction,
-      btnClass: "default",
-      btnIcon: MdModeEdit,
-      permissions: [VIEW_ADMIN]
-    },
+    // {
+    //   name: "edit_roles",
+    //   btnText: "Update Role",
+    //   btnAction: handleAction,
+    //   btnClass: "default",
+    //   btnIcon: MdModeEdit,
+    //   permissions: [VIEW_ADMIN]
+    // },
   ];
-
-  const handleSubmit = values => {
-    setSearchKey(values.searchWord);
-    fetchData({
-      ...allRoles.request,
-      pageNumber: 1,
-      searchWord: values.searchWord || ""
-    });
-  };
 
   const loadData = (pageNumber, pageSize) => {
     fetchData();

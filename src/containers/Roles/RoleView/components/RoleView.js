@@ -1,10 +1,7 @@
 import React from "react";
-import { Col, Card, CardBody, Spinner, Button, Badge } from "reactstrap";
+import { Col, Card, CardBody, Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
-import AccessControl from "../../../../shared/components/AccessControl";
-import { permissionsConstants } from "../../../../constants/permissions.constants";
-import { permissionsNameSpace } from "../../constants/roles.constants";
 
 const RoleView = props => {
   const {location} = props;
@@ -34,7 +31,7 @@ const allPermissions = location.state?.role.permissions.map((permission, index) 
                   {roleObj.id}
                 </h4>
               </div> */}
-              <AccessControl
+              {/* <AccessControl
                 allowedPermissions={[permissionsConstants.VIEW_ADMIN]}
                 renderNoAccess={() => null}
               >
@@ -48,7 +45,7 @@ const allPermissions = location.state?.role.permissions.map((permission, index) 
                 >
                   Edit
                 </Link>
-              </AccessControl>
+              </AccessControl> */}
 
               <dl className="row" style={{fontSize: '18px'}}>
                 <dt className="col-sm-4">ID</dt>
