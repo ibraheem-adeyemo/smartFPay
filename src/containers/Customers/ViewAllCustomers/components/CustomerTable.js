@@ -153,10 +153,15 @@ const CustomersTable = memo(
     
     const handleSubmit = values => {
       setSearchKey(values.searchWord);
+      const statusProps = values.status ?
+        { customerStatus: values.status.value } : {};
+      const accountNumberProps = values.searchWord ?
+        { accountNumber: values.searchWord } : {};
       fetchData({
-        ...dataState.request,
+        pageSize: dataState.pageSize || 10,
         pageNumber: 1,
-        accountNumber: values.searchWord || ""
+        ...accountNumberProps,
+        ...statusProps
       });
     };
 
