@@ -4,7 +4,7 @@ import { MdFileDownload, MdFilterList, MdClear } from "react-icons/md";
 import { Row, Col, Button, Spinner } from "reactstrap";
 import renderDatePickerField from "../../../../shared/components/form/DatePicker";
 import renderSelectField from "../../../../shared/components/form/Select";
-import { CHANNELS_OPTIONS } from "../../../../constants/app.constants";
+import { CARD_STATUS_OPTIONS, CHANNELS_OPTIONS } from "../../../../constants/app.constants";
 import { COUNTRIES } from "../../../../constants/countries";
 import { renderField } from "../../../../utils/renderfield";
 import validate from './validate';
@@ -20,12 +20,13 @@ const CustomFilter = memo(props => {
     accountNumber,
     enabledCountry,
     enabledChannel,
+    cardStatus,
     startDate,
     endDate
   } = values;
 
   const hasFilter = accountName || accountNumber || enabledChannel || enabledCountry
-    || (startDate && endDate);
+    || cardStatus || (startDate && endDate);
 
   const handleReset = () => {
     dispatch(reset("limits_custom_filter"));
@@ -130,6 +131,24 @@ const CustomFilter = memo(props => {
                           </div>
                           </div>
           </Col>
+
+          <Col lg="3">
+          <div className="form__form-group">
+            <div className="form__form-group-field">
+            <Field
+                            id="cardStatus"
+                            name="cardStatus"
+                            placeholder="Card Status (card limits only)"
+                            component={renderSelectField}
+                            options={CARD_STATUS_OPTIONS}
+                            isClearable={true}
+                            valueKey="value"
+                            labelKey="label"
+                          />
+                          </div>
+                          </div>
+          </Col>
+
           <Col lg="3">
           <div className="form__form-group">
             <div className="form__form-group-field">

@@ -73,6 +73,7 @@ export const createFilterRequestBody = (values) => {
   const requestObject = {
     accountNumber: values.accountNumber || "",
     accountName: values.accountName || "",
+    cardStatus: values.cardStatus?.value,
     enabledChannel: values.enabledChannel?.value,
     enabledCountry: values.enabledCountry?.alpha3Code,
     startDate: values.startDate

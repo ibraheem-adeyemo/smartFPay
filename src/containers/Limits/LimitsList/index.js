@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Container, Row } from "reactstrap";
 import LimitsTable from "./components/LimitsTable";
@@ -13,6 +13,12 @@ const LimitsList = ({ dispatch, allControls, match }) => {
   const downloadControlData = requestParams => {
     dispatch(downloadControls(requestParams))
   };
+
+  useEffect(() =>
+  {
+    loadControls({ pageSize: 10, pageNumber: 1 })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Container>

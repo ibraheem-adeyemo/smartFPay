@@ -186,7 +186,8 @@ const LimitsTable = props => {
       startDate: values.startDate,
       endDate: values.endDate,
       enabledChannel: values.enabledChannel,
-      enabledCountry: values.enabledCountry
+      enabledCountry: values.enabledCountry,
+      cardStatus: values.cardStatus
     });
     fetchData({
       pageSize: dataState.request?.pageSize || 10,
