@@ -166,7 +166,7 @@ const CustomFilter = memo(props => {
                           </div>
                           </div>
           </Col>
-          <Col style={{textAlign: "right"}}>
+          <div style={{display: "flex", justifyContent: "flex-end", width: "100%", marginRight: 20}}>
             <Button
                       color="primary"
                       type="button"
@@ -197,7 +197,7 @@ const CustomFilter = memo(props => {
                       {false ? <span><Spinner size="sm" color="default" />{" "}</span> : <span><MdFileDownload /> </span>}
                       Download
                     </Button>
-          </Col>
+          </div>
               
           </Row>
         </form>
