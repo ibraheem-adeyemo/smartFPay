@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Container, Row } from "reactstrap";
 import ReportsTable from "./components/ReportsTable";
@@ -9,6 +9,12 @@ const AuditList = ({ dispatch, allReports }) => {
   const loadReports = requestParams => {
     dispatch(getAllAuditReports(requestParams));
   };
+
+  useEffect(() =>
+  {
+    loadReports({ pageNumber: 1, pageSize: 10 })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const downloadReports = requestParams => {
     dispatch(downloadAuditReport(requestParams))

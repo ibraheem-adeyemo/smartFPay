@@ -211,15 +211,17 @@ const DetailsModal = props =>
       {
         if (previous[prop] !== updated[prop])
         {
-          changes.push(<div>
-            Changed {prop} <strong>FROM</strong> {previous[prop]} <strong>FROM</strong> {updated[prop]}
+          changes.push(<div key={prop}>
+            CHANGED {prop} <strong>FROM</strong> {previous[prop]} <strong>TO</strong> {updated[prop]}
           </div>)
         }
       }
+      return changes;
     }
     catch(e)
     {
       console.log("Error parsing changes: ", e)
+      return null;
     }
     
   }, [givenReport])
