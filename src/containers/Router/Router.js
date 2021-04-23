@@ -10,13 +10,14 @@ import {
   AuditTrailRoutes,
   RolesRoutes,
   TransactionRoutes,
-  TokenRoutes
+  ClientRoutes,
+  // TokenRoutes
 } from "./routeConstants";
 import Dashboard from "../Dashboard";
 import PermissionedRoute from "./PermissionedRoute";
 import LogIn from "../Account/LogIn";
-import RoleForm from "../Roles/RolesForm";
-import LimitForm from "../Limits/LimitForm";
+// import RoleForm from "../Roles/RolesForm";
+// import LimitForm from "../Limits/LimitForm";
 import { connect } from "react-redux";
 
 const Users = () => (
@@ -52,6 +53,31 @@ const Roles = () => (
   <Switch>
     {RolesRoutes.enabled &&
       RolesRoutes.routes.map(route =>
+        route.enabled ? (
+          <PermissionedRoute
+            key={route.key}
+            exact={route.exact}
+            path={route.path}
+            allowedPermissions={route.permissions}
+            name={route.name}
+            component={route.pageComponent}
+          />
+        ) : null
+      )}
+  </Switch>
+  </div>
+  </div>
+  </main>
+);
+
+const Clients = () => (
+  <main>
+  <div>
+ <Layout />
+ <div className="container__wrap">
+  <Switch>
+    {ClientRoutes.enabled &&
+      ClientRoutes.routes.map(route =>
         route.enabled ? (
           <PermissionedRoute
             key={route.key}
@@ -144,29 +170,29 @@ const Transactions = () => (
   </main>
 );
 
-const Token = () => ( <main>
-  <div>
- <Layout />
- <div className="container__wrap">
-  <Switch>
-    {TokenRoutes.enabled &&
-      TokenRoutes.routes.map(route =>
-        route.enabled ? (
-          <PermissionedRoute
-            key={route.key}
-            exact={route.exact}
-            allowedPermissions={route.permissions}
-            path={route.path}
-            name={route.name}
-            component={route.pageComponent}
-          />
-        ) : null
-      )}
-  </Switch>
-  </div>
-  </div>
-  </main>
-);
+// const Token = () => ( <main>
+//   <div>
+//  <Layout />
+//  <div className="container__wrap">
+//   <Switch>
+//     {TokenRoutes.enabled &&
+//       TokenRoutes.routes.map(route =>
+//         route.enabled ? (
+//           <PermissionedRoute
+//             key={route.key}
+//             exact={route.exact}
+//             allowedPermissions={route.permissions}
+//             path={route.path}
+//             name={route.name}
+//             component={route.pageComponent}
+//           />
+//         ) : null
+//       )}
+//   </Switch>
+//   </div>
+//   </div>
+//   </main>
+// );
 
 const Customers = () => (
   <main>
@@ -217,7 +243,8 @@ const Router = ({ hasError, currentUser, permissions }) => {
             <Route path="/view-report" component={Reports} />
             <Route path="/roles" component={Roles} />
             <Route path="/view-transactions" component={Transactions} />
-            <Route path="/channel-token" component={Token} />
+            {/* <Route path="/channel-token" component={Token} /> */}
+            <Route path="/clients" component={Clients} />
         {/* <main>
           <div>
               <>

@@ -262,6 +262,37 @@ export const TokenRoutes = {
   ]
 }
 
+export const ClientRoutes = {
+  enabled: true,
+  menu: true,
+  routes: [
+    {
+      key: "clients",
+      title: "Clients",
+      exact: true,
+      icon: null,
+      name: "clients",
+      path: "/clients",
+      menu: true,
+      pageComponent: Roles,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    },
+    {
+      key: "addClient",
+      title: "Add Client",
+      exact: true,
+      icon: null,
+      name: "Add Clients",
+      path: "/clients/add",
+      menu: false,
+      pageComponent: RoleForm,
+      enabled: true,
+      permissions: [VIEW_ADMIN]
+    }
+  ]
+}
+
 export const RolesRoutes = {
   enabled: true,
   menu: true,
