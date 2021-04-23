@@ -1,14 +1,17 @@
 /* eslint-disable react/no-unused-state,react/no-unescaped-entities */
-import React, { useEffect, useState } from "react";
-import { Card, CardBody, Col } from "reactstrap";
+import React, { useEffect, useMemo, useState } from "react";
+import { Card, CardBody, Col, ModalHeader, ModalBody, Modal } from "reactstrap";
 
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
+import moment from "moment";
 import { connect } from "react-redux";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { getFormValues } from "redux-form";
 import CustomFilter from "./CustomFilter";
 import {createFilterRequestBody} from "../../factories/audit.factory";
+import { MdInsertDriveFile } from "react-icons/md";
+import { ACTION_TYPES } from "../../../../constants/app.constants";
 
 
 const ReportsTable = props => {
@@ -23,6 +26,17 @@ const ReportsTable = props => {
 
   const count = dataState && dataState.response ? dataState.response.count : 0;
   const [initialFetch, setInitialFetch] = useState(false);
+  const [givenReport, setGivenReport] = useState();
+
+  const actions = [
+    {
+      name: "view_report_detail",
+      btnText: "View",
+      btnAction: row => setGivenReport(row),
+      btnIcon: MdInsertDriveFile,
+      permissions: []
+    }
+  ]
 
   const columns = [
     {
@@ -38,25 +52,8 @@ const ReportsTable = props => {
       name: "Action Initiator",
     },
     {
-        accessor: "logDate",
-        name: "Log Date",
-    },
-    {
-      accessor: "previousDataExist",
-      name: "Prior Existence",
-      Cell: row => (
-        <button
-          type="button"
-          id={`toggle-btn-${row.previousDataExist ? "enabled" : "disabled"}-${row.id}`}
-          className={`btn ${
-            row.previousDataExist ? "btn-success" : "btn-secondary"
-          } badge mb-0`}
-        >
-          {
-            <span>{row.previousDataExist ? "True" : "False"}</span>
-          }
-        </button>
-      )
+      accessor: "logDate",
+      name: "Log Date",
     },
     {
       accessor: "actionStatus",
@@ -156,6 +153,7 @@ const ReportsTable = props => {
             hover={true}
             permissions={permissions}
             responsive
+            actions={actions}
             customSearch={
               <CustomFilter
                 pageNumber={1}
@@ -178,9 +176,88 @@ const ReportsTable = props => {
           />
         </CardBody>
       </Card>
+      <DetailsModal
+        visible={Boolean(givenReport)}
+        dismiss={() => setGivenReport()}
+        givenReport={givenReport}
+      />
     </Col>
   );
 };
+
+const DetailsModal = props =>
+{
+  const { visible, dismiss, givenReport = {} } = props;
+
+  const actionAlias = useMemo(() =>
+  {
+    const _action = ACTION_TYPES.find(({value}) => givenReport.action === value);
+    return _action?.label;
+  }, [givenReport])
+
+  const actionChanges = useMemo(() =>
+  {
+    if (!givenReport.previousData || !givenReport.updatedData)
+    {
+      return null;
+    }
+    try
+    {
+      const previous = JSON.parse(givenReport.previousData);
+      const updated = JSON.parse(givenReport.updatedData);
+      const changes = []
+
+      for (const prop in updated)
+      {
+        if (previous[prop] !== updated[prop])
+        {
+          changes.push(<div>
+            Changed {prop} <strong>FROM</strong> {previous[prop]} <strong>FROM</strong> {updated[prop]}
+          </div>)
+        }
+      }
+    }
+    catch(e)
+    {
+      console.log("Error parsing changes: ", e)
+    }
+    
+  }, [givenReport])
+
+  return (
+    <Modal isOpen={visible} toggle={dismiss}>
+      <ModalHeader toggle={dismiss}>
+        {actionAlias}
+      </ModalHeader>
+      <ModalBody>
+        <div className="details-flex">
+          <strong className="key">Initiator: </strong>
+          <span className="value">{givenReport.createdBy}</span>
+        </div>
+        <div className="details-flex">
+          <strong className="key">IP Address: </strong>
+          <span className="value">{givenReport.clientIp}</span>
+        </div>
+        <div className="details-flex">
+          <strong className="key">Date/Time: </strong>
+          <span className="value">
+            {useMemo(() => moment(givenReport.logDate).format("lll"), [givenReport])}
+          </span>
+        </div>
+        <div className="details-flex">
+          <strong className="key">Status: </strong>
+          <span className="value">{givenReport.actionStatus}</span>
+        </div>
+        {
+          <div className="details-flex">
+            <strong className="key">Changes: </strong>
+            <span className="value">{actionChanges || "None"}</span>
+          </div>
+        }
+      </ModalBody>
+    </Modal>
+  );
+}
 
 export default connect(state => ({
   values: getFormValues("reports_custom_filter")(state),
