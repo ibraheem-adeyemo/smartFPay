@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import EyeIcon from 'mdi-react/EyeIcon';
 import { Alert, Button, Spinner } from "reactstrap";
 import { withRouter } from 'react-router-dom';
-import { Field, reduxForm, formValueSelector } from "redux-form";
+import { reduxForm } from "redux-form";
 import { connect } from "react-redux";
 import { API_URLS } from "../../../../constants/apiUrls";
 import {postLogin} from '../../actions/account.actions';
-import {accountService} from '../../services/account.service';
 import { show } from '../../../Notifications/actions/alert.actions';
 class LogInForm extends Component {
   constructor() {
@@ -70,7 +69,7 @@ class LogInForm extends Component {
   }
 
   handleLogin = (e) => {
-    const {dispatch, error, history} = this.props;
+    const {dispatch, history} = this.props;
     let {email, password} = this.state;
     e.preventDefault();
     //this.setState({loading: true});
@@ -85,14 +84,8 @@ class LogInForm extends Component {
     const {name, value} = e.currentTarget;
     const {error, errorTitle} = this.props;
 
-    this.setState({name: value})
-    if(name === "email" && this.validateMail(value)) {
-      this.setState({email: value})
-    } else if(name === 'password' ){
-      this.setState({password: value});
-    } else {
-      this.setState({errorMessage : "Enter your email address and password"})
-    }
+    this.setState({[name]: value})
+
     if (error && errorTitle)
       this.props.dispatch(show())
   }
