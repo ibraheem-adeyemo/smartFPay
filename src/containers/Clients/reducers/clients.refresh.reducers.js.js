@@ -1,4 +1,4 @@
-import { rolesConstants, namespace } from "../constants/roles.constants";
+import { clientsConstants, namespace } from "../constants/clients.constants";
 
 const initialState = {
   loading: false,
@@ -8,15 +8,15 @@ const initialState = {
   error: null
 };
 
-export const postrole = (state = initialState, action) => {
+export const clientsRefresh = (state = initialState, action) => {
   switch (action.type) {
-    case rolesConstants[`POST_${namespace}_REQUEST`]:
+    case clientsConstants[`REFRESH${namespace}_REQUEST`]:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case rolesConstants[`POST_${namespace}_SUCCESS`]:
+    case clientsConstants[`REFRESH${namespace}_SUCCESS`]:
       return {
         ...state,
         loading: false,
@@ -24,14 +24,14 @@ export const postrole = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case rolesConstants[`POST_${namespace}_FAILURE`]:
+    case clientsConstants[`REFRESH${namespace}_FAILURE`]:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case rolesConstants[`POST_${namespace}_RESET`]:
+    case clientsConstants[`REFRESH${namespace}_RESET`]:
       return {
         ...state,
         ...initialState

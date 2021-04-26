@@ -18,6 +18,9 @@ import AuditTrail from "../AuditTrail/AuditList/index";
 import Roles from "../Roles/RolesList/index";
 import RoleForm from "../Roles/RolesForm";
 
+import ClientList from "../Clients/ClientsList";
+import ClientForm from "../Clients/ClientsForm";
+
 import Transactions from "../Transactions/TransactionList/index";
 import ViewTransaction from "../Transactions/TransactionView/index";
 
@@ -274,7 +277,7 @@ export const ClientRoutes = {
       name: "clients",
       path: "/clients",
       menu: true,
-      pageComponent: Roles,
+      pageComponent: ClientList,
       enabled: true,
       permissions: [VIEW_ADMIN]
     },
@@ -286,7 +289,7 @@ export const ClientRoutes = {
       name: "Add Clients",
       path: "/clients/add",
       menu: false,
-      pageComponent: RoleForm,
+      pageComponent: ClientForm,
       enabled: true,
       permissions: [VIEW_ADMIN]
     }

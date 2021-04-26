@@ -1,6 +1,6 @@
 import { createCRUDConstants } from "../../../utils/redux.utils";
 
-export const namespace = "ROLES"
+export const namespace = "CLIENTS"
 export const permissionsNameSpace = "APP_PERMISSIONS"
 // export const rolesConstants = createCRUDConstants(namespace, ["UPDATE", "REMOVE"]);
-export const rolesConstants = createCRUDConstants(namespace, ["TOGGLE"]);
+export const clientsConstants = createCRUDConstants(namespace, ["TOGGLE"]);

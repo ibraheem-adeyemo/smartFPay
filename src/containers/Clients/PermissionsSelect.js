@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import renderSelectField from "../../shared/components/form/Select";
 import { Field } from "redux-form";
 import { connect } from "react-redux";
-import { getRoles, resetRoles } from "./actions/roles.actions";
+import { getRoles, resetRoles } from "./actions/clients.actions";
 import { Alert, Spinner } from "reactstrap";
 import { MdRefresh } from "react-icons/md";
 import { permissionsConstants } from "../../constants/permissions.constants";

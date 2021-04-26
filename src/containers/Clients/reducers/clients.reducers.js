@@ -1,4 +1,4 @@
-import { rolesConstants, nameSpace, permissionsNameSpace } from "../constants/roles.constants";
+import { clientsConstants, namespace } from "../constants/clients.constants";
 
 const initialState = {
   loading: false,
@@ -8,15 +8,15 @@ const initialState = {
   error: null
 };
 
-export const getPermissions = (state = initialState, action) => {
+export const clients = (state = initialState, action) => {
   switch (action.type) {
-    case `GET_APP_PERMISSIONS_REQUEST`:
+    case clientsConstants[`GET_${namespace}_REQUEST`]:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case `GET_APP_PERMISSIONS_SUCCESS`:
+    case clientsConstants[`GET_${namespace}_SUCCESS`]:
       return {
         ...state,
         loading: false,
@@ -24,14 +24,14 @@ export const getPermissions = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case `GET_APP_PERMISSIONS_FAILURE`:
+    case clientsConstants[`GET_${namespace}_FAILURE`]:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case rolesConstants[`GET_${permissionsNameSpace}_RESET`]:
+    case clientsConstants[`GET_${namespace}_RESET`]:
       return {
         ...state,
         ...initialState

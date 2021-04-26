@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import { 
   Card,
   CardBody,
@@ -14,33 +14,18 @@ import PropTypes from "prop-types";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { renderField } from "../../../../utils/renderfield";
-import renderSelectField from "../../../../shared/components/form/Select";
-import { resetPostRole } from "../../actions/roles.actions";
 import validate from "./validate";
-import PermissionsSelect from '../../PermissionsSelect';
 
 const RoleForm = memo(props => {
   const {
-    permissions,
-    dispatch,
     handleSubmit,
     reset,
     pristine,
     invalid,
     submitting,
-    postrole,
-    disabled, } = props;
-
-  const resetForm = () => {
-    reset();
-  }
-
-  useEffect(() => {
-    dispatch(resetPostRole());
-    return () => {
-      dispatch(resetPostRole());
-    };
-  }, [dispatch]);
+    disabled,
+    clientsPost
+  } = props;
 
   return (
     <Col md={12} lg={12}>
@@ -48,18 +33,18 @@ const RoleForm = memo(props => {
         <CardBody>
           <div className="card__title">
             <h5 className="bold-text">
-              <Link to="/roles">
-                <MdArrowBack size={20} /> Back to roles
+              <Link to="/clients">
+                <MdArrowBack size={20} /> Back to clients
               </Link>
             </h5>
           </div>
           <form className="form" onSubmit={handleSubmit}>
-          {postrole?.error?.errors?.length ? (
+          {clientsPost?.error?.errors?.length ? (
                     <UncontrolledAlert color="danger">
                       <h5 className="font-weight-bold">
                         Please check the following fields for errors
                       </h5>
-                      {postrole.error.errors.map(err => (
+                      {clientsPost.error.errors.map(err => (
                         <p>
                           <strong>{err.field}:</strong> {err.message}
                         </p>
@@ -83,11 +68,6 @@ const RoleForm = memo(props => {
                 </div>
               </Col>
               <Col lg="4">
-                <PermissionsSelect
-                  required
-                  id="permission-select"
-                  label="Assign permissions to role"
-                />
                 </Col>
             </Row>
             <ButtonToolbar className="form__button-toolbar">
@@ -97,7 +77,7 @@ const RoleForm = memo(props => {
               </Button>
               <Button color="primary" type="submit"
                       disabled={submitting || invalid}>
-              {postrole?.loading ? (
+              {clientsPost?.loading ? (
                         <span>
                           <Spinner size="sm" color="default" />{" "}
                         </span>
@@ -123,6 +103,6 @@ export default reduxForm({
   enableReinitialize: true
 })(
   connect(state => ({
-    postrole: state.postrole,
+    clientsPost: state.clientsPost,
   }))(RoleForm)
 );

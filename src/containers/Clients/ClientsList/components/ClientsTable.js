@@ -3,7 +3,7 @@ import React, { memo, useState } from "react";
 import { Card, CardBody, Col, ButtonToolbar, Spinner } from "reactstrap";
 
 import { Link } from "react-router-dom";
-import { MdInsertDriveFile } from "react-icons/md";
+import { MdRefresh } from "react-icons/md";
 import DataTable from "../../../../shared/components/DataTable";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -13,33 +13,33 @@ import AccessControl from "../../../../shared/components/AccessControl";
 import { permissionsConstants } from "../../../../constants/permissions.constants";
 import { accessControlFn } from "../../../../utils/accessControl";
 import { getFormValues } from "redux-form";
-import { toggleRole } from "../../actions/roles.actions";
+import { toggleClient, refreshClientSecret } from "../../actions/clients.actions";
 
 const {
   VIEW_ADMIN
 } = permissionsConstants;
 
-const RolesTable = memo(props => {
+const ClientsTable = memo(props => {
   const {
     dataState,
     fetchData,
     dispatch,
     permissions = [],
-    allRoles,
-    togglerole
+    allClients,
+    clientsToggle
   } = props;
 
   const [searchKey] = useState("");
   const count = dataState && dataState.response ? dataState.response.count : 0;
 
-  const toggleRoleFn = row => {
+  const toggleClientFn = row => {
     confirmAlert({
-      message: `Are you sure you want to ${row.disabled ? "enable" : "disable"} this user?`, // Message dialog
+      message: `Are you sure you want to ${row.disabled ? "enable" : "disable"} this client?`, // Message dialog
       buttons: [
         {
           label: "Yes",
           onClick: () =>
-            dispatch(toggleRole(row, allRoles.request))
+            dispatch(toggleClient(row, allClients.request))
         },
         {
           label: "No",
@@ -51,15 +51,14 @@ const RolesTable = memo(props => {
 
   const columns = [
     {
-      accessor: "id",
-      name: "ID",
-      sortable: true,
-      sortKey: "id"
+      accessor: "clientName",
+      name: "Client name",
+      sortKey: "clientName"
     },
     {
-      accessor: "name",
-      name: "Name",
-      sortKey: "name"
+      accessor: "clientId",
+      name: "Client ID",
+      sortKey: "clientId"
     },
     {
       accessor: "active",
@@ -78,7 +77,7 @@ const RolesTable = memo(props => {
             accessControlFn(
               permissions,
               [VIEW_ADMIN],
-              toggleRoleFn,
+              toggleClientFn,
               row
             )
           }
@@ -86,8 +85,8 @@ const RolesTable = memo(props => {
             row.disabled ? "btn-secondary" : "btn-success"
           } badge mb-0`}
         >
-          {togglerole.loading &&
-          row.name === togglerole.request.name ? (
+          {clientsToggle.loading &&
+          row.name === clientsToggle.request.name ? (
             <Spinner size="sm" />
           ) : (
             <span>{row.disabled ? "Disabled" : "Enabled"}</span>
@@ -97,26 +96,31 @@ const RolesTable = memo(props => {
     }
   ];
 
-  const handleAction = (row, action) => {
-    if (action.name === "view_roles") {
-      props.history.push({pathname:`${props.location.pathname}/view/${row.id}`, state: {role:row}});
-    } else if (action.name === "edit_roles") {
-      props.history.push({pathname:`${props.location.pathname}/edit/${row.id}`, state: {role:row}});
-    }else if (action.name === "edit_users") {
-      props.history.push(`${props.location.pathname}/edit/${row.username}`);
-    } else if (action.name === "manageRoles") {
-      props.history.push(`${props.location.pathname}/roles/${row.username}`);
-    }
+  const handleAction = record => {
+    confirmAlert({
+      message: `Are you sure you want to regenerate secret for ${record.clientName}? Existing secret for this client will be replaced.`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () =>
+            dispatch(refreshClientSecret(record, allClients.request))
+        },
+        {
+          label: "No",
+          onClick: () => null
+        }
+      ]
+    })
   };
 
   const sortFn = (pageNumber, pageSize, column) => {
     let sortOrder = "ASC";
-    if (!allRoles.loading) {
-      if (allRoles.request && allRoles.request.sortOrder) {
-        sortOrder = allRoles.request.sortOrder === "ASC" ? "DESC" : "ASC";
+    if (!allClients.loading) {
+      if (allClients.request && allClients.request.sortOrder) {
+        sortOrder = allClients.request.sortOrder === "ASC" ? "DESC" : "ASC";
       }
       fetchData({
-        ...allRoles.request,
+        ...allClients.request,
         pageNumber,
         pageSize,
         sortKey: column.sortKey,
@@ -128,10 +132,9 @@ const RolesTable = memo(props => {
   const actions = [
     {
       name: "view_roles",
-      btnText: "View",
+      btnText: "Reset Secret",
       btnAction: handleAction,
-      btnClass: "success",
-      btnIcon: MdInsertDriveFile,
+      btnIcon: MdRefresh,
       permissions: [VIEW_ADMIN]
     },
     // {
@@ -144,7 +147,7 @@ const RolesTable = memo(props => {
     // },
   ];
 
-  const loadData = (pageNumber, pageSize) => {
+  const loadData = () => {
     fetchData();
   };
 
@@ -153,7 +156,7 @@ const RolesTable = memo(props => {
       <Card>
         <CardBody>
           <div className="card__title">
-            <h5 className="bold-text">Roles</h5>
+            <h5 className="bold-text">Clients</h5>
             <AccessControl
               allowedPermissions={[VIEW_ADMIN]}
               renderNoAccess={() => null}
@@ -161,10 +164,10 @@ const RolesTable = memo(props => {
               <ButtonToolbar className="products-list__btn-toolbar-top">
                 <Link
                   className="btn btn-primary products-list__btn-add"
-                  to="/roles/add"
-                  id="link-create-role"
+                  to="/clients/add"
+                  id="link-create-client"
                 >
-                  Add new role
+                  Add new client
                 </Link>
               </ButtonToolbar>
             </AccessControl>
@@ -215,6 +218,6 @@ const RolesTable = memo(props => {
 export default connect(state => ({
   searchValues: getFormValues("custom_search")(state),
   permissions: state.permissions && state.permissions.response?.permissions,
-  allRoles: state.roles,
-  togglerole: state.togglerole
-}))(withRouter(RolesTable));
+  allClients: state.clients,
+  clientsToggle: state.clientsToggle
+}))(withRouter(ClientsTable));

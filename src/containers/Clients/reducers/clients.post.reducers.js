@@ -1,4 +1,4 @@
-import { rolesConstants, namespace } from "../constants/roles.constants";
+import { clientsConstants, namespace } from "../constants/clients.constants";
 
 const initialState = {
   loading: false,
@@ -8,15 +8,15 @@ const initialState = {
   error: null
 };
 
-export const togglerole = (state = initialState, action) => {
+export const clientsPost = (state = initialState, action) => {
   switch (action.type) {
-    case rolesConstants[`TOGGLE_${namespace}_REQUEST`]:
+    case clientsConstants[`POST${namespace}_REQUEST`]:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case rolesConstants[`TOGGLE_${namespace}_SUCCESS`]:
+    case clientsConstants[`POST${namespace}_SUCCESS`]:
       return {
         ...state,
         loading: false,
@@ -24,14 +24,14 @@ export const togglerole = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case rolesConstants[`TOGGLE_${namespace}_FAILURE`]:
+    case clientsConstants[`POST${namespace}_FAILURE`]:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case rolesConstants[`TOGGLE_${namespace}_RESET`]:
+    case clientsConstants[`POST${namespace}_RESET`]:
       return {
         ...state,
         ...initialState

@@ -1,6 +1,5 @@
 import { GoDashboard } from "react-icons/go";
 import {
-  MdAccountBalance,
   MdPersonAdd,
   MdCreditCard,
   MdPeople,
@@ -65,9 +64,9 @@ export const menuConfig = {
       icon: MdSwapHoriz
     },
     {
-      title: "Channel Token",
-      key: "channeltoken",
-      path: "/channel-token",
+      title: "Clients",
+      key: "clients",
+      path: "/clients",
       permissions: [VIEW_ADMIN],
       icon: MdLockOutline
     },

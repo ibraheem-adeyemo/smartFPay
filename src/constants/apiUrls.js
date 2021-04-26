@@ -104,6 +104,12 @@ export const API_URLS = {
     GET_AUDIT_REPORTS: `${apiBaseUrl}/audit/logs`,
     DOWNLOAD_AUDIT_REPORT: `${apiBaseUrl}/audit/download`,
   },
+  CLIENTS : {
+    GET_ALL_CLIENTS: `${apiBaseUrl}/client`,
+    CREATE_CLIENT: `${apiBaseUrl}/client`,
+    TOGGLE_CLIENT: `${apiBaseUrl}/client`,
+    REFRESH_CLIENT: `${apiBaseUrl}/client/secret`
+  },
   ROLES: {
     GET_ALL_ROLES: `${apiBaseUrl}/role`,
     CREATE_ROLE: `${apiBaseUrl}/role`,

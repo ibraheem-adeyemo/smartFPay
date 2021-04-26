@@ -15,6 +15,8 @@ import {
   getuserrole
 } from "./containers/Users/reducers";
 
+import { clients, clientsPost, clientsToggle, clientsRefresh } from "./containers/Clients/reducers";
+
 import {
   viewcontrol,
   postcontrol,
@@ -35,11 +37,9 @@ import { domains } from "./containers/Domains/reducers";
 import { permissions, currentUser } from "./containers/CurrentUser/reducers";
 import { roles, postrole, togglerole, getPermissions } from "./containers/Roles/reducers";
 
-import { cardProgramCount } from "./containers/Dashboard/reducers";
-
 import { getCustomers, getCustomer, createCustomer, togglecustomer } from "./containers/Customers/reducers";
 import { getCardRecords, getCardRecord, pinReissue, blockCard, unblockCard } from "./containers/CardRecords/reducers";
-import { getauditreports, downloadauditreports } from "./containers/AuditTrail/reducers";
+import { getauditreports } from "./containers/AuditTrail/reducers";
 import {gettransactionreport, downloadtransactionreport} from "./containers/Transactions/reducers";
 import {generatechanneltoken} from "./containers/Token/reducers";
 
@@ -72,6 +72,11 @@ export default combineReducers({
   roles,
   postrole,
   getPermissions,
+
+  clients,
+  clientsPost,
+  clientsToggle,
+  clientsRefresh,
 
   getAllCardRequests,
   getCardRequest,
