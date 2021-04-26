@@ -19,7 +19,6 @@ import validate from "./validate";
 const RoleForm = memo(props => {
   const {
     handleSubmit,
-    reset,
     pristine,
     invalid,
     submitting,
@@ -54,15 +53,15 @@ const RoleForm = memo(props => {
             <Row>
               <Col lg="4">
                 <div className="form__form-group">
-                  <span className="form__form-group-label required">Role name</span>
+                  <span className="form__form-group-label required">Client name</span>
                   <div className="form__form-group-field">
                     <Field
-                      id = "role_name"
-                      name="role_name"
+                      id="clientName"
+                      name="clientName"
                       component={renderField}
                       disabled={disabled}
                       type="text"
-                      placeholder="Role name"
+                      placeholder="Client name"
                     />
                   </div>
                 </div>
@@ -71,10 +70,14 @@ const RoleForm = memo(props => {
                 </Col>
             </Row>
             <ButtonToolbar className="form__button-toolbar">
-              <Button type="button" onClick={reset}
-                      disabled={pristine || submitting}>
-                Cancel
-              </Button>
+              <Link to="/clients">
+                <Button
+                  type="button"
+                  disabled={pristine || submitting}
+                >
+                  Cancel
+                </Button>
+              </Link>
               <Button color="primary" type="submit"
                       disabled={submitting || invalid}>
               {clientsPost?.loading ? (

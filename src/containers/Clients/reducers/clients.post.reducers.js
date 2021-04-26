@@ -10,13 +10,13 @@ const initialState = {
 
 export const clientsPost = (state = initialState, action) => {
   switch (action.type) {
-    case clientsConstants[`POST${namespace}_REQUEST`]:
+    case clientsConstants[`POST_${namespace}_REQUEST`]:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case clientsConstants[`POST${namespace}_SUCCESS`]:
+    case clientsConstants[`POST_${namespace}_SUCCESS`]:
       return {
         ...state,
         loading: false,
@@ -24,17 +24,22 @@ export const clientsPost = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case clientsConstants[`POST${namespace}_FAILURE`]:
+    case clientsConstants[`POST_${namespace}_FAILURE`]:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case clientsConstants[`POST${namespace}_RESET`]:
+    case clientsConstants[`POST_${namespace}_RESET`]:
       return {
         ...state,
         ...initialState
+      };
+    case clientsConstants[`CRED_${namespace}_SUCCESS`]:
+      return {
+        ...state,
+        givenClient: action.response
       };
     default:
       return state;

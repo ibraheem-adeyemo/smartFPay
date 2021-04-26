@@ -79,6 +79,7 @@ export const refreshClientSecret = values => {
         showAlert("success",
         `Secret for ${values.clientName} reset successfully`)
       );
+      setGivenClient(dispatch, { ...values, ...response })
     } catch (error) {
       dispatch(failure(error));
       dispatch(
@@ -92,22 +93,21 @@ export const refreshClientSecret = values => {
   };
 
   function request(request) {
-    return { type: clientsConstants[`TOGGLE_${namespace}_REQUEST`], request };
+    return { type: clientsConstants[`REFRESH_${namespace}_REQUEST`], request };
   }
   function success(response) {
-    return { type: clientsConstants[`TOGGLE_${namespace}_SUCCESS`], response };
+    return { type: clientsConstants[`REFRESH_${namespace}_SUCCESS`], response };
   }
   function failure(error) {
-    return { type: clientsConstants[`TOGGLE_${namespace}_FAILURE`], error };
+    return { type: clientsConstants[`REFRESH_${namespace}_FAILURE`], error };
   }
 };
 
-export const createClient = (clientName, history) => {
-   const requestBody = { clientName }
+export const createClient = (params, history) => {
   return async dispatch => {
-    dispatch(request(requestBody));
+    dispatch(request(params));
     try {
-      const response = await clientsService.createClient(requestBody);
+      const response = await clientsService.createClient(params);
       dispatch(success(response));
       dispatch(reset("client_form"));
       dispatch(
@@ -121,6 +121,7 @@ export const createClient = (clientName, history) => {
       dispatch(resetPost());
       dispatch(resetView());
       history.push("/clients");
+      setGivenClient(dispatch, response);
     } catch (error) {
       dispatch(failure(error));
       dispatch(resetView());
@@ -150,6 +151,14 @@ export const createClient = (clientName, history) => {
     return { type: clientsConstants[`VIEW_${namespace}_RESET`] };
   }
 };
+
+export const setGivenClient = (dispatch, client) =>
+{
+  dispatch(credentials(client))
+  function credentials(response) {
+    return { type: clientsConstants[`CRED_${namespace}_SUCCESS`], response };
+  }
+}
 
 export const toggleClient = (values, pageState) => {
   return async dispatch => {

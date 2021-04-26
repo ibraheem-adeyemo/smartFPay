@@ -10,13 +10,13 @@ const initialState = {
 
 export const clientsRefresh = (state = initialState, action) => {
   switch (action.type) {
-    case clientsConstants[`REFRESH${namespace}_REQUEST`]:
+    case clientsConstants[`REFRESH_${namespace}_REQUEST`]:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case clientsConstants[`REFRESH${namespace}_SUCCESS`]:
+    case clientsConstants[`REFRESH_${namespace}_SUCCESS`]:
       return {
         ...state,
         loading: false,
@@ -24,14 +24,14 @@ export const clientsRefresh = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case clientsConstants[`REFRESH${namespace}_FAILURE`]:
+    case clientsConstants[`REFRESH_${namespace}_FAILURE`]:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case clientsConstants[`REFRESH${namespace}_RESET`]:
+    case clientsConstants[`REFRESH_${namespace}_RESET`]:
       return {
         ...state,
         ...initialState

@@ -10,13 +10,13 @@ const initialState = {
 
 export const clientsToggle = (state = initialState, action) => {
   switch (action.type) {
-    case clientsConstants[`TOGGLE${namespace}_REQUEST`]:
+    case clientsConstants[`TOGGLE_${namespace}_REQUEST`]:
       return {
         ...state,
         loading: true,
         request: action.request
       };
-    case clientsConstants[`TOGGLE${namespace}_SUCCESS`]:
+    case clientsConstants[`TOGGLE_${namespace}_SUCCESS`]:
       return {
         ...state,
         loading: false,
@@ -24,14 +24,14 @@ export const clientsToggle = (state = initialState, action) => {
         response: action.response,
         error: null
       };
-    case clientsConstants[`TOGGLE${namespace}_FAILURE`]:
+    case clientsConstants[`TOGGLE_${namespace}_FAILURE`]:
       return {
         ...state,
         loading: false,
         success: false,
         error: action.error
       };
-    case clientsConstants[`TOGGLE${namespace}_RESET`]:
+    case clientsConstants[`TOGGLE_${namespace}_RESET`]:
       return {
         ...state,
         ...initialState

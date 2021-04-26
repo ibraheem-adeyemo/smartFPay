@@ -1,10 +1,11 @@
 import React from 'react';
 import { Container, Row } from 'reactstrap';
+import { connect } from "react-redux";
 import { createClient } from "../actions/clients.actions";
 import HorizontalForm from './components/ClientForm';
 import PageHeader from "../../../shared/components/PageHeader";
 
-const ClientForm = ({ dispatch, match, location, history }) => {
+const ClientForm = ({ dispatch, match, history }) => {
 
   const addClient = values => {
     dispatch(
@@ -29,4 +30,6 @@ const ClientForm = ({ dispatch, match, location, history }) => {
   )
   };
 
-export default ClientForm;
+export default connect(state => ({
+  clientsPost: state.clientsPost
+}))(ClientForm);
