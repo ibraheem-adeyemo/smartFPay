@@ -49,8 +49,8 @@
 }
 
 .topbar__logo {
-  width: 150px;
-  height: 32px;
+  // width: 150px;
+  // height: 32px;
   margin: auto 0;
   background-repeat: no-repeat;
   background-position-y: center;
@@ -59,7 +59,12 @@
   display: none;
 
   @include themify($themes) {
-    background-image: themed('logoImg');
+    // background-image: themed('logoImg');
+  }
+
+  img {
+    height: 35px;
+    width: auto;
   }
 
   @media screen and (min-width: 768px) {

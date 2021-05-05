@@ -445,3 +445,15 @@ template {
 [hidden] {
   display: none;
 }
+
+.tag {
+  padding: 0.2rem 0.8rem;
+  margin: 0.1rem;
+  display: inline-block;
+  &.success {
+    background-color: rgb(195, 233, 195);
+  }
+  &.failure {
+    background-color: rgb(247, 215, 215);
+  }
+}

@@ -205,14 +205,17 @@ const DetailsModal = props =>
     {
       const previous = JSON.parse(givenReport.previousData);
       const updated = JSON.parse(givenReport.updatedData);
-      const changes = []
+      const changes = [];
 
       for (const prop in updated)
       {
         if (previous[prop] !== updated[prop])
         {
           changes.push(<div key={prop}>
-            CHANGED {prop} <strong>FROM</strong> {previous[prop]} <strong>TO</strong> {updated[prop]}
+            CHANGED {prop} <strong>FROM </strong>
+            <span className="tag failure">{previous[prop]} </span>
+            <strong> TO </strong>
+            <span className="tag success">{updated[prop]}</span>
           </div>)
         }
       }
@@ -224,6 +227,20 @@ const DetailsModal = props =>
       return null;
     }
     
+  }, [givenReport]);
+
+  const accountNumber = useMemo(() =>
+  {
+    try
+    {
+      const updated = givenReport.updatedData ? JSON.parse(givenReport.updatedData) : {};
+      return updated.accountNumber;
+    }
+    catch(e)
+    {
+      console.log("Error parsing changes: ", e)
+      return null;
+    }
   }, [givenReport])
 
   return (
@@ -232,6 +249,15 @@ const DetailsModal = props =>
         {actionAlias}
       </ModalHeader>
       <ModalBody>
+        {
+          accountNumber &&
+          <div className="details-flex">
+            <strong className="key">Account Number: </strong>
+            <span className="value">
+              {accountNumber}
+            </span>
+          </div>
+        }
         <div className="details-flex">
           <strong className="key">Initiator: </strong>
           <span className="value">{givenReport.createdBy}</span>
