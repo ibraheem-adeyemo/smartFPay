@@ -227,7 +227,7 @@ export const unsubscribeCustomer = (values, pageState) => {
       const response = await customersService.unsubscribeCustomer(requestBody);
       response && dispatch(success(response));
       dispatch(
-        showAlert("success", `${values.accountNumber} subscribed ${response.responseMessage}LY`,)
+        showAlert("success", `${values.accountNumber} unsubscribed ${response.responseMessage}LY`,)
       );
       dispatch(getCustomers(pageState));
     } catch (error) {
