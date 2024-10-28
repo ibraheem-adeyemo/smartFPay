@@ -1,23 +1,22 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import App from './App';
+import { extendTheme } from '@chakra-ui/react';
+import { overrides } from './theme';
+import { BrowserRouter } from 'react-router-dom';
 
-import 'react-app-polyfill/ie9';
-import 'react-app-polyfill/stable';
+const theme = extendTheme(overrides)
 
-import React from "react";
-import { render } from "react-dom";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./store";
-
-import App from "./containers/App/App";
-import * as serviceWorker from "./serviceWorker";
-
-render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>,
-  document.getElementById("root")
-);
-
-serviceWorker.unregister();
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <BrowserRouter>
+        <Provider store={store}>        
+            <ChakraProvider theme={theme}>
+            <App />
+            </ChakraProvider>      
+        </Provider>
+    </BrowserRouter>
+    )
