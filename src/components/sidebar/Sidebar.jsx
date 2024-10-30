@@ -65,7 +65,7 @@ const Sidebar = () => {
     ]
   return (
     <Box      
-      w={["80px","80px","80px","100px","250px"]}
+      w={["80px","80px","80px","100px","350px"]}
       h="100vh"
       bg="white"
       color="text_gray"

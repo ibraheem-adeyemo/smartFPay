@@ -7,11 +7,13 @@ const Layout = ({ pageHeading, children }) => {
   return (
     <Box display="flex">
       <Sidebar />
-      <Box ml={["80px","80px","80px","100px","250px"]} w="full">
+      <Box ml={["80px","80px","80px","100px","350px"]} w="full">
         <Box borderBottom="1px solid" paddingY='10px' borderColor="main_light_gray">
             <DashboardHeading title={pageHeading} firstName={'Omolade'} lastName={'john'} />
         </Box>
-        {children}
+        <Box p='32px' color='primary-text' bgColor="#F9FBFC" fontFamily='sans-serif'>
+            {children}
+        </Box>
       </Box>
     </Box>
   );

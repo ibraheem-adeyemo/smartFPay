@@ -12,6 +12,7 @@ import Reports from './pages/Reports';
 import Notifications from './pages/Notifications';
 import RolesManagement from './pages/RolesManagement';
 import { pageLinks } from './constants/pageLinks';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const App = () => {
   return (
