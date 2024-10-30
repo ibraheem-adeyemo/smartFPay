@@ -1,11 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // Import the plugin
 
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
+        publicPath: '/',
     },
     mode: 'development',
     module: {
@@ -43,14 +45,21 @@ module.exports = {
             template: './public/index.html',
             filename: 'index.html',        // Output HTML file name
             inject: 'body', 
-        })
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'public', to: '', filter: async (resourcePath) => !resourcePath.endsWith('index.html') },
+            ],
+        }),
     ],
     devServer: {
         static: {
-            directory: path.join(__dirname, 'public'),  // Serve static files from 'public' folder
+            directory: path.join(__dirname, 'build'),  // Serve static files from 'build' folder
           },
         hot: true,
-        historyApiFallback: true, 
+        historyApiFallback: {
+            index: '/index.html', // Ensure routing always goes to index.html
+        } 
       },
       resolve: {
         extensions: ['.js', '.jsx', '.json']

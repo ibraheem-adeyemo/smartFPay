@@ -3,7 +3,7 @@ import Layout from '../components/layouts/Layout'
 import { Box, Button, Flex, Heading } from '@chakra-ui/react'
 import InputUserAccount from '../components/controleManagement/Index.jsx'
 import { FaArrowLeft } from "react-icons/fa6";
-import { useRoutes, useNavigate } from 'react-router-dom';
+import { useRoutes, useNavigate, Outlet } from 'react-router-dom';
 
 const ControlManagement = () => {
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ const ControlManagement = () => {
 
   return (
     <Layout pageHeading='Controle Management'>
-        <InputUserAccount   />
+        <Outlet />
     </Layout>
   )
 }

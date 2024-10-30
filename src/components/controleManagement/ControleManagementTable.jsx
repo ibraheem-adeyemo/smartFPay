@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { useTable, usePagination } from 'react-table';
 import { Table, Thead, Tbody, Tr, Th, Td, IconButton, Box, Button,Flex, Text, Heading, } from '@chakra-ui/react';
 import { FiMoreVertical, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
@@ -9,6 +9,15 @@ import { ButtonComponent } from '../reusables/ButtonComponent';
 import { FaCircleArrowUp } from 'react-icons/fa6';
 // import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 
+
+const ActionOptions = ({isShown}) => {
+    return (
+        <Flex flexDir={'column'} position='absolute' border='1px solid' px='10px' width='160px' display={isShown ?'flex' :'none'} borderColor='main_light_gray' borderRadius={'7px'}>
+            <ButtonComponent btnText='View Details' backgroundColor='white' _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
+            <ButtonComponent btnText='Edit Control' backgroundColor='white' _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
+        </Flex>
+    )
+}
 // Sample dummy data for payment entries
 const dummyData = [
   {
@@ -67,14 +76,22 @@ const columns = [
   {
     Header: 'Actions',
     accessor: 'actions',
-    Cell: () => (
-      <IconButton
-        aria-label="More actions"
-        icon={<FiMoreVertical />}
-        variant="ghost"
-        size="sm"
-      />
-    ),
+    Cell: () => {
+        const [isShown, setIsShown] = useState(false)
+        return (
+            <>
+            <IconButton
+                aria-label="More actions"
+                icon={<FiMoreVertical />}
+                variant="ghost"
+                size="lg"
+                onClick={()=>setIsShown(!isShown)}
+            />
+            <ActionOptions isShown={isShown} />
+        </>
+        )
+    }       
+    ,
   },
 ];
 
@@ -191,8 +208,8 @@ export const ControleManagementTable = () => {
                         <Text>See a directory of all controlssetup on this system.</Text>
                     </Box>
                     <Flex>
-                        <ButtonComponent size='lg' variant='outline' btnText='Download data' borderColor='main_light_gray' color='primary-text' />
-                        <ButtonComponent size='lg' btnText='Create control' />
+                        <ButtonComponent size='lg' ml='20px' py='30px' variant='outline' btnText='Download data' borderColor='main_light_gray' color='primary-text' />
+                        <ButtonComponent size='lg' ml='20px' py='30px' btnText='Create control' />
                     </Flex>
                 </Flex>
                 <PaymentManagementTable />

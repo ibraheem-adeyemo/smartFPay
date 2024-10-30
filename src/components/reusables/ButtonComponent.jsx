@@ -19,8 +19,6 @@ export const ButtonComponent = ({
     <Button
       size={size}
       width={width}
-      ml='20px'
-      py='30px'
       colorScheme={colorScheme}
       variant={variant}
       isLoading={isLoading}
