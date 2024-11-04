@@ -143,7 +143,7 @@ export const PaymentManagementTable = ({ paymentData = dummyData }) => {
             return (
               <Tr {...row.getRowProps()} fontSize='20px' borderBottomColor="main_light_gray">
                 {row.cells.map((cell) => {
-                    console.log(cell)
+                    // console.log(cell)
                     return (
                         <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                     )
@@ -168,7 +168,7 @@ export const ControleManagementTable = () => {
             </Flex>
             <Flex justifyContent='space-between' my='30px'>
                 <SearchComponent placeholder="Search by account number, account name"
-                    onSearch={(query) => console.log("Searching for:", query)} />
+                    onSearch={(query) => console.log("Searching for:")} />
                     <Button colorScheme="blue" variant="outline" size="sm" height={'50px'} width='100px' alignSelf='center'>
                         Search
                     </Button>

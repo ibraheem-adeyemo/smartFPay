@@ -1,16 +1,22 @@
 import { Box, Flex, Button, Heading } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useRoutes, useNavigate, useLocation } from 'react-router-dom'
 import { ButtonComponent } from '../reusables/ButtonComponent'
 import { Link } from 'react-router-dom'
 import { pageLinks } from '../../constants/pageLinks'
+import { usePaymentControl } from '../../hooks/paymentControlHooks'
+import { PaymentControlContext } from '../../providers/PaymentControlProviders'
 
 const CardControle = ({children}) => {
     const location = useLocation()
     const locationArr = location.pathname.split('/')
-    console.log(locationArr[locationArr.length - 1] == 'customer-account-form', locationArr[locationArr.length - 1])
+    
     const navigate = useNavigate()
+
+    const { btnIsDisabled, handleControlSubmit } = useContext(PaymentControlContext)
+
+    console.log(btnIsDisabled, 'Please enter =====')
 
     const handleBack = () => {
         navigate(-1); // Should work if there's history
@@ -34,7 +40,7 @@ const CardControle = ({children}) => {
                 </React.Fragment> 
             }
             {
-                locationArr[locationArr.length - 1] == 'create-account' && <Flex> <ButtonComponent btnText='Submit' /> </Flex>
+                locationArr[locationArr.length - 1] == pageLinks.createAccountControl && <Flex> <ButtonComponent btnText='Submit' isDisabled={btnIsDisabled} onClick={handleControlSubmit}  /> </Flex>
             }
         </Flex>
         <Flex gap="32px">

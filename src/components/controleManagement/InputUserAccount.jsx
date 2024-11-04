@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import CardControle from './CardControle';
 import { useHref, useNavigate } from 'react-router-dom';
 import { pageLinks } from '../../constants/pageLinks';
+import PaymentControlProviders from '../../providers/PaymentControlProviders';
 
 const InputUserAccount = () => {
 
@@ -32,8 +33,8 @@ const InputUserAccount = () => {
             <Formik validationSchema={validationSchema} onSubmit={onSubmit} initialValues={initialValue}>
                 <Form>
                     <FormControl> 
-                        <Input name="accountNumber" type='number' placeholder="Enter account number" onClick={handleClick} backgroundColor='main_light_gray' height='48px' />
-                        {/* <Field name="Full name" type='text' placeholder="Enter full name" /> */}
+                        {/* <Input name="accountNumber" type='number' placeholder="Enter account number" onClick={handleClick} backgroundColor='main_light_gray' height='48px' /> */}
+                        <Field name="accountNumber" type='number' placeholder="Enter account number" onClick={handleClick} backgroundColor='main_light_gray' height='48px' />
                     </FormControl>
                 </Form>
             </Formik>
@@ -46,8 +47,10 @@ export const InputUserAccountPage = () => {
     
 
     return(
-        <CardControle>
-            <InputUserAccount  />
-        </CardControle>
+        <PaymentControlProviders>
+            <CardControle>
+                <InputUserAccount  />
+            </CardControle>
+        </PaymentControlProviders>
     )
 }

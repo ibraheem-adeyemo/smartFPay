@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import * as Yup from 'yup';
 import ReusableForm from '../reusables/ReusableForm';
 import { Box, Heading } from '@chakra-ui/react';
 import CardControle from './CardControle';
+import PaymentControlProviders from '../../providers/PaymentControlProviders';
+import { PaymentControlContext } from '../../providers/PaymentControlProviders';
 
 // Initial form values
 const initialValues = {
@@ -33,23 +35,28 @@ const handleSubmit = (values, actions) => {
   actions.setSubmitting(false);
 };
 
-const CustomerAccountForm = () => (
-  <Box>
+const CustomerAccountForm = () => {
+    const { handleControlSubmit, submitFormRef } = useContext(PaymentControlContext)
+
+  return (<Box>
     <Heading my='20px'>Customer account form</Heading>
     <ReusableForm
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={handleSubmit}
+      handleSubmit={handleControlSubmit}
+      submitFormRef={submitFormRef}
       fields={fields}
       shouldHaveSubmitBtn={false}
     />
-  </Box>
-);
+  </Box>)
+}
 
 export const CustomerAccountFormPage = () => {
     return(
-        <CardControle>
-            <CustomerAccountForm />
-        </CardControle>
+        <PaymentControlProviders>
+            <CardControle>
+                <CustomerAccountForm />
+            </CardControle>
+        </PaymentControlProviders>
     )
 }
