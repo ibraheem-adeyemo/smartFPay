@@ -75,3 +75,34 @@ export const Channelsdropdown = () => {
         </Box>
     )
 }
+
+export const ReusableDropdown = (props) => {
+    return (
+        <Box  py="4">
+            <FormControl id={props.id} display='flex'>
+                <FormLabel>
+                    <Heading size={'sm'} pt='10px'>{props.value}</Heading>
+                </FormLabel>
+                <Select
+                placeholder={props.placeholder}
+                value={props.value}
+                onChange={props.onChange}
+                defaultValue={props.defaultValue}
+                bgColor="white"
+                width='30px'
+                outline='none'
+                _focus={{outline: 'none'}}
+                border='none'
+                >
+                {props.options.map((option) => {
+                    return (
+                        <option key={option.value} value={option.value}>
+                            {option.label}
+                        </option>
+                    )
+                })}
+                </Select>
+            </FormControl>
+        </Box>
+    )
+}

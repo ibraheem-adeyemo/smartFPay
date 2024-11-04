@@ -11,5 +11,10 @@ export const pageLinks = {
     userProfile: '/user-profile',
     changePassword: '/change-password',
     logout: '/logout',
-    notification: '/notification'
+    notification: '/notification',
+    userAccount:'user-account',
+    customerAccountForm: 'customer-account-form',
+    createAccountControl:'create-account-control',
+    createCardControl:'create-card-control',
+
 }

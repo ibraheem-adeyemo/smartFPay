@@ -6,8 +6,11 @@ import { Channelsdropdown, CountryDropdowns } from '../reusables/Dropdown';
 import { DateRangeFilter } from '../reusables/DatePicker';
 import SearchComponent from '../reusables/SearchComponent';
 import { ButtonComponent } from '../reusables/ButtonComponent';
-import { FaCircleArrowUp } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import { pageLinks } from '../../constants/pageLinks';
 // import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { BsArrowCounterclockwise } from "react-icons/bs";
+import TableFooter from '../reusables/TableFooter';
 
 
 const ActionOptions = ({isShown}) => {
@@ -76,8 +79,9 @@ const columns = [
   {
     Header: 'Actions',
     accessor: 'actions',
-    Cell: () => {
-        const [isShown, setIsShown] = useState(false)
+    Cell: (props) => {
+        // console.log(props)
+        // const [isShown, setIsShown] = props
         return (
             <>
             <IconButton
@@ -85,9 +89,9 @@ const columns = [
                 icon={<FiMoreVertical />}
                 variant="ghost"
                 size="lg"
-                onClick={()=>setIsShown(!isShown)}
+                // onClick={()=>setIsShown(!isShown)}
             />
-            <ActionOptions isShown={isShown} />
+            {/* <ActionOptions isShown={isShown} /> */}
         </>
         )
     }       
@@ -97,6 +101,7 @@ const columns = [
 
 // PaymentTable component
 export const PaymentManagementTable = ({ paymentData = dummyData }) => {
+    const [isShown, setIsShown] = useState(false)
     const {
         getTableProps,
         getTableBodyProps,
@@ -120,7 +125,7 @@ export const PaymentManagementTable = ({ paymentData = dummyData }) => {
 
   return (
     <Box overflowX="auto">
-      <Table {...getTableProps()} variant="simple" size="lg">
+      <Table {...getTableProps()} variant="simple" size="md">
         <Thead bg="main_light_gray">
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()} borderBottomColor="main_light_gray">
@@ -137,48 +142,18 @@ export const PaymentManagementTable = ({ paymentData = dummyData }) => {
             prepareRow(row);
             return (
               <Tr {...row.getRowProps()} fontSize='20px' borderBottomColor="main_light_gray">
-                {row.cells.map((cell) => (
-                  <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
-                ))}
+                {row.cells.map((cell) => {
+                    console.log(cell)
+                    return (
+                        <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                    )
+                })}
               </Tr>
             );
           })}
         </Tbody>
       </Table>
-      <Flex justifyContent="space-between" alignItems="center" mt="4">
-        <Button
-          onClick={() => previousPage()}
-          disabled={!canPreviousPage}
-          leftIcon={<FiArrowLeft />}
-          colorScheme="blue"
-          variant="outline"
-          size="sm"
-        >
-          Previous
-        </Button>
-
-        <Text>
-          Page{' '}
-          <Text as="span" fontWeight="bold">
-            {pageIndex + 1}
-          </Text>{' '}
-          of{' '}
-          <Text as="span" fontWeight="bold">
-            {pageOptions.length}
-          </Text>
-        </Text>
-
-        <Button
-          onClick={() => nextPage()}
-          disabled={!canNextPage}
-          rightIcon={<FiArrowRight />}
-          colorScheme="blue"
-          variant="outline"
-          size="sm"
-        >
-          Next
-        </Button>
-      </Flex>
+      <TableFooter pageIndex={pageIndex} canNextPage={canNextPage} canPreviousPage={canPreviousPage} pageOptions={pageOptions} nextPage={nextPage} previousPage={previousPage} tableData={dummyData} />
     </Box>
   );
 };
@@ -191,10 +166,10 @@ export const ControleManagementTable = () => {
                 <Channelsdropdown />
                 <DateRangeFilter />
             </Flex>
-            <Flex justifyContent='space-between' my='60px'>
+            <Flex justifyContent='space-between' my='30px'>
                 <SearchComponent placeholder="Search by account number, account name"
                     onSearch={(query) => console.log("Searching for:", query)} />
-                    <Button colorScheme="blue" variant="outline" size="sm" height={'70px'} width='150px'>
+                    <Button colorScheme="blue" variant="outline" size="sm" height={'50px'} width='100px' alignSelf='center'>
                         Search
                     </Button>
             </Flex>
@@ -202,14 +177,17 @@ export const ControleManagementTable = () => {
                 <Flex py='30px' px='20px' justifyContent='space-between'>
                     <Box>
                         <Flex>
-                            <Heading size='lg'>Controls</Heading>
-                            <FaCircleArrowUp />
+                            <Heading size='lg' mr='20px'>Controls</Heading>
+                            <Flex alignSelf='center' color='primary-blue' width='50px' pt='7px'>
+                                <BsArrowCounterclockwise fontSize='25px' mt='4px' />
+
+                            </Flex>
                         </Flex>
-                        <Text>See a directory of all controlssetup on this system.</Text>
+                        <Text mt='10px'>See a directory of all controlssetup on this system.</Text>
                     </Box>
                     <Flex>
                         <ButtonComponent size='lg' ml='20px' py='30px' variant='outline' btnText='Download data' borderColor='main_light_gray' color='primary-text' />
-                        <ButtonComponent size='lg' ml='20px' py='30px' btnText='Create control' />
+                        <ButtonComponent size='lg' as={Link} to={`${pageLinks.controleManagement}/${pageLinks.userAccount}`} ml='20px' py='30px' btnText='Create control' />
                     </Flex>
                 </Flex>
                 <PaymentManagementTable />

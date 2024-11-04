@@ -14,8 +14,11 @@ import RolesManagement from './pages/RolesManagement';
 import { pageLinks } from './constants/pageLinks';
 import 'react-datepicker/dist/react-datepicker.css';
 import ControlManagementRoute from './components/controleManagement/ControlManagementRoute';
-import InputUserAccount from './components/controleManagement/InputUserAccount';
+import { InputUserAccountPage } from './components/controleManagement/InputUserAccount';
 import { ControleManagementTable } from './components/controleManagement/ControleManagementTable';
+import { CustomerAccountFormPage } from './components/controleManagement/CustomerAccountForm';
+import { CreateAcccountControlPage } from './components/controleManagement/CreateAcccountControlForm';
+import { CreateCardControl } from './components/controleManagement/CreateCardControlForm';
 
 const App = () => {
   return (
@@ -25,7 +28,10 @@ const App = () => {
         <Route path={pageLinks.customerInformation} element={<CustomerInfomation />} />
         <Route path={pageLinks.controleManagement} element={<ControlManagement />}>
             <Route path='' element={<ControleManagementTable />} />
-            <Route path='user-account' element={<InputUserAccount />} />
+            <Route path={pageLinks.userAccount} element={<InputUserAccountPage />} />
+            <Route path={pageLinks.customerAccountForm} element={<CustomerAccountFormPage />} />
+            <Route path={pageLinks.createAccountControl} element={<CreateAcccountControlPage />} />
+            <Route path={pageLinks.createCardControl} element={<CreateCardControl />} />
         </Route>
         <Route path={pageLinks.auditTrail} element={<AuditTrail />} />
         <Route path={pageLinks.transactions} element={<Transactions />} />

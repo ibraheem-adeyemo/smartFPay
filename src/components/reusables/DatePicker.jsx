@@ -1,7 +1,7 @@
 // EndDatePicker.js
 import React, { useState } from 'react';
 import { InputGroup, Input, InputRightElement, FormControl, FormLabel, Box, Flex, Heading } from '@chakra-ui/react';
-import { FaCalendar } from 'react-icons/fa6';
+import { MdOutlineCalendarToday } from "react-icons/md";
 import DatePicker from 'react-datepicker';
 
 export const DatePickerComponent = ({ label, startDate, endDate, onEndDateChange }) => {
@@ -10,7 +10,7 @@ export const DatePickerComponent = ({ label, startDate, endDate, onEndDateChange
       <FormLabel>
         <Heading size={'md'}>{label}</Heading>
       </FormLabel>
-      <InputGroup>
+      {/* <InputGroup> */}
         <DatePicker
           selected={endDate}
           onChange={onEndDateChange}
@@ -19,12 +19,19 @@ export const DatePickerComponent = ({ label, startDate, endDate, onEndDateChange
           endDate={endDate}
           minDate={startDate}
           dateFormat="yyyy-MM-dd"
-          customInput={<Input bg="white" placeholder="Select End Date" />}
+          customInput={
+            <InputGroup width='350px'>
+                <Input placeholder="Please Select" border='none' />
+                <InputRightElement pointerEvents="none">
+                    <MdOutlineCalendarToday color="gray.400" />
+                </InputRightElement>
+            </InputGroup>
+            }
         />
-        <InputRightElement pointerEvents="none">
+        {/* <InputRightElement pointerEvents="none">
           <FaCalendar color="gray.400" />
-        </InputRightElement>
-      </InputGroup>
+        </InputRightElement> */}
+      {/* </InputGroup> */}
     </FormControl>
   );
 };
