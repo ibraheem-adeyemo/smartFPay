@@ -19,7 +19,6 @@ export const usePaymentControl = () => {
     const handleControlSubmit = (obj) => {
         if (submitFormRef.current) {
             submitFormRef.current.submitForm()
-            console.log(submitFormRef.current.values)
         }
     }
 

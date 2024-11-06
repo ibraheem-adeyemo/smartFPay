@@ -80,7 +80,6 @@ const columns = [
     Header: 'Actions',
     accessor: 'actions',
     Cell: (props) => {
-        // console.log(props)
         // const [isShown, setIsShown] = props
         return (
             <>
@@ -143,7 +142,6 @@ export const PaymentManagementTable = ({ paymentData = dummyData }) => {
             return (
               <Tr {...row.getRowProps()} fontSize='20px' borderBottomColor="main_light_gray">
                 {row.cells.map((cell) => {
-                    // console.log(cell)
                     return (
                         <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
                     )

@@ -8,7 +8,7 @@ import { PaymentControlContext } from '../../providers/PaymentControlProviders';
 
 // Initial form values
 const initialValues = {
-    customerAccountNumber: '0078973541',
+    customerAccountNumber: '007897354154',
     customerAccountName: 'Omodayo Omofunke',
     coreBankingId: '0012AB4',
     currencyCode: 'USD',
@@ -31,7 +31,6 @@ const fields = [
 
 // Submit handler
 const handleSubmit = (values, actions) => {
-  console.log(values);
   actions.setSubmitting(false);
 };
 
@@ -39,7 +38,7 @@ const CustomerAccountForm = () => {
     const { handleControlSubmit, submitFormRef } = useContext(PaymentControlContext)
 
   return (<Box>
-    <Heading my='20px'>Customer account form</Heading>
+    <Heading mb='20px' size='md'>Customer account form</Heading>
     <ReusableForm
       initialValues={initialValues}
       validationSchema={validationSchema}

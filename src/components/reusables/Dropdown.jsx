@@ -8,7 +8,6 @@ export const CountryDropdowns = () => {
   // Handler functions for selection
   const handleCountrySelect = (event) => {
     setSelectedCountry(event.target.value);
-    console.log('Selected Country:', event.target.value);
   };
 
   return (
@@ -47,7 +46,6 @@ export const Channelsdropdown = () => {
 
   const handleChannelSelect = (event) => {
     setSelectedChannel(event.target.value);
-    console.log('Selected Channel:', event.target.value);
   };
 
     return (

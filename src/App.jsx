@@ -18,7 +18,7 @@ import { InputUserAccountPage } from './components/controleManagement/InputUserA
 import { ControleManagementTable } from './components/controleManagement/ControleManagementTable';
 import { CustomerAccountFormPage } from './components/controleManagement/CustomerAccountForm';
 import { CreateAcccountControlPage } from './components/controleManagement/CreateAcccountControlForm';
-import { CreateCardControl } from './components/controleManagement/CreateCardControlForm';
+import { CreateCardControlPage } from './components/controleManagement/CreateCardControlForm';
 
 const App = () => {
   return (
@@ -31,7 +31,7 @@ const App = () => {
             <Route path={pageLinks.userAccount} element={<InputUserAccountPage />} />
             <Route path={pageLinks.customerAccountForm} element={<CustomerAccountFormPage />} />
             <Route path={pageLinks.createAccountControl} element={<CreateAcccountControlPage />} />
-            <Route path={pageLinks.createCardControl} element={<CreateCardControl />} />
+            <Route path={pageLinks.createCardControl} element={<CreateCardControlPage />} />
         </Route>
         <Route path={pageLinks.auditTrail} element={<AuditTrail />} />
         <Route path={pageLinks.transactions} element={<Transactions />} />
