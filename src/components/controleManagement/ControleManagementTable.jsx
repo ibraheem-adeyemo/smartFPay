@@ -80,7 +80,7 @@ const columns = [
     Header: 'Actions',
     accessor: 'actions',
     Cell: (props) => {
-        // const [isShown, setIsShown] = props
+        const [isShown, setIsShown] = useState(false)
         return (
             <>
             <IconButton
@@ -88,9 +88,9 @@ const columns = [
                 icon={<FiMoreVertical />}
                 variant="ghost"
                 size="lg"
-                // onClick={()=>setIsShown(!isShown)}
+                onClick={()=>setIsShown(!isShown)}
             />
-            {/* <ActionOptions isShown={isShown} /> */}
+            <ActionOptions isShown={isShown} />
         </>
         )
     }       

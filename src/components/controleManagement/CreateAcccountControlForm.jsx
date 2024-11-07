@@ -5,38 +5,14 @@ import * as Yup from 'yup';
 import CardControle from './CardControle';
 import PaymentControlProviders, { PaymentControlContext } from '../../providers/PaymentControlProviders';
 import { usePaymentControl } from '../../hooks/paymentControlHooks';
+import { accountControlFields, timeLimitFields } from '../forms/limitControlFormFeilds';
+import { validationSchema } from '../forms/formValidation';
 
 const initialValues = {
     transactionLimitAmount:'',
     selectedPeriod:''
 }
 
-const validationSchema = Yup.object({
-    transactionLimitAmount: Yup.number().required('customerAccountNumber is required'),
-    selectedPeriod: Yup.string().required('selectedPeriod is required'),
-});
-
-const fields = [
-    { label: 'Transaction Limit Amount', name: 'transactionLimitAmount', type: 'number', placeholder:'Enter amount', component:Input },
-    { label: 'Select Period', name: 'selectedPeriod', component: 'select',
-        options: [
-            { value: 'Daily', label: 'Daily' },
-            { value: 'Weekly', label: 'Weekly' },
-            { value: 'Monthly', label: 'Monthly' },
-        ] ,
-    },
-    {label: 'Interbank Transaction', name: 'interbankTransaction', component: 'radioGroup', defaultValue:'yes', bgColor: 'none',
-        options: [
-            {label: 'yes', value: 'yes'},
-            {label: 'no', value: 'no'},
-        ]
-    }
-  ];
-
-  const timeLiimiFields = [
-    {label: 'Start Date', name: 'startDate', component: 'datePicker', placeholder:'Please Select'},
-    {label: 'End Date', name: 'endDate', component: 'datePicker', placeholder:'Please Select'},
-  ]
 
   const TimeLimitControlForm = () => {
     const { handleControlSubmit, submitFormRef } = useContext(PaymentControlContext)
@@ -45,7 +21,7 @@ const fields = [
             <ReusableForm
                 initialValues={initialValues}
                 handleSubmit={(obj)=>handleControlSubmit(obj)}
-                fields={timeLiimiFields}
+                fields={timeLimitFields}
                 validationSchema={validationSchema}
                 submitFormRef={submitFormRef}
                 shouldHaveSubmitBtn={false} />
@@ -62,7 +38,7 @@ const CreateAcccountControlForm = () => {
         <ReusableForm
             initialValues={initialValues}
             handleSubmit={(obj)=>handleControlSubmit(obj)}
-            fields={fields}
+            fields={accountControlFields}
             validationSchema={validationSchema}
             submitFormRef={submitFormRef}
             shouldHaveSubmitBtn={false} />
