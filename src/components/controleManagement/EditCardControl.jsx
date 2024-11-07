@@ -11,7 +11,7 @@ import CardDetails from './card-details/CardDetails'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetQueriedUsers } from '../../store/features/userSlice'
 
-const CardControle = ({children}) => {
+export const EditCardControl = ({children}) => {
     const location = useLocation()
     const locationArr = location.pathname.split('/')
     const { queriedUser } = useSelector(state => state.userReducer)
@@ -42,9 +42,9 @@ const CardControle = ({children}) => {
         }
       }, [cardHolderName])
 
-    const submitBtnURLArray = [pageLinks.createAccountControl, pageLinks.createCardControl]
+    const submitBtnURLArray = [pageLinks.editAccountControl, pageLinks.editCardControl]
 
-
+    // edit-customer-account
   return (
     <Box>
         <Flex mb='32px' alignItems='center' justifyContent='space-between'>
@@ -55,10 +55,10 @@ const CardControle = ({children}) => {
                 <Heading>Back</Heading>
             </Button>
             {
-                visitUrl == 'customer-account-form' && <React.Fragment>
+                visitUrl == pageLinks.editCustomerAccount && <React.Fragment>
                     <Flex width='700px' justifyContent='space-evenly'>
-                        <ButtonComponent as={Link} to={`${pageLinks.controleManagement}/${pageLinks.createCardControl}`} btnText='Edit Card Control' variant='outline' />
-                        <ButtonComponent as={Link} to={`${pageLinks.controleManagement}/${pageLinks.createAccountControl}`} btnText='Edit Account Control' />
+                        <ButtonComponent as={Link} to={`${pageLinks.controleManagement}/${pageLinks.editCardControl}`} btnText='Edit Card Control' variant='outline' />
+                        <ButtonComponent as={Link} to={`${pageLinks.controleManagement}/${pageLinks.editAccountControl}`} btnText='Edit Account Control' />
                     </Flex>
                 </React.Fragment> 
             }
@@ -74,11 +74,9 @@ const CardControle = ({children}) => {
                 <Box mb='50px'>
                     <Heading size='md'>Card Details</Heading>
                 </Box>
-                <CardDetails cardNumber={'7098765432345609'} expDate={2345} cvv={312} cardHolderName={'Smith Debs'} />
+                <CardDetails />
             </Box>
         </Flex>
     </Box>
   )
 }
-
-export default CardControle

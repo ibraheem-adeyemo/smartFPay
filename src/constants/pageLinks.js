@@ -16,5 +16,8 @@ export const pageLinks = {
     customerAccountForm: 'customer-account-form',
     createAccountControl:'create-account-control',
     createCardControl:'create-card-control',
+    editAccountControl:'edit-account-control',
+    editCardControl:'edit-card-control',
+    editCustomerAccount:'edit-customer-account'
 
 }

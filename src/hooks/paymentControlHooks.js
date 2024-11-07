@@ -3,7 +3,6 @@ import React, { useState, useRef } from "react";
 export const usePaymentControl = () => {
     const [btnIsDisabled, setBtnIsDisabled] = useState(true);
     const [limit, setLimit] = useState('')
-
     
     let submitFormRef = useRef(null);
 

@@ -6,7 +6,7 @@ import { Channelsdropdown, CountryDropdowns } from '../reusables/Dropdown';
 import { DateRangeFilter } from '../reusables/DatePicker';
 import SearchComponent from '../reusables/SearchComponent';
 import { ButtonComponent } from '../reusables/ButtonComponent';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { pageLinks } from '../../constants/pageLinks';
 // import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { BsArrowCounterclockwise } from "react-icons/bs";
@@ -14,10 +14,16 @@ import TableFooter from '../reusables/TableFooter';
 
 
 const ActionOptions = ({isShown}) => {
+
+    const navigation = useNavigate()
+
+    const handleEditBtn = () => {
+        navigation(`${pageLinks.controleManagement}/${pageLinks.editCustomerAccount}`)
+    }
     return (
         <Flex flexDir={'column'} position='absolute' border='1px solid' px='10px' width='160px' display={isShown ?'flex' :'none'} borderColor='main_light_gray' borderRadius={'7px'}>
             <ButtonComponent btnText='View Details' backgroundColor='white' _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
-            <ButtonComponent btnText='Edit Control' backgroundColor='white' _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
+            <ButtonComponent btnText='Edit Control' backgroundColor='white' onClick={handleEditBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
         </Flex>
     )
 }

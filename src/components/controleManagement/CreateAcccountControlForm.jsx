@@ -46,18 +46,16 @@ const CreateAcccountControlForm = () => {
   )
 }
 
-export const CreateAcccountControl = () => {  
-
-    const { switchControl, limit} = useContext(PaymentControlContext)
-
+export const CreateAcccountControl = () => { 
+    const { switchControl, transactionLimit, timeLimit, limit} = useContext(PaymentControlContext)
 
     const LimitControl = () => {
         switch (limit) {
-            case 'transactionLimit':
+            case transactionLimit :
                 return (
                     <CreateAcccountControlForm />
                 )
-            case 'timeLimit':
+            case timeLimit:
                 return <TimeLimitControlForm />        
             default:
                 <></>;
@@ -70,8 +68,8 @@ export const CreateAcccountControl = () => {
                 <Box my='15px'>
                     <Text mb='7px'>Please Select</Text>
                     <RadioGroup>
-                        <Radio value='transactionLimit' onChange={(e)=>switchControl(e.target.value)} mr='20px'>Transaction Limit</Radio>
-                        <Radio value='timeLimit' onChange={(e)=>switchControl(e.target.value)}>Time Limit</Radio>
+                        <Radio value={transactionLimit} onChange={(e)=>switchControl(e.target.value)} mr='20px'>Transaction Limit</Radio>
+                        <Radio value={timeLimit} onChange={(e)=>switchControl(e.target.value)}>Time Limit</Radio>
                     </RadioGroup>
                 </Box>
                 <LimitControl />

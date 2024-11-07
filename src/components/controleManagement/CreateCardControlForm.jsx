@@ -4,6 +4,8 @@ import PaymentControlProviders, { PaymentControlContext } from '../../providers/
 import ReusableForm from '../reusables/ReusableForm'
 import * as Yup from 'yup'
 import CardControle from './CardControle'
+import { cardAccountfields, countLimitFields } from '../forms/limitControlFormFeilds'
+import { cardAccountvalidationSchema, countValidationSchema } from '../forms/formValidation'
 
 const initialValues = {
     transactionLimitAmount:'',
@@ -23,84 +25,6 @@ const initialCountValues = {
     endDate:''
 }
 
-const validationSchema = Yup.object({
-    transactionLimitAmount: Yup.number().required('Customer account number is required'),
-    selectedPeriod: Yup.string().required('Selected period is required'),
-    enabledCountries: Yup.string().required('Enabled country is required'),
-    enabledCountries: Yup.string().required('Enabled channel is required'),
-});
-
-const countValidationSchema = Yup.object({
-    countLimit: Yup.number().required('Customer account number is required'),
-    selectedPeriod: Yup.string().required('Selected period is required'),
-    enabledCountries: Yup.string().required('Enabled country is required'),
-    enabledCountries: Yup.string().required('Enabled channel is required'),
-});
-
-const fields = [
-    { label: 'Transaction Limit Amount', name: 'transactionLimitAmount', type: 'number', placeholder:'Enter amount', component:Input },
-    { label: 'Select Period', name: 'selectedPeriod', component: 'select',
-        options: [
-            { value: 'Daily', label: 'Daily' },
-            { value: 'Weekly', label: 'Weekly' },
-            { value: 'Monthly', label: 'Monthly' },
-        ] ,
-    },
-    {label: 'Start Date', name: 'startDate', component: 'datePicker', placeholder:'Please Select'},
-    {label: 'End Date', name: 'endDate', component: 'datePicker', placeholder:'Please Select'},
-    {label: 'Enabled Channels', name: 'enabledChannels', component: 'select', options: [
-        {value:"ATM", label: 'ATM'},
-        {value:"POS", label: 'POS'},
-        {value:"WEB", label: "WEB"},
-        {value:"USSD", USSD: "USSD"}
-    ]},
-    {label: 'Enabled Countries', name: 'enabledCountries', component: 'select', options: [
-        {value:"Ghana", label: 'Ghana'},
-        {value:"Kenya", label: 'Kenya'},
-        {value:"Mozanbique", label: "Mozanbique"},
-        {value:"Nigeria", USSD: "Nigeria"},
-        {value:"Uruguay", USSD: "Uruguay"}
-    ]},
-    {label: 'Card Status', name: 'cardStatus', component: 'radioGroup', defaultValue:'active', bgColor: 'none',
-        options: [
-            {label: 'Active', value: 'active'},
-            {label: 'Blocked', value: 'blocked'},
-        ]
-    }
-]
-
-const countLimitFields = [
-    { label: 'Count Limit ', name: 'countLimit', type: 'number', placeholder:'Enter amount', component:Input },
-    { label: 'Select Period', name: 'selectedPeriod', component: 'select',
-        options: [
-            { value: 'Daily', label: 'Daily' },
-            { value: 'Weekly', label: 'Weekly' },
-            { value: 'Monthly', label: 'Monthly' },
-        ] ,
-    },
-    {label: 'Start Date', name: 'startDate', component: 'datePicker', placeholder:'Please Select'},
-    {label: 'End Date', name: 'endDate', component: 'datePicker', placeholder:'Please Select'},
-    {label: 'Enabled Channels', name: 'enabledChannels', component: 'select', options: [
-        {value:"ATM", label: 'ATM'},
-        {value:"POS", label: 'POS'},
-        {value:"WEB", label: "WEB"},
-        {value:"USSD", USSD: "USSD"}
-    ]},
-    {label: 'Enabled Countries', name: 'enabledCountries', component: 'select', options: [
-        {value:"Ghana", label: 'Ghana'},
-        {value:"Kenya", label: 'Kenya'},
-        {value:"Mozanbique", label: "Mozanbique"},
-        {value:"Nigeria", USSD: "Nigeria"},
-        {value:"Uruguay", USSD: "Uruguay"}
-    ]},
-    {label: 'Card Status', name: 'cardStatus', component: 'radioGroup', defaultValue:'active', bgColor: 'none',
-        options: [
-            {label: 'Active', value: 'active'},
-            {label: 'Blocked', value: 'blocked'},
-        ]
-    }
-]
-
 const CreateCardControlForm = () => {
     const { handleControlSubmit, submitFormRef } = useContext(PaymentControlContext)
     return (
@@ -108,8 +32,8 @@ const CreateCardControlForm = () => {
             <ReusableForm
                 initialValues={initialValues}
                 handleSubmit={(obj)=>handleControlSubmit(obj)}
-                fields={fields}
-                validationSchema={validationSchema}
+                fields={cardAccountfields}
+                validationSchema={cardAccountvalidationSchema}
                 submitFormRef={submitFormRef}
                 shouldHaveSubmitBtn={false} />
         </Box>

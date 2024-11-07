@@ -19,6 +19,9 @@ import { ControleManagementTable } from './components/controleManagement/Control
 import { CustomerAccountFormPage } from './components/controleManagement/CustomerAccountForm';
 import { CreateAcccountControlPage } from './components/controleManagement/CreateAcccountControlForm';
 import { CreateCardControlPage } from './components/controleManagement/CreateCardControlForm';
+import { EditAcccountControlPage } from './components/controleManagement/EditAccountControlForm';
+import { EditCardControlPage } from './components/controleManagement/EditCardControlForm';
+import { EditCustomerAccountFormPage } from './components/controleManagement/EditCustomerAccountForm';
 
 const App = () => {
   return (
@@ -32,6 +35,9 @@ const App = () => {
             <Route path={pageLinks.customerAccountForm} element={<CustomerAccountFormPage />} />
             <Route path={pageLinks.createAccountControl} element={<CreateAcccountControlPage />} />
             <Route path={pageLinks.createCardControl} element={<CreateCardControlPage />} />
+            <Route path={pageLinks.editAccountControl} element={<EditAcccountControlPage />} />
+            <Route path={pageLinks.editCardControl} element={<EditCardControlPage />} />
+            <Route path={pageLinks.editCustomerAccount} element={<EditCustomerAccountFormPage />} />
         </Route>
         <Route path={pageLinks.auditTrail} element={<AuditTrail />} />
         <Route path={pageLinks.transactions} element={<Transactions />} />
