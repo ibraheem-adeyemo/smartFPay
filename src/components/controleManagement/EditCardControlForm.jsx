@@ -76,7 +76,7 @@ const CreateCardControl = () => {
     }
 
     return (
-        <CardControle>
+        <EditCardControlPage>
                 <Heading size='md'>Create Card Control</Heading>
                 <Box my='15px'>
                     <Text mb='7px'>Please Select</Text>
@@ -86,7 +86,7 @@ const CreateCardControl = () => {
                     </RadioGroup>
                 </Box>
                 <LimitControl />
-            </CardControle>
+            </EditCardControlPage>
     )
 }
 

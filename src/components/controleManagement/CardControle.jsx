@@ -9,21 +9,36 @@ import { usePaymentControl } from '../../hooks/paymentControlHooks'
 import { PaymentControlContext } from '../../providers/PaymentControlProviders'
 import CardDetails from './card-details/CardDetails'
 import { useDispatch, useSelector } from 'react-redux'
-import { resetQueriedUsers } from '../../store/features/userSlice'
+import { resetQueriedUsers, clearErrorMsg } from '../../store/features/userSlice'
+import { useToast } from '@chakra-ui/react'
 
 const CardControle = ({children}) => {
     const location = useLocation()
+    const toast = useToast()
+
     const locationArr = location.pathname.split('/')
-    const { queriedUser } = useSelector(state => state.userReducer)
+    const { queriedUser, errorMsg } = useSelector(state => state.userReducer)
     
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
+    useEffect(() => {
+        if(errorMsg) {
+            toast({
+                status: 'error',
+                title:errorMsg,
+                isClosable:true,
+                onCloseComplete: ()=> dispatch(clearErrorMsg())
+            })
+        }
+    }, [errorMsg])
+    
+
     const visitUrl = locationArr[locationArr.length - 1]
     const { btnIsDisabled, handleControlSubmit } = useContext(PaymentControlContext)
 
-    const cardHolderName = queriedUser.virtualCardDetails.cardNumber
+    const cardHolderName = queriedUser?.virtualCardDetails?.cardNumber
 
 
     const handleBack = () => {
@@ -74,7 +89,7 @@ const CardControle = ({children}) => {
                 <Box mb='50px'>
                     <Heading size='md'>Card Details</Heading>
                 </Box>
-                <CardDetails cardNumber={'7098765432345609'} expDate={2345} cvv={312} cardHolderName={'Smith Debs'} />
+                <CardDetails />
             </Box>
         </Flex>
     </Box>

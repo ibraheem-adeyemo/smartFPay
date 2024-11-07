@@ -20,7 +20,7 @@ const InputUserAccount = () => {
         accountNumber: yup.number().required('Kindly input correct account number')
     })
 
-    const cardHolderName = queriedUser.virtualCardDetails.cardNumber
+    const cardHolderName = queriedUser?.virtualCardDetails?.cardNumber
 
     const onSubmit = (values, {resetForm}) => {
         dispatch(searchUserAccount(values))
@@ -42,7 +42,7 @@ const InputUserAccount = () => {
     }, [cardHolderName])
     
 
-    if(queriedUser.cardHolderName) {
+    if(queriedUser?.cardHolderName) {
         navigate(`${pageLinks.controleManagement}/${pageLinks.customerAccountForm}`)
     }
     const HandleSubmit = ({submitRef}) => {

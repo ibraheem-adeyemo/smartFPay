@@ -23,7 +23,7 @@ export const EditCardControl = ({children}) => {
     const visitUrl = locationArr[locationArr.length - 1]
     const { btnIsDisabled, handleControlSubmit } = useContext(PaymentControlContext)
 
-    const cardHolderName = queriedUser.virtualCardDetails.cardNumber
+    const cardHolderName = queriedUser?.virtualCardDetails?.cardNumber
 
 
     const handleBack = () => {
@@ -63,6 +63,7 @@ export const EditCardControl = ({children}) => {
                 </React.Fragment> 
             }
             {
+                
                submitBtnURLArray.includes(visitUrl) && <Flex> <ButtonComponent btnText='Save Changes' isDisabled={btnIsDisabled} onClick={handleControlSubmit}  /> </Flex>
             }
         </Flex>

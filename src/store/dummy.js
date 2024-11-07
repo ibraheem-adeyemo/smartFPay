@@ -4,7 +4,7 @@ export const dummy = {
         name: 'John Doe',
         email: 'johndoe@example.com',
         virtualCardDetails: {
-            cardNumber: '1234567890',
+            cardNumber: '1234567890234567',
             cardHolderName: 'John Doe',
             expirationDate: '12/24',
             cvv: '123'
@@ -59,7 +59,7 @@ export const dummy = {
         name: 'Alice Johnson',
         email: 'alicejohnson@example.com',
         virtualCardDetails: {
-            cardNumber: '0034523890',
+            cardNumber: '0034523890654321',
             cardHolderName: 'Alice Johnson',
             expirationDate: '02/26',
             cvv: '789'

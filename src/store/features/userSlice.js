@@ -3,7 +3,8 @@ import { dummy } from "../dummy";
 
 const initialState = {
     users: dummy.users,
-    queriedUser: dummy.queriedUser
+    queriedUser: dummy.queriedUser,
+    errorMsg: null
 }
 
 const userSlice = createSlice({
@@ -29,17 +30,24 @@ const userSlice = createSlice({
             state.queriedUser = initialState.queriedUser;
         },
         searchUserAccount: (state, action) => {
-            state.queriedUser = state.users.filter(user => {
+            const aUser = state.users.filter(user => {
                 return user.accountDetails.accountNumber === action.payload.accountNumber.toString();
             })[0]
-            
+            if (aUser) {
+                state.queriedUser = aUser
+            } else {
+                state.errorMsg = 'User not found'
+            }
         },
        
         updateQueriedUser: (state, action) => {
             state.queriedUser = action.payload;
+        },
+        clearErrorMsg: (state, action) => {
+            state.errorMsg = null;
         }
     }
 })
 
-export const { addUser, removeUser, updateUser, searchUser, searchUserAccount, resetQueriedUsers } = userSlice.actions;
+export const { addUser, removeUser, updateUser, searchUser, searchUserAccount, resetQueriedUsers, clearErrorMsg } = userSlice.actions;
 export default userSlice.reducer
