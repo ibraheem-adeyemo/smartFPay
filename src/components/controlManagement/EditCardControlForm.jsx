@@ -4,6 +4,7 @@ import PaymentControlProviders, { PaymentControlContext } from '../../providers/
 import ReusableForm from '../reusables/ReusableForm'
 import { cardAccountfields, countLimitFields } from '../forms/limitControlFormFeilds'
 import { cardAccountvalidationSchema, countValidationSchema } from '../forms/formValidation'
+import { EditCardControl } from './EditCardControl'
 
 const initialValues = {
     transactionLimitAmount:'40000',
@@ -74,7 +75,7 @@ const CreateCardControl = () => {
     }
 
     return (
-        <EditCardControlPage>
+        <EditCardControl>
                 <Heading size='md'>Create Card Control</Heading>
                 <Box my='15px'>
                     <Text mb='7px'>Please Select</Text>
@@ -84,7 +85,7 @@ const CreateCardControl = () => {
                     </RadioGroup>
                 </Box>
                 <LimitControl />
-            </EditCardControlPage>
+            </EditCardControl>
     )
 }
 

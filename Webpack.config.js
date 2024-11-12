@@ -53,6 +53,7 @@ module.exports = {
         }),
     ],
     devServer: {
+        port: 3001,
         static: {
             directory: path.join(__dirname, 'build'),  // Serve static files from 'build' folder
           },

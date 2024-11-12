@@ -1,32 +1,33 @@
 import React, {useEffect} from 'react';
-import { Box, Flex, FormControl, FormLabel, Input, Button, SelectItem, VStack, Textarea, SelectContent, Select, RadioGroup, Radio } from '@chakra-ui/react';
+import { Box, Flex, FormControl, FormLabel, Input, Button, VStack, Textarea, Select, RadioGroup, Radio } from '@chakra-ui/react';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import DatePicker from 'react-datepicker';
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { DatePickerComponent } from './DatePicker';
 
 // Reusable Form Field Component
-const FormField = ({ label, name, type = 'text', component = Input, options = [], ...props }) => {
+const FormField = ({ label, name, type = 'text', component = Input, componentName, options = [], ...props }) => {
 
     return <Field name={name}>
     {({ field, form }) => (
       <FormControl isInvalid={form.errors[name] && form.touched[name]} mb={4}>
         <FormLabel htmlFor={name} fontWeight='bold' fontSize='14px'>{label}</FormLabel>
         <Box>
-          {component === 'select' ? (
-            <Field as={Select} id={name} {...field} {...props} placeholder='Please select'>
-              <SelectContent>
+          {componentName === 'select' ? (
+            <Field as={Select} id={name} {...field} {...props}>
+                <option value="" disabled hidden>
+                    Please select
+                </option>
               {options.map((option) => {
                 return (
-                    <SelectItem key={option.value} value={option.value}>
+                    <option key={option.value} value={option.value}>
                         {option.label}
-                    </SelectItem>
+                    </option>
                 )
               }              
               )}
-              </SelectContent>
             </Field>
-          ): component === 'datePicker' ? (
+          ): componentName === 'datePicker' ? (
             <Flex>
                 <DatePickerComponent
                     selected={field.value ? new Date(field.value) : null}
@@ -39,7 +40,7 @@ const FormField = ({ label, name, type = 'text', component = Input, options = []
                     labelMb='5px'
                     />  
             </Flex>
-          )  : component === 'radioGroup' ? (
+          )  : componentName === 'radioGroup' ? (
             <RadioGroup defaultValue='' {...field} {...props}>
               {options.map((option) => (
                 <Radio key={option.value} value={option.value} mr='20px'>
