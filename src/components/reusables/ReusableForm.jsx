@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
-import { Box, Flex, FormControl, FormLabel, Input, Button, VStack, Textarea, Select, RadioGroup, Radio } from '@chakra-ui/react';
+import { Box, Flex, FormControl, FormLabel, Input, Button, SelectItem, VStack, Textarea, SelectContent, Select, RadioGroup, Radio } from '@chakra-ui/react';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import DatePicker from 'react-datepicker';
 import { MdOutlineCalendarToday } from "react-icons/md";
+import { DatePickerComponent } from './DatePicker';
 
 // Reusable Form Field Component
 const FormField = ({ label, name, type = 'text', component = Input, options = [], ...props }) => {
@@ -10,30 +11,33 @@ const FormField = ({ label, name, type = 'text', component = Input, options = []
     return <Field name={name}>
     {({ field, form }) => (
       <FormControl isInvalid={form.errors[name] && form.touched[name]} mb={4}>
-        <FormLabel htmlFor={name}>{label}</FormLabel>
+        <FormLabel htmlFor={name} fontWeight='bold' fontSize='14px'>{label}</FormLabel>
         <Box>
           {component === 'select' ? (
-            <Field as={Select} id={name} {...field} {...props}>
-              <option value="">Please select</option>
+            <Field as={Select} id={name} {...field} {...props} placeholder='Please select'>
+              <SelectContent>
               {options.map((option) => {
                 return (
-                    <option key={option.value} value={option.value}>
+                    <SelectItem key={option.value} value={option.value}>
                         {option.label}
-                    </option>
+                    </SelectItem>
                 )
               }              
               )}
+              </SelectContent>
             </Field>
           ): component === 'datePicker' ? (
-            <Flex bgColor={props.bgColor} p='10px' width={'400px'}>
-                <DatePicker
+            <Flex>
+                <DatePickerComponent
                     selected={field.value ? new Date(field.value) : null}
                     onChange={(date) => form.setFieldValue(name, date)}
                     dateFormat="yyyy-MM-dd"
+                    marginTop='initial'
                     {...props}
-                    />
-
-                <MdOutlineCalendarToday />    
+                    width='650px'
+                    borderRadius='7px'
+                    labelMb='5px'
+                    />  
             </Flex>
           )  : component === 'radioGroup' ? (
             <RadioGroup defaultValue='' {...field} {...props}>
@@ -44,7 +48,7 @@ const FormField = ({ label, name, type = 'text', component = Input, options = []
               ))}
             </RadioGroup>
           ) : (
-            <Field as={component} id={name} {...field} {...props} />
+            <Field as={component} id={name} fontSize='18px' {...field} {...props} />
           )}
         </Box>
       </FormControl>
@@ -59,7 +63,7 @@ const ReusableForm = ({ initialValues, validationSchema, handleSubmit, fields, s
       <Form>
         <VStack spacing={'4px'}>
           {fields.map((field) => (
-            <FormField key={field.name} {...field} height='40px' bgColor={field.bgColor || 'main_light_gray'} />
+            <FormField key={field.name} {...field} height='50px' color={field.color || 'form_input_gray'} bgColor={field.bgColor || 'main_light_gray'} />
           ))}
           {shouldHaveSubmitBtn && <Button type="btn" colorScheme="teal" onClick={() => handleSubmit(values)} isLoading={isSubmitting}>
             Submit

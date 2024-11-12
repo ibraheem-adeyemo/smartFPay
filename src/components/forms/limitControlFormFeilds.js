@@ -37,14 +37,14 @@ export const cardAccountfields = [
         {value:"ATM", label: 'ATM'},
         {value:"POS", label: 'POS'},
         {value:"WEB", label: "WEB"},
-        {value:"USSD", USSD: "USSD"}
+        {value:"USSD", label: "USSD"}
     ]},
     {label: 'Enabled Countries', name: 'enabledCountries', component: 'select', options: [
         {value:"Ghana", label: 'Ghana'},
         {value:"Kenya", label: 'Kenya'},
         {value:"Mozanbique", label: "Mozanbique"},
-        {value:"Nigeria", USSD: "Nigeria"},
-        {value:"Uruguay", USSD: "Uruguay"}
+        {value:"Nigeria", label: "Nigeria"},
+        {value:"Uruguay", label: "Uruguay"}
     ]},
     {label: 'Card Status', name: 'cardStatus', component: 'radioGroup', defaultValue:'active', bgColor: 'none',
         options: [
@@ -69,14 +69,14 @@ export const countLimitFields = [
         {value:"ATM", label: 'ATM'},
         {value:"POS", label: 'POS'},
         {value:"WEB", label: "WEB"},
-        {value:"USSD", USSD: "USSD"}
+        {value:"USSD", label: "USSD"},
     ]},
     {label: 'Enabled Countries', name: 'enabledCountries', component: 'select', options: [
         {value:"Ghana", label: 'Ghana'},
         {value:"Kenya", label: 'Kenya'},
         {value:"Mozanbique", label: "Mozanbique"},
-        {value:"Nigeria", USSD: "Nigeria"},
-        {value:"Uruguay", USSD: "Uruguay"}
+        {value:"Nigeria", label: "Nigeria"},
+        {value:"Uruguay", label: "Uruguay"}
     ]},
     {label: 'Card Status', name: 'cardStatus', component: 'radioGroup', defaultValue:'active', bgColor: 'none',
         options: [
@@ -84,4 +84,9 @@ export const countLimitFields = [
             {label: 'Blocked', value: 'blocked'},
         ]
     }
+]
+
+export const downloadControlDatafeilds = [
+    {label: 'Date From', value: '2024-02-12', component: 'datePicker', placeholder:'Please Select' },
+    {label: 'Date To', value: '2024-02-12', component: 'datePicker', placeholder:'Please Select' },
 ]

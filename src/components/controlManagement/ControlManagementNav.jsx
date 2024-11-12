@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import InputUserAccount from './InputUserAccount'
 
-const ControleManagementNav = () => {
+const controlManagementNav = () => {
   return (
     <Routes>
         <Route path='/' Component={<InputUserAccount />} />
@@ -10,4 +10,4 @@ const ControleManagementNav = () => {
   )
 }
 
-export default ControleManagementNav
+export default controlManagementNav

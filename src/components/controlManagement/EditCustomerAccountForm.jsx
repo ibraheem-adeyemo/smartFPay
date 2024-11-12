@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import * as Yup from 'yup';
 import ReusableForm from '../reusables/ReusableForm';
 import { Box, Heading } from '@chakra-ui/react';
-import CardControle from './CardControle';
 import PaymentControlProviders from '../../providers/PaymentControlProviders';
 import { PaymentControlContext } from '../../providers/PaymentControlProviders';
 import { EditCardControl } from './EditCardControl';
@@ -12,7 +11,7 @@ const initialValues = {
     customerAccountNumber: '007897354154',
     customerAccountName: 'Omodayo Omofunke',
     coreBankingId: '0012AB4',
-    currencyCode: 'USD',
+    currencyCode: 'NGN',
 };
 
 // Validation schema using Yup

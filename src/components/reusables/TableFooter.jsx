@@ -34,20 +34,20 @@ const TableFooter = (props) => {
             </Flex>
             <Text alignSelf='center' width='100px'>
             Page{' '}
-            <Text as="span" fontWeight="bold">
+            <Text as="span" fontWeight="normal">
                 {pageIndex + 1}
             </Text>{' '}
             of{' '}
-            <Text as="span" fontWeight="bold">
+            <Text as="span" fontWeight="normal">
                 {pageOptions.length}
             </Text>
             </Text>
-            <Flex width='210px'>
+            <Flex width='210px' color='base_popblue'>
                 <Text alignSelf='center' mr='10px'>Rows per page:</Text>
-                <ReusableDropdown options={[{value:10, label:10},{value:20, label:20},{value:30, label:30},{value:50, label:50},{value:100, label:100},]} defaultValue={10} placeholder='' value={tableRows} onChange={(e)=>setTableRows(e.target.value)} />
+                <ReusableDropdown options={[{value:10, label:10},{value:20, label:20},{value:30, label:30},{value:50, label:50},{value:100, label:100},]} defaultValue={10} placeholder='' value={tableRows} onChange={(e)=>setTableRows(e.target.value)} width='30px' />
             </Flex>
         </Flex>  
-        <Flex color='primary-blue'>
+        <Flex color='base_popblue'>
           <Text>{tableData.length} results found</Text>
         </Flex>      
       </Flex>

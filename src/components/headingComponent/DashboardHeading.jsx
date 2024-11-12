@@ -4,6 +4,7 @@ import { FaChevronDown } from 'react-icons/fa';
 
 const DashboardHeading = (props) => {
 
+    // {firstName.charAt(0).toUpperCase()}{lastName.charAt(0).toUpperCase()}
     const {title, firstName, lastName} = props
   return (
     <Flex marginInline={['20px','30px','50px','50px','50px' ]}justifyContent='space-between' color="primary-text">
@@ -18,8 +19,8 @@ const DashboardHeading = (props) => {
                     <Heading size={'sm'}>Hi, {firstName}</Heading>
                     <Text size="tag-text">{firstName} {lastName}</Text>
                 </Flex>
-                <Flex bgColor='light-blue' width='50px' height='50px' color='primary-blue' fontFamily='mono'  fontSize='27px' justifyContent='center' p='5px' borderRadius='50%'>
-                    {firstName.charAt(0).toUpperCase()}{lastName.charAt(0).toUpperCase()}
+                <Flex bgColor='light-blue' width='50px' height='50px' color='#18425D'  fontSize='22px' justifyContent='center' p='10px' borderRadius='50%'>
+                    AA
                 </Flex>
                 <Flex margin='auto 0'>
                     <FaChevronDown />

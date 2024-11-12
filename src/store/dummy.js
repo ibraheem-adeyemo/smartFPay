@@ -5,13 +5,13 @@ export const dummy = {
         email: 'johndoe@example.com',
         virtualCardDetails: {
             cardNumber: '1234567890234567',
-            cardHolderName: 'John Doe',
+            cardHolderName: 'Olivia Nwachinemere',
             expirationDate: '12/24',
             cvv: '123'
         },
         accountDetails: {
             accountNumber: '3235567190',
-            accountName: 'John Doe',
+            accountName: 'Olivia Nwachinemere',
             accountType: 'savings',
             accountBalance: 10000,
         },
@@ -29,10 +29,10 @@ export const dummy = {
     }, {
         id: 2,
         name: 'Jane Smith',
-        email: 'janesmith@example.com',
+        email: 'chinedudamilare@example.com',
         virtualCardDetails: {
             cardNumber: '9876543210987654',
-            cardHolderName: 'Jane Smith',
+            cardHolderName: 'Chinedu Damilare',
             expirationDate: '01/25',
             cvv: '456'
         },
@@ -57,16 +57,16 @@ export const dummy = {
     {
         id: 3,
         name: 'Alice Johnson',
-        email: 'alicejohnson@example.com',
+        email: 'kemiadeyi@example.com',
         virtualCardDetails: {
             cardNumber: '0034523890654321',
-            cardHolderName: 'Alice Johnson',
+            cardHolderName: 'Oluwakemi Adeyi',
             expirationDate: '02/26',
             cvv: '789'
         },
         accountDetails: {
             accountNumber: '5234997090',
-            accountName: 'Alice Johnson',
+            accountName: 'Oluwakemi Adeyi',
             accountType: 'savings',
             accountBalance: 10000,
         },

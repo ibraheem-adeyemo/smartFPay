@@ -2,7 +2,12 @@ const colors = {
     brand: {
         50:"#0275D8",
         main_light_gray:"#E1E6ED",
+        primary_light_gray:"#F3F5F6",
+        form_input_gray: "#848F9F",
         text_gray:"#5F738C",
+        gray1: "#353F50",
+        lightGreen1: "#BEF2B9",
+        base_popblue:'#00B8DE',
         500:"#0275D8",
         primary: "#0275D8",
         white: "white",

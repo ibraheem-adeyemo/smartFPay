@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 
 const Dashboard = () => {
   return (
-    <Layout pageHeading='Payment controle'>
+    <Layout pageHeading='Payment control'>
       <Box>        
         <div>Dashboard</div>
       </Box>

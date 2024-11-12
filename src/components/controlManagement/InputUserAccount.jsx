@@ -2,7 +2,7 @@ import { Box, FormControl, FormLabel, Heading, Flex, Input, Button, Text, VStack
 import { Field, Form, Formik, useFormikContext } from 'formik'
 import React, { useEffect} from 'react'
 import * as yup from 'yup';
-import CardControle from './CardControle';
+import CardControle from './CardControl';
 import { useHref, useNavigate } from 'react-router-dom';
 import { pageLinks } from '../../constants/pageLinks';
 import PaymentControlProviders from '../../providers/PaymentControlProviders';
@@ -32,18 +32,18 @@ const InputUserAccount = () => {
                 // fullName: '': '',
     }
     const handleClick = () => {
-        // navigate(`${pageLinks.controleManagement}/${pageLinks.customerAccountForm}`)
+        // navigate(`${pageLinks.controlManagement}/${pageLinks.customerAccountForm}`)
     }
 
     useEffect(() => {
       if(cardHolderName) {
-        navigate(`${pageLinks.controleManagement}/${pageLinks.customerAccountForm}`)
+        navigate(`${pageLinks.controlManagement}/${pageLinks.customerAccountForm}`)
       }
     }, [cardHolderName])
     
 
     if(queriedUser?.cardHolderName) {
-        navigate(`${pageLinks.controleManagement}/${pageLinks.customerAccountForm}`)
+        navigate(`${pageLinks.controlManagement}/${pageLinks.customerAccountForm}`)
     }
     const HandleSubmit = ({submitRef}) => {
         const {submitform, values} = useFormikContext();

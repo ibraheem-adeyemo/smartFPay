@@ -13,15 +13,15 @@ import Notifications from './pages/Notifications';
 import RolesManagement from './pages/RolesManagement';
 import { pageLinks } from './constants/pageLinks';
 import 'react-datepicker/dist/react-datepicker.css';
-import ControlManagementRoute from './components/controleManagement/ControlManagementRoute';
-import { InputUserAccountPage } from './components/controleManagement/InputUserAccount';
-import { ControleManagementTable } from './components/controleManagement/ControleManagementTable';
-import { CustomerAccountFormPage } from './components/controleManagement/CustomerAccountForm';
-import { CreateAcccountControlPage } from './components/controleManagement/CreateAcccountControlForm';
-import { CreateCardControlPage } from './components/controleManagement/CreateCardControlForm';
-import { EditAcccountControlPage } from './components/controleManagement/EditAccountControlForm';
-import { EditCardControlPage } from './components/controleManagement/EditCardControlForm';
-import { EditCustomerAccountFormPage } from './components/controleManagement/EditCustomerAccountForm';
+import { InputUserAccountPage } from './components/controlManagement/InputUserAccount';
+import { ControlManagementTable } from './components/controlManagement/ControlManagementTable';
+import { CustomerAccountFormPage } from './components/controlManagement/CustomerAccountForm';
+import { CreateAcccountControlPage } from './components/controlManagement/CreateAcccountControlForm';
+import { CreateCardControlPage } from './components/controlManagement/CreateCardControlForm';
+import { EditAcccountControlPage } from './components/controlManagement/EditAccountControlForm';
+import { EditCardControlPage } from './components/controlManagement/EditCardControlForm';
+import { EditCustomerAccountFormPage } from './components/controlManagement/EditCustomerAccountForm';
+import { LimitDetail} from './components/controlManagement/LimitDetail';
 
 const App = () => {
   return (
@@ -29,8 +29,8 @@ const App = () => {
         <Route path={pageLinks.dashboard} element={<Dashboard />} />
          <Route path={pageLinks.userManagement} element={<UserManagement />} />
         <Route path={pageLinks.customerInformation} element={<CustomerInfomation />} />
-        <Route path={pageLinks.controleManagement} element={<ControlManagement />}>
-            <Route path='' element={<ControleManagementTable />} />
+        <Route path={pageLinks.controlManagement} element={<ControlManagement />}>
+            <Route path='' element={<ControlManagementTable />} />
             <Route path={pageLinks.userAccount} element={<InputUserAccountPage />} />
             <Route path={pageLinks.customerAccountForm} element={<CustomerAccountFormPage />} />
             <Route path={pageLinks.createAccountControl} element={<CreateAcccountControlPage />} />
@@ -38,6 +38,7 @@ const App = () => {
             <Route path={pageLinks.editAccountControl} element={<EditAcccountControlPage />} />
             <Route path={pageLinks.editCardControl} element={<EditCardControlPage />} />
             <Route path={pageLinks.editCustomerAccount} element={<EditCustomerAccountFormPage />} />
+            <Route path={pageLinks.limitDetail} element={<LimitDetail />} />
         </Route>
         <Route path={pageLinks.auditTrail} element={<AuditTrail />} />
         <Route path={pageLinks.transactions} element={<Transactions />} />

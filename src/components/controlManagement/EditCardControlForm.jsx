@@ -2,8 +2,6 @@ import React, {useContext } from 'react'
 import { Box, Input, Heading, Radio, RadioGroup, Text } from '@chakra-ui/react'
 import PaymentControlProviders, { PaymentControlContext } from '../../providers/PaymentControlProviders'
 import ReusableForm from '../reusables/ReusableForm'
-import * as Yup from 'yup'
-import CardControle from './CardControle'
 import { cardAccountfields, countLimitFields } from '../forms/limitControlFormFeilds'
 import { cardAccountvalidationSchema, countValidationSchema } from '../forms/formValidation'
 

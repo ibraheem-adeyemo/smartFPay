@@ -1,12 +1,12 @@
 import React from 'react'
 import InputUserAccount from './InputUserAccount'
-import {ControleManagementTable} from './ControleManagementTable'
+import {controlManagementTable} from './controlManagementTable'
 
 const Index = () => {
   return (
     <>
         {/* <InputUserAccount /> */}
-        <ControleManagementTable />
+        <controlManagementTable />
     </>
   )
 }

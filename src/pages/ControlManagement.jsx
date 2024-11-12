@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom';
 const ControlManagement = () => {
     
   return (
-    <Layout pageHeading='Controle Management'>
+    <Layout pageHeading='Control Management'>
         <Outlet />
     </Layout>
   )

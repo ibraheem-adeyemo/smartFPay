@@ -4,8 +4,10 @@ import { components } from "./components";
 
 export const overrides = {
     colors: {...colors.brand},
+    
     fonts: {
-        body: "avertastd-regularuploadedfile"
+        body: 'Averta, Arial, sans-serif', // Averta with fallback
+        heading: 'Averta, Arial, sans-serif',
       },
     components
 }

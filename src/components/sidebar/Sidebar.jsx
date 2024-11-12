@@ -6,10 +6,13 @@ import { RxDashboard } from "react-icons/rx";
 import { PiUsers, PiFoldersBold, PiNotepadBold, PiTrendUpBold, PiBrowsersBold } from "react-icons/pi";
 import { GrNotification } from "react-icons/gr";
 import { RiUserSettingsLine } from "react-icons/ri";
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, NavLink, useLocation } from 'react-router-dom';
 import { pageLinks } from '../../constants/pageLinks';
 
 const Sidebar = () => {
+
+    const location = useLocation();
+    // const isActive = location.pathname === to;
 
     const sidebarContent = [
         {
@@ -25,7 +28,7 @@ const Sidebar = () => {
         {
             name: 'Control Management',
             icon: FaList,
-            href: pageLinks.controleManagement,
+            href: pageLinks.controlManagement,
         },
         // {
         //     name: 'Limit Management',
@@ -63,13 +66,20 @@ const Sidebar = () => {
             href: pageLinks.roleManagement,
         }
     ]
+
+    const activeStyle = {
+        backgroundColor: 'light-blue',
+        color: '#0275D8',
+        border: '1px solid #0275D8'
+    }
   return (
     <Box      
-      w={["80px","80px","80px","100px","350px"]}
+    //   w={["80px","80px","80px","100px","350px"]}
       h="100vh"
       bg="white"
       color="text_gray"
       position="fixed"
+      fontSize='20px'
       borderRight="1px solid"
       borderColor="main_light_gray"
     >
@@ -83,11 +93,11 @@ const Sidebar = () => {
                 <Image src={imageUrl.iswFavLogo} alt='interswitch logo' height='50px' margin='auto' />
             </Flex>
         </Box>
-        <VStack spacing={5} align="flex-start" pt={10} as="nav">
+        <VStack spacing={3} align="flex-start" pt={10} as="nav">
             {sidebarContent.map((item, index) => (
-            <Link key={index} as={RouterLink} to={item.href} display="flex" alignItems="center" marginLeft='30px'>
-                <item.icon /> <Text ml='20px' display={['none','none','none','none','block','block']}>{item.name}</Text>
-            </Link>
+                <Link key={index} as={RouterLink} to={item.href} w={["80px","80px","80px","100px","300px"]} borderRadius='7px' p='10px 20px' mr='20px' display="flex" style={location.pathname === item.href ? activeStyle : {}} alignItems="center" marginLeft='30px'>
+                    <item.icon /> <Text ml='20px' display={['none','none','none','none','block','block']}>{item.name}</Text>
+                </Link>
         ))}
         </VStack>      
         </Box>            

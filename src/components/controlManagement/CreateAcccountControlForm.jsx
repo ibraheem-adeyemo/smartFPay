@@ -2,7 +2,7 @@ import { Box, Heading, Input, Radio, RadioGroup, Text } from '@chakra-ui/react'
 import React, { useContext, useRef, useState} from 'react'
 import ReusableForm from '../reusables/ReusableForm';
 import * as Yup from 'yup';
-import CardControle from './CardControle';
+import CardControl from './CardControl';
 import PaymentControlProviders, { PaymentControlContext } from '../../providers/PaymentControlProviders';
 import { usePaymentControl } from '../../hooks/paymentControlHooks';
 import { accountControlFields, timeLimitFields } from '../forms/limitControlFormFeilds';
@@ -49,13 +49,14 @@ const CreateAcccountControlForm = () => {
 export const CreateAcccountControl = () => { 
     const { switchControl, transactionLimit, timeLimit, limit} = useContext(PaymentControlContext)
 
+    console.log(limit, transactionLimit, timeLimit)
     const LimitControl = () => {
         switch (limit) {
-            case transactionLimit :
+            case 'transactionLimit': //transactionLimit :
                 return (
                     <CreateAcccountControlForm />
                 )
-            case timeLimit:
+            case 'timeLimit': //timeLimit:
                 return <TimeLimitControlForm />        
             default:
                 <></>;
@@ -63,17 +64,17 @@ export const CreateAcccountControl = () => {
     }
 
     return(
-            <CardControle>
+            <CardControl>
                 <Heading size='md'>Create Account Control</Heading>
                 <Box my='15px'>
                     <Text mb='7px'>Please Select</Text>
                     <RadioGroup>
-                        <Radio value={transactionLimit} onChange={(e)=>switchControl(e.target.value)} mr='20px'>Transaction Limit</Radio>
-                        <Radio value={timeLimit} onChange={(e)=>switchControl(e.target.value)}>Time Limit</Radio>
+                        <Radio value='transactionLimit' onChange={(e)=>switchControl(e.target.value)} mr='20px'>Transaction Limit</Radio>
+                        <Radio value={'timeLimit'} onChange={(e)=>switchControl(e.target.value)}>Time Limit</Radio>
                     </RadioGroup>
                 </Box>
                 <LimitControl />
-            </CardControle>
+            </CardControl>
         )
 }
 

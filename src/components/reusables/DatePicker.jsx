@@ -4,11 +4,11 @@ import { InputGroup, Input, InputRightElement, FormControl, FormLabel, Box, Flex
 import { MdOutlineCalendarToday } from "react-icons/md";
 import DatePicker from 'react-datepicker';
 
-export const DatePickerComponent = ({ label, startDate, endDate, onEndDateChange }) => {
+export const DatePickerComponent = ({ label, startDate, inputFieldHeight='initial', endDate, onEndDateChange, marginTop='10px', size='md', labelMb='30px', width='350px', placeholder="Please Select", bgColor='none', ...rest }) => {
   return (
     <FormControl id="end-date">
-      <FormLabel>
-        <Heading size={'md'}>{label}</Heading>
+      <FormLabel mb={labelMb}>
+        <Heading size={size}>{label}</Heading>
       </FormLabel>
       {/* <InputGroup> */}
         <DatePicker
@@ -20,10 +20,10 @@ export const DatePickerComponent = ({ label, startDate, endDate, onEndDateChange
           minDate={startDate}
           dateFormat="yyyy-MM-dd"
           customInput={
-            <InputGroup width='350px'>
-                <Input placeholder="Please Select" border='none' />
-                <InputRightElement pointerEvents="none">
-                    <MdOutlineCalendarToday color="gray.400" />
+            <InputGroup width={width} bgColor={bgColor} {...rest} alignItems='center' height={inputFieldHeight}>
+                <Input placeholder={placeholder} border='none' />
+                <InputRightElement pointerEvents="none" alignSelf='center' mt={marginTop}>
+                    <MdOutlineCalendarToday fontSize='24px' color="text_gray" />
                 </InputRightElement>
             </InputGroup>
             }
@@ -46,9 +46,9 @@ export const DateRangeFilter = () => {
     const handleEndDateChange = (date) => setEndDate(date);
   
     return (
-      <Flex p="4" bg="gray.50" borderRadius="md" width="800px">
-        <DatePickerComponent label={'start date'} onStartDateChange={handleStartDateChange} />
-        <DatePickerComponent label={'end date'} endDate={endDate} onEndDateChange={handleEndDateChange} />
+      <Flex borderRadius="md" justifyContent='space-between' width="800px">
+        <DatePickerComponent label={'start date'} bgColor='white' onStartDateChange={handleStartDateChange} />
+        <DatePickerComponent label={'end date'} bgColor='white' endDate={endDate} onEndDateChange={handleEndDateChange} />
       </Flex>
     );
   };

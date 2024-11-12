@@ -2,8 +2,7 @@ import React, {useContext } from 'react'
 import { Box, Input, Heading, Radio, RadioGroup, Text } from '@chakra-ui/react'
 import PaymentControlProviders, { PaymentControlContext } from '../../providers/PaymentControlProviders'
 import ReusableForm from '../reusables/ReusableForm'
-import * as Yup from 'yup'
-import CardControle from './CardControle'
+import CardControl from './CardControl'
 import { cardAccountfields, countLimitFields } from '../forms/limitControlFormFeilds'
 import { cardAccountvalidationSchema, countValidationSchema } from '../forms/formValidation'
 
@@ -74,17 +73,17 @@ const CreateCardControl = () => {
     }
 
     return (
-        <CardControle>
+        <CardControl>
                 <Heading size='md'>Create Card Control</Heading>
                 <Box my='15px'>
                     <Text mb='7px'>Please Select</Text>
                     <RadioGroup>
-                        <Radio value='transactionLimit' onChange={(e)=>switchControl(e.target.value)} mr='20px'>Transaction Limit</Radio>
+                        <Radio value='transactionLimit' onChange={(e)=>switchControl(e.target.value)} mr='20px'>Transaction Limit Amount</Radio>
                         <Radio value='countLimit' onChange={(e)=>switchControl(e.target.value)}>Time Limit</Radio>
                     </RadioGroup>
                 </Box>
                 <LimitControl />
-            </CardControle>
+            </CardControl>
     )
 }
 

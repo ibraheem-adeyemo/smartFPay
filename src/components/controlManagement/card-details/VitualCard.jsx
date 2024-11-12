@@ -12,18 +12,18 @@ const VitualCard = () => {
     const expirationDate = queriedUser?.virtualCardDetails?.expirationDate || '00/00'
     
   return (
-    <Box bgColor='red.100' width='100%' position='relative'>
-        <Image src={imageUrl.virtualCard2} alt="Virtual Card" width='1000px' />
-        <Box position='absolute' top='130px' left='60px' py='20px' px='20px' color='white' h='200px' w='100%'>
+    <Box width='100%' position='relative'>
+        <Image src={imageUrl.virtualCard2} alt="Virtual Card" width='600px' />
+        <Box position='absolute' top='130px' left='30px' py='20px' px='20px' color='white' h='200px' w='100%'>
             <Box fontWeight='bold' fontSize='35px' letterSpacing={4}>{formatVitualCardContent(cardNumber)}</Box>
-            <Flex mt='17px' >
+            <Flex mt='22px' >
                 <Box mr='30px'>
                     <Text fontSize={'xs'}>VALID</Text>
                     <Text fontSize={'xs'}>TILL</Text>
                 </Box>
                 <Flex fontWeight='bold' fontSize='22px'>{expirationDate}</Flex>
             </Flex>
-            <Box fontWeight='bold' fontSize='20px' mt='14px' letterSpacing={4}>{cardHolderName}</Box>
+            <Box fontWeight='bold' fontSize='18px' mt='20px' letterSpacing={2}>{cardHolderName}</Box>
         </Box>
     </Box>
   )

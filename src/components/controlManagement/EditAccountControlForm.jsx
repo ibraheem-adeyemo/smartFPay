@@ -1,8 +1,6 @@
 import { Box, Heading, Input, Radio, RadioGroup, Text } from '@chakra-ui/react'
 import React, { useContext, useRef, useState} from 'react'
 import ReusableForm from '../reusables/ReusableForm';
-import * as Yup from 'yup';
-import CardControle from './CardControle';
 import PaymentControlProviders, { PaymentControlContext } from '../../providers/PaymentControlProviders';
 import { usePaymentControl } from '../../hooks/paymentControlHooks';
 import { accountControlFields, timeLimitFields } from '../forms/limitControlFormFeilds';

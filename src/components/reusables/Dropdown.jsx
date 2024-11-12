@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Select, FormControl, FormLabel, Heading } from '@chakra-ui/react';
 
-export const CountryDropdowns = () => {
+export const CountryDropdowns = (props) => {
   // State for selected country and channel
   const [selectedCountry, setSelectedCountry] = useState('');
 
+  const {inputFieldHeight} = props
   // Handler functions for selection
   const handleCountrySelect = (event) => {
     setSelectedCountry(event.target.value);
@@ -13,8 +14,8 @@ export const CountryDropdowns = () => {
   return (
     <Box py="4" >
       {/* Enabled Country Dropdown */}
-      <FormControl id="enabled-country" mb="4">
-        <FormLabel>
+      <FormControl id="enabled-country">
+        <FormLabel mb='30px'>
             <Heading size={'sm'}>Enabled Country</Heading>
         </FormLabel>
         <Select
@@ -22,6 +23,8 @@ export const CountryDropdowns = () => {
           value={selectedCountry}
           onChange={handleCountrySelect}
           bgColor="white"
+          color='text_gray'
+          height={inputFieldHeight}
           width='300px'
           outline='none'
           _focus={{outline: 'none'}}
@@ -40,8 +43,9 @@ export const CountryDropdowns = () => {
   );
 };
 
-export const Channelsdropdown = () => {
+export const Channelsdropdown = (props) => {
     
+    const { inputFieldHeight } = props;
   const [selectedChannel, setSelectedChannel] = useState('');
 
   const handleChannelSelect = (event) => {
@@ -51,7 +55,7 @@ export const Channelsdropdown = () => {
     return (
         <Box  py="4">
             <FormControl id="enabled-channel">
-                <FormLabel>
+                <FormLabel mb='30px'>
                     <Heading size={'sm'}>Enabled Channel</Heading>
                 </FormLabel>
                 <Select
@@ -59,7 +63,9 @@ export const Channelsdropdown = () => {
                 value={selectedChannel}
                 onChange={handleChannelSelect}
                 bgColor="white"
-                width='300px'
+                color='text_gray'
+                height={inputFieldHeight}
+                width='370px'
                 outline='none'
                 _focus={{outline: 'none'}}
                 border='none'
@@ -75,6 +81,7 @@ export const Channelsdropdown = () => {
 }
 
 export const ReusableDropdown = (props) => {
+    const {width='370px'} = props
     return (
         <Box  py="4">
             <FormControl id={props.id} display='flex'>
@@ -87,7 +94,7 @@ export const ReusableDropdown = (props) => {
                 onChange={props.onChange}
                 defaultValue={props.defaultValue}
                 bgColor="white"
-                width='30px'
+                width={width}
                 outline='none'
                 _focus={{outline: 'none'}}
                 border='none'
