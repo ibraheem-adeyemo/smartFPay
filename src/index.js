@@ -7,6 +7,7 @@ import App from './App';
 import { extendTheme } from '@chakra-ui/react';
 import { overrides } from './theme';
 import { BrowserRouter } from 'react-router-dom';
+import './index.css'
 
 const theme = extendTheme(overrides)
 

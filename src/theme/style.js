@@ -9,7 +9,7 @@ const styles = {
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             background: "#E5E5E5;",
-            // fontFamily:'sans-serif'
+            fontFamily: 'AvertaRegular, sans-serif'
         }
     }
 }

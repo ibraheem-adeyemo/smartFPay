@@ -9,7 +9,7 @@ const DashboardHeading = (props) => {
   return (
     <Flex marginInline={['20px','30px','50px','50px','50px' ]}justifyContent='space-between' color="primary-text">
         <Flex>
-            <Box>        
+            <Box alignSelf='center'>        
                 <Heading fontSize={['20px','20px','20px','20px','30px','30px',]}>{title}</Heading>
             </Box>
         </Flex>
