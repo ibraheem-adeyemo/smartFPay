@@ -14,7 +14,7 @@ export const ModalComponent = (props) => {
   
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          <ModalContent top={topPosition} left={leftPosition} fontFamily='sans-serif'>
+          <ModalContent top={topPosition} left={leftPosition} fontFamily='AvertaRegular'>
             <ModalHeader>{modalTitle}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>

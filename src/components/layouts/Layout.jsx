@@ -11,7 +11,7 @@ const Layout = ({ pageHeading, children }) => {
         <Box borderBottom="1px solid" paddingY='10px' borderColor="main_light_gray">
             <DashboardHeading title={pageHeading} firstName={'Omolade'} lastName={'john'} />
         </Box>
-        <Box p='32px' color='primary-text' bgColor="primary_light_gray" height='92vh' fontFamily='sans-serif'>
+        <Box p='32px' color='primary-text' bgColor="primary_light_gray" height='92vh' fontFamily='AvertaRegular'>
             {children}
         </Box>
       </Box>

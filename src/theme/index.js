@@ -6,8 +6,8 @@ export const overrides = {
     colors: {...colors.brand},
     
     fonts: {
-        body: 'AvertaRegular, Arial, sans-serif', // Averta with fallback
-        heading: 'AvertaRegular, Arial, sans-serif',
+        body: 'AvertaRegular',  // Averta with fallback
+        heading: 'AvertaRegular',
       },
     components
 }

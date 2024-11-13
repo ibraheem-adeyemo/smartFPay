@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'AvertaRegular'; /* Replace with the actual font name */
-    src: url('./assets/fonts/Averta-Regular.otf') format('otf'); /* Update with correct file names */
+    src: url('./assets/fonts/Averta-Regular.otf') format('opentype'); /* Update with correct file names */
          /* url('./assets/fonts/FontName-Regular.woff') format('woff'); */
     font-weight: normal;
     font-style: normal;
@@ -8,7 +8,7 @@
   
   @font-face {
     font-family: 'AvertaBold';
-    src: url('./assets/fonts/Averta-Bold.otf') format('otf');
+    src: url('./assets/fonts/Averta-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
   }

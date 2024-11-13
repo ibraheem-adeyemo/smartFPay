@@ -3,7 +3,7 @@ const Text = {
   baseStyle: {
     color: "brand.primary-text",
     fontStyle: "normal",
-    fontFamily:'sans-serif'
+    fontFamily:'AvertaRegular'
   },
   // Styles for the size variations
   sizes: {
@@ -33,7 +33,7 @@ const Text = {
   variants: {
     "card-header": {
       fontWeight: 800,
-      fontFamily:'sans-serif'
+      fontFamily:'AvertaRegular'
     },
     "page-header": {
       color: "brand.page-header",
