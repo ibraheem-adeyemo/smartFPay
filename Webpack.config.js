@@ -13,7 +13,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx|json)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -21,6 +21,10 @@ module.exports = {
                         presets: ['@babel/preset-env', '@babel/preset-react']
                     }
                 }
+            },
+            {
+                test: /\.json$/,
+                type: 'json' // Tells Webpack to handle .json files natively
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/,  // Add a loader for images if needed

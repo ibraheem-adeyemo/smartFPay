@@ -22,13 +22,16 @@ import { EditAcccountControlPage } from './components/controlManagement/EditAcco
 import { EditCardControlPage } from './components/controlManagement/EditCardControlForm';
 import { EditCustomerAccountFormPage } from './components/controlManagement/EditCustomerAccountForm';
 import { LimitDetail} from './components/controlManagement/LimitDetail';
+import { CustomerInfo } from './components/customerInformation/CustomerInfo';
 
 const App = () => {
   return (
     <Routes>
         <Route path={pageLinks.dashboard} element={<Dashboard />} />
          <Route path={pageLinks.userManagement} element={<UserManagement />} />
-        <Route path={pageLinks.customerInformation} element={<CustomerInfomation />} />
+        <Route path={pageLinks.customerInformation} element={<CustomerInfomation />}>
+            <Route path='' element={<CustomerInfo />} />
+        </Route>
         <Route path={pageLinks.controlManagement} element={<ControlManagement />}>
             <Route path='' element={<ControlManagementTable />} />
             <Route path={pageLinks.userAccount} element={<InputUserAccountPage />} />

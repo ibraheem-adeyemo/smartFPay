@@ -1,6 +1,7 @@
 import React from "react";
 import { useDisclosure , Button, Modal,ModalOverlay, ModalHeader, ModalContent, ModalCloseButton, ModalBody, ModalFooter, } from "@chakra-ui/react";
 import { ButtonComponent } from "./ButtonComponent";
+import { HiDotsVertical } from "react-icons/hi";
 
 export const ModalComponent = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,3 +34,27 @@ export const ModalComponent = (props) => {
       </>
     );
   }
+
+
+export const TableActionModal = ({children, topPosition='500px', leftPosition='300px'}) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    return (
+        <>
+            <ButtonComponent onClick={onOpen} btnText={<HiDotsVertical />} ml='20px' py='30px' variant='outline' borderColor='main_light_gray' color='primary-text' />
+  
+            <Modal isOpen={isOpen} onClose={onClose}>
+                {/* <ModalOverlay /> */}
+                <ModalContent fontFamily='AvertaRegular'>
+                {/* <ModalHeader>{modalTitle}</ModalHeader> */}
+                {/* <ModalCloseButton /> */}
+                <ModalBody p='0'>
+                    {children}
+                </ModalBody>
+
+                
+                </ModalContent>
+            </Modal>
+        </>
+    )
+}

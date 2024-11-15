@@ -79,7 +79,7 @@ const Sidebar = () => {
       bg="white"
       color="text_gray"
       position="fixed"
-      fontSize='20px'
+      fontSize='1.2rem'
       borderRight="1px solid"
       borderColor="main_light_gray"
     >
@@ -87,7 +87,7 @@ const Sidebar = () => {
         <Box>
         <Box borderBottom="1px solid" borderColor="main_light_gray" >
             <Flex py='10.5px' display={['none','none','none','none','block','block']}>
-                <Image src={imageUrl.iswLogo} alt='interswitch logo' width='200px' margin='auto' />
+                <Image src={imageUrl.iswLogo} alt='interswitch logo' width={['200px','200px','200px','200px','200px','200px',]} margin='auto' />
             </Flex>
             <Flex py='10.5px' display={['block','block','block','block','none','none']}>
                 <Image src={imageUrl.iswFavLogo} alt='interswitch logo' height='50px' margin='auto' />
@@ -95,7 +95,7 @@ const Sidebar = () => {
         </Box>
         <VStack spacing={3} align="flex-start" pt={10} as="nav">
             {sidebarContent.map((item, index) => (
-                <Link key={index} as={RouterLink} to={item.href} w={["80px","80px","80px","100px","300px"]} borderRadius='7px' p='10px 20px' mr='20px' display="flex" style={location.pathname === item.href ? activeStyle : {}} alignItems="center" marginLeft='30px'>
+                <Link key={index} as={RouterLink} to={item.href} borderRadius='7px' p='10px 20px' mr='20px' display="flex" style={location.pathname === item.href ? activeStyle : {}} alignItems="center" marginLeft='30px'>
                     <item.icon /> <Text ml='20px' display={['none','none','none','none','block','block']}>{item.name}</Text>
                 </Link>
         ))}

@@ -1,0 +1,56 @@
+[
+    {
+        "date":"09/09/2024",
+        "first_name":"Homer",
+        "last_name":"McGivena",
+        "account_number":1409345689,
+        "core_banking_id":88543607,
+        "channels":"ATM,POS,WEB,USSD, Cards",
+        "subscribe":true
+    },
+    {
+        "date":"05/09/2024",
+        "first_name":"Asher",
+        "last_name":"Pyson",
+        "account_number":1409345689,
+        "core_banking_id":85432607,
+        "channels":"ATM,POS,WEB,USSD, Cards",
+        "subscribe":false
+    },
+    {
+        "date":"10/09/2024",
+        "first_name":"Celestia_check",
+        "last_name":"Ollerhad",
+        "account_number":1409345689,
+        "core_banking_id":85026079,
+        "channels":"ATM,POS,WEB,USSD, Cards",
+        "subscribe":true
+    },
+    {
+        "date":"09/13/2024",
+        "first_name":"Erma",
+        "last_name":"Ianinotti",
+        "account_number":1319345689,
+        "core_banking_id":18543600,
+        "channels":"ATM,POS,WEB,USSD, Cards",
+        "subscribe":true
+    },
+    {
+        "date":"07/12/2024",
+        "first_name":"Imogene_check",
+        "last_name":"Ablitt",
+        "account_number":1014093456,
+        "core_banking_id":85426078,
+        "channels":"ATM,POS,WEB,USSD, Cards",
+        "subscribe":true
+    },
+    {
+        "date":"10/13/2024",
+        "first_name":"Karlene",
+        "last_name":"Morales",
+        "account_number":1140956890,
+        "core_banking_id":85412607,
+        "channels":"ATM,POS,WEB,USSD, Cards",
+        "subscribe":true
+    }
+]

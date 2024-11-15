@@ -4,9 +4,9 @@ import { InputGroup, Input, InputRightElement, FormControl, FormLabel, Box, Flex
 import { MdOutlineCalendarToday } from "react-icons/md";
 import DatePicker from 'react-datepicker';
 
-export const DatePickerComponent = ({ label, startDate, inputFieldHeight='initial', endDate, onEndDateChange, marginTop='10px', size='md', labelMb='30px', width='350px', placeholder="Please Select", bgColor='none', ...rest }) => {
+export const DatePickerComponent = ({ label, startDate, inputFieldHeight='4rem', endDate, onEndDateChange, marginTop='0.2rem', size='md', labelMb='30px', width='350px', placeholder="Please Select", bgColor='none', ...rest }) => {
   return (
-    <FormControl id="end-date">
+    <FormControl id="end-date" width={width}>
       <FormLabel mb={labelMb}>
         <Heading size={size}>{label}</Heading>
       </FormLabel>
@@ -15,15 +15,16 @@ export const DatePickerComponent = ({ label, startDate, inputFieldHeight='initia
           selected={endDate}
           onChange={onEndDateChange}
           selectsEnd
+          width='100%'
         //   startDate={startDate}
           endDate={endDate}
           minDate={startDate}
           dateFormat="yyyy-MM-dd"
           customInput={
-            <InputGroup width={width} bgColor={bgColor} {...rest} alignItems='center' height={inputFieldHeight}>
+            <InputGroup width={'100%'} bgColor={bgColor} {...rest} alignItems='center' height={inputFieldHeight}>
                 <Input placeholder={placeholder} border='none' />
                 <InputRightElement pointerEvents="none" alignSelf='center' mt={marginTop}>
-                    <MdOutlineCalendarToday fontSize='24px' color="text_gray" />
+                    <MdOutlineCalendarToday fontSize='1rem' color="text_gray" />
                 </InputRightElement>
             </InputGroup>
             }

@@ -10,7 +10,7 @@ const SearchComponent = ({ placeholder = "Search...", onSearch }) => {
   };
 
   return (
-    <Box width='800px' height={'70px'}>
+    <Box width={['100%','100%','100%','80%','70%','70%' ]} height={'70px'}>
       <InputGroup height='100%'>
         <InputLeftElement pointerEvents="none" height='100%'>
           <FaSearch color="gray.400" />

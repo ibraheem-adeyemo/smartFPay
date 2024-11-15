@@ -2,6 +2,9 @@ const colors = {
     brand: {
         50:"#0275D8",
         main_light_gray:"#E1E6ED",
+        badgeRed: "#A4251A",
+        badgeRedBgColor:"#F4B7B5",
+        badgeGreen: "#36743D",
         primary_light_gray:"#F3F5F6",
         form_input_gray: "#848F9F",
         text_gray:"#5F738C",

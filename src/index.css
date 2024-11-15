@@ -11,4 +11,32 @@
     src: url('./assets/fonts/Averta-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
-  }
+}
+
+.chakra-form-control .react-datepicker-wrapper {
+    width: 100%;
+}
+td.css-xp8orb {
+    padding-inline: 2px;
+}
+p.css-1mjk05e {
+    padding-inline: 1px;
+}
+td.css-1mjk05e {
+    padding-inline: 1px;
+    text-align: center;
+}
+th.css-1cnyizk {
+    padding-inline: 1px;
+    text-align: center;
+}
+th.css-1zts0j {
+    padding-inline: 1px;
+}
+p.css-1k10r3w {
+    width: fit-content;
+    justify-self: center;
+}
+td.css-1syylew {
+    padding-inline: 1px;
+}

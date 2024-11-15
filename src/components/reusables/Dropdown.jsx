@@ -5,14 +5,14 @@ export const CountryDropdowns = (props) => {
   // State for selected country and channel
   const [selectedCountry, setSelectedCountry] = useState('');
 
-  const {inputFieldHeight} = props
+  const {inputFieldHeight='4rem', inputFieldWidth='360px'} = props
   // Handler functions for selection
   const handleCountrySelect = (event) => {
     setSelectedCountry(event.target.value);
   };
 
   return (
-    <Box py="4" >
+    <Box py="4" width={inputFieldWidth}>
       {/* Enabled Country Dropdown */}
       <FormControl id="enabled-country">
         <FormLabel mb='30px'>
@@ -25,7 +25,7 @@ export const CountryDropdowns = (props) => {
           bgColor="white"
           color='text_gray'
           height={inputFieldHeight}
-          width='300px'
+        //   width={inputFieldWidth}
           outline='none'
           _focus={{outline: 'none'}}
           border='none'
@@ -45,7 +45,7 @@ export const CountryDropdowns = (props) => {
 
 export const Channelsdropdown = (props) => {
     
-    const { inputFieldHeight } = props;
+    const { inputFieldHeight='4rem', inputFieldWidth='360px' } = props;
   const [selectedChannel, setSelectedChannel] = useState('');
 
   const handleChannelSelect = (event) => {
@@ -53,7 +53,7 @@ export const Channelsdropdown = (props) => {
   };
 
     return (
-        <Box  py="4">
+        <Box  py="4" width={inputFieldWidth}>
             <FormControl id="enabled-channel">
                 <FormLabel mb='30px'>
                     <Heading size={'sm'}>Enabled Channel</Heading>
@@ -65,7 +65,7 @@ export const Channelsdropdown = (props) => {
                 bgColor="white"
                 color='text_gray'
                 height={inputFieldHeight}
-                width='370px'
+                // width=
                 outline='none'
                 _focus={{outline: 'none'}}
                 border='none'

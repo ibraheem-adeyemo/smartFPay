@@ -12,25 +12,74 @@ import { pageLinks } from '../../constants/pageLinks';
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import TableFooter from '../reusables/TableFooter';
 import { DownloadModal } from '../reusables/DownloadModal';
+import { TableActionModal } from '../reusables/Modal';
 
 
-const ActionOptions = ({isShown}) => {
+// const ActionOptions = ({isShown}) => {
 
-    const navigation = useNavigate()
+//     const navigation = useNavigate()
 
-    const handleEditBtn = () => {
-        navigation(`${pageLinks.controlManagement}/${pageLinks.editCustomerAccount}`)
-    }
-    const handleViewBtn = () => {
-        navigation(`${pageLinks.controlManagement}/${pageLinks.limitDetail}`)
-    }
-    return (
-        <Flex flexDir={'column'} position='absolute' border='1px solid' px='10px' width='160px' display={isShown ?'flex' :'none'} borderColor='main_light_gray' borderRadius={'7px'}>
-            <ButtonComponent btnText='View Details' backgroundColor='white' onClick={handleViewBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
-            <ButtonComponent btnText='Edit Control' backgroundColor='white' onClick={handleEditBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
-        </Flex>
-    )
-}
+//     const handleEditBtn = () => {
+//         onClose();
+//         navigation(`${pageLinks.controlManagement}/${pageLinks.editCustomerAccount}`)
+//     }
+//     const handleViewBtn = () => {
+//         onClose();
+//         navigation(`${pageLinks.controlManagement}/${pageLinks.limitDetail}`)
+//     }
+//     return (
+//         <Flex flexDir={'column'} position='absolute' border='1px solid' px='10px' width='160px' display={isShown ?'flex' :'none'} borderColor='main_light_gray' borderRadius={'7px'}>
+//             <ButtonComponent btnText='View Details' backgroundColor='white' onClick={handleViewBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
+//             <ButtonComponent btnText='Edit Control' backgroundColor='white' onClick={handleEditBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
+//         </Flex>
+//     )
+// }
+
+// ActionOptions component to show actions for each row
+const ActionOptions = ({ isShown, onClose }) => {
+  const navigate = useNavigate();
+
+  const handleEditBtn = () => {
+    onClose();
+    navigate(`${pageLinks.controlManagement}/${pageLinks.editCustomerAccount}`);
+  };
+
+  const handleViewBtn = () => {
+    onClose();
+    navigate(`${pageLinks.controlManagement}/${pageLinks.limitDetail}`);
+  };
+
+  return (
+    <Flex
+      flexDir="column"
+      position="absolute"
+      border="1px solid"
+      px="10px"
+      width="160px"
+      display={isShown ? 'flex' : 'none'}
+      borderColor="main_light_gray"
+      borderRadius="7px"
+    >
+      <ButtonComponent
+        btnText="View Details"
+        backgroundColor="white"
+        onClick={handleViewBtn}
+        _hover={{ backgroundColor: 'white', color: 'main_light_gray' }}
+        color="primary-text"
+        width="100px"
+      />
+      <ButtonComponent
+        btnText="Edit Control"
+        backgroundColor="white"
+        onClick={handleEditBtn}
+        _hover={{ backgroundColor: 'white', color: 'main_light_gray' }}
+        color="primary-text"
+        width="100px"
+      />
+    </Flex>
+  );
+};
+
 // Sample dummy data for payment entries
 const dummyData = [
   {
@@ -93,51 +142,119 @@ const dummyData = [
 ];
 
 // Table columns configuration
-const columns = [
-  {
-    Header: 'Account Number',
-    accessor: 'accountNumber',
-  },
-  {
-    Header: 'Account Name',
-    accessor: 'accountName',
-  },
-  {
-    Header: 'Enabled Channel',
-    accessor: 'enabledChannel',
-  },
-  {
-    Header: 'Amount Control',
-    accessor: 'amountControl',
-    Cell: (props) => {
-        const currencyCode = '₦'
-        return `${currencyCode}${Number(props.value).toLocaleString()}`
-    }
-  },
-  {
-    Header: 'Actions',
-    accessor: 'actions',
-    Cell: (props) => {
-        const [isShown, setIsShown] = useState(false)
-        return (
-            <>
-            <IconButton
-                aria-label="More actions"
-                icon={<FiMoreVertical />}
-                variant="ghost"
-                size="lg"
-                onClick={()=>setIsShown(!isShown)}
-            />
-            <ActionOptions isShown={isShown} />
-        </>
-        )
-    }       
-    ,
-  },
-];
+// const columns = [
+//   {
+//     Header: 'Account Number',
+//     accessor: 'accountNumber',
+//   },
+//   {
+//     Header: 'Account Name',
+//     accessor: 'accountName',
+//   },
+//   {
+//     Header: 'Enabled Channel',
+//     accessor: 'enabledChannel',
+//   },
+//   {
+//     Header: 'Amount Control',
+//     accessor: 'amountControl',
+//     Cell: (props) => {
+//         const currencyCode = '₦'
+//         return `${currencyCode}${Number(props.value).toLocaleString()}`
+//     }
+//   },
+//   {
+//     Header: 'Actions',
+//     accessor: 'actions',
+//     Cell: (props) => {
+//         const [activeRow, setActiveRow] = useState(null)
+
+//         const toggleActiveRow = (row) => {
+            
+//             setActiveRow((prev) => {
+//                 return row.id === prev? null : row.id
+//             })
+//         }
+
+//         console.log(activeRow, 'activeRow.id, ')
+//         const closeActionOption = () => {
+//             setActiveRow(null)
+//         }
+//         return (
+//             <>
+//             {/* <TableActionModal>
+//                 <ActionOptions />
+//             </TableActionModal> */}
+//             <IconButton
+//                 aria-label="More actions"
+//                 icon={<FiMoreVertical />}
+//                 variant="ghost"
+//                 size="lg"
+//                 onClick={()=>toggleActiveRow(props.row)}
+//             />
+//             <ActionOptions isShown={activeRow === props.row.id} onClose={closeActionOption} />
+//         </>
+//         )
+//     }       
+//     ,
+//   },
+// ];
 
 // PaymentTable component
 export const PaymentManagementTable = ({ paymentData = dummyData }) => {
+
+    const [activeRow, setActiveRow] = useState(null);
+
+    const toggleActiveRow = (rowId) => {
+      setActiveRow((prev) => (rowId === prev ? null : rowId));
+    };
+  
+    const columns = React.useMemo(() =>[
+      {
+        Header: 'Account Number',
+        accessor: 'accountNumber',
+      },
+      {
+        Header: 'Account Name',
+        accessor: 'accountName',
+      },
+      {
+        Header: 'Enabled Channel',
+        accessor: 'enabledChannel',
+      },
+      {
+        Header: 'Amount Control',
+        accessor: 'amountControl',
+        Cell: (props) => {
+          const currencyCode = '₦';
+          return `${currencyCode}${Number(props.value).toLocaleString()}`;
+        },
+      },
+      {
+        Header: 'Actions',
+        accessor: 'actions',
+        Cell: (props) => (
+          <>
+            <IconButton
+              aria-label="More actions"
+              icon={<FiMoreVertical />}
+              variant="ghost"
+              size="lg"
+              onClick={() => toggleActiveRow(props.row.id)}
+            />
+            {
+                activeRow === props.row.id && (
+                    <ActionOptions
+                        isShown={activeRow === props.row.id}
+                        onClose={() => setActiveRow(null)}
+                    />
+                )
+            }
+          </>
+        ),
+      },
+    ], [activeRow]);    
+
     const [isShown, setIsShown] = useState(false)
     const currencyCode = '₦'
     const {
@@ -163,7 +280,7 @@ export const PaymentManagementTable = ({ paymentData = dummyData }) => {
 
   return (
     <Box overflowX="auto">
-      <Table {...getTableProps()} variant="simple" size="md">
+      <Table {...getTableProps()} variant="simple">
         <Thead bg="main_light_gray">
           {headerGroups.map((headerGroup) => (
             <Tr {...headerGroup.getHeaderGroupProps()} borderBottomColor="main_light_gray">
@@ -199,13 +316,12 @@ export const ControlManagementTable = () => {
     return (
         <Box>
             <HStack spacing={6}>
-                <CountryDropdowns inputFieldHeight='60px' />
-                <Channelsdropdown inputFieldHeight='60px' />
-                {/* <DateRangeFilter /> */}
-                <DatePickerComponent width='360px' borderRadius='8px' inputFieldHeight='60px' size='sm' label='State Date' bgColor='white' />
-                <DatePickerComponent width='360px' borderRadius='8px' inputFieldHeight='60px' size='sm' label='End Date' bgColor='white' />
+                <CountryDropdowns inputFieldWidth='25%' />
+                <Channelsdropdown inputFieldWidth='25%' />
+                <DatePickerComponent width='25%' borderRadius='8px' size='sm' label='Start Date' bgColor='white' />
+                <DatePickerComponent width='25%' borderRadius='8px' size='sm' label='End Date' bgColor='white' />
             </HStack>
-            <Flex justifyContent='space-between' my='30px'>
+            <Flex justifyContent='space-between' my='2rem'>
                 <SearchComponent placeholder="Search by account number, account name"
                     onSearch={(query) => console.log("Searching for:")} />
                     <Button colorScheme="blue" variant="outline" size="md" bgColor='light-blue' height={'70px'} width='130px' alignSelf='center'>
@@ -214,17 +330,16 @@ export const ControlManagementTable = () => {
             </Flex>
             <Box border='1px solid' borderRadius='8px' bgColor='white' borderColor='main_light_gray'>
                 <Flex py='30px' px='20px' justifyContent='space-between'>
-                    <Box>
+                    <Box width='50%'>
                         <Flex>
                             <Heading size='lg' mr='20px'>Controls</Heading>
                             <Flex alignSelf='center' color='base_popblue' width='50px' pt='7px'>
-                                <BsArrowCounterclockwise fontSize='25px' fontWeight='700' mt='4px' />
-
+                                <BsArrowCounterclockwise fontSize='1rem' fontWeight='700' mt='4px' />
                             </Flex>
                         </Flex>
                         <Text mt='10px' color='text_gray'>See a directory of all controls setup on this system.</Text>
                     </Box>
-                    <Flex>
+                    <Flex width='50%'>
                         {/* <ButtonComponent size='lg' ml='20px' py='30px' variant='outline' btnText='Download data' borderColor='main_light_gray' color='primary-text' /> */}
                         <DownloadModal />
                         <ButtonComponent size='lg' as={Link} to={`${pageLinks.controlManagement}/${pageLinks.userAccount}`} ml='20px' py='30px' btnText='Create control' />
