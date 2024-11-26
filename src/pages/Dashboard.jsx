@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../components/layouts/Layout'
+import Layout from '../layouts/Layout'
 import { Box } from '@chakra-ui/react'
 
 const Dashboard = () => {

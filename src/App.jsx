@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from './components/layouts/Layout';
+import Layout from './layouts/Layout';
 import { Box, Heading } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
@@ -23,6 +23,7 @@ import { EditCardControlPage } from './components/controlManagement/EditCardCont
 import { EditCustomerAccountFormPage } from './components/controlManagement/EditCustomerAccountForm';
 import { LimitDetail} from './components/controlManagement/LimitDetail';
 import { CustomerInfo } from './components/customerInformation/CustomerInfo';
+import { CreateCustomer } from './components/customerInformation/CreateCustomer';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
          <Route path={pageLinks.userManagement} element={<UserManagement />} />
         <Route path={pageLinks.customerInformation} element={<CustomerInfomation />}>
             <Route path='' element={<CustomerInfo />} />
+            <Route path={pageLinks.createCustomer} element={<CreateCustomer />} />
         </Route>
         <Route path={pageLinks.controlManagement} element={<ControlManagement />}>
             <Route path='' element={<ControlManagementTable />} />

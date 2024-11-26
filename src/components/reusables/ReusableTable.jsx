@@ -181,7 +181,7 @@ export const ReusableTable = (props) => {
 
   return (
     <Box>
-        <Table {...getTableProps()} fontSize='1rem'>
+        <Table {...getTableProps()} fontSize={{xl:'0.7rem','2xl':'1rem','3xl':'1.3rem'}} border="1px solid main_light_gray">
             <Thead bgColor={bgColor}>
                 {headerGroups.map((headerGroup) => (
                 <Tr {...headerGroup.getHeaderGroupProps()}>
@@ -203,9 +203,9 @@ export const ReusableTable = (props) => {
                 {tablePage.map((row) => {
                 prepareRow(row);
                 return (
-                    <Tr {...row.getRowProps()}>
+                    <Tr {...row.getRowProps()} borderBottomColor="main_light_gray" bg='white'>
                     {row.cells.map((cell) => (
-                        <Td {...cell.getCellProps()} maxW='3rem' justifyContent='center'>{cell.render('Cell')}</Td>
+                        <Td {...cell.getCellProps()} className='retabtd' justifyContent='center'>{cell.render('Cell')}</Td>
                     ))}
                     </Tr>
                 );

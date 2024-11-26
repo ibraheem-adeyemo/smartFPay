@@ -79,7 +79,7 @@ const Sidebar = () => {
       bg="white"
       color="text_gray"
       position="fixed"
-      fontSize='1.2rem'
+      fontSize={{xl:'0.7rem','2xl':'1rem','3xl':'1rem'}}
       borderRight="1px solid"
       borderColor="main_light_gray"
     >

@@ -71,7 +71,7 @@ export const EditCardControl = ({children}) => {
             <Box width='700px' border="1px solid" borderColor="main_light_gray" bgColor='white' borderRadius='8px' p='24px' minH='400px'>
                 {children}
             </Box>
-            <Box width='670px' border="1px solid" borderColor="main_light_gray" bgColor='white' borderRadius='8px' p='24px'>
+            <Box width='670px' border="1px solid" borderColor="main_light_gray" height='30rem' bgColor='white' borderRadius='8px' p='24px'>
                 <Box mb='50px'>
                     <Heading size='md'>Card Details</Heading>
                 </Box>

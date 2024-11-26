@@ -1,6 +1,7 @@
 export const pageLinks = {
     dashboard:'/',
     userManagement: '/user-management',
+    createCustomer: 'create-customer',
     customerInformation: '/customer-information',
     controlManagement: '/control-management',
     auditTrail: '/audit-trail',

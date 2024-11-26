@@ -339,7 +339,7 @@ export const ControlManagementTable = () => {
                         </Flex>
                         <Text mt='10px' color='text_gray'>See a directory of all controls setup on this system.</Text>
                     </Box>
-                    <Flex width='50%'>
+                    <Flex>
                         {/* <ButtonComponent size='lg' ml='20px' py='30px' variant='outline' btnText='Download data' borderColor='main_light_gray' color='primary-text' /> */}
                         <DownloadModal />
                         <ButtonComponent size='lg' as={Link} to={`${pageLinks.controlManagement}/${pageLinks.userAccount}`} ml='20px' py='30px' btnText='Create control' />

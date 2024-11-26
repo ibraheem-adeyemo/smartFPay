@@ -33,10 +33,12 @@ th.css-1cnyizk {
 th.css-1zts0j {
     padding-inline: 1px;
 }
-p.css-1k10r3w {
+td.retabtd {
     width: fit-content;
-    justify-self: center;
+    text-align: center;
+    padding-inline: 1px;
 }
 td.css-1syylew {
     padding-inline: 1px;
+    text-align: center;
 }

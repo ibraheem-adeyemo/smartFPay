@@ -10,11 +10,11 @@ const DashboardHeading = (props) => {
     <Flex marginInline={['20px','30px','50px','50px','50px' ]}justifyContent='space-between' color="primary-text">
         <Flex>
             <Box alignSelf='center'>        
-                <Heading fontSize={['20px','20px','20px','20px','30px','30px',]}>{title}</Heading>
+                <Heading fontSize={{xl:'1.2rem','2xl':'1rem','3xl':'1.3rem'}}>{title}</Heading>
             </Box>
         </Flex>
         <Flex>
-            <Flex width='250px' justifyContent='space-evenly'>
+            <Flex width='250px' justifyContent='space-evenly' fontSize={{xl:'1.2rem','2xl':'1rem','3xl':'1.3rem'}}>
                 <Flex flexDir='column' justifyContent='center'>
                     <Heading size={'sm'}>Hi, {firstName}</Heading>
                     <Text size="tag-text">{firstName} {lastName}</Text>

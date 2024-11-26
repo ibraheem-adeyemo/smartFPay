@@ -18,3 +18,10 @@ export const countValidationSchema = Yup.object({
     enabledCountries: Yup.string().required('Enabled country is required'),
     enabledCountries: Yup.string().required('Enabled channel is required'),
 });
+
+export const createCustomerFormValidationSchema = Yup.object({
+    accountNumber: Yup.number().required('Customer account number is required'),
+    coreBankingId: Yup.number().required('Customer core banking ID is required'),
+    customerName: Yup.string().required('Kindly input Customer name'),
+    enabledPaymentChannels: Yup.string().required('One or more enabled payment channels must be checked'),
+});

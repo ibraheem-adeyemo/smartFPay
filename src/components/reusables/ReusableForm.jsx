@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
-import { Box, Flex, FormControl, FormLabel, Input, Button, VStack, Textarea, Select, RadioGroup, Radio } from '@chakra-ui/react';
+import { Box, Flex, FormControl, FormLabel, Input, Button, VStack, Textarea, Select, RadioGroup, Radio, CheckboxGroup, Checkbox, HStack, Text } from '@chakra-ui/react';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import DatePicker from 'react-datepicker';
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { DatePickerComponent } from './DatePicker';
 
 // Reusable Form Field Component
-const FormField = ({ label, name, type = 'text', component = Input, componentName, options = [], ...props }) => {
+const FormField = ({ label, name, type = 'text', isRequired=false, component = Input, componentName, options = [], ...props }) => {
 
+    console.log(isRequired, 'isRequired')
     return <Field name={name}>
     {({ field, form }) => (
       <FormControl isInvalid={form.errors[name] && form.touched[name]} mb={4}>
-        <FormLabel htmlFor={name} fontWeight='bold' fontSize='14px'>{label}</FormLabel>
+        <FormLabel htmlFor={name} fontWeight='bold' fontSize='14px'>{label} {isRequired ? <Text as={'span'} color='red.500' ml={1}> * </Text> : <></>}</FormLabel>
         <Box>
           {componentName === 'select' ? (
             <Field as={Select} id={name} {...field} {...props}>
@@ -48,8 +49,24 @@ const FormField = ({ label, name, type = 'text', component = Input, componentNam
                 </Radio>
               ))}
             </RadioGroup>
+          ): componentName === 'checkBoxGroup' ? (
+            <CheckboxGroup defaultValue='' {...field} {...props}>
+              <HStack align='flex-start' width='30rem' justifyContent='space-between'>
+                {options.map((checkGroup) => (
+                    <VStack align='baseline' spacing={3}>
+                        {
+                            checkGroup.map((option) => (
+                                <Checkbox key={option.value} value={option.value} mr='20px'>
+                                    {option.label}
+                                </Checkbox>
+                            ))
+                        }
+                    </VStack>
+                ))}
+              </HStack>
+            </CheckboxGroup>
           ) : (
-            <Field as={component} id={name} fontSize='18px' {...field} {...props} />
+            <Field as={component} id={name} fontSize='18px' required={true} {...field} {...props} />
           )}
         </Box>
       </FormControl>

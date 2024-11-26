@@ -18,8 +18,8 @@ export const CountryDropdowns = (props) => {
         <FormLabel mb='30px'>
             <Heading size={'sm'}>Enabled Country</Heading>
         </FormLabel>
-        <Select
-          placeholder="Select Country"
+        <Select            
+        //   placeholder="Select Country"
           value={selectedCountry}
           onChange={handleCountrySelect}
           bgColor="white"
@@ -30,7 +30,7 @@ export const CountryDropdowns = (props) => {
           _focus={{outline: 'none'}}
           border='none'
         >
-          <option value="Ghana">Ghana</option>
+          <option mt='20px' value="Ghana">Ghana</option>
           <option value="Kenya">Kenya</option>
           <option value="Nigeria">Nigeria</option>
           <option value="Cameroon">Cameroon</option>
