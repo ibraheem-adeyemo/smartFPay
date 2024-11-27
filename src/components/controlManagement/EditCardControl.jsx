@@ -56,7 +56,7 @@ export const EditCardControl = ({children}) => {
             </Button>
             {
                 visitUrl == pageLinks.editCustomerAccount && <React.Fragment>
-                    <Flex width='700px' justifyContent='space-evenly'>
+                    <Flex justifyContent='space-evenly' gap='1rem'>
                         <ButtonComponent as={Link} to={`${pageLinks.controlManagement}/${pageLinks.editCardControl}`} btnText='Edit Card Control' variant='outline' />
                         <ButtonComponent as={Link} to={`${pageLinks.controlManagement}/${pageLinks.editAccountControl}`} btnText='Edit Account Control' />
                     </Flex>
@@ -67,11 +67,11 @@ export const EditCardControl = ({children}) => {
                submitBtnURLArray.includes(visitUrl) && <Flex> <ButtonComponent btnText='Save Changes' isDisabled={btnIsDisabled} onClick={handleControlSubmit}  /> </Flex>
             }
         </Flex>
-        <Flex gap="32px">
-            <Box width='700px' border="1px solid" borderColor="main_light_gray" bgColor='white' borderRadius='8px' p='24px' minH='400px'>
+        <Flex gap={{xl:"1rem", '3xl':'2.5rem'}}>
+            <Box width='54%' border="1px solid" borderColor="main_light_gray" bgColor='white' borderRadius='8px' p='24px' minH='400px'>
                 {children}
             </Box>
-            <Box width='670px' border="1px solid" borderColor="main_light_gray" height='30rem' bgColor='white' borderRadius='8px' p='24px'>
+            <Box width='46%' border="1px solid" borderColor="main_light_gray" height='fit-content' bgColor='white' borderRadius='8px' p='24px'>
                 <Box mb='50px'>
                     <Heading size='md'>Card Details</Heading>
                 </Box>

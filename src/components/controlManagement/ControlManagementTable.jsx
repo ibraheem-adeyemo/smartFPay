@@ -56,6 +56,9 @@ const ActionOptions = ({ isShown, onClose }) => {
       border="1px solid"
       px="10px"
       width="160px"
+      right='6rem'
+      bgColor='white'
+      zIndex={200} 
       display={isShown ? 'flex' : 'none'}
       borderColor="main_light_gray"
       borderRadius="7px"
@@ -176,7 +179,6 @@ const dummyData = [
 //             })
 //         }
 
-//         console.log(activeRow, 'activeRow.id, ')
 //         const closeActionOption = () => {
 //             setActiveRow(null)
 //         }

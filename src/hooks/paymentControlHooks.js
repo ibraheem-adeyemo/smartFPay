@@ -11,7 +11,6 @@ export const usePaymentControl = () => {
     }
 
     const  switchControl = (control) => {
-        console.log(control)
         setLimit(control)
         enableBtn()
     }

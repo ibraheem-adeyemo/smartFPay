@@ -57,7 +57,7 @@ const CardControl = ({children}) => {
 
   return (
     <Box>
-        <Flex mb='32px' alignItems='center' justifyContent='space-between'>
+        <Flex mb='1rem' alignItems='center' justifyContent='space-between'>
             <BackButton />
             {
                 visitUrl == 'customer-account-form' && <React.Fragment>
@@ -71,11 +71,11 @@ const CardControl = ({children}) => {
                submitBtnURLArray.includes(visitUrl) && <Flex> <ButtonComponent btnText='Submit' isDisabled={btnIsDisabled} onClick={handleControlSubmit}  /> </Flex>
             }
         </Flex>
-        <Flex gap="32px">
-            <Box width='700px' border="1px solid" borderColor="main_light_gray" bgColor='white' borderRadius='8px' p='24px' minH='400px'>
+        <Flex gap={{xl:"1rem", '3xl':'2.5rem'}}>
+            <Box width='54%' border="1px solid" borderColor="main_light_gray" bgColor='white' borderRadius='8px' p='24px' minH='22rem'>
                 {children}
             </Box>
-            <Box width='670px' border="1px solid" borderColor="main_light_gray" height='30rem' bgColor='white' borderRadius='8px' p='24px'>
+            <Box width='46%' border="1px solid" borderColor="main_light_gray" height='fit-content' bgColor='white' borderRadius='8px' p='24px'>
                 <Box mb='50px'>
                     <Heading size='md'>Card Details</Heading>
                 </Box>

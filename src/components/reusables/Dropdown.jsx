@@ -30,6 +30,10 @@ export const CountryDropdowns = (props) => {
           _focus={{outline: 'none'}}
           border='none'
         >
+          <option value="" disabled hidden>
+                {"Select Country"}
+          </option>  
+          <option value="" disabled hidden>Please select </option>
           <option mt='20px' value="Ghana">Ghana</option>
           <option value="Kenya">Kenya</option>
           <option value="Nigeria">Nigeria</option>
@@ -59,8 +63,8 @@ export const Channelsdropdown = (props) => {
                     <Heading size={'sm'}>Enabled Channel</Heading>
                 </FormLabel>
                 <Select
-                placeholder="Select Channel"
-                value={selectedChannel}
+                // placeholder="Select Channel"
+                value={selectedChannel || ''}
                 onChange={handleChannelSelect}
                 bgColor="white"
                 color='text_gray'
@@ -70,6 +74,9 @@ export const Channelsdropdown = (props) => {
                 _focus={{outline: 'none'}}
                 border='none'
                 >
+                <option value="" disabled hidden>
+                    {"Select Channel"}
+                </option>
                 <option value="ATM">ATM</option>
                 <option value="POS">POS</option>
                 <option value="WEB">WEB</option>
@@ -81,33 +88,40 @@ export const Channelsdropdown = (props) => {
 }
 
 export const ReusableDropdown = (props) => {
-    const {width='370px'} = props
+    const {
+        inputFieldHeight = '4rem',
+        width = '370px',
+        marginBottom = '30px',
+        display = 'block',
+        placeholder = 'Please Select',
+        
+    } = props;
+
     return (
-        <Box  py="4">
-            <FormControl id={props.id} display='flex'>
-                <FormLabel>
-                    <Heading size={'sm'} pt='10px'>{props.value}</Heading>
+        <Box width={width}>
+            <FormControl id={props.id} display={display}>
+                <FormLabel mb={marginBottom} height="fit-content" alignSelf="center">
+                    <Heading size="sm">{props.label}</Heading>
                 </FormLabel>
                 <Select
-                placeholder={props.placeholder}
-                value={props.value}
-                onChange={props.onChange}
-                defaultValue={props.defaultValue}
-                bgColor="white"
-                width={width}
-                outline='none'
-                _focus={{outline: 'none'}}
-                border='none'
+                    value={props.value || ''}
+                    onChange={props.onChange}
+                    bgColor="white"
+                    height={inputFieldHeight}
+                    outline="none"
+                    _focus={{ outline: 'none' }}
+                    border="none"
                 >
-                {props.options.map((option) => {
-                    return (
+                    <option value="" disabled hidden>
+                        {placeholder}
+                    </option>
+                    {props.options.map((option) => (
                         <option key={option.value} value={option.value}>
                             {option.label}
                         </option>
-                    )
-                })}
+                    ))}
                 </Select>
             </FormControl>
         </Box>
-    )
-}
+    );
+};

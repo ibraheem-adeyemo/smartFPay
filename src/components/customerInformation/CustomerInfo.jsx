@@ -1,9 +1,10 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import React from 'react'
 import { ReusableTable } from '../reusables/ReusableTable';
 import { SearchAndFilter } from '../reusables/SearchAndFilter';
 import { TableTopComponent } from '../reusables/TableTopComponent';
 import { pageLinks } from '../../constants/pageLinks';
+import { TableActionModal } from '../reusables/Modal';
 
 const CustomerInfoTable = () => {
   return (

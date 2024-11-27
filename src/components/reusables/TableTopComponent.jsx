@@ -7,7 +7,7 @@ import { BsArrowCounterclockwise } from 'react-icons/bs';
 
 export const TableTopComponent = ({tableTopTitle, tableTopText, linkTo, btnText}) => {
   return (
-    <Flex py='30px' px='20px' justifyContent='space-between'>
+    <Flex py={{xl:'10px', '2xl':'20px', '3xl':'30px'}} px='20px' justifyContent='space-between'>
         <Box width='50%'>
             <Flex>
                 <Heading size='lg' mr='20px'>{tableTopTitle}</Heading>

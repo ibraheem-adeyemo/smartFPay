@@ -3,8 +3,6 @@ import { dummy } from '../dummy';
 // import customerInfo from "../MOCK_DATA.json"
 // import axios from 'axios';
 
-
-// console.log(CustomerInfo)
 // Async thunk for fetching table data with filters, pagination, etc.
 export const fetchTableData = createAsyncThunk(
   'table/fetchTableData',

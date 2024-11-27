@@ -36,23 +36,26 @@ export const ModalComponent = (props) => {
   }
 
 
-export const TableActionModal = ({children, topPosition='500px', leftPosition='300px'}) => {
+export const TableActionModal = ({children, topPosition='500px', leftPosition='300px', BtnComp, modalTitle, ...props}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
-            <ButtonComponent onClick={onOpen} btnText={<HiDotsVertical />} ml='20px' py='30px' variant='outline' borderColor='main_light_gray' color='primary-text' />
-  
+            {/* <ButtonComponent onClick={onOpen} btnText={<HiDotsVertical />} ml='20px' py='30px' variant='outline' borderColor='main_light_gray' color='primary-text' /> */}
+            {BtnComp && BtnComp({ onClick:onOpen }) }
             <Modal isOpen={isOpen} onClose={onClose}>
-                {/* <ModalOverlay /> */}
+                <ModalOverlay />
                 <ModalContent fontFamily='AvertaRegular'>
-                {/* <ModalHeader>{modalTitle}</ModalHeader> */}
-                {/* <ModalCloseButton /> */}
-                <ModalBody p='0'>
-                    {children}
-                </ModalBody>
+                    <ModalHeader bgColor='primary_light_gray' borderBottom='1px solid' borderColor='main_light_gray'>{modalTitle}</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody p='1.5rem'>
+                        {children}
+                    </ModalBody>
 
-                
+                    <ModalFooter  bgColor='primary_light_gray' borderTop='1px solid' borderColor='main_light_gray'>
+                        <ButtonComponent btnText="No, Cancel" onClick={onClose} bgColor='white' color='text_gray' borderBottom='' />
+                        <ButtonComponent btnText="Yes, Continue" bgColor='primary-blue' borderBottom='' />
+                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

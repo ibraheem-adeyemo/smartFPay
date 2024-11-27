@@ -8,7 +8,6 @@ import { DatePickerComponent } from './DatePicker';
 // Reusable Form Field Component
 const FormField = ({ label, name, type = 'text', isRequired=false, component = Input, componentName, options = [], ...props }) => {
 
-    console.log(isRequired, 'isRequired')
     return <Field name={name}>
     {({ field, form }) => (
       <FormControl isInvalid={form.errors[name] && form.touched[name]} mb={4}>
@@ -51,7 +50,7 @@ const FormField = ({ label, name, type = 'text', isRequired=false, component = I
             </RadioGroup>
           ): componentName === 'checkBoxGroup' ? (
             <CheckboxGroup defaultValue='' {...field} {...props}>
-              <HStack align='flex-start' width='30rem' justifyContent='space-between'>
+              <HStack align='flex-start' width={{xl:'20rem','2xl':'25rem','3xl':'30rem',}} justifyContent='space-between'>
                 {options.map((checkGroup) => (
                     <VStack align='baseline' spacing={3}>
                         {

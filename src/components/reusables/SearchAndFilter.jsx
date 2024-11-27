@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, HStack, Flex, Button } from '@chakra-ui/react'
-import { Channelsdropdown, CountryDropdowns } from '../reusables/Dropdown';
+import { Channelsdropdown, CountryDropdowns, ReusableDropdown } from '../reusables/Dropdown';
 import { DatePickerComponent, DateRangeFilter } from '../reusables/DatePicker';
 import SearchComponent from '../reusables/SearchComponent';
 
 export const SearchAndFilter = () => {
+    const [selectedValue, setSelectedValue] = useState('')
     return(
         <Box>
              <HStack spacing={6}>
-                <CountryDropdowns inputFieldWidth='25%' />
-                <Channelsdropdown inputFieldWidth='25%' />
-                <DatePickerComponent width='25%' borderRadius='8px' size='sm' label='Start Date' bgColor='white' />
-                <DatePickerComponent width='25%' borderRadius='8px' size='sm' label='End Date' bgColor='white' />
+             <ReusableDropdown
+                id="subscribe"
+                label="Status"
+                value={selectedValue} // Use state to control the value
+                onChange={(e) => setSelectedValue(e.target.value)} // Update state on change
+                options={[
+                    { label: 'Subscribed', value: 'Subscribed' },
+                    { label: 'Unsubscribed', value: 'Unsubscribed' },
+                ]}
+                width="33%"
+                placeholder="Please Select"
+            />
+                <DatePickerComponent width='33%' borderRadius='8px' size='sm' label='Start Date' bgColor='white' />
+                <DatePickerComponent width='33%' borderRadius='8px' size='sm' label='End Date' bgColor='white' />
             </HStack>
             <Flex justifyContent='space-between' my='2rem'>
                 <SearchComponent placeholder="Search by account number, account name"

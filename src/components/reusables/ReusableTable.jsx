@@ -18,31 +18,52 @@ import {
   Flex,
   Spinner,
   Text,
-  Box
+  Box,
+  useDisclosure
 } from '@chakra-ui/react';
 import { color } from 'framer-motion';
 import { GoDotFill } from "react-icons/go";
 import { HiDotsVertical } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
 import { ButtonComponent } from './ButtonComponent';
+import { TableActionModal } from './Modal';
+import { pageLinks } from '../../constants/pageLinks';
+import TableFooter from './TableFooter';
+import { TbCaretUpDownFilled } from "react-icons/tb";
 
-const ActionOptions = ({isShown, onClose}) => {
+const ActionOptions = ({isShown, onCloseOption, rowProps}) => {
 
-    console.log(isShown, 'isShown')
+    const unSubscribeText = 'This will deactivate Payment Control features temporarily. Are you sure you want to continue?'
+    const subscribeText = 'This will enable Payment Control features for this customer. Are you sure you want to continue?'
+    const isSubscribed = rowProps?.row?.values?.subscribe
+
     const navigation = useNavigate()
 
-    const handleEditBtn = () => {
-        onClose()
-        navigation()
+    const handleSubscribe = () => {
+        onCloseOption()
+        // navigation()
     }
     const handleViewBtn = () => {
-        onClose()
-        navigation()
+        onCloseOption()
+        navigation(`${pageLinks.customerInformation}/${pageLinks.editCustomer}`)
     }
     return (
-        <Flex flexDir={'column'} position='absolute' border='1px solid' px='10px' width='160px' display={isShown ?'flex' :'none'} borderColor='main_light_gray' borderRadius={'7px'}>
-            <ButtonComponent btnText='View Details' backgroundColor='white' onClick={handleViewBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
-            <ButtonComponent btnText='Edit Control' backgroundColor='white' onClick={handleEditBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='100px' />
+        <Flex flexDir='column' bgColor='white'  position='absolute' border='1px solid' px='10px' width='160px' right='6rem' display={isShown ?'flex' :'none'} borderColor='main_light_gray' borderRadius={'7px'}>
+            <ButtonComponent btnText='Edit Information' backgroundColor='white' onClick={handleViewBtn} _hover={{backgroundColor:'white', color:'main_light_gray'}} color='primary-text' width='fit-content' />
+            
+            <TableActionModal BtnComp={({onClick})=>(
+                <ButtonComponent 
+                    btnText={isSubscribed ? 'Unsubscribe' : 'Subscribe'} 
+                    onClick={onClick} 
+                    backgroundColor='white' 
+                    _hover={{backgroundColor:'white', color:'main_light_gray'}} 
+                    color='primary-text' 
+                    width='fit-content' 
+                />
+            )}
+            modalTitle={isSubscribed?'Unsubribe Customer':'Subscribe Customer'} >
+                <Text>{isSubscribed?unSubscribeText:subscribeText}</Text>
+            </TableActionModal>
         </Flex>
     )
 }
@@ -81,8 +102,12 @@ export const ReusableTable = (props) => {
   
   const columns = useMemo(() => [
     {
-        Header: 'Date Created',
-        accessor: 'date'
+        Header: ()=> {
+            return (
+                <Flex justifyContent='center'>Date Created <TbCaretUpDownFilled /></Flex>
+            )
+        },
+        accessor: 'date',
     },
     { 
         Header: 'Account Number', 
@@ -110,7 +135,6 @@ export const ReusableTable = (props) => {
         Header: 'Status', 
         accessor: 'subscribe' ,
         Cell: (props) => {
-            console.log(props.value)
             return <SubscribeComponent isSubscribe={props.value} />
         }
     },
@@ -124,7 +148,7 @@ export const ReusableTable = (props) => {
                         <HiDotsVertical />
                     </Text>
                     {
-                        activeRow === props.row.id && <ActionOptions isShown={activeRow === props.row.id} onClose={() => setActiveRow(null)} />
+                        activeRow === props.row.id && <ActionOptions isShown={activeRow === props.row.id} rowProps={props} onCloseOption={() => setActiveRow(null)} />
                     }
                 </Box>
             )
@@ -139,10 +163,11 @@ export const ReusableTable = (props) => {
     headerGroups,
     prepareRow,
     page: tablePage,
-    // canPreviousPage,
-    // canNextPage,
-    // nextPage,
-    // previousPage,
+    canPreviousPage,
+    canNextPage,
+    nextPage,
+    previousPage,
+    pageOptions,
     setPageSize: setReactTablePageSize,
     state: { pageIndex, pageSize: reactTablePageSize },
   } = useTable(
@@ -182,9 +207,9 @@ export const ReusableTable = (props) => {
   return (
     <Box>
         <Table {...getTableProps()} fontSize={{xl:'0.7rem','2xl':'1rem','3xl':'1.3rem'}} border="1px solid main_light_gray">
-            <Thead bgColor={bgColor}>
+            <Thead bgColor={bgColor} p='25px'>
                 {headerGroups.map((headerGroup) => (
-                <Tr {...headerGroup.getHeaderGroupProps()}>
+                <Tr {...headerGroup.getHeaderGroupProps()} >
                     {headerGroup.headers.map((column) => (
                     <Th
                         {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -212,6 +237,7 @@ export const ReusableTable = (props) => {
                 })}
             </Tbody>
             </Table>
+            <TableFooter pageIndex={pageIndex} canNextPage={canNextPage} canPreviousPage={canPreviousPage} pageOptions={pageOptions} nextPage={nextPage} previousPage={previousPage} tableData={data} />
     </Box>
   );
 };

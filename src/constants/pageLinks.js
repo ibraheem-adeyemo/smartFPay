@@ -5,6 +5,7 @@ export const pageLinks = {
     customerInformation: '/customer-information',
     controlManagement: '/control-management',
     auditTrail: '/audit-trail',
+    editCustomer:'edite-customer',
     transactions: '/transactions',
     roleManagement: '/role-management',
     systemSettings: '/system-settings',

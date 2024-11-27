@@ -24,6 +24,7 @@ import { EditCustomerAccountFormPage } from './components/controlManagement/Edit
 import { LimitDetail} from './components/controlManagement/LimitDetail';
 import { CustomerInfo } from './components/customerInformation/CustomerInfo';
 import { CreateCustomer } from './components/customerInformation/CreateCustomer';
+import { EditCustomer } from './components/customerInformation/Editcustomer';
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path={pageLinks.customerInformation} element={<CustomerInfomation />}>
             <Route path='' element={<CustomerInfo />} />
             <Route path={pageLinks.createCustomer} element={<CreateCustomer />} />
+            <Route path={pageLinks.editCustomer} element={<EditCustomer />} />
         </Route>
         <Route path={pageLinks.controlManagement} element={<ControlManagement />}>
             <Route path='' element={<ControlManagementTable />} />

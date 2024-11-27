@@ -18,7 +18,7 @@ export const ButtonComponent = ({
   return (
     <Button
       size={size}
-      width={width}
+      width='fit-content'
       colorScheme={colorScheme}
       variant={variant}
       isLoading={isLoading}

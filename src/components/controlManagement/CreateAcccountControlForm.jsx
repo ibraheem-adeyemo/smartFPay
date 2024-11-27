@@ -49,7 +49,6 @@ const CreateAcccountControlForm = () => {
 export const CreateAcccountControl = () => { 
     const { switchControl, transactionLimit, timeLimit, limit} = useContext(PaymentControlContext)
 
-    console.log(limit, transactionLimit, timeLimit)
     const LimitControl = () => {
         switch (limit) {
             case 'transactionLimit': //transactionLimit :
