@@ -104,7 +104,7 @@ export const ReusableTable = (props) => {
     {
         Header: ()=> {
             return (
-                <Flex justifyContent='center'>Date Created <TbCaretUpDownFilled /></Flex>
+                <Flex justifyContent='center'><Text mr='8px'>Date Created</Text> <TbCaretUpDownFilled /></Flex>
             )
         },
         accessor: 'date',
