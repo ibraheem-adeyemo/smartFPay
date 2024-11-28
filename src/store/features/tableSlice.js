@@ -30,6 +30,7 @@ const tableSlice = createSlice({
     data: dummy.customerInfo ,//customerInfo,
     page: 1,
     pageSize: 10,
+    pageIndex: 0,
     search: '',
     sortBy: { column: 'id', direction: 'asc' },
     totalRecords: 0,
@@ -42,6 +43,9 @@ const tableSlice = createSlice({
     },
     setPageSize(state, action) {
       state.pageSize = action.payload;
+    },
+    setPageIndex(state, action) {
+      state.pageIndex = action.payload;
     },
     setSearch(state, action) {
       state.search = action.payload;
@@ -67,5 +71,5 @@ const tableSlice = createSlice({
   },
 });
 
-export const { setPage, setPageSize, setSearch, setSortBy } = tableSlice.actions;
+export const { setPage, setPageSize, setSearch, setSortBy, setPageIndex } = tableSlice.actions;
 export default tableSlice.reducer;

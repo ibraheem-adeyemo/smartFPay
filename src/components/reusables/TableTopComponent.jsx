@@ -10,7 +10,7 @@ export const TableTopComponent = ({tableTopTitle, tableTopText, linkTo, btnText}
     <Flex py={{xl:'10px', '2xl':'20px', '3xl':'30px'}} px='20px' justifyContent='space-between'>
         <Box width='50%'>
             <Flex>
-                <Heading size='lg' mr='20px'>{tableTopTitle}</Heading>
+                <Heading fontSize={{xl:'1.8rem','2xl':'1.5rem','3xl':'2rem'}} mr='20px'>{tableTopTitle}</Heading>
                 <Flex alignSelf='center' color='base_popblue' width='50px' pt='7px'>
                     <BsArrowCounterclockwise fontSize='1rem' fontWeight='700' mt='4px' />
                 </Flex>
